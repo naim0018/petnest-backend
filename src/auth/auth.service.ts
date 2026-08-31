@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { LoginDto } from './dto/auth.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,3 +14,4 @@ export class AuthService {
     return { message:'User Register Successfully', }
   }
 }
+ 
