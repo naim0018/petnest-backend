@@ -1,0 +1,32 @@
+model PetSpecies {
+    id               String  @id @default(uuid())
+    name             String  @unique
+    image            String?
+    shortDescription String?
+
+    breeds PetBreed[]
+    users  User[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model PetBreed {
+    id               String   @id @default(uuid())
+    name             String
+    image            String?
+    shortDescription String?
+    tags             String[] @default([])
+    originCountry    String?
+
+    speciesId String
+    species   PetSpecies @relation(fields: [speciesId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    users User[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([name, speciesId])
+    @@index([speciesId])
+}

@@ -1,0 +1,41 @@
+enum Role {
+    USER
+    SUPERADMIN
+}
+
+model User {
+    id       String  @id @default(uuid())
+    name     String
+    email    String  @unique
+    phone    String?
+    password String
+    role     Role    @default(USER)
+
+    interestedSpeciesId String?
+    interestedBreedId   String?
+
+    interestedSpecies PetSpecies? @relation(fields: [interestedSpeciesId], references: [id], onDelete: SetNull)
+    interestedBreed   PetBreed?   @relation(fields: [interestedBreedId], references: [id], onDelete: SetNull)
+
+    profile Profile?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Profile {
+    id String @id @default(uuid())
+
+    bio     String?
+    avatar  String?
+    address String?
+    city    String
+    country String
+    zipCode String?
+
+    userId String @unique
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
