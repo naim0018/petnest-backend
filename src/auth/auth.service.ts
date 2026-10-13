@@ -1,15 +1,36 @@
-import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import bcrypt from 'bcrypt';
-
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
-  constructor (private readonly prisma:PrismaService) {}
-  login(dto: LoginDto) {
-    // const user = this.prisma.user()
-    return { message: 'Logged in successfully', email: dto.email };
+  constructor (private readonly prisma:PrismaService, private readonly jwtService:JwtService) {}
+  async login(payload: LoginDto) {
+    const {email,password} = payload
+    const user = await this.prisma.user.findUnique({
+      where:{email},
+    })
+    if(!user) throw new UnauthorizedException("Invalid Credentials")
+    
+    const isPasswordValid = await bcrypt.compare(password , user.password)
+
+    if(!isPasswordValid) throw new UnauthorizedException("Invalid Credentials")
+
+    const tokens = await this.generateTokens(user.id,user.role)
+
+    return{
+      token:tokens,
+      user : {
+        id:user.id,
+        name:user.name,
+        email:user.email,
+        role:user.role
+      }
+    }
+
+
   }
   logout() {
     return { message: 'Logged out successfully' };
@@ -69,5 +90,24 @@ export class AuthService {
       throw new InternalServerErrorException('Failed to register user');
     }
   }
+  
+  private async generateTokens(userId:string,role:string) {
+    const payload = {userId,role}
+
+    const [accessToken, refreshToken] = await Promise.all([
+
+      this.jwtService.signAsync(payload, {
+        secret:process.env.JWT_SECRET,
+        expiresIn:'1h'
+      }),
+
+      this.jwtService.signAsync(payload,{
+        secret:process.env.JWT_REFRESH_SECRET,
+        expiresIn:'1w'
+      })
+    ])
+    return {accessToken,refreshToken}
+  }
 }
+
  

@@ -1,21 +1,9 @@
 import { IsEmail, IsString, IsStrongPassword } from 'class-validator';
+import { IsEmailField, IsNameField, IsPasswordField } from 'src/common/decorators/fields.decorator';
 
 export class LoginDto {
-  @IsString()
-  @IsEmail()
+  @IsEmailField()
   email: string;
-  @IsString()
-  @IsStrongPassword()
-  password: string;
-}
-
-export class SignupDto {
-  @IsString()
-  @IsEmail()
-  email: string;
-  @IsString()
-  name: string;
-  @IsString()
-  @IsStrongPassword()
+  @IsPasswordField()
   password: string;
 }
