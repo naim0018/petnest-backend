@@ -4,10 +4,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { randomUUID } from 'crypto';
 @Injectable()
 export class AuthService {
   constructor (private readonly prisma:PrismaService, private readonly jwtService:JwtService) {}
-  async login(payload: LoginDto) {
+  async login(payload: LoginDto, ip:string, deviceInfo:any) {
     const {email,password} = payload
     const user = await this.prisma.user.findUnique({
       where:{email},
@@ -17,11 +18,10 @@ export class AuthService {
     const isPasswordValid = await bcrypt.compare(password , user.password)
 
     if(!isPasswordValid) throw new UnauthorizedException("Invalid Credentials")
-
-    const tokens = await this.generateTokens(user.id,user.role)
-
+    const tokens = await this.createSessionAndTokens(user.id, user.role, ip, deviceInfo);
+   
     return{
-      token:tokens,
+      tokens,
       user : {
         id:user.id,
         name:user.name,
@@ -32,19 +32,21 @@ export class AuthService {
 
 
   }
-  logout() {
+  async logout(sessionId?:string) {
+    if(sessionId){
+      await this.prisma.session.updateMany({
+        where:{id:sessionId},
+        data:{revokedAt:new Date()}
+      })
+    }
     return { message: 'Logged out successfully' };
   }
-  async register(payload:RegisterDto){ 
-    console.log(payload);
-
+  async register(payload:RegisterDto,ip:string,deviceInfo:any){ 
     const {name,email,password,phone,interestedBreed,interestedSpecies} = payload;
 
     const existingUser = await this.prisma.user.findUnique({
       where: {email}
     })
-
-    console.log(existingUser)
 
     if (existingUser) throw new ConflictException("User already exists")
 
@@ -83,27 +85,96 @@ export class AuthService {
           interestedBreed: true,
         },
       });
+
+      const tokens = await this.createSessionAndTokens(newUser.id, newUser.role, ip, deviceInfo);
       const { password: _, ...result } = newUser;
-      return { message: 'User Register Successfully', data: result };
+      return { user:result, tokens };
     } catch (error) {
       console.log('Error while user registration', error);
       throw new InternalServerErrorException('Failed to register user');
     }
   }
-  
-  private async generateTokens(userId:string,role:string) {
-    const payload = {userId,role}
+  async refreshToken(refreshToken:string){
+    let payload: {userId:string,role:string,sessionId:string}
+   try {
+     payload = await this.jwtService.verifyAsync(refreshToken,{
+      secret:process.env.JWT_REFRESH_SECRET,
+    })
+   } catch (error) {
+    throw new UnauthorizedException('Invalid refresh token')
+   }
+
+    const session = await this.prisma.session.findFirst({
+      where:{
+        id:payload.sessionId,
+        revokedAt:null,
+      }
+    })
+    if(!session) throw new UnauthorizedException('Session is invalid or has been revoked');
+
+    if (session.expiresAt <= new Date()) {
+  throw new UnauthorizedException('Session expired. Please log in again.');
+}
+
+    const isValid = await bcrypt.compare(refreshToken,session.hashToken)
+    if(!isValid){
+      await this.prisma.session.update({
+        where:{id:session.id},
+        data:{revokedAt:new Date()}
+      })
+    throw new UnauthorizedException('Invalid refresh token')
+    }
+    const newTokens = await this.rotateSessionTokens(session.id, session.userId, payload.role);
+    return newTokens;
+  }
+
+  private async createSessionAndTokens(userId: string, role: string, ip: string, deviceInfo: any) {
+    const sessionId = randomUUID();
+    const tokens = await this.generateTokens(userId, role, sessionId);
+    const hashedRefreshToken = await bcrypt.hash(tokens.refreshToken, 10);
+
+    await this.prisma.session.create({
+      data: {
+        id: sessionId,
+        userId,
+        hashToken: hashedRefreshToken,
+        deviceInfo,
+        ipAddress: ip,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week
+      },
+    });
+
+    return tokens;
+  }
+
+  private async rotateSessionTokens(sessionId: string, userId: string, role: string) {
+    const tokens = await this.generateTokens(userId, role, sessionId);
+    const hashedRefreshToken = await bcrypt.hash(tokens.refreshToken, 10);
+
+    await this.prisma.session.update({
+      where: { id: sessionId },
+      data: {
+        hashToken: hashedRefreshToken,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      },
+    });
+
+    return tokens;
+  }
+
+  private async generateTokens(userId:string,role:string,sessionId:string) {
+    const payload = {userId,role,sessionId}
 
     const [accessToken, refreshToken] = await Promise.all([
 
       this.jwtService.signAsync(payload, {
         secret:process.env.JWT_SECRET,
-        expiresIn:'1h'
+        expiresIn: 10*60*60*1000
       }),
 
       this.jwtService.signAsync(payload,{
         secret:process.env.JWT_REFRESH_SECRET,
-        expiresIn:'1w'
+        expiresIn: 7*24*60*60*1000
       })
     ])
     return {accessToken,refreshToken}

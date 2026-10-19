@@ -225,6 +225,8 @@ export type UserWhereInput = {
   interestedSpecies?: Prisma.XOR<Prisma.PetSpeciesNullableScalarRelationFilter, Prisma.PetSpeciesWhereInput> | null
   interestedBreed?: Prisma.XOR<Prisma.PetBreedNullableScalarRelationFilter, Prisma.PetBreedWhereInput> | null
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
+  session?: Prisma.SessionListRelationFilter
+  visitor?: Prisma.XOR<Prisma.VisitorNullableScalarRelationFilter, Prisma.VisitorWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -241,6 +243,8 @@ export type UserOrderByWithRelationInput = {
   interestedSpecies?: Prisma.PetSpeciesOrderByWithRelationInput
   interestedBreed?: Prisma.PetBreedOrderByWithRelationInput
   profile?: Prisma.ProfileOrderByWithRelationInput
+  session?: Prisma.SessionOrderByRelationAggregateInput
+  visitor?: Prisma.VisitorOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -260,6 +264,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   interestedSpecies?: Prisma.XOR<Prisma.PetSpeciesNullableScalarRelationFilter, Prisma.PetSpeciesWhereInput> | null
   interestedBreed?: Prisma.XOR<Prisma.PetBreedNullableScalarRelationFilter, Prisma.PetBreedWhereInput> | null
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
+  session?: Prisma.SessionListRelationFilter
+  visitor?: Prisma.XOR<Prisma.VisitorNullableScalarRelationFilter, Prisma.VisitorWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -306,6 +312,8 @@ export type UserCreateInput = {
   interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
   interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -320,6 +328,8 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -334,6 +344,8 @@ export type UserUpdateInput = {
   interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
   interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -348,6 +360,8 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -439,6 +453,11 @@ export type UserMinOrderByAggregateInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserCreateNestedManyWithoutInterestedSpeciesInput = {
@@ -543,6 +562,36 @@ export type UserUpdateOneRequiredWithoutProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileInput, Prisma.UserUpdateWithoutProfileInput>, Prisma.UserUncheckedUpdateWithoutProfileInput>
 }
 
+export type UserCreateNestedOneWithoutSessionInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionInput, Prisma.UserUncheckedCreateWithoutSessionInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSessionNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionInput, Prisma.UserUncheckedCreateWithoutSessionInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionInput
+  upsert?: Prisma.UserUpsertWithoutSessionInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionInput, Prisma.UserUpdateWithoutSessionInput>, Prisma.UserUncheckedUpdateWithoutSessionInput>
+}
+
+export type UserCreateNestedOneWithoutVisitorInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVisitorInput, Prisma.UserUncheckedCreateWithoutVisitorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVisitorInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutVisitorNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVisitorInput, Prisma.UserUncheckedCreateWithoutVisitorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVisitorInput
+  upsert?: Prisma.UserUpsertWithoutVisitorInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVisitorInput, Prisma.UserUpdateWithoutVisitorInput>, Prisma.UserUncheckedUpdateWithoutVisitorInput>
+}
+
 export type UserCreateWithoutInterestedSpeciesInput = {
   id?: string
   name: string
@@ -554,6 +603,8 @@ export type UserCreateWithoutInterestedSpeciesInput = {
   updatedAt?: Date | string
   interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInterestedSpeciesInput = {
@@ -567,6 +618,8 @@ export type UserUncheckedCreateWithoutInterestedSpeciesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInterestedSpeciesInput = {
@@ -622,6 +675,8 @@ export type UserCreateWithoutInterestedBreedInput = {
   updatedAt?: Date | string
   interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInterestedBreedInput = {
@@ -635,6 +690,8 @@ export type UserUncheckedCreateWithoutInterestedBreedInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInterestedBreedInput = {
@@ -674,6 +731,8 @@ export type UserCreateWithoutProfileInput = {
   updatedAt?: Date | string
   interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
   interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -687,6 +746,8 @@ export type UserUncheckedCreateWithoutProfileInput = {
   interestedBreedId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -716,6 +777,8 @@ export type UserUpdateWithoutProfileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
   interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -729,6 +792,160 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSessionInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSessionInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSessionInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionInput, Prisma.UserUncheckedCreateWithoutSessionInput>
+}
+
+export type UserUpsertWithoutSessionInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSessionInput, Prisma.UserUncheckedUpdateWithoutSessionInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionInput, Prisma.UserUncheckedCreateWithoutSessionInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSessionInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSessionInput, Prisma.UserUncheckedUpdateWithoutSessionInput>
+}
+
+export type UserUpdateWithoutSessionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSessionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutVisitorInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutVisitorInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutVisitorInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutVisitorInput, Prisma.UserUncheckedCreateWithoutVisitorInput>
+}
+
+export type UserUpsertWithoutVisitorInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVisitorInput, Prisma.UserUncheckedUpdateWithoutVisitorInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVisitorInput, Prisma.UserUncheckedCreateWithoutVisitorInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutVisitorInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVisitorInput, Prisma.UserUncheckedUpdateWithoutVisitorInput>
+}
+
+export type UserUpdateWithoutVisitorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutVisitorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInterestedSpeciesInput = {
@@ -754,6 +971,8 @@ export type UserUpdateWithoutInterestedSpeciesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInterestedSpeciesInput = {
@@ -767,6 +986,8 @@ export type UserUncheckedUpdateWithoutInterestedSpeciesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutInterestedSpeciesInput = {
@@ -804,6 +1025,8 @@ export type UserUpdateWithoutInterestedBreedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInterestedBreedInput = {
@@ -817,6 +1040,8 @@ export type UserUncheckedUpdateWithoutInterestedBreedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutInterestedBreedInput = {
@@ -831,6 +1056,35 @@ export type UserUncheckedUpdateManyWithoutInterestedBreedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type UserCountOutputType
+ */
+
+export type UserCountOutputType = {
+  session: number
+}
+
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  session?: boolean | UserCountOutputTypeCountSessionArgs
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserCountOutputType
+   */
+  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
+}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -847,6 +1101,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   interestedSpecies?: boolean | Prisma.User$interestedSpeciesArgs<ExtArgs>
   interestedBreed?: boolean | Prisma.User$interestedBreedArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
+  session?: boolean | Prisma.User$sessionArgs<ExtArgs>
+  visitor?: boolean | Prisma.User$visitorArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -897,6 +1154,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   interestedSpecies?: boolean | Prisma.User$interestedSpeciesArgs<ExtArgs>
   interestedBreed?: boolean | Prisma.User$interestedBreedArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
+  session?: boolean | Prisma.User$sessionArgs<ExtArgs>
+  visitor?: boolean | Prisma.User$visitorArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   interestedSpecies?: boolean | Prisma.User$interestedSpeciesArgs<ExtArgs>
@@ -913,6 +1173,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     interestedSpecies: Prisma.$PetSpeciesPayload<ExtArgs> | null
     interestedBreed: Prisma.$PetBreedPayload<ExtArgs> | null
     profile: Prisma.$ProfilePayload<ExtArgs> | null
+    session: Prisma.$SessionPayload<ExtArgs>[]
+    visitor: Prisma.$VisitorPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1322,6 +1584,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   interestedSpecies<T extends Prisma.User$interestedSpeciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$interestedSpeciesArgs<ExtArgs>>): Prisma.Prisma__PetSpeciesClient<runtime.Types.Result.GetResult<Prisma.$PetSpeciesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   interestedBreed<T extends Prisma.User$interestedBreedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$interestedBreedArgs<ExtArgs>>): Prisma.Prisma__PetBreedClient<runtime.Types.Result.GetResult<Prisma.$PetBreedPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  session<T extends Prisma.User$sessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  visitor<T extends Prisma.User$visitorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$visitorArgs<ExtArgs>>): Prisma.Prisma__VisitorClient<runtime.Types.Result.GetResult<Prisma.$VisitorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1816,6 +2080,49 @@ export type User$profileArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   include?: Prisma.ProfileInclude<ExtArgs> | null
   where?: Prisma.ProfileWhereInput
+}
+
+/**
+ * User.session
+ */
+export type User$sessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.visitor
+ */
+export type User$visitorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Visitor
+   */
+  select?: Prisma.VisitorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Visitor
+   */
+  omit?: Prisma.VisitorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VisitorInclude<ExtArgs> | null
+  where?: Prisma.VisitorWhereInput
 }
 
 /**

@@ -1,0 +1,47 @@
+model Session {
+    id         String    @id @default(uuid())
+    userId     String
+    user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    hashToken  String
+    deviceInfo Json
+    ipAddress  String
+    revokedAt  DateTime?
+    expiresAt  DateTime
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+
+    @@index([userId])
+    @@index([id,revokedAt])
+}
+
+model Visitor {
+    id          String   @id @default(uuid())
+    ipAddress   String?
+    deviceInfo  Json?
+    country     String
+    city        String?
+    timezone    String?
+    firstSeenAt DateTime
+    lastSeenAt  DateTime
+    totalVisits Int      @default(1)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    pageViews PageView[]
+
+    userId String? @unique
+    user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+    @@index([userId])
+}
+
+model PageView {
+    id   String @id @default(uuid())
+    path String
+
+    visitorId String
+    visitor   Visitor @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
