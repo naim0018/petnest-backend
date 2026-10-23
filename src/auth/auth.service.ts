@@ -7,6 +7,8 @@ import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'crypto';
 @Injectable()
 export class AuthService {
+  private readonly saltRounds: number = Number(process.env.BCRYPT_SALT_ROUNDS);
+
   constructor (private readonly prisma:PrismaService, private readonly jwtService:JwtService) {}
   async login(payload: LoginDto, ip:string, deviceInfo:any) {
     const {email,password} = payload
@@ -49,9 +51,7 @@ export class AuthService {
     })
 
     if (existingUser) throw new ConflictException("User already exists")
-
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds)
+    const hashedPassword = await bcrypt.hash(password, this.saltRounds)
     if (interestedSpecies) {
       const speciesExists = await this.prisma.petSpecies.findUnique({
         where: { id: interestedSpecies },
@@ -131,7 +131,7 @@ export class AuthService {
   private async createSessionAndTokens(userId: string, role: string, ip: string, deviceInfo: any) {
     const sessionId = randomUUID();
     const tokens = await this.generateTokens(userId, role, sessionId);
-    const hashedRefreshToken = await bcrypt.hash(tokens.refreshToken, 10);
+    const hashedRefreshToken = await bcrypt.hash(tokens.refreshToken, this.saltRounds);
 
     await this.prisma.session.create({
       data: {
@@ -149,7 +149,7 @@ export class AuthService {
 
   private async rotateSessionTokens(sessionId: string, userId: string, role: string) {
     const tokens = await this.generateTokens(userId, role, sessionId);
-    const hashedRefreshToken = await bcrypt.hash(tokens.refreshToken, 10);
+    const hashedRefreshToken = await bcrypt.hash(tokens.refreshToken, this.saltRounds);
 
     await this.prisma.session.update({
       where: { id: sessionId },
