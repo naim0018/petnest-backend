@@ -46,6 +46,16 @@ export class UpdateProfileDto {
   @MaxLength(300)
   bio?: string;
 
+  @ApiPropertyOptional({
+    example: 'DVM · Avian & Exotic Pet Specialist',
+    description: 'Professional credential or editorial byline shown on guides',
+  })
+  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
+  @IsOptional()
+  @IsString()
+  @MaxLength(150)
+  specialization?: string;
+
   @ApiPropertyOptional({ example: 'https://example.com/avatar.jpg' })
   @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   @IsOptional()

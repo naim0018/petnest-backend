@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
+import { json, urlencoded } from 'express';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
@@ -25,6 +26,8 @@ async function bootstrap() {
     }),
   );
 
+  app.use(json({ limit: '512kb' }));
+  app.use(urlencoded({ extended: true, limit: '512kb' }));
   app.use(cookieParser());
   app.useGlobalInterceptors(new ResponseInterceptor());
   app.useGlobalFilters(new AllExceptionsFilter());

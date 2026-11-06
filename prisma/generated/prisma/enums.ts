@@ -9,6 +9,26 @@
 * 🟢 You can import this file directly.
 */
 
+export const GuideStatus = {
+  DRAFT: 'DRAFT',
+  IN_REVIEW: 'IN_REVIEW',
+  PUBLISHED: 'PUBLISHED',
+  NEEDS_REVISION: 'NEEDS_REVISION',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type GuideStatus = (typeof GuideStatus)[keyof typeof GuideStatus]
+
+
+export const GuideType = {
+  PILLAR: 'PILLAR',
+  ARTICLE: 'ARTICLE',
+  CHECKLIST: 'CHECKLIST'
+} as const
+
+export type GuideType = (typeof GuideType)[keyof typeof GuideType]
+
+
 export const PetSize = {
   SMALL: 'SMALL',
   MEDIUM: 'MEDIUM',
@@ -30,6 +50,9 @@ export type CareLevel = (typeof CareLevel)[keyof typeof CareLevel]
 
 export const Role = {
   USER: 'USER',
+  AUTHOR: 'AUTHOR',
+  VET: 'VET',
+  ADMIN: 'ADMIN',
   SUPERADMIN: 'SUPERADMIN'
 } as const
 

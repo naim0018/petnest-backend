@@ -6,6 +6,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { VisitorTracingMiddleware } from './common/middlewae/visitor-tracing.middleware';
+import { GuidesModule } from './guides/guides.module';
+import { MediaModule } from './media/media.module';
 import { PetsModule } from './pets/pets.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
@@ -37,6 +39,8 @@ function validateEnv(config: Record<string, unknown>) {
     PrismaModule,
     UsersModule,
     PetsModule,
+    MediaModule,
+    GuidesModule,
   ],
   controllers: [AppController],
   providers: [

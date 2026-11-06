@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.10.0
- * Query Engine version: 0edf323efd1d98336f3f0a68684b56f689b900d3
+ * Prisma Client JS version: 7.10.1
+ * Query Engine version: d1b3f377ca835d73fd50954a5e22128b9ebdd6b8
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.10.0",
-  engine: "0edf323efd1d98336f3f0a68684b56f689b900d3"
+  client: "7.10.1",
+  engine: "d1b3f377ca835d73fd50954a5e22128b9ebdd6b8"
 }
 
 /**
@@ -397,6 +397,12 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  GuideCategory: 'GuideCategory',
+  Guide: 'Guide',
+  MediaAsset: 'MediaAsset',
+  GuideFaq: 'GuideFaq',
+  GuideBookmark: 'GuideBookmark',
+  GuideLike: 'GuideLike',
   PetSpecies: 'PetSpecies',
   PetBreed: 'PetBreed',
   User: 'User',
@@ -419,10 +425,454 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "petSpecies" | "petBreed" | "user" | "profile" | "session" | "visitor" | "pageView"
+    modelProps: "guideCategory" | "guide" | "mediaAsset" | "guideFaq" | "guideBookmark" | "guideLike" | "petSpecies" | "petBreed" | "user" | "profile" | "session" | "visitor" | "pageView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    GuideCategory: {
+      payload: Prisma.$GuideCategoryPayload<ExtArgs>
+      fields: Prisma.GuideCategoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuideCategoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuideCategoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload>
+        }
+        findFirst: {
+          args: Prisma.GuideCategoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuideCategoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload>
+        }
+        findMany: {
+          args: Prisma.GuideCategoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload>[]
+        }
+        create: {
+          args: Prisma.GuideCategoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload>
+        }
+        createMany: {
+          args: Prisma.GuideCategoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuideCategoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload>[]
+        }
+        delete: {
+          args: Prisma.GuideCategoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload>
+        }
+        update: {
+          args: Prisma.GuideCategoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.GuideCategoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuideCategoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuideCategoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.GuideCategoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCategoryPayload>
+        }
+        aggregate: {
+          args: Prisma.GuideCategoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuideCategory>
+        }
+        groupBy: {
+          args: Prisma.GuideCategoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideCategoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuideCategoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideCategoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    Guide: {
+      payload: Prisma.$GuidePayload<ExtArgs>
+      fields: Prisma.GuideFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuideFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuideFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload>
+        }
+        findFirst: {
+          args: Prisma.GuideFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuideFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload>
+        }
+        findMany: {
+          args: Prisma.GuideFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload>[]
+        }
+        create: {
+          args: Prisma.GuideCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload>
+        }
+        createMany: {
+          args: Prisma.GuideCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuideCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload>[]
+        }
+        delete: {
+          args: Prisma.GuideDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload>
+        }
+        update: {
+          args: Prisma.GuideUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload>
+        }
+        deleteMany: {
+          args: Prisma.GuideDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuideUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuideUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload>[]
+        }
+        upsert: {
+          args: Prisma.GuideUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuidePayload>
+        }
+        aggregate: {
+          args: Prisma.GuideAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuide>
+        }
+        groupBy: {
+          args: Prisma.GuideGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuideCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideCountAggregateOutputType> | number
+        }
+      }
+    }
+    MediaAsset: {
+      payload: Prisma.$MediaAssetPayload<ExtArgs>
+      fields: Prisma.MediaAssetFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MediaAssetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MediaAssetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        findFirst: {
+          args: Prisma.MediaAssetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MediaAssetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        findMany: {
+          args: Prisma.MediaAssetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
+        }
+        create: {
+          args: Prisma.MediaAssetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        createMany: {
+          args: Prisma.MediaAssetCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MediaAssetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
+        }
+        delete: {
+          args: Prisma.MediaAssetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        update: {
+          args: Prisma.MediaAssetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        deleteMany: {
+          args: Prisma.MediaAssetDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MediaAssetUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MediaAssetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
+        }
+        upsert: {
+          args: Prisma.MediaAssetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        aggregate: {
+          args: Prisma.MediaAssetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMediaAsset>
+        }
+        groupBy: {
+          args: Prisma.MediaAssetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MediaAssetGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MediaAssetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MediaAssetCountAggregateOutputType> | number
+        }
+      }
+    }
+    GuideFaq: {
+      payload: Prisma.$GuideFaqPayload<ExtArgs>
+      fields: Prisma.GuideFaqFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuideFaqFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuideFaqFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload>
+        }
+        findFirst: {
+          args: Prisma.GuideFaqFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuideFaqFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload>
+        }
+        findMany: {
+          args: Prisma.GuideFaqFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload>[]
+        }
+        create: {
+          args: Prisma.GuideFaqCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload>
+        }
+        createMany: {
+          args: Prisma.GuideFaqCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuideFaqCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload>[]
+        }
+        delete: {
+          args: Prisma.GuideFaqDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload>
+        }
+        update: {
+          args: Prisma.GuideFaqUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload>
+        }
+        deleteMany: {
+          args: Prisma.GuideFaqDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuideFaqUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuideFaqUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload>[]
+        }
+        upsert: {
+          args: Prisma.GuideFaqUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideFaqPayload>
+        }
+        aggregate: {
+          args: Prisma.GuideFaqAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuideFaq>
+        }
+        groupBy: {
+          args: Prisma.GuideFaqGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideFaqGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuideFaqCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideFaqCountAggregateOutputType> | number
+        }
+      }
+    }
+    GuideBookmark: {
+      payload: Prisma.$GuideBookmarkPayload<ExtArgs>
+      fields: Prisma.GuideBookmarkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuideBookmarkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuideBookmarkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload>
+        }
+        findFirst: {
+          args: Prisma.GuideBookmarkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuideBookmarkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload>
+        }
+        findMany: {
+          args: Prisma.GuideBookmarkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload>[]
+        }
+        create: {
+          args: Prisma.GuideBookmarkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload>
+        }
+        createMany: {
+          args: Prisma.GuideBookmarkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuideBookmarkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload>[]
+        }
+        delete: {
+          args: Prisma.GuideBookmarkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload>
+        }
+        update: {
+          args: Prisma.GuideBookmarkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload>
+        }
+        deleteMany: {
+          args: Prisma.GuideBookmarkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuideBookmarkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuideBookmarkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload>[]
+        }
+        upsert: {
+          args: Prisma.GuideBookmarkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideBookmarkPayload>
+        }
+        aggregate: {
+          args: Prisma.GuideBookmarkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuideBookmark>
+        }
+        groupBy: {
+          args: Prisma.GuideBookmarkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideBookmarkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuideBookmarkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideBookmarkCountAggregateOutputType> | number
+        }
+      }
+    }
+    GuideLike: {
+      payload: Prisma.$GuideLikePayload<ExtArgs>
+      fields: Prisma.GuideLikeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuideLikeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuideLikeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload>
+        }
+        findFirst: {
+          args: Prisma.GuideLikeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuideLikeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload>
+        }
+        findMany: {
+          args: Prisma.GuideLikeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload>[]
+        }
+        create: {
+          args: Prisma.GuideLikeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload>
+        }
+        createMany: {
+          args: Prisma.GuideLikeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuideLikeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload>[]
+        }
+        delete: {
+          args: Prisma.GuideLikeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload>
+        }
+        update: {
+          args: Prisma.GuideLikeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload>
+        }
+        deleteMany: {
+          args: Prisma.GuideLikeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuideLikeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuideLikeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload>[]
+        }
+        upsert: {
+          args: Prisma.GuideLikeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideLikePayload>
+        }
+        aggregate: {
+          args: Prisma.GuideLikeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuideLike>
+        }
+        groupBy: {
+          args: Prisma.GuideLikeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideLikeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuideLikeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideLikeCountAggregateOutputType> | number
+        }
+      }
+    }
     PetSpecies: {
       payload: Prisma.$PetSpeciesPayload<ExtArgs>
       fields: Prisma.PetSpeciesFieldRefs
@@ -980,6 +1430,110 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const GuideCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  icon: 'icon',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideCategoryScalarFieldEnum = (typeof GuideCategoryScalarFieldEnum)[keyof typeof GuideCategoryScalarFieldEnum]
+
+
+export const GuideScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  previousSlugs: 'previousSlugs',
+  excerpt: 'excerpt',
+  keyTakeaways: 'keyTakeaways',
+  content: 'content',
+  type: 'type',
+  coverImage: 'coverImage',
+  coverImageAlt: 'coverImageAlt',
+  videoUrl: 'videoUrl',
+  readTimeMinutes: 'readTimeMinutes',
+  speciesId: 'speciesId',
+  categoryId: 'categoryId',
+  tags: 'tags',
+  status: 'status',
+  isFeatured: 'isFeatured',
+  reviewNotes: 'reviewNotes',
+  authorId: 'authorId',
+  reviewerId: 'reviewerId',
+  lastReviewedAt: 'lastReviewedAt',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  viewCount: 'viewCount',
+  likeCount: 'likeCount',
+  bookmarkCount: 'bookmarkCount',
+  publishedAt: 'publishedAt',
+  contentUpdatedAt: 'contentUpdatedAt',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideScalarFieldEnum = (typeof GuideScalarFieldEnum)[keyof typeof GuideScalarFieldEnum]
+
+
+export const MediaAssetScalarFieldEnum = {
+  id: 'id',
+  objectKey: 'objectKey',
+  url: 'url',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  width: 'width',
+  height: 'height',
+  altText: 'altText',
+  uploadedById: 'uploadedById',
+  guideId: 'guideId',
+  createdAt: 'createdAt'
+} as const
+
+export type MediaAssetScalarFieldEnum = (typeof MediaAssetScalarFieldEnum)[keyof typeof MediaAssetScalarFieldEnum]
+
+
+export const GuideFaqScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  answer: 'answer',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  speciesId: 'speciesId',
+  guideId: 'guideId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideFaqScalarFieldEnum = (typeof GuideFaqScalarFieldEnum)[keyof typeof GuideFaqScalarFieldEnum]
+
+
+export const GuideBookmarkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  guideId: 'guideId',
+  createdAt: 'createdAt'
+} as const
+
+export type GuideBookmarkScalarFieldEnum = (typeof GuideBookmarkScalarFieldEnum)[keyof typeof GuideBookmarkScalarFieldEnum]
+
+
+export const GuideLikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  guideId: 'guideId',
+  createdAt: 'createdAt'
+} as const
+
+export type GuideLikeScalarFieldEnum = (typeof GuideLikeScalarFieldEnum)[keyof typeof GuideLikeScalarFieldEnum]
+
+
 export const PetSpeciesScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -1036,6 +1590,7 @@ export const ProfileScalarFieldEnum = {
   id: 'id',
   bio: 'bio',
   avatar: 'avatar',
+  specialization: 'specialization',
   address: 'address',
   city: 'city',
   country: 'country',
@@ -1161,6 +1716,27 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1171,6 +1747,34 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'GuideType'
+ */
+export type EnumGuideTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuideType'>
+    
+
+
+/**
+ * Reference to a field of type 'GuideType[]'
+ */
+export type ListEnumGuideTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuideType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'GuideStatus'
+ */
+export type EnumGuideStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuideStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'GuideStatus[]'
+ */
+export type ListEnumGuideStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuideStatus[]'>
     
 
 
@@ -1227,20 +1831,6 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -1408,6 +1998,12 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
  */
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
+  guideCategory?: Prisma.GuideCategoryOmit
+  guide?: Prisma.GuideOmit
+  mediaAsset?: Prisma.MediaAssetOmit
+  guideFaq?: Prisma.GuideFaqOmit
+  guideBookmark?: Prisma.GuideBookmarkOmit
+  guideLike?: Prisma.GuideLikeOmit
   petSpecies?: Prisma.PetSpeciesOmit
   petBreed?: Prisma.PetBreedOmit
   user?: Prisma.UserOmit

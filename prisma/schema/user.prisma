@@ -1,5 +1,8 @@
 enum Role {
     USER
+    AUTHOR
+    VET
+    ADMIN
     SUPERADMIN
 }
 
@@ -12,17 +15,24 @@ model User {
     role     Role    @default(USER)
 
     interestedSpeciesId String?
-    interestedSpecies PetSpecies? @relation(fields: [interestedSpeciesId], references: [id], onDelete: SetNull)
-    
-    interestedBreedId   String?
-    interestedBreed   PetBreed?   @relation(fields: [interestedBreedId], references: [id], onDelete: SetNull)
+    interestedSpecies   PetSpecies? @relation(fields: [interestedSpeciesId], references: [id], onDelete: SetNull)
 
-    resetPasswordToken String?
+    interestedBreedId String?
+    interestedBreed   PetBreed? @relation(fields: [interestedBreedId], references: [id], onDelete: SetNull)
+
+    resetPasswordToken   String?
     resetPasswordExpires DateTime?
 
     profile Profile?
     session Session[]
     visitor Visitor?
+
+    // Guide & Media Relations
+    authoredGuides Guide[]         @relation("GuideAuthor")
+    reviewedGuides Guide[]         @relation("GuideReviewer")
+    guideBookmarks GuideBookmark[]
+    guideLikes     GuideLike[]
+    uploadedMedia  MediaAsset[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -31,12 +41,13 @@ model User {
 model Profile {
     id String @id @default(uuid())
 
-    bio     String?
-    avatar  String?
-    address String?
-    city    String
-    country String
-    zipCode String?
+    bio            String?
+    avatar         String?
+    specialization String?
+    address        String?
+    city           String
+    country        String
+    zipCode        String?
 
     userId String @unique
     user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -44,5 +55,3 @@ model Profile {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
-
-

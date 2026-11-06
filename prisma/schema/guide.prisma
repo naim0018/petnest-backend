@@ -1,0 +1,171 @@
+enum GuideStatus {
+    DRAFT
+    IN_REVIEW
+    PUBLISHED
+    NEEDS_REVISION
+    ARCHIVED
+}
+
+enum GuideType {
+    PILLAR    // "Start Here" master guide
+    ARTICLE   // Standard care article
+    CHECKLIST // Quick triage / emergency checklist
+}
+
+model GuideCategory {
+    id           String  @id @default(uuid())
+    name         String  @unique
+    slug         String  @unique
+    description  String?
+    icon         String?
+    displayOrder Int     @default(0)
+    isActive     Boolean @default(true)
+
+    guides Guide[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([isActive, displayOrder])
+}
+
+model Guide {
+    id            String    @id @default(uuid())
+    title         String
+    slug          String    @unique
+    previousSlugs String[]  @default([])
+    excerpt       String    @db.Text
+    keyTakeaways  String[]  @default([])
+    content       String    @db.Text
+    type          GuideType @default(ARTICLE)
+
+    // Hero Media & Optional Featured Video (YouTube / Facebook URL)
+    coverImage    String?
+    coverImageAlt String?
+    videoUrl      String?
+
+    // Auto-calculated on save from stripped HTML word count
+    readTimeMinutes Int @default(5)
+
+    // Pet Targeting: 1 Optional Species -> Many Optional Breeds
+    speciesId String?
+    species   PetSpecies? @relation(fields: [speciesId], references: [id], onDelete: SetNull)
+    breeds    PetBreed[]  @relation("GuideBreeds")
+
+    // Topic Category
+    categoryId String
+    category   GuideCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+    tags String[] @default([])
+
+    // Editorial & Medical Verification Workflow
+    status      GuideStatus @default(DRAFT)
+    isFeatured  Boolean     @default(false)
+    reviewNotes String?     @db.Text
+
+    authorId String
+    author   User   @relation("GuideAuthor", fields: [authorId], references: [id], onDelete: Restrict)
+
+    reviewerId     String?
+    reviewer       User?     @relation("GuideReviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
+    lastReviewedAt DateTime?
+
+    // SEO Overrides
+    metaTitle       String?
+    metaDescription String?
+
+    // Denormalized Counters
+    viewCount     Int @default(0)
+    likeCount     Int @default(0)
+    bookmarkCount Int @default(0)
+
+    // Child Relations
+    media     MediaAsset[]
+    faqs      GuideFaq[]
+    bookmarks GuideBookmark[]
+    likes     GuideLike[]
+
+    // Timestamps & Soft Delete
+    publishedAt      DateTime?
+    contentUpdatedAt DateTime?
+    deletedAt        DateTime?
+    createdAt        DateTime  @default(now())
+    updatedAt        DateTime  @updatedAt
+
+    @@index([status, deletedAt, publishedAt(sort: Desc)])
+    @@index([speciesId, status])
+    @@index([categoryId, status])
+    @@index([authorId])
+}
+
+// Cloudflare R2 Media Tracker (tracks cover & inline paragraph images to clean up orphans)
+model MediaAsset {
+    id        String  @id @default(uuid())
+    objectKey String  @unique // Exact R2 key (e.g. "guides/2026/11/uuid.webp") for R2 DeleteObject
+    url       String  @unique // Public R2/CDN URL
+    mimeType  String          // e.g. "image/webp"
+    sizeBytes Int
+    width     Int?            // Extracted via sharp for Next.js CLS prevention
+    height    Int?
+    altText   String?
+
+    uploadedById String?
+    uploadedBy   User?   @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+
+    // Null while drafting; linked when Guide is saved; unlinked if deleted from paragraph
+    guideId String?
+    guide   Guide?  @relation(fields: [guideId], references: [id], onDelete: SetNull)
+
+    createdAt DateTime @default(now())
+
+    @@index([guideId, createdAt])
+    @@index([uploadedById])
+}
+
+model GuideFaq {
+    id           String  @id @default(uuid())
+    question     String
+    answer       String  @db.Text
+    displayOrder Int     @default(0)
+    isActive     Boolean @default(true)
+
+    speciesId String?
+    species   PetSpecies? @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+
+    guideId String?
+    guide   Guide?  @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([speciesId, isActive, displayOrder])
+    @@index([guideId, isActive, displayOrder])
+}
+
+model GuideBookmark {
+    id      String @id @default(uuid())
+    userId  String
+    user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    guideId String
+    guide   Guide  @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+
+    @@unique([userId, guideId])
+    @@index([userId])
+    @@index([guideId])
+}
+
+model GuideLike {
+    id      String @id @default(uuid())
+    userId  String
+    user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    guideId String
+    guide   Guide  @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+
+    @@unique([userId, guideId])
+    @@index([userId])
+    @@index([guideId])
+}

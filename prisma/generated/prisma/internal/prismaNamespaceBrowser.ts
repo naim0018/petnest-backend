@@ -51,6 +51,12 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  GuideCategory: 'GuideCategory',
+  Guide: 'Guide',
+  MediaAsset: 'MediaAsset',
+  GuideFaq: 'GuideFaq',
+  GuideBookmark: 'GuideBookmark',
+  GuideLike: 'GuideLike',
   PetSpecies: 'PetSpecies',
   PetBreed: 'PetBreed',
   User: 'User',
@@ -74,6 +80,110 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const GuideCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  icon: 'icon',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideCategoryScalarFieldEnum = (typeof GuideCategoryScalarFieldEnum)[keyof typeof GuideCategoryScalarFieldEnum]
+
+
+export const GuideScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  previousSlugs: 'previousSlugs',
+  excerpt: 'excerpt',
+  keyTakeaways: 'keyTakeaways',
+  content: 'content',
+  type: 'type',
+  coverImage: 'coverImage',
+  coverImageAlt: 'coverImageAlt',
+  videoUrl: 'videoUrl',
+  readTimeMinutes: 'readTimeMinutes',
+  speciesId: 'speciesId',
+  categoryId: 'categoryId',
+  tags: 'tags',
+  status: 'status',
+  isFeatured: 'isFeatured',
+  reviewNotes: 'reviewNotes',
+  authorId: 'authorId',
+  reviewerId: 'reviewerId',
+  lastReviewedAt: 'lastReviewedAt',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  viewCount: 'viewCount',
+  likeCount: 'likeCount',
+  bookmarkCount: 'bookmarkCount',
+  publishedAt: 'publishedAt',
+  contentUpdatedAt: 'contentUpdatedAt',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideScalarFieldEnum = (typeof GuideScalarFieldEnum)[keyof typeof GuideScalarFieldEnum]
+
+
+export const MediaAssetScalarFieldEnum = {
+  id: 'id',
+  objectKey: 'objectKey',
+  url: 'url',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  width: 'width',
+  height: 'height',
+  altText: 'altText',
+  uploadedById: 'uploadedById',
+  guideId: 'guideId',
+  createdAt: 'createdAt'
+} as const
+
+export type MediaAssetScalarFieldEnum = (typeof MediaAssetScalarFieldEnum)[keyof typeof MediaAssetScalarFieldEnum]
+
+
+export const GuideFaqScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  answer: 'answer',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  speciesId: 'speciesId',
+  guideId: 'guideId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideFaqScalarFieldEnum = (typeof GuideFaqScalarFieldEnum)[keyof typeof GuideFaqScalarFieldEnum]
+
+
+export const GuideBookmarkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  guideId: 'guideId',
+  createdAt: 'createdAt'
+} as const
+
+export type GuideBookmarkScalarFieldEnum = (typeof GuideBookmarkScalarFieldEnum)[keyof typeof GuideBookmarkScalarFieldEnum]
+
+
+export const GuideLikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  guideId: 'guideId',
+  createdAt: 'createdAt'
+} as const
+
+export type GuideLikeScalarFieldEnum = (typeof GuideLikeScalarFieldEnum)[keyof typeof GuideLikeScalarFieldEnum]
 
 
 export const PetSpeciesScalarFieldEnum = {
@@ -132,6 +242,7 @@ export const ProfileScalarFieldEnum = {
   id: 'id',
   bio: 'bio',
   avatar: 'avatar',
+  specialization: 'specialization',
   address: 'address',
   city: 'city',
   country: 'country',

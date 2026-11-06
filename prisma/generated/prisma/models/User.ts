@@ -243,6 +243,11 @@ export type UserWhereInput = {
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   session?: Prisma.SessionListRelationFilter
   visitor?: Prisma.XOR<Prisma.VisitorNullableScalarRelationFilter, Prisma.VisitorWhereInput> | null
+  authoredGuides?: Prisma.GuideListRelationFilter
+  reviewedGuides?: Prisma.GuideListRelationFilter
+  guideBookmarks?: Prisma.GuideBookmarkListRelationFilter
+  guideLikes?: Prisma.GuideLikeListRelationFilter
+  uploadedMedia?: Prisma.MediaAssetListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -263,6 +268,11 @@ export type UserOrderByWithRelationInput = {
   profile?: Prisma.ProfileOrderByWithRelationInput
   session?: Prisma.SessionOrderByRelationAggregateInput
   visitor?: Prisma.VisitorOrderByWithRelationInput
+  authoredGuides?: Prisma.GuideOrderByRelationAggregateInput
+  reviewedGuides?: Prisma.GuideOrderByRelationAggregateInput
+  guideBookmarks?: Prisma.GuideBookmarkOrderByRelationAggregateInput
+  guideLikes?: Prisma.GuideLikeOrderByRelationAggregateInput
+  uploadedMedia?: Prisma.MediaAssetOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -286,6 +296,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   session?: Prisma.SessionListRelationFilter
   visitor?: Prisma.XOR<Prisma.VisitorNullableScalarRelationFilter, Prisma.VisitorWhereInput> | null
+  authoredGuides?: Prisma.GuideListRelationFilter
+  reviewedGuides?: Prisma.GuideListRelationFilter
+  guideBookmarks?: Prisma.GuideBookmarkListRelationFilter
+  guideLikes?: Prisma.GuideLikeListRelationFilter
+  uploadedMedia?: Prisma.MediaAssetListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -340,6 +355,11 @@ export type UserCreateInput = {
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   session?: Prisma.SessionCreateNestedManyWithoutUserInput
   visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -358,6 +378,11 @@ export type UserUncheckedCreateInput = {
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUpdateInput = {
@@ -376,6 +401,11 @@ export type UserUpdateInput = {
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   session?: Prisma.SessionUpdateManyWithoutUserNestedInput
   visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -394,6 +424,11 @@ export type UserUncheckedUpdateInput = {
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -437,6 +472,16 @@ export type UserUncheckedUpdateManyInput = {
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserListRelationFilter = {
@@ -494,14 +539,78 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type UserScalarRelationFilter = {
-  is?: Prisma.UserWhereInput
-  isNot?: Prisma.UserWhereInput
+export type UserCreateNestedOneWithoutAuthoredGuidesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuthoredGuidesInput, Prisma.UserUncheckedCreateWithoutAuthoredGuidesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuthoredGuidesInput
+  connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserNullableScalarRelationFilter = {
-  is?: Prisma.UserWhereInput | null
-  isNot?: Prisma.UserWhereInput | null
+export type UserCreateNestedOneWithoutReviewedGuidesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedGuidesInput, Prisma.UserUncheckedCreateWithoutReviewedGuidesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedGuidesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAuthoredGuidesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuthoredGuidesInput, Prisma.UserUncheckedCreateWithoutAuthoredGuidesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuthoredGuidesInput
+  upsert?: Prisma.UserUpsertWithoutAuthoredGuidesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuthoredGuidesInput, Prisma.UserUpdateWithoutAuthoredGuidesInput>, Prisma.UserUncheckedUpdateWithoutAuthoredGuidesInput>
+}
+
+export type UserUpdateOneWithoutReviewedGuidesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedGuidesInput, Prisma.UserUncheckedCreateWithoutReviewedGuidesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedGuidesInput
+  upsert?: Prisma.UserUpsertWithoutReviewedGuidesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewedGuidesInput, Prisma.UserUpdateWithoutReviewedGuidesInput>, Prisma.UserUncheckedUpdateWithoutReviewedGuidesInput>
+}
+
+export type UserCreateNestedOneWithoutUploadedMediaInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedMediaInput, Prisma.UserUncheckedCreateWithoutUploadedMediaInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedMediaInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutUploadedMediaNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedMediaInput, Prisma.UserUncheckedCreateWithoutUploadedMediaInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedMediaInput
+  upsert?: Prisma.UserUpsertWithoutUploadedMediaInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUploadedMediaInput, Prisma.UserUpdateWithoutUploadedMediaInput>, Prisma.UserUncheckedUpdateWithoutUploadedMediaInput>
+}
+
+export type UserCreateNestedOneWithoutGuideBookmarksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideBookmarksInput, Prisma.UserUncheckedCreateWithoutGuideBookmarksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideBookmarksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGuideBookmarksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideBookmarksInput, Prisma.UserUncheckedCreateWithoutGuideBookmarksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideBookmarksInput
+  upsert?: Prisma.UserUpsertWithoutGuideBookmarksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideBookmarksInput, Prisma.UserUpdateWithoutGuideBookmarksInput>, Prisma.UserUncheckedUpdateWithoutGuideBookmarksInput>
+}
+
+export type UserCreateNestedOneWithoutGuideLikesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideLikesInput, Prisma.UserUncheckedCreateWithoutGuideLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGuideLikesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideLikesInput, Prisma.UserUncheckedCreateWithoutGuideLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideLikesInput
+  upsert?: Prisma.UserUpsertWithoutGuideLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideLikesInput, Prisma.UserUpdateWithoutGuideLikesInput>, Prisma.UserUncheckedUpdateWithoutGuideLikesInput>
 }
 
 export type UserCreateNestedManyWithoutInterestedSpeciesInput = {
@@ -592,10 +701,6 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type UserCreateNestedOneWithoutProfileInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProfileInput, Prisma.UserUncheckedCreateWithoutProfileInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileInput
@@ -640,6 +745,526 @@ export type UserUpdateOneWithoutVisitorNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVisitorInput, Prisma.UserUpdateWithoutVisitorInput>, Prisma.UserUncheckedUpdateWithoutVisitorInput>
 }
 
+export type UserCreateWithoutAuthoredGuidesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserUncheckedCreateWithoutAuthoredGuidesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserCreateOrConnectWithoutAuthoredGuidesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuthoredGuidesInput, Prisma.UserUncheckedCreateWithoutAuthoredGuidesInput>
+}
+
+export type UserCreateWithoutReviewedGuidesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserUncheckedCreateWithoutReviewedGuidesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserCreateOrConnectWithoutReviewedGuidesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedGuidesInput, Prisma.UserUncheckedCreateWithoutReviewedGuidesInput>
+}
+
+export type UserUpsertWithoutAuthoredGuidesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuthoredGuidesInput, Prisma.UserUncheckedUpdateWithoutAuthoredGuidesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuthoredGuidesInput, Prisma.UserUncheckedCreateWithoutAuthoredGuidesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuthoredGuidesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuthoredGuidesInput, Prisma.UserUncheckedUpdateWithoutAuthoredGuidesInput>
+}
+
+export type UserUpdateWithoutAuthoredGuidesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuthoredGuidesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserUpsertWithoutReviewedGuidesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewedGuidesInput, Prisma.UserUncheckedUpdateWithoutReviewedGuidesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedGuidesInput, Prisma.UserUncheckedCreateWithoutReviewedGuidesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewedGuidesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewedGuidesInput, Prisma.UserUncheckedUpdateWithoutReviewedGuidesInput>
+}
+
+export type UserUpdateWithoutReviewedGuidesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewedGuidesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserCreateWithoutUploadedMediaInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutUploadedMediaInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutUploadedMediaInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedMediaInput, Prisma.UserUncheckedCreateWithoutUploadedMediaInput>
+}
+
+export type UserUpsertWithoutUploadedMediaInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUploadedMediaInput, Prisma.UserUncheckedUpdateWithoutUploadedMediaInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedMediaInput, Prisma.UserUncheckedCreateWithoutUploadedMediaInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUploadedMediaInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUploadedMediaInput, Prisma.UserUncheckedUpdateWithoutUploadedMediaInput>
+}
+
+export type UserUpdateWithoutUploadedMediaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUploadedMediaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutGuideBookmarksInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserUncheckedCreateWithoutGuideBookmarksInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserCreateOrConnectWithoutGuideBookmarksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideBookmarksInput, Prisma.UserUncheckedCreateWithoutGuideBookmarksInput>
+}
+
+export type UserUpsertWithoutGuideBookmarksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuideBookmarksInput, Prisma.UserUncheckedUpdateWithoutGuideBookmarksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideBookmarksInput, Prisma.UserUncheckedCreateWithoutGuideBookmarksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuideBookmarksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuideBookmarksInput, Prisma.UserUncheckedUpdateWithoutGuideBookmarksInput>
+}
+
+export type UserUpdateWithoutGuideBookmarksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuideBookmarksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserCreateWithoutGuideLikesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserUncheckedCreateWithoutGuideLikesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserCreateOrConnectWithoutGuideLikesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideLikesInput, Prisma.UserUncheckedCreateWithoutGuideLikesInput>
+}
+
+export type UserUpsertWithoutGuideLikesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuideLikesInput, Prisma.UserUncheckedUpdateWithoutGuideLikesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideLikesInput, Prisma.UserUncheckedCreateWithoutGuideLikesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuideLikesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuideLikesInput, Prisma.UserUncheckedUpdateWithoutGuideLikesInput>
+}
+
+export type UserUpdateWithoutGuideLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuideLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+}
+
 export type UserCreateWithoutInterestedSpeciesInput = {
   id?: string
   name: string
@@ -655,6 +1280,11 @@ export type UserCreateWithoutInterestedSpeciesInput = {
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   session?: Prisma.SessionCreateNestedManyWithoutUserInput
   visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutInterestedSpeciesInput = {
@@ -672,6 +1302,11 @@ export type UserUncheckedCreateWithoutInterestedSpeciesInput = {
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutInterestedSpeciesInput = {
@@ -733,6 +1368,11 @@ export type UserCreateWithoutInterestedBreedInput = {
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   session?: Prisma.SessionCreateNestedManyWithoutUserInput
   visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutInterestedBreedInput = {
@@ -750,6 +1390,11 @@ export type UserUncheckedCreateWithoutInterestedBreedInput = {
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutInterestedBreedInput = {
@@ -793,6 +1438,11 @@ export type UserCreateWithoutProfileInput = {
   interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
   session?: Prisma.SessionCreateNestedManyWithoutUserInput
   visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -810,6 +1460,11 @@ export type UserUncheckedCreateWithoutProfileInput = {
   updatedAt?: Date | string
   session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -843,6 +1498,11 @@ export type UserUpdateWithoutProfileInput = {
   interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
   session?: Prisma.SessionUpdateManyWithoutUserNestedInput
   visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -860,6 +1520,11 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserCreateWithoutSessionInput = {
@@ -877,6 +1542,11 @@ export type UserCreateWithoutSessionInput = {
   interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionInput = {
@@ -894,6 +1564,11 @@ export type UserUncheckedCreateWithoutSessionInput = {
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionInput = {
@@ -927,6 +1602,11 @@ export type UserUpdateWithoutSessionInput = {
   interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionInput = {
@@ -944,6 +1624,11 @@ export type UserUncheckedUpdateWithoutSessionInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserCreateWithoutVisitorInput = {
@@ -961,6 +1646,11 @@ export type UserCreateWithoutVisitorInput = {
   interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutVisitorInput = {
@@ -978,6 +1668,11 @@ export type UserUncheckedCreateWithoutVisitorInput = {
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutVisitorInput = {
@@ -1011,6 +1706,11 @@ export type UserUpdateWithoutVisitorInput = {
   interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVisitorInput = {
@@ -1028,6 +1728,11 @@ export type UserUncheckedUpdateWithoutVisitorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserCreateManyInterestedSpeciesInput = {
@@ -1059,6 +1764,11 @@ export type UserUpdateWithoutInterestedSpeciesInput = {
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   session?: Prisma.SessionUpdateManyWithoutUserNestedInput
   visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInterestedSpeciesInput = {
@@ -1076,6 +1786,11 @@ export type UserUncheckedUpdateWithoutInterestedSpeciesInput = {
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutInterestedSpeciesInput = {
@@ -1121,6 +1836,11 @@ export type UserUpdateWithoutInterestedBreedInput = {
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   session?: Prisma.SessionUpdateManyWithoutUserNestedInput
   visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInterestedBreedInput = {
@@ -1138,6 +1858,11 @@ export type UserUncheckedUpdateWithoutInterestedBreedInput = {
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutInterestedBreedInput = {
@@ -1161,10 +1886,20 @@ export type UserUncheckedUpdateManyWithoutInterestedBreedInput = {
 
 export type UserCountOutputType = {
   session: number
+  authoredGuides: number
+  reviewedGuides: number
+  guideBookmarks: number
+  guideLikes: number
+  uploadedMedia: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   session?: boolean | UserCountOutputTypeCountSessionArgs
+  authoredGuides?: boolean | UserCountOutputTypeCountAuthoredGuidesArgs
+  reviewedGuides?: boolean | UserCountOutputTypeCountReviewedGuidesArgs
+  guideBookmarks?: boolean | UserCountOutputTypeCountGuideBookmarksArgs
+  guideLikes?: boolean | UserCountOutputTypeCountGuideLikesArgs
+  uploadedMedia?: boolean | UserCountOutputTypeCountUploadedMediaArgs
 }
 
 /**
@@ -1182,6 +1917,41 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type UserCountOutputTypeCountSessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuthoredGuidesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewedGuidesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuideBookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideBookmarkWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuideLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideLikeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUploadedMediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MediaAssetWhereInput
 }
 
 
@@ -1203,6 +1973,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   session?: boolean | Prisma.User$sessionArgs<ExtArgs>
   visitor?: boolean | Prisma.User$visitorArgs<ExtArgs>
+  authoredGuides?: boolean | Prisma.User$authoredGuidesArgs<ExtArgs>
+  reviewedGuides?: boolean | Prisma.User$reviewedGuidesArgs<ExtArgs>
+  guideBookmarks?: boolean | Prisma.User$guideBookmarksArgs<ExtArgs>
+  guideLikes?: boolean | Prisma.User$guideLikesArgs<ExtArgs>
+  uploadedMedia?: boolean | Prisma.User$uploadedMediaArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1262,6 +2037,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   session?: boolean | Prisma.User$sessionArgs<ExtArgs>
   visitor?: boolean | Prisma.User$visitorArgs<ExtArgs>
+  authoredGuides?: boolean | Prisma.User$authoredGuidesArgs<ExtArgs>
+  reviewedGuides?: boolean | Prisma.User$reviewedGuidesArgs<ExtArgs>
+  guideBookmarks?: boolean | Prisma.User$guideBookmarksArgs<ExtArgs>
+  guideLikes?: boolean | Prisma.User$guideLikesArgs<ExtArgs>
+  uploadedMedia?: boolean | Prisma.User$uploadedMediaArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1281,6 +2061,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     profile: Prisma.$ProfilePayload<ExtArgs> | null
     session: Prisma.$SessionPayload<ExtArgs>[]
     visitor: Prisma.$VisitorPayload<ExtArgs> | null
+    authoredGuides: Prisma.$GuidePayload<ExtArgs>[]
+    reviewedGuides: Prisma.$GuidePayload<ExtArgs>[]
+    guideBookmarks: Prisma.$GuideBookmarkPayload<ExtArgs>[]
+    guideLikes: Prisma.$GuideLikePayload<ExtArgs>[]
+    uploadedMedia: Prisma.$MediaAssetPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1694,6 +2479,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   session<T extends Prisma.User$sessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   visitor<T extends Prisma.User$visitorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$visitorArgs<ExtArgs>>): Prisma.Prisma__VisitorClient<runtime.Types.Result.GetResult<Prisma.$VisitorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  authoredGuides<T extends Prisma.User$authoredGuidesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$authoredGuidesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuidePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedGuides<T extends Prisma.User$reviewedGuidesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedGuidesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuidePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guideBookmarks<T extends Prisma.User$guideBookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideBookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guideLikes<T extends Prisma.User$guideLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  uploadedMedia<T extends Prisma.User$uploadedMediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedMediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2233,6 +3023,126 @@ export type User$visitorArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   include?: Prisma.VisitorInclude<ExtArgs> | null
   where?: Prisma.VisitorWhereInput
+}
+
+/**
+ * User.authoredGuides
+ */
+export type User$authoredGuidesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Guide
+   */
+  select?: Prisma.GuideSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Guide
+   */
+  omit?: Prisma.GuideOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideInclude<ExtArgs> | null
+  where?: Prisma.GuideWhereInput
+  orderBy?: Prisma.GuideOrderByWithRelationInput | Prisma.GuideOrderByWithRelationInput[]
+  cursor?: Prisma.GuideWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideScalarFieldEnum | Prisma.GuideScalarFieldEnum[]
+}
+
+/**
+ * User.reviewedGuides
+ */
+export type User$reviewedGuidesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Guide
+   */
+  select?: Prisma.GuideSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Guide
+   */
+  omit?: Prisma.GuideOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideInclude<ExtArgs> | null
+  where?: Prisma.GuideWhereInput
+  orderBy?: Prisma.GuideOrderByWithRelationInput | Prisma.GuideOrderByWithRelationInput[]
+  cursor?: Prisma.GuideWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideScalarFieldEnum | Prisma.GuideScalarFieldEnum[]
+}
+
+/**
+ * User.guideBookmarks
+ */
+export type User$guideBookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideBookmark
+   */
+  select?: Prisma.GuideBookmarkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideBookmark
+   */
+  omit?: Prisma.GuideBookmarkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideBookmarkInclude<ExtArgs> | null
+  where?: Prisma.GuideBookmarkWhereInput
+  orderBy?: Prisma.GuideBookmarkOrderByWithRelationInput | Prisma.GuideBookmarkOrderByWithRelationInput[]
+  cursor?: Prisma.GuideBookmarkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideBookmarkScalarFieldEnum | Prisma.GuideBookmarkScalarFieldEnum[]
+}
+
+/**
+ * User.guideLikes
+ */
+export type User$guideLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideLike
+   */
+  select?: Prisma.GuideLikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideLike
+   */
+  omit?: Prisma.GuideLikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideLikeInclude<ExtArgs> | null
+  where?: Prisma.GuideLikeWhereInput
+  orderBy?: Prisma.GuideLikeOrderByWithRelationInput | Prisma.GuideLikeOrderByWithRelationInput[]
+  cursor?: Prisma.GuideLikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideLikeScalarFieldEnum | Prisma.GuideLikeScalarFieldEnum[]
+}
+
+/**
+ * User.uploadedMedia
+ */
+export type User$uploadedMediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MediaAsset
+   */
+  select?: Prisma.MediaAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MediaAsset
+   */
+  omit?: Prisma.MediaAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MediaAssetInclude<ExtArgs> | null
+  where?: Prisma.MediaAssetWhereInput
+  orderBy?: Prisma.MediaAssetOrderByWithRelationInput | Prisma.MediaAssetOrderByWithRelationInput[]
+  cursor?: Prisma.MediaAssetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MediaAssetScalarFieldEnum | Prisma.MediaAssetScalarFieldEnum[]
 }
 
 /**

@@ -15,10 +15,12 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import { CurrentUser } from 'src/common/decorators/current-user.decerator';
 import { Roles } from 'src/common/decorators/roles.decoretors';
+import type { AuthenticatedUser } from 'src/common/guards/jwt-auth.guard';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/role.guard';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UpdateUserRoleDto } from './dto/update-role.dto';
 import { UserQueryDto } from './dto/user-query.dto';
 import { UsersService } from './users.service';
 
@@ -61,7 +63,7 @@ export class UsersController {
 
   // 4. Admin: Get all users
   @Get()
-  @Roles('SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Get list of all users' })
   async findAll(@Query() query: UserQueryDto) {
     return this.usersService.findAll(query);
@@ -69,16 +71,30 @@ export class UsersController {
 
   // 5. Admin: Get user by ID
   @Get(':id')
-  @Roles('SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Get user details by ID' })
   async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.findOne(id);
   }
 
-  // 6. Admin: Delete user
+  // 6. Admin: Assign user role (e.g. AUTHOR, VET, ADMIN)
+  @Patch(':id/role')
+  @Roles('ADMIN', 'SUPERADMIN')
+  @ApiOperation({
+    summary: 'Admin: Assign editorial or admin role (AUTHOR, VET, ADMIN, etc.)',
+  })
+  async updateRole(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: UpdateUserRoleDto,
+    @CurrentUser() requester: AuthenticatedUser,
+  ) {
+    return this.usersService.updateRole(id, dto, requester);
+  }
+
+  // 7. Superadmin: Delete user
   @Delete(':id')
   @Roles('SUPERADMIN')
-  @ApiOperation({ summary: 'Admin: Delete user by ID' })
+  @ApiOperation({ summary: 'Superadmin: Delete user by ID' })
   async remove(
     @Param('id', ParseUUIDPipe) id: string,
     @CurrentUser('userId') currentUserId: string,

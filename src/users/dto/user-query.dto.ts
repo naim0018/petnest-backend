@@ -1,5 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsOptional } from 'class-validator';
+import { Role } from 'prisma/generated/prisma/enums';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 export const USER_SORT_COLUMNS = [
@@ -17,12 +18,12 @@ export type UserSortColumn = (typeof USER_SORT_COLUMNS)[number];
 
 export class UserQueryDto extends PaginationDto {
   @ApiPropertyOptional({
-    enum: ['USER', 'SUPERADMIN'],
-    description: 'Filter by user role',
+    enum: Role,
+    description: 'Filter by user role (USER, AUTHOR, VET, ADMIN, SUPERADMIN)',
   })
   @IsOptional()
-  @IsEnum(['USER', 'SUPERADMIN'])
-  role?: 'USER' | 'SUPERADMIN';
+  @IsEnum(Role)
+  role?: Role;
 
   @ApiPropertyOptional({
     enum: USER_SORT_COLUMNS,

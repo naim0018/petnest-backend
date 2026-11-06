@@ -548,14 +548,6 @@ export type VisitorUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VisitorUpdateToOneWithWhereWithoutUserInput, Prisma.VisitorUpdateWithoutUserInput>, Prisma.VisitorUncheckedUpdateWithoutUserInput>
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type VisitorCreateNestedOneWithoutPageViewsInput = {
   create?: Prisma.XOR<Prisma.VisitorCreateWithoutPageViewsInput, Prisma.VisitorUncheckedCreateWithoutPageViewsInput>
   connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutPageViewsInput

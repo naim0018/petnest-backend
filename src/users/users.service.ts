@@ -1,13 +1,17 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { Role } from 'prisma/generated/prisma/enums';
 import { createPaginatedResponse } from 'src/common/dto/pagination.dto';
+import type { AuthenticatedUser } from 'src/common/guards/jwt-auth.guard';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UpdateUserRoleDto } from './dto/update-role.dto';
 import { UserQueryDto } from './dto/user-query.dto';
 
 const userSafeSelect = {
@@ -51,6 +55,7 @@ export class UsersService {
       interestedSpeciesId,
       interestedBreedId,
       bio,
+      specialization,
       avatar,
       address,
       city,
@@ -116,6 +121,7 @@ export class UsersService {
 
     const profileData = {
       ...(bio !== undefined && { bio }),
+      ...(specialization !== undefined && { specialization }),
       ...(avatar !== undefined && { avatar }),
       ...(address !== undefined && { address }),
       ...(city !== undefined && { city }),
@@ -270,15 +276,62 @@ export class UsersService {
     return user;
   }
 
-  // 6. Admin: Delete User
+  // 6. Admin: Assign or Update User Role (e.g. granting AUTHOR or VET access for Guides)
+  async updateRole(
+    id: string,
+    dto: UpdateUserRoleDto,
+    requester: AuthenticatedUser,
+  ) {
+    if (id === requester.userId) {
+      throw new BadRequestException('You cannot modify your own role');
+    }
+
+    const targetUser = await this.prisma.user.findUnique({
+      where: { id },
+      select: { id: true, role: true },
+    });
+
+    if (!targetUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    const privilegedRoles = new Set<string>([Role.ADMIN, Role.SUPERADMIN]);
+
+    // Only SUPERADMIN may promote to ADMIN/SUPERADMIN or alter an existing ADMIN/SUPERADMIN
+    if (
+      requester.role !== Role.SUPERADMIN &&
+      (privilegedRoles.has(targetUser.role) || privilegedRoles.has(dto.role))
+    ) {
+      throw new ForbiddenException(
+        'Only SUPERADMIN can grant or modify ADMIN / SUPERADMIN roles',
+      );
+    }
+
+    return this.prisma.user.update({
+      where: { id },
+      data: { role: dto.role },
+      select: userSafeSelect,
+    });
+  }
+
+  // 7. Superadmin: Delete User
   async remove(id: string, currentUserId: string) {
     if (id === currentUserId) {
       throw new BadRequestException('You cannot delete your own account');
     }
 
-    const user = await this.prisma.user.findUnique({ where: { id } });
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      include: { _count: { select: { authoredGuides: true } } },
+    });
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    if (user._count.authoredGuides > 0) {
+      throw new BadRequestException(
+        `Cannot delete user because they have authored ${user._count.authoredGuides} guide(s). Reassign or remove their guides first.`,
+      );
     }
 
     await this.prisma.user.delete({ where: { id } });

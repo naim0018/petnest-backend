@@ -29,8 +29,8 @@ export * from "./enums.js"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more PetSpecies
- * const petSpecies = await prisma.petSpecies.findMany()
+ * // Fetch zero or more GuideCategories
+ * const guideCategories = await prisma.guideCategory.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -39,6 +39,36 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model GuideCategory
+ * 
+ */
+export type GuideCategory = Prisma.GuideCategoryModel
+/**
+ * Model Guide
+ * 
+ */
+export type Guide = Prisma.GuideModel
+/**
+ * Model MediaAsset
+ * 
+ */
+export type MediaAsset = Prisma.MediaAssetModel
+/**
+ * Model GuideFaq
+ * 
+ */
+export type GuideFaq = Prisma.GuideFaqModel
+/**
+ * Model GuideBookmark
+ * 
+ */
+export type GuideBookmark = Prisma.GuideBookmarkModel
+/**
+ * Model GuideLike
+ * 
+ */
+export type GuideLike = Prisma.GuideLikeModel
 /**
  * Model PetSpecies
  * 

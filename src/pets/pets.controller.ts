@@ -58,7 +58,7 @@ export class PetsController {
   @Post('species')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles('SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Create a new pet species' })
   createSpecies(@Body() dto: CreateSpeciesDto) {
     return this.petsService.createSpecies(dto);
@@ -67,7 +67,7 @@ export class PetsController {
   @Patch('species/:id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles('SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Update a pet species' })
   updateSpecies(
     @Param('id', ParseUUIDPipe) id: string,
@@ -79,7 +79,7 @@ export class PetsController {
   @Delete('species/:id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles('SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Delete a pet species' })
   removeSpecies(@Param('id', ParseUUIDPipe) id: string) {
     return this.petsService.removeSpecies(id);
@@ -88,7 +88,7 @@ export class PetsController {
   @Post('breeds')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles('SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Create a new pet breed' })
   createBreed(@Body() dto: CreateBreedDto) {
     return this.petsService.createBreed(dto);
@@ -97,7 +97,7 @@ export class PetsController {
   @Patch('breeds/:id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles('SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Update a pet breed' })
   updateBreed(
     @Param('id', ParseUUIDPipe) id: string,
@@ -109,7 +109,7 @@ export class PetsController {
   @Delete('breeds/:id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles('SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Delete a pet breed' })
   removeBreed(@Param('id', ParseUUIDPipe) id: string) {
     return this.petsService.removeBreed(id);

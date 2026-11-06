@@ -18,6 +18,36 @@ export { Prisma }
 export * as $Enums from './enums.js'
 export * from './enums.js';
 /**
+ * Model GuideCategory
+ * 
+ */
+export type GuideCategory = Prisma.GuideCategoryModel
+/**
+ * Model Guide
+ * 
+ */
+export type Guide = Prisma.GuideModel
+/**
+ * Model MediaAsset
+ * 
+ */
+export type MediaAsset = Prisma.MediaAssetModel
+/**
+ * Model GuideFaq
+ * 
+ */
+export type GuideFaq = Prisma.GuideFaqModel
+/**
+ * Model GuideBookmark
+ * 
+ */
+export type GuideBookmark = Prisma.GuideBookmarkModel
+/**
+ * Model GuideLike
+ * 
+ */
+export type GuideLike = Prisma.GuideLikeModel
+/**
  * Model PetSpecies
  * 
  */

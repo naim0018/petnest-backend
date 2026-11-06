@@ -8,6 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/GuideCategory.js'
+export type * from './models/Guide.js'
+export type * from './models/MediaAsset.js'
+export type * from './models/GuideFaq.js'
+export type * from './models/GuideBookmark.js'
+export type * from './models/GuideLike.js'
 export type * from './models/PetSpecies.js'
 export type * from './models/PetBreed.js'
 export type * from './models/User.js'
