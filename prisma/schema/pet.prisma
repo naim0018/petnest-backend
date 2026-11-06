@@ -1,28 +1,50 @@
+enum PetSize {
+    SMALL
+    MEDIUM
+    LARGE
+    GIANT
+}
+
+enum CareLevel {
+    LOW
+    MODERATE
+    HIGH
+}
+
 model PetSpecies {
     id               String  @id @default(uuid())
-    name             String  @unique
-    image            String?
+    name             String  @unique // e.g., "Dogs", "Birds"
+    slug             String  @unique // e.g., "dogs", "birds", "small-pets"
+    scientificGroup  String?         // e.g., "Canis lupus familiaris"
     shortDescription String?
+    image            String?         // Main mascot/card image
+    categoryIcon     String?         // Round category avatar icon
 
     breeds PetBreed[]
     users  User[]
+    // guides Guide[]  // <-- Will connect when we add guide.prisma
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 model PetBreed {
-    id               String   @id @default(uuid())
-    name             String
+    id               String     @id @default(uuid())
+    name             String                // e.g., "Golden Retriever", "Budgerigar"
+    slug             String     @unique    // e.g., "golden-retriever", "budgie"
     image            String?
     shortDescription String?
-    tags             String[] @default([])
-    originCountry    String?
+    originCountry    String?               // e.g., "Scotland, UK", "Australia"
+    size             PetSize?   @default(MEDIUM)
+    careLevel        CareLevel? @default(MODERATE)
+    temperament      String?               // e.g., "Friendly, Intelligent, Devoted"
+    tags             String[]   @default([])
 
     speciesId String
     species   PetSpecies @relation(fields: [speciesId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
     users User[]
+    // guides Guide[]  // <-- Will connect when we add guide.prisma
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

@@ -110,6 +110,40 @@ export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
+export type EnumPetSizeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PetSize | Prisma.EnumPetSizeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PetSize[] | Prisma.ListEnumPetSizeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PetSize[] | Prisma.ListEnumPetSizeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPetSizeNullableFilter<$PrismaModel> | $Enums.PetSize | null
+}
+
+export type EnumCareLevelNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.CareLevel | Prisma.EnumCareLevelFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CareLevel[] | Prisma.ListEnumCareLevelFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.CareLevel[] | Prisma.ListEnumCareLevelFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumCareLevelNullableFilter<$PrismaModel> | $Enums.CareLevel | null
+}
+
+export type EnumPetSizeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PetSize | Prisma.EnumPetSizeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PetSize[] | Prisma.ListEnumPetSizeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PetSize[] | Prisma.ListEnumPetSizeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPetSizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PetSize | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPetSizeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPetSizeNullableFilter<$PrismaModel>
+}
+
+export type EnumCareLevelNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CareLevel | Prisma.EnumCareLevelFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CareLevel[] | Prisma.ListEnumCareLevelFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.CareLevel[] | Prisma.ListEnumCareLevelFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumCareLevelNullableWithAggregatesFilter<$PrismaModel> | $Enums.CareLevel | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCareLevelNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCareLevelNullableFilter<$PrismaModel>
+}
+
 export type EnumRoleFilter<$PrismaModel = never> = {
   equals?: $Enums.Role | Prisma.EnumRoleFieldRefInput<$PrismaModel>
   in?: $Enums.Role[] | Prisma.ListEnumRoleFieldRefInput<$PrismaModel>
@@ -388,6 +422,40 @@ export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
+}
+
+export type NestedEnumPetSizeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PetSize | Prisma.EnumPetSizeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PetSize[] | Prisma.ListEnumPetSizeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PetSize[] | Prisma.ListEnumPetSizeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPetSizeNullableFilter<$PrismaModel> | $Enums.PetSize | null
+}
+
+export type NestedEnumCareLevelNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.CareLevel | Prisma.EnumCareLevelFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CareLevel[] | Prisma.ListEnumCareLevelFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.CareLevel[] | Prisma.ListEnumCareLevelFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumCareLevelNullableFilter<$PrismaModel> | $Enums.CareLevel | null
+}
+
+export type NestedEnumPetSizeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PetSize | Prisma.EnumPetSizeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PetSize[] | Prisma.ListEnumPetSizeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PetSize[] | Prisma.ListEnumPetSizeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPetSizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PetSize | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPetSizeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPetSizeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumCareLevelNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CareLevel | Prisma.EnumCareLevelFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CareLevel[] | Prisma.ListEnumCareLevelFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.CareLevel[] | Prisma.ListEnumCareLevelFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumCareLevelNullableWithAggregatesFilter<$PrismaModel> | $Enums.CareLevel | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCareLevelNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCareLevelNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumRoleFilter<$PrismaModel = never> = {

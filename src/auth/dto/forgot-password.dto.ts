@@ -1,9 +1,6 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
-import { Transform } from 'class-transformer';
+import { IsEmailField } from 'src/common/decorators/fields.decorator';
 
 export class ForgotPasswordDto {
-  @IsNotEmpty({ message: 'Email is required' })
-  @Transform(({ value }) => value?.trim().toLowerCase())
-  @IsEmail({}, { message: 'Invalid email address' })
+  @IsEmailField()
   email: string;
 }

@@ -9,6 +9,25 @@
 * 🟢 You can import this file directly.
 */
 
+export const PetSize = {
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE',
+  GIANT: 'GIANT'
+} as const
+
+export type PetSize = (typeof PetSize)[keyof typeof PetSize]
+
+
+export const CareLevel = {
+  LOW: 'LOW',
+  MODERATE: 'MODERATE',
+  HIGH: 'HIGH'
+} as const
+
+export type CareLevel = (typeof CareLevel)[keyof typeof CareLevel]
+
+
 export const Role = {
   USER: 'USER',
   SUPERADMIN: 'SUPERADMIN'

@@ -27,8 +27,11 @@ export type AggregatePetSpecies = {
 export type PetSpeciesMinAggregateOutputType = {
   id: string | null
   name: string | null
-  image: string | null
+  slug: string | null
+  scientificGroup: string | null
   shortDescription: string | null
+  image: string | null
+  categoryIcon: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -36,8 +39,11 @@ export type PetSpeciesMinAggregateOutputType = {
 export type PetSpeciesMaxAggregateOutputType = {
   id: string | null
   name: string | null
-  image: string | null
+  slug: string | null
+  scientificGroup: string | null
   shortDescription: string | null
+  image: string | null
+  categoryIcon: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -45,8 +51,11 @@ export type PetSpeciesMaxAggregateOutputType = {
 export type PetSpeciesCountAggregateOutputType = {
   id: number
   name: number
-  image: number
+  slug: number
+  scientificGroup: number
   shortDescription: number
+  image: number
+  categoryIcon: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -56,8 +65,11 @@ export type PetSpeciesCountAggregateOutputType = {
 export type PetSpeciesMinAggregateInputType = {
   id?: true
   name?: true
-  image?: true
+  slug?: true
+  scientificGroup?: true
   shortDescription?: true
+  image?: true
+  categoryIcon?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -65,8 +77,11 @@ export type PetSpeciesMinAggregateInputType = {
 export type PetSpeciesMaxAggregateInputType = {
   id?: true
   name?: true
-  image?: true
+  slug?: true
+  scientificGroup?: true
   shortDescription?: true
+  image?: true
+  categoryIcon?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -74,8 +89,11 @@ export type PetSpeciesMaxAggregateInputType = {
 export type PetSpeciesCountAggregateInputType = {
   id?: true
   name?: true
-  image?: true
+  slug?: true
+  scientificGroup?: true
   shortDescription?: true
+  image?: true
+  categoryIcon?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -156,8 +174,11 @@ export type PetSpeciesGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type PetSpeciesGroupByOutputType = {
   id: string
   name: string
-  image: string | null
+  slug: string
+  scientificGroup: string | null
   shortDescription: string | null
+  image: string | null
+  categoryIcon: string | null
   createdAt: Date
   updatedAt: Date
   _count: PetSpeciesCountAggregateOutputType | null
@@ -186,8 +207,11 @@ export type PetSpeciesWhereInput = {
   NOT?: Prisma.PetSpeciesWhereInput | Prisma.PetSpeciesWhereInput[]
   id?: Prisma.StringFilter<"PetSpecies"> | string
   name?: Prisma.StringFilter<"PetSpecies"> | string
-  image?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
+  slug?: Prisma.StringFilter<"PetSpecies"> | string
+  scientificGroup?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
   shortDescription?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
+  image?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
+  categoryIcon?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PetSpecies"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PetSpecies"> | Date | string
   breeds?: Prisma.PetBreedListRelationFilter
@@ -197,8 +221,11 @@ export type PetSpeciesWhereInput = {
 export type PetSpeciesOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  scientificGroup?: Prisma.SortOrderInput | Prisma.SortOrder
   shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoryIcon?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   breeds?: Prisma.PetBreedOrderByRelationAggregateInput
@@ -208,22 +235,28 @@ export type PetSpeciesOrderByWithRelationInput = {
 export type PetSpeciesWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   name?: string
+  slug?: string
   AND?: Prisma.PetSpeciesWhereInput | Prisma.PetSpeciesWhereInput[]
   OR?: Prisma.PetSpeciesWhereInput[]
   NOT?: Prisma.PetSpeciesWhereInput | Prisma.PetSpeciesWhereInput[]
-  image?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
+  scientificGroup?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
   shortDescription?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
+  image?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
+  categoryIcon?: Prisma.StringNullableFilter<"PetSpecies"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PetSpecies"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PetSpecies"> | Date | string
   breeds?: Prisma.PetBreedListRelationFilter
   users?: Prisma.UserListRelationFilter
-}, "id" | "name">
+}, "id" | "name" | "slug">
 
 export type PetSpeciesOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  scientificGroup?: Prisma.SortOrderInput | Prisma.SortOrder
   shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoryIcon?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PetSpeciesCountOrderByAggregateInput
@@ -237,8 +270,11 @@ export type PetSpeciesScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PetSpeciesScalarWhereWithAggregatesInput | Prisma.PetSpeciesScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PetSpecies"> | string
   name?: Prisma.StringWithAggregatesFilter<"PetSpecies"> | string
-  image?: Prisma.StringNullableWithAggregatesFilter<"PetSpecies"> | string | null
+  slug?: Prisma.StringWithAggregatesFilter<"PetSpecies"> | string
+  scientificGroup?: Prisma.StringNullableWithAggregatesFilter<"PetSpecies"> | string | null
   shortDescription?: Prisma.StringNullableWithAggregatesFilter<"PetSpecies"> | string | null
+  image?: Prisma.StringNullableWithAggregatesFilter<"PetSpecies"> | string | null
+  categoryIcon?: Prisma.StringNullableWithAggregatesFilter<"PetSpecies"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PetSpecies"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PetSpecies"> | Date | string
 }
@@ -246,8 +282,11 @@ export type PetSpeciesScalarWhereWithAggregatesInput = {
 export type PetSpeciesCreateInput = {
   id?: string
   name: string
-  image?: string | null
+  slug: string
+  scientificGroup?: string | null
   shortDescription?: string | null
+  image?: string | null
+  categoryIcon?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   breeds?: Prisma.PetBreedCreateNestedManyWithoutSpeciesInput
@@ -257,8 +296,11 @@ export type PetSpeciesCreateInput = {
 export type PetSpeciesUncheckedCreateInput = {
   id?: string
   name: string
-  image?: string | null
+  slug: string
+  scientificGroup?: string | null
   shortDescription?: string | null
+  image?: string | null
+  categoryIcon?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   breeds?: Prisma.PetBreedUncheckedCreateNestedManyWithoutSpeciesInput
@@ -268,8 +310,11 @@ export type PetSpeciesUncheckedCreateInput = {
 export type PetSpeciesUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  scientificGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   breeds?: Prisma.PetBreedUpdateManyWithoutSpeciesNestedInput
@@ -279,8 +324,11 @@ export type PetSpeciesUpdateInput = {
 export type PetSpeciesUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  scientificGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   breeds?: Prisma.PetBreedUncheckedUpdateManyWithoutSpeciesNestedInput
@@ -290,8 +338,11 @@ export type PetSpeciesUncheckedUpdateInput = {
 export type PetSpeciesCreateManyInput = {
   id?: string
   name: string
-  image?: string | null
+  slug: string
+  scientificGroup?: string | null
   shortDescription?: string | null
+  image?: string | null
+  categoryIcon?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -299,8 +350,11 @@ export type PetSpeciesCreateManyInput = {
 export type PetSpeciesUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  scientificGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -308,8 +362,11 @@ export type PetSpeciesUpdateManyMutationInput = {
 export type PetSpeciesUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  scientificGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -317,8 +374,11 @@ export type PetSpeciesUncheckedUpdateManyInput = {
 export type PetSpeciesCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  image?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  scientificGroup?: Prisma.SortOrder
   shortDescription?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  categoryIcon?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -326,8 +386,11 @@ export type PetSpeciesCountOrderByAggregateInput = {
 export type PetSpeciesMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  image?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  scientificGroup?: Prisma.SortOrder
   shortDescription?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  categoryIcon?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -335,8 +398,11 @@ export type PetSpeciesMaxOrderByAggregateInput = {
 export type PetSpeciesMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  image?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  scientificGroup?: Prisma.SortOrder
   shortDescription?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  categoryIcon?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -396,8 +462,11 @@ export type PetSpeciesUpdateOneWithoutUsersNestedInput = {
 export type PetSpeciesCreateWithoutBreedsInput = {
   id?: string
   name: string
-  image?: string | null
+  slug: string
+  scientificGroup?: string | null
   shortDescription?: string | null
+  image?: string | null
+  categoryIcon?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutInterestedSpeciesInput
@@ -406,8 +475,11 @@ export type PetSpeciesCreateWithoutBreedsInput = {
 export type PetSpeciesUncheckedCreateWithoutBreedsInput = {
   id?: string
   name: string
-  image?: string | null
+  slug: string
+  scientificGroup?: string | null
   shortDescription?: string | null
+  image?: string | null
+  categoryIcon?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutInterestedSpeciesInput
@@ -432,8 +504,11 @@ export type PetSpeciesUpdateToOneWithWhereWithoutBreedsInput = {
 export type PetSpeciesUpdateWithoutBreedsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  scientificGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutInterestedSpeciesNestedInput
@@ -442,8 +517,11 @@ export type PetSpeciesUpdateWithoutBreedsInput = {
 export type PetSpeciesUncheckedUpdateWithoutBreedsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  scientificGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutInterestedSpeciesNestedInput
@@ -452,8 +530,11 @@ export type PetSpeciesUncheckedUpdateWithoutBreedsInput = {
 export type PetSpeciesCreateWithoutUsersInput = {
   id?: string
   name: string
-  image?: string | null
+  slug: string
+  scientificGroup?: string | null
   shortDescription?: string | null
+  image?: string | null
+  categoryIcon?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   breeds?: Prisma.PetBreedCreateNestedManyWithoutSpeciesInput
@@ -462,8 +543,11 @@ export type PetSpeciesCreateWithoutUsersInput = {
 export type PetSpeciesUncheckedCreateWithoutUsersInput = {
   id?: string
   name: string
-  image?: string | null
+  slug: string
+  scientificGroup?: string | null
   shortDescription?: string | null
+  image?: string | null
+  categoryIcon?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   breeds?: Prisma.PetBreedUncheckedCreateNestedManyWithoutSpeciesInput
@@ -488,8 +572,11 @@ export type PetSpeciesUpdateToOneWithWhereWithoutUsersInput = {
 export type PetSpeciesUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  scientificGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   breeds?: Prisma.PetBreedUpdateManyWithoutSpeciesNestedInput
@@ -498,8 +585,11 @@ export type PetSpeciesUpdateWithoutUsersInput = {
 export type PetSpeciesUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  scientificGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   breeds?: Prisma.PetBreedUncheckedUpdateManyWithoutSpeciesNestedInput
@@ -548,8 +638,11 @@ export type PetSpeciesCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Type
 export type PetSpeciesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  image?: boolean
+  slug?: boolean
+  scientificGroup?: boolean
   shortDescription?: boolean
+  image?: boolean
+  categoryIcon?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   breeds?: boolean | Prisma.PetSpecies$breedsArgs<ExtArgs>
@@ -560,8 +653,11 @@ export type PetSpeciesSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type PetSpeciesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  image?: boolean
+  slug?: boolean
+  scientificGroup?: boolean
   shortDescription?: boolean
+  image?: boolean
+  categoryIcon?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["petSpecies"]>
@@ -569,8 +665,11 @@ export type PetSpeciesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type PetSpeciesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  image?: boolean
+  slug?: boolean
+  scientificGroup?: boolean
   shortDescription?: boolean
+  image?: boolean
+  categoryIcon?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["petSpecies"]>
@@ -578,13 +677,16 @@ export type PetSpeciesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type PetSpeciesSelectScalar = {
   id?: boolean
   name?: boolean
-  image?: boolean
+  slug?: boolean
+  scientificGroup?: boolean
   shortDescription?: boolean
+  image?: boolean
+  categoryIcon?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PetSpeciesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "image" | "shortDescription" | "createdAt" | "updatedAt", ExtArgs["result"]["petSpecies"]>
+export type PetSpeciesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "scientificGroup" | "shortDescription" | "image" | "categoryIcon" | "createdAt" | "updatedAt", ExtArgs["result"]["petSpecies"]>
 export type PetSpeciesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   breeds?: boolean | Prisma.PetSpecies$breedsArgs<ExtArgs>
   users?: boolean | Prisma.PetSpecies$usersArgs<ExtArgs>
@@ -602,8 +704,11 @@ export type $PetSpeciesPayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    image: string | null
+    slug: string
+    scientificGroup: string | null
     shortDescription: string | null
+    image: string | null
+    categoryIcon: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["petSpecies"]>
@@ -1033,8 +1138,11 @@ export interface Prisma__PetSpeciesClient<T, Null = never, ExtArgs extends runti
 export interface PetSpeciesFieldRefs {
   readonly id: Prisma.FieldRef<"PetSpecies", 'String'>
   readonly name: Prisma.FieldRef<"PetSpecies", 'String'>
-  readonly image: Prisma.FieldRef<"PetSpecies", 'String'>
+  readonly slug: Prisma.FieldRef<"PetSpecies", 'String'>
+  readonly scientificGroup: Prisma.FieldRef<"PetSpecies", 'String'>
   readonly shortDescription: Prisma.FieldRef<"PetSpecies", 'String'>
+  readonly image: Prisma.FieldRef<"PetSpecies", 'String'>
+  readonly categoryIcon: Prisma.FieldRef<"PetSpecies", 'String'>
   readonly createdAt: Prisma.FieldRef<"PetSpecies", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PetSpecies", 'DateTime'>
 }

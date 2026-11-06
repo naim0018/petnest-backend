@@ -79,8 +79,11 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const PetSpeciesScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  image: 'image',
+  slug: 'slug',
+  scientificGroup: 'scientificGroup',
   shortDescription: 'shortDescription',
+  image: 'image',
+  categoryIcon: 'categoryIcon',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -91,10 +94,14 @@ export type PetSpeciesScalarFieldEnum = (typeof PetSpeciesScalarFieldEnum)[keyof
 export const PetBreedScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  slug: 'slug',
   image: 'image',
   shortDescription: 'shortDescription',
-  tags: 'tags',
   originCountry: 'originCountry',
+  size: 'size',
+  careLevel: 'careLevel',
+  temperament: 'temperament',
+  tags: 'tags',
   speciesId: 'speciesId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

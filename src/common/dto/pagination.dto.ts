@@ -1,6 +1,14 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsEnum, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import {
+  IsEnum,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
+} from 'class-validator';
 
 export class PaginationDto {
   @ApiPropertyOptional({ default: 1, description: 'Page number (minimum 1)' })
@@ -18,9 +26,11 @@ export class PaginationDto {
   @Max(100, { message: 'limit cannot exceed 100 items per page' })
   limit: number = 10;
 
-  @ApiPropertyOptional({ description: 'Search query keyword' })
+  @ApiPropertyOptional({ description: 'Search query keyword (max 100 chars)' })
+  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   @IsOptional()
   @IsString()
+  @MaxLength(100, { message: 'search query cannot exceed 100 characters' })
   search?: string;
 
   @ApiPropertyOptional({

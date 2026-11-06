@@ -6,11 +6,13 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Patch,
   Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { CurrentUser } from 'src/common/decorators/current-user.decerator';
 import { Roles } from 'src/common/decorators/roles.decoretors';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
@@ -46,6 +48,7 @@ export class UsersController {
 
   // 3. Change password
   @Patch('change-password')
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Change user password' })
   async changePassword(
@@ -68,7 +71,7 @@ export class UsersController {
   @Get(':id')
   @Roles('SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Get user details by ID' })
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.findOne(id);
   }
 
@@ -76,7 +79,10 @@ export class UsersController {
   @Delete(':id')
   @Roles('SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Delete user by ID' })
-  async remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  async remove(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser('userId') currentUserId: string,
+  ) {
+    return this.usersService.remove(id, currentUserId);
   }
 }

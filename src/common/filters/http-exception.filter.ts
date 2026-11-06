@@ -14,28 +14,49 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
-    const status =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+    let status = HttpStatus.INTERNAL_SERVER_ERROR;
+    let message: string | string[] = 'Internal server error';
+    let errorName: string | undefined;
 
-    const exceptionResponse =
-      exception instanceof HttpException
-        ? exception.getResponse()
-        : 'Internal server error';
+    if (exception instanceof HttpException) {
+      status = exception.getStatus();
+      const exceptionResponse = exception.getResponse();
 
-    const message =
-      typeof exceptionResponse === 'object' && 'message' in exceptionResponse
-        ? (exceptionResponse as any).message
-        : exceptionResponse;
+      if (typeof exceptionResponse === 'object' && exceptionResponse !== null) {
+        message =
+          'message' in exceptionResponse
+            ? (exceptionResponse as any).message
+            : message;
+        errorName =
+          'error' in exceptionResponse
+            ? (exceptionResponse as any).error
+            : undefined;
+      } else if (typeof exceptionResponse === 'string') {
+        message = exceptionResponse;
+      }
+    } else if (
+      typeof exception === 'object' &&
+      exception !== null &&
+      'code' in exception
+    ) {
+      // Safely map common Prisma race-condition errors without leaking SQL/table internals
+      const prismaCode = (exception as { code?: string }).code;
+      if (prismaCode === 'P2002') {
+        status = HttpStatus.CONFLICT;
+        message = 'A record with this unique value already exists';
+        errorName = 'Conflict';
+      } else if (prismaCode === 'P2025') {
+        status = HttpStatus.NOT_FOUND;
+        message = 'Requested record was not found';
+        errorName = 'Not Found';
+      }
+    }
 
     response.status(status).json({
       success: false,
       statusCode: status,
       message: Array.isArray(message) ? message[0] : message,
-      error: typeof exceptionResponse === 'object' && 'error' in exceptionResponse
-        ? (exceptionResponse as any).error
-        : undefined,
+      error: errorName,
     });
   }
 }

@@ -4,8 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { createPaginatedResponse } from 'src/common/dto/pagination.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { UserQueryDto } from './dto/user-query.dto';
@@ -60,9 +60,7 @@ export class UsersService {
 
     // Determine target species and breed IDs to validate foreign keys & relationships
     const targetSpeciesId =
-      interestedSpeciesId !== undefined
-        ? interestedSpeciesId
-        : undefined;
+      interestedSpeciesId !== undefined ? interestedSpeciesId : undefined;
     const targetBreedId =
       interestedBreedId !== undefined ? interestedBreedId : undefined;
 
@@ -93,7 +91,9 @@ export class UsersService {
         where: { id: targetSpeciesId },
       });
       if (!speciesExists) {
-        throw new BadRequestException('Selected interested species does not exist');
+        throw new BadRequestException(
+          'Selected interested species does not exist',
+        );
       }
     }
 
@@ -102,7 +102,9 @@ export class UsersService {
         where: { id: targetBreedId },
       });
       if (!breedExists) {
-        throw new BadRequestException('Selected interested breed does not exist');
+        throw new BadRequestException(
+          'Selected interested breed does not exist',
+        );
       }
 
       if (finalSpeciesId && breedExists.speciesId !== finalSpeciesId) {
@@ -169,7 +171,11 @@ export class UsersService {
     await this.prisma.$transaction([
       this.prisma.user.update({
         where: { id: userId },
-        data: { password: hashedPassword },
+        data: {
+          password: hashedPassword,
+          resetPasswordToken: null,
+          resetPasswordExpires: null,
+        },
       }),
       this.prisma.session.updateMany({
         where: {
@@ -182,7 +188,8 @@ export class UsersService {
     ]);
 
     return {
-      message: 'Password updated successfully. Other sessions have been logged out.',
+      message:
+        'Password updated successfully. Other sessions have been logged out.',
     };
   }
 
@@ -239,7 +246,14 @@ export class UsersService {
       this.prisma.user.count({ where }),
     ]);
 
-    return createPaginatedResponse(users, total, page, limit, sortBy, sortOrder);
+    return createPaginatedResponse(
+      users,
+      total,
+      page,
+      limit,
+      sortBy,
+      sortOrder,
+    );
   }
 
   // 5. Admin: Find User by ID
@@ -257,7 +271,11 @@ export class UsersService {
   }
 
   // 6. Admin: Delete User
-  async remove(id: string) {
+  async remove(id: string, currentUserId: string) {
+    if (id === currentUserId) {
+      throw new BadRequestException('You cannot delete your own account');
+    }
+
     const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);

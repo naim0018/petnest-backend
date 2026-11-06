@@ -983,8 +983,11 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const PetSpeciesScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  image: 'image',
+  slug: 'slug',
+  scientificGroup: 'scientificGroup',
   shortDescription: 'shortDescription',
+  image: 'image',
+  categoryIcon: 'categoryIcon',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -995,10 +998,14 @@ export type PetSpeciesScalarFieldEnum = (typeof PetSpeciesScalarFieldEnum)[keyof
 export const PetBreedScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  slug: 'slug',
   image: 'image',
   shortDescription: 'shortDescription',
-  tags: 'tags',
   originCountry: 'originCountry',
+  size: 'size',
+  careLevel: 'careLevel',
+  temperament: 'temperament',
+  tags: 'tags',
   speciesId: 'speciesId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1164,6 +1171,34 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PetSize'
+ */
+export type EnumPetSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetSize'>
+    
+
+
+/**
+ * Reference to a field of type 'PetSize[]'
+ */
+export type ListEnumPetSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetSize[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CareLevel'
+ */
+export type EnumCareLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CareLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'CareLevel[]'
+ */
+export type ListEnumCareLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CareLevel[]'>
     
 
 

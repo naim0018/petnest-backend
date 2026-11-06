@@ -14,7 +14,7 @@ import {
 } from 'class-validator';
 
 /**
- * Validates and documents a full name property
+ * Validates, trims, and documents a full name property
  */
 export function IsNameField() {
   return applyDecorators(
@@ -24,6 +24,7 @@ export function IsNameField() {
       minLength: 2,
       maxLength: 50,
     }),
+    Transform(({ value }) => (typeof value === 'string' ? value.trim() : value)),
     IsNotEmpty({ message: 'Name is required' }),
     IsString({ message: 'Name must be a string' }),
     MinLength(2, { message: 'Name too short' }),
@@ -39,25 +40,33 @@ export function IsEmailField() {
     ApiProperty({
       description: 'User email address',
       example: 'john.doe@example.com',
+      maxLength: 254,
     }),
+    Transform(({ value }) =>
+      typeof value === 'string' ? value.trim().toLowerCase() : value,
+    ),
     IsNotEmpty({ message: 'Email is required' }),
-    Transform(({ value }) => (typeof value === 'string' ? value.trim().toLowerCase() : value)),
+    IsString({ message: 'Email must be a string' }),
+    MaxLength(254, { message: 'Email cannot exceed 254 characters' }),
     IsEmail({}, { message: 'Invalid email address' }),
   );
 }
 
 /**
- * Validates and documents a strong password with security criteria
+ * Validates and documents a strong password with security criteria (bounded to 72 chars for bcrypt)
  */
 export function IsPasswordField() {
   return applyDecorators(
     ApiProperty({
-      description: 'Password (min 6 characters, including uppercase, lowercase, number, and special character)',
+      description:
+        'Password (6-72 characters, including uppercase, lowercase, number, and special character)',
       example: 'Password@123',
       minLength: 6,
-      maxLength: 20,
+      maxLength: 72,
     }),
     IsNotEmpty({ message: 'Password is required' }),
+    IsString({ message: 'Password must be a string' }),
+    MaxLength(72, { message: 'Password cannot exceed 72 characters' }),
     IsStrongPassword(
       {
         minLength: 6,
@@ -80,10 +89,13 @@ export function IsPasswordField() {
 export function IsPhoneField() {
   return applyDecorators(
     ApiProperty({
-      description: 'Phone number in international or regional format',
+      description: 'Phone number in international format',
       example: '+14155552671',
     }),
+    Transform(({ value }) => (typeof value === 'string' ? value.trim() : value)),
     IsNotEmpty({ message: 'Phone is required' }),
+    IsString({ message: 'Phone must be a string' }),
+    MaxLength(20, { message: 'Phone number is too long' }),
     IsPhoneNumber(undefined, { message: 'Invalid phone number' }),
   );
 }

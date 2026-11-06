@@ -1,14 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsStrongPassword } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsStrongPassword,
+  MaxLength,
+} from 'class-validator';
 
 export class ChangePasswordDto {
-  @ApiProperty()
+  @ApiProperty({ maxLength: 72 })
   @IsNotEmpty({ message: 'Current password is required' })
   @IsString()
+  @MaxLength(72, { message: 'Current password cannot exceed 72 characters' })
   currentPassword: string;
 
-  @ApiProperty()
+  @ApiProperty({ minLength: 6, maxLength: 72 })
   @IsNotEmpty({ message: 'New password is required' })
+  @IsString()
+  @MaxLength(72, { message: 'New password cannot exceed 72 characters' })
   @IsStrongPassword(
     {
       minLength: 6,

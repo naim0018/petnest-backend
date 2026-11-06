@@ -27,9 +27,13 @@ export type AggregatePetBreed = {
 export type PetBreedMinAggregateOutputType = {
   id: string | null
   name: string | null
+  slug: string | null
   image: string | null
   shortDescription: string | null
   originCountry: string | null
+  size: $Enums.PetSize | null
+  careLevel: $Enums.CareLevel | null
+  temperament: string | null
   speciesId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -38,9 +42,13 @@ export type PetBreedMinAggregateOutputType = {
 export type PetBreedMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  slug: string | null
   image: string | null
   shortDescription: string | null
   originCountry: string | null
+  size: $Enums.PetSize | null
+  careLevel: $Enums.CareLevel | null
+  temperament: string | null
   speciesId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,10 +57,14 @@ export type PetBreedMaxAggregateOutputType = {
 export type PetBreedCountAggregateOutputType = {
   id: number
   name: number
+  slug: number
   image: number
   shortDescription: number
-  tags: number
   originCountry: number
+  size: number
+  careLevel: number
+  temperament: number
+  tags: number
   speciesId: number
   createdAt: number
   updatedAt: number
@@ -63,9 +75,13 @@ export type PetBreedCountAggregateOutputType = {
 export type PetBreedMinAggregateInputType = {
   id?: true
   name?: true
+  slug?: true
   image?: true
   shortDescription?: true
   originCountry?: true
+  size?: true
+  careLevel?: true
+  temperament?: true
   speciesId?: true
   createdAt?: true
   updatedAt?: true
@@ -74,9 +90,13 @@ export type PetBreedMinAggregateInputType = {
 export type PetBreedMaxAggregateInputType = {
   id?: true
   name?: true
+  slug?: true
   image?: true
   shortDescription?: true
   originCountry?: true
+  size?: true
+  careLevel?: true
+  temperament?: true
   speciesId?: true
   createdAt?: true
   updatedAt?: true
@@ -85,10 +105,14 @@ export type PetBreedMaxAggregateInputType = {
 export type PetBreedCountAggregateInputType = {
   id?: true
   name?: true
+  slug?: true
   image?: true
   shortDescription?: true
-  tags?: true
   originCountry?: true
+  size?: true
+  careLevel?: true
+  temperament?: true
+  tags?: true
   speciesId?: true
   createdAt?: true
   updatedAt?: true
@@ -170,10 +194,14 @@ export type PetBreedGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type PetBreedGroupByOutputType = {
   id: string
   name: string
+  slug: string
   image: string | null
   shortDescription: string | null
-  tags: string[]
   originCountry: string | null
+  size: $Enums.PetSize | null
+  careLevel: $Enums.CareLevel | null
+  temperament: string | null
+  tags: string[]
   speciesId: string
   createdAt: Date
   updatedAt: Date
@@ -203,10 +231,14 @@ export type PetBreedWhereInput = {
   NOT?: Prisma.PetBreedWhereInput | Prisma.PetBreedWhereInput[]
   id?: Prisma.StringFilter<"PetBreed"> | string
   name?: Prisma.StringFilter<"PetBreed"> | string
+  slug?: Prisma.StringFilter<"PetBreed"> | string
   image?: Prisma.StringNullableFilter<"PetBreed"> | string | null
   shortDescription?: Prisma.StringNullableFilter<"PetBreed"> | string | null
-  tags?: Prisma.StringNullableListFilter<"PetBreed">
   originCountry?: Prisma.StringNullableFilter<"PetBreed"> | string | null
+  size?: Prisma.EnumPetSizeNullableFilter<"PetBreed"> | $Enums.PetSize | null
+  careLevel?: Prisma.EnumCareLevelNullableFilter<"PetBreed"> | $Enums.CareLevel | null
+  temperament?: Prisma.StringNullableFilter<"PetBreed"> | string | null
+  tags?: Prisma.StringNullableListFilter<"PetBreed">
   speciesId?: Prisma.StringFilter<"PetBreed"> | string
   createdAt?: Prisma.DateTimeFilter<"PetBreed"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PetBreed"> | Date | string
@@ -217,10 +249,14 @@ export type PetBreedWhereInput = {
 export type PetBreedOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder
-  tags?: Prisma.SortOrder
   originCountry?: Prisma.SortOrderInput | Prisma.SortOrder
+  size?: Prisma.SortOrderInput | Prisma.SortOrder
+  careLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  temperament?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -230,6 +266,7 @@ export type PetBreedOrderByWithRelationInput = {
 
 export type PetBreedWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  slug?: string
   name_speciesId?: Prisma.PetBreedNameSpeciesIdCompoundUniqueInput
   AND?: Prisma.PetBreedWhereInput | Prisma.PetBreedWhereInput[]
   OR?: Prisma.PetBreedWhereInput[]
@@ -237,22 +274,29 @@ export type PetBreedWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"PetBreed"> | string
   image?: Prisma.StringNullableFilter<"PetBreed"> | string | null
   shortDescription?: Prisma.StringNullableFilter<"PetBreed"> | string | null
-  tags?: Prisma.StringNullableListFilter<"PetBreed">
   originCountry?: Prisma.StringNullableFilter<"PetBreed"> | string | null
+  size?: Prisma.EnumPetSizeNullableFilter<"PetBreed"> | $Enums.PetSize | null
+  careLevel?: Prisma.EnumCareLevelNullableFilter<"PetBreed"> | $Enums.CareLevel | null
+  temperament?: Prisma.StringNullableFilter<"PetBreed"> | string | null
+  tags?: Prisma.StringNullableListFilter<"PetBreed">
   speciesId?: Prisma.StringFilter<"PetBreed"> | string
   createdAt?: Prisma.DateTimeFilter<"PetBreed"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PetBreed"> | Date | string
   species?: Prisma.XOR<Prisma.PetSpeciesScalarRelationFilter, Prisma.PetSpeciesWhereInput>
   users?: Prisma.UserListRelationFilter
-}, "id" | "name_speciesId">
+}, "id" | "slug" | "name_speciesId">
 
 export type PetBreedOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder
-  tags?: Prisma.SortOrder
   originCountry?: Prisma.SortOrderInput | Prisma.SortOrder
+  size?: Prisma.SortOrderInput | Prisma.SortOrder
+  careLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  temperament?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -267,10 +311,14 @@ export type PetBreedScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PetBreedScalarWhereWithAggregatesInput | Prisma.PetBreedScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PetBreed"> | string
   name?: Prisma.StringWithAggregatesFilter<"PetBreed"> | string
+  slug?: Prisma.StringWithAggregatesFilter<"PetBreed"> | string
   image?: Prisma.StringNullableWithAggregatesFilter<"PetBreed"> | string | null
   shortDescription?: Prisma.StringNullableWithAggregatesFilter<"PetBreed"> | string | null
-  tags?: Prisma.StringNullableListFilter<"PetBreed">
   originCountry?: Prisma.StringNullableWithAggregatesFilter<"PetBreed"> | string | null
+  size?: Prisma.EnumPetSizeNullableWithAggregatesFilter<"PetBreed"> | $Enums.PetSize | null
+  careLevel?: Prisma.EnumCareLevelNullableWithAggregatesFilter<"PetBreed"> | $Enums.CareLevel | null
+  temperament?: Prisma.StringNullableWithAggregatesFilter<"PetBreed"> | string | null
+  tags?: Prisma.StringNullableListFilter<"PetBreed">
   speciesId?: Prisma.StringWithAggregatesFilter<"PetBreed"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PetBreed"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PetBreed"> | Date | string
@@ -279,10 +327,14 @@ export type PetBreedScalarWhereWithAggregatesInput = {
 export type PetBreedCreateInput = {
   id?: string
   name: string
+  slug: string
   image?: string | null
   shortDescription?: string | null
-  tags?: Prisma.PetBreedCreatetagsInput | string[]
   originCountry?: string | null
+  size?: $Enums.PetSize | null
+  careLevel?: $Enums.CareLevel | null
+  temperament?: string | null
+  tags?: Prisma.PetBreedCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   species: Prisma.PetSpeciesCreateNestedOneWithoutBreedsInput
@@ -292,10 +344,14 @@ export type PetBreedCreateInput = {
 export type PetBreedUncheckedCreateInput = {
   id?: string
   name: string
+  slug: string
   image?: string | null
   shortDescription?: string | null
-  tags?: Prisma.PetBreedCreatetagsInput | string[]
   originCountry?: string | null
+  size?: $Enums.PetSize | null
+  careLevel?: $Enums.CareLevel | null
+  temperament?: string | null
+  tags?: Prisma.PetBreedCreatetagsInput | string[]
   speciesId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -305,10 +361,14 @@ export type PetBreedUncheckedCreateInput = {
 export type PetBreedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   originCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableEnumPetSizeFieldUpdateOperationsInput | $Enums.PetSize | null
+  careLevel?: Prisma.NullableEnumCareLevelFieldUpdateOperationsInput | $Enums.CareLevel | null
+  temperament?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   species?: Prisma.PetSpeciesUpdateOneRequiredWithoutBreedsNestedInput
@@ -318,10 +378,14 @@ export type PetBreedUpdateInput = {
 export type PetBreedUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   originCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableEnumPetSizeFieldUpdateOperationsInput | $Enums.PetSize | null
+  careLevel?: Prisma.NullableEnumCareLevelFieldUpdateOperationsInput | $Enums.CareLevel | null
+  temperament?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   speciesId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,10 +395,14 @@ export type PetBreedUncheckedUpdateInput = {
 export type PetBreedCreateManyInput = {
   id?: string
   name: string
+  slug: string
   image?: string | null
   shortDescription?: string | null
-  tags?: Prisma.PetBreedCreatetagsInput | string[]
   originCountry?: string | null
+  size?: $Enums.PetSize | null
+  careLevel?: $Enums.CareLevel | null
+  temperament?: string | null
+  tags?: Prisma.PetBreedCreatetagsInput | string[]
   speciesId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -343,10 +411,14 @@ export type PetBreedCreateManyInput = {
 export type PetBreedUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   originCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableEnumPetSizeFieldUpdateOperationsInput | $Enums.PetSize | null
+  careLevel?: Prisma.NullableEnumCareLevelFieldUpdateOperationsInput | $Enums.CareLevel | null
+  temperament?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -354,10 +426,14 @@ export type PetBreedUpdateManyMutationInput = {
 export type PetBreedUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   originCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableEnumPetSizeFieldUpdateOperationsInput | $Enums.PetSize | null
+  careLevel?: Prisma.NullableEnumCareLevelFieldUpdateOperationsInput | $Enums.CareLevel | null
+  temperament?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   speciesId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -389,10 +465,14 @@ export type PetBreedNameSpeciesIdCompoundUniqueInput = {
 export type PetBreedCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   image?: Prisma.SortOrder
   shortDescription?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   originCountry?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  careLevel?: Prisma.SortOrder
+  temperament?: Prisma.SortOrder
+  tags?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -401,9 +481,13 @@ export type PetBreedCountOrderByAggregateInput = {
 export type PetBreedMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   image?: Prisma.SortOrder
   shortDescription?: Prisma.SortOrder
   originCountry?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  careLevel?: Prisma.SortOrder
+  temperament?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -412,9 +496,13 @@ export type PetBreedMaxOrderByAggregateInput = {
 export type PetBreedMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   image?: Prisma.SortOrder
   shortDescription?: Prisma.SortOrder
   originCountry?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  careLevel?: Prisma.SortOrder
+  temperament?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -471,6 +559,14 @@ export type PetBreedCreatetagsInput = {
   set: string[]
 }
 
+export type NullableEnumPetSizeFieldUpdateOperationsInput = {
+  set?: $Enums.PetSize | null
+}
+
+export type NullableEnumCareLevelFieldUpdateOperationsInput = {
+  set?: $Enums.CareLevel | null
+}
+
 export type PetBreedUpdatetagsInput = {
   set?: string[]
   push?: string | string[]
@@ -495,10 +591,14 @@ export type PetBreedUpdateOneWithoutUsersNestedInput = {
 export type PetBreedCreateWithoutSpeciesInput = {
   id?: string
   name: string
+  slug: string
   image?: string | null
   shortDescription?: string | null
-  tags?: Prisma.PetBreedCreatetagsInput | string[]
   originCountry?: string | null
+  size?: $Enums.PetSize | null
+  careLevel?: $Enums.CareLevel | null
+  temperament?: string | null
+  tags?: Prisma.PetBreedCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutInterestedBreedInput
@@ -507,10 +607,14 @@ export type PetBreedCreateWithoutSpeciesInput = {
 export type PetBreedUncheckedCreateWithoutSpeciesInput = {
   id?: string
   name: string
+  slug: string
   image?: string | null
   shortDescription?: string | null
-  tags?: Prisma.PetBreedCreatetagsInput | string[]
   originCountry?: string | null
+  size?: $Enums.PetSize | null
+  careLevel?: $Enums.CareLevel | null
+  temperament?: string | null
+  tags?: Prisma.PetBreedCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutInterestedBreedInput
@@ -548,10 +652,14 @@ export type PetBreedScalarWhereInput = {
   NOT?: Prisma.PetBreedScalarWhereInput | Prisma.PetBreedScalarWhereInput[]
   id?: Prisma.StringFilter<"PetBreed"> | string
   name?: Prisma.StringFilter<"PetBreed"> | string
+  slug?: Prisma.StringFilter<"PetBreed"> | string
   image?: Prisma.StringNullableFilter<"PetBreed"> | string | null
   shortDescription?: Prisma.StringNullableFilter<"PetBreed"> | string | null
-  tags?: Prisma.StringNullableListFilter<"PetBreed">
   originCountry?: Prisma.StringNullableFilter<"PetBreed"> | string | null
+  size?: Prisma.EnumPetSizeNullableFilter<"PetBreed"> | $Enums.PetSize | null
+  careLevel?: Prisma.EnumCareLevelNullableFilter<"PetBreed"> | $Enums.CareLevel | null
+  temperament?: Prisma.StringNullableFilter<"PetBreed"> | string | null
+  tags?: Prisma.StringNullableListFilter<"PetBreed">
   speciesId?: Prisma.StringFilter<"PetBreed"> | string
   createdAt?: Prisma.DateTimeFilter<"PetBreed"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PetBreed"> | Date | string
@@ -560,10 +668,14 @@ export type PetBreedScalarWhereInput = {
 export type PetBreedCreateWithoutUsersInput = {
   id?: string
   name: string
+  slug: string
   image?: string | null
   shortDescription?: string | null
-  tags?: Prisma.PetBreedCreatetagsInput | string[]
   originCountry?: string | null
+  size?: $Enums.PetSize | null
+  careLevel?: $Enums.CareLevel | null
+  temperament?: string | null
+  tags?: Prisma.PetBreedCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   species: Prisma.PetSpeciesCreateNestedOneWithoutBreedsInput
@@ -572,10 +684,14 @@ export type PetBreedCreateWithoutUsersInput = {
 export type PetBreedUncheckedCreateWithoutUsersInput = {
   id?: string
   name: string
+  slug: string
   image?: string | null
   shortDescription?: string | null
-  tags?: Prisma.PetBreedCreatetagsInput | string[]
   originCountry?: string | null
+  size?: $Enums.PetSize | null
+  careLevel?: $Enums.CareLevel | null
+  temperament?: string | null
+  tags?: Prisma.PetBreedCreatetagsInput | string[]
   speciesId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -600,10 +716,14 @@ export type PetBreedUpdateToOneWithWhereWithoutUsersInput = {
 export type PetBreedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   originCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableEnumPetSizeFieldUpdateOperationsInput | $Enums.PetSize | null
+  careLevel?: Prisma.NullableEnumCareLevelFieldUpdateOperationsInput | $Enums.CareLevel | null
+  temperament?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   species?: Prisma.PetSpeciesUpdateOneRequiredWithoutBreedsNestedInput
@@ -612,10 +732,14 @@ export type PetBreedUpdateWithoutUsersInput = {
 export type PetBreedUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   originCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableEnumPetSizeFieldUpdateOperationsInput | $Enums.PetSize | null
+  careLevel?: Prisma.NullableEnumCareLevelFieldUpdateOperationsInput | $Enums.CareLevel | null
+  temperament?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   speciesId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -624,10 +748,14 @@ export type PetBreedUncheckedUpdateWithoutUsersInput = {
 export type PetBreedCreateManySpeciesInput = {
   id?: string
   name: string
+  slug: string
   image?: string | null
   shortDescription?: string | null
-  tags?: Prisma.PetBreedCreatetagsInput | string[]
   originCountry?: string | null
+  size?: $Enums.PetSize | null
+  careLevel?: $Enums.CareLevel | null
+  temperament?: string | null
+  tags?: Prisma.PetBreedCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -635,10 +763,14 @@ export type PetBreedCreateManySpeciesInput = {
 export type PetBreedUpdateWithoutSpeciesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   originCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableEnumPetSizeFieldUpdateOperationsInput | $Enums.PetSize | null
+  careLevel?: Prisma.NullableEnumCareLevelFieldUpdateOperationsInput | $Enums.CareLevel | null
+  temperament?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutInterestedBreedNestedInput
@@ -647,10 +779,14 @@ export type PetBreedUpdateWithoutSpeciesInput = {
 export type PetBreedUncheckedUpdateWithoutSpeciesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   originCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableEnumPetSizeFieldUpdateOperationsInput | $Enums.PetSize | null
+  careLevel?: Prisma.NullableEnumCareLevelFieldUpdateOperationsInput | $Enums.CareLevel | null
+  temperament?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutInterestedBreedNestedInput
@@ -659,10 +795,14 @@ export type PetBreedUncheckedUpdateWithoutSpeciesInput = {
 export type PetBreedUncheckedUpdateManyWithoutSpeciesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   originCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableEnumPetSizeFieldUpdateOperationsInput | $Enums.PetSize | null
+  careLevel?: Prisma.NullableEnumCareLevelFieldUpdateOperationsInput | $Enums.CareLevel | null
+  temperament?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.PetBreedUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -701,10 +841,14 @@ export type PetBreedCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.
 export type PetBreedSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  slug?: boolean
   image?: boolean
   shortDescription?: boolean
-  tags?: boolean
   originCountry?: boolean
+  size?: boolean
+  careLevel?: boolean
+  temperament?: boolean
+  tags?: boolean
   speciesId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -716,10 +860,14 @@ export type PetBreedSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type PetBreedSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  slug?: boolean
   image?: boolean
   shortDescription?: boolean
-  tags?: boolean
   originCountry?: boolean
+  size?: boolean
+  careLevel?: boolean
+  temperament?: boolean
+  tags?: boolean
   speciesId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -729,10 +877,14 @@ export type PetBreedSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type PetBreedSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  slug?: boolean
   image?: boolean
   shortDescription?: boolean
-  tags?: boolean
   originCountry?: boolean
+  size?: boolean
+  careLevel?: boolean
+  temperament?: boolean
+  tags?: boolean
   speciesId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -742,16 +894,20 @@ export type PetBreedSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type PetBreedSelectScalar = {
   id?: boolean
   name?: boolean
+  slug?: boolean
   image?: boolean
   shortDescription?: boolean
-  tags?: boolean
   originCountry?: boolean
+  size?: boolean
+  careLevel?: boolean
+  temperament?: boolean
+  tags?: boolean
   speciesId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PetBreedOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "image" | "shortDescription" | "tags" | "originCountry" | "speciesId" | "createdAt" | "updatedAt", ExtArgs["result"]["petBreed"]>
+export type PetBreedOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "image" | "shortDescription" | "originCountry" | "size" | "careLevel" | "temperament" | "tags" | "speciesId" | "createdAt" | "updatedAt", ExtArgs["result"]["petBreed"]>
 export type PetBreedInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   species?: boolean | Prisma.PetSpeciesDefaultArgs<ExtArgs>
   users?: boolean | Prisma.PetBreed$usersArgs<ExtArgs>
@@ -773,10 +929,14 @@ export type $PetBreedPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    slug: string
     image: string | null
     shortDescription: string | null
-    tags: string[]
     originCountry: string | null
+    size: $Enums.PetSize | null
+    careLevel: $Enums.CareLevel | null
+    temperament: string | null
+    tags: string[]
     speciesId: string
     createdAt: Date
     updatedAt: Date
@@ -1207,10 +1367,14 @@ export interface Prisma__PetBreedClient<T, Null = never, ExtArgs extends runtime
 export interface PetBreedFieldRefs {
   readonly id: Prisma.FieldRef<"PetBreed", 'String'>
   readonly name: Prisma.FieldRef<"PetBreed", 'String'>
+  readonly slug: Prisma.FieldRef<"PetBreed", 'String'>
   readonly image: Prisma.FieldRef<"PetBreed", 'String'>
   readonly shortDescription: Prisma.FieldRef<"PetBreed", 'String'>
-  readonly tags: Prisma.FieldRef<"PetBreed", 'String[]'>
   readonly originCountry: Prisma.FieldRef<"PetBreed", 'String'>
+  readonly size: Prisma.FieldRef<"PetBreed", 'PetSize'>
+  readonly careLevel: Prisma.FieldRef<"PetBreed", 'CareLevel'>
+  readonly temperament: Prisma.FieldRef<"PetBreed", 'String'>
+  readonly tags: Prisma.FieldRef<"PetBreed", 'String[]'>
   readonly speciesId: Prisma.FieldRef<"PetBreed", 'String'>
   readonly createdAt: Prisma.FieldRef<"PetBreed", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PetBreed", 'DateTime'>

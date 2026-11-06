@@ -1,17 +1,15 @@
-import { createParamDecorator, ExecutionContext } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { AuthenticatedUser } from '../guards/jwt-auth.guard';
 
-export const CurrentSession = createParamDecorator((data:unknown,ctx:ExecutionContext)=>{
-    const request = ctx.switchToHttp().getRequest();
-    const token = request.cookies?.accessToken ||request.cookies?.refreshToken||request.headers?.authorization?.split(' ')[1]
-    if(!token) return null;
-    try {
-        const jwtService = new JwtService();
-        const decoded = jwtService.decode(token)as {sessionId?:string, userId?:string, role?:string}
-        return decoded?.sessionId || null;
-    } catch (error) {
-        console.log('JWT Decode error', error)
-        return null;
-    }
-    }
-)
+/**
+ * Extracts the verified sessionId attached by JwtAuthGuard.
+ * Never decodes unverified tokens directly.
+ */
+export const CurrentSession = createParamDecorator(
+  (_data: unknown, ctx: ExecutionContext): string | null => {
+    const request = ctx
+      .switchToHttp()
+      .getRequest<{ user?: AuthenticatedUser }>();
+    return request.user?.sessionId ?? null;
+  },
+);
