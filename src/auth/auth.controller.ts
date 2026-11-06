@@ -9,6 +9,9 @@ import { extractVisitorInfo } from 'src/common/utils/Visitor-info.util';
 import { CookieUtil } from 'src/common/utils/cookie.util';
 import { CurrentSession } from 'src/common/decorators/current-session.decorator';
 
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
@@ -22,12 +25,8 @@ export class AuthController {
    
     const {tokens,user} = await this.authService.login(payload,ip,deviceInfo);
     CookieUtil.setAuthCookies(res,tokens.accessToken,tokens.refreshToken)
-    return{
-      message:'User logged in successfully',
-      user
-    }
+    return user
   }
-
 
   @Post('logout')
   @HttpCode(HttpStatus.OK)
@@ -67,6 +66,19 @@ export class AuthController {
     return {
       message:"Tokens refreshed successfully",
     }
+  }
+
+  @Post('forgot-password')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({summary: 'Forgot Password'})
+  async forgotPassword(@Body() payload:ForgotPasswordDto){
+    return this.authService.forgotPassword(payload);
+  }
+  @Post('reset-password')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({summary: 'Reset Password'})
+  async resetPassword(@Body() payload:ResetPasswordDto){
+    return this.authService.resetPassword(payload);
   }
 
 }

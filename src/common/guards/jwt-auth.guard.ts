@@ -26,7 +26,9 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     try {
-      const payload = await this.jwtService.verifyAsync(token,{secret:process.env.JWT_SECRET})
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: process.env.JWT_SECRET || 'petnest_default_jwt_secret_key',
+      });
        const session = await this.prisma.session.findFirst({
         where:{
           id:payload.sessionId,

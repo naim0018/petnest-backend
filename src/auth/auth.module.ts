@@ -7,7 +7,7 @@ import { AuthController } from './auth.controller';
   imports:[
     JwtModule.register({
       global:true,
-      secret:process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET || 'petnest_default_jwt_secret_key',
       signOptions:{expiresIn:'1h'}
     })
   ],

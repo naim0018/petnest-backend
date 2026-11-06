@@ -12,10 +12,13 @@ model User {
     role     Role    @default(USER)
 
     interestedSpeciesId String?
-    interestedBreedId   String?
-
     interestedSpecies PetSpecies? @relation(fields: [interestedSpeciesId], references: [id], onDelete: SetNull)
+    
+    interestedBreedId   String?
     interestedBreed   PetBreed?   @relation(fields: [interestedBreedId], references: [id], onDelete: SetNull)
+
+    resetPasswordToken String?
+    resetPasswordExpires DateTime?
 
     profile Profile?
     session Session[]
