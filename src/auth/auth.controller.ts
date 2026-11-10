@@ -41,7 +41,11 @@ export class AuthController {
       deviceInfo,
     );
     CookieUtil.setAuthCookies(res, tokens.accessToken, tokens.refreshToken);
-    return user;
+    return {
+      ...user,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+    };
   }
 
   @Post('logout')
@@ -89,7 +93,13 @@ export class AuthController {
     CookieUtil.setAuthCookies(res, tokens.accessToken, tokens.refreshToken);
     return {
       message: 'User registered successfully',
-      user,
+      user: {
+        ...user,
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
+      },
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
     };
   }
 
@@ -119,6 +129,8 @@ export class AuthController {
     CookieUtil.setAuthCookies(res, tokens.accessToken, tokens.refreshToken);
     return {
       message: 'Tokens refreshed successfully',
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
     };
   }
 
