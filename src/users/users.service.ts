@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { Role } from 'prisma/generated/prisma/enums';
 import { createPaginatedResponse } from 'src/common/dto/pagination.dto';
 import type { AuthenticatedUser } from 'src/common/guards/jwt-auth.guard';
+import { MediaService } from 'src/media/media.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -31,7 +32,10 @@ const userSafeSelect = {
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly mediaService: MediaService,
+  ) {}
 
   // 1. Get Logged-in User Profile
   async getMe(userId: string) {
@@ -116,6 +120,17 @@ export class UsersService {
         throw new BadRequestException(
           'Selected breed does not belong to the selected species',
         );
+      }
+    }
+
+    // If avatar is being changed or removed, delete previous R2 avatar
+    if (avatar !== undefined) {
+      const existingProfile = await this.prisma.profile.findUnique({
+        where: { userId },
+        select: { avatar: true },
+      });
+      if (existingProfile?.avatar && existingProfile.avatar !== avatar) {
+        await this.mediaService.deletePreviousAvatarByUrl(existingProfile.avatar);
       }
     }
 
@@ -322,7 +337,10 @@ export class UsersService {
 
     const user = await this.prisma.user.findUnique({
       where: { id },
-      include: { _count: { select: { authoredGuides: true } } },
+      include: {
+        _count: { select: { authoredGuides: true } },
+        profile: { select: { avatar: true } },
+      },
     });
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -332,6 +350,10 @@ export class UsersService {
       throw new BadRequestException(
         `Cannot delete user because they have authored ${user._count.authoredGuides} guide(s). Reassign or remove their guides first.`,
       );
+    }
+
+    if (user.profile?.avatar) {
+      await this.mediaService.deletePreviousAvatarByUrl(user.profile.avatar);
     }
 
     await this.prisma.user.delete({ where: { id } });

@@ -90,8 +90,18 @@ export class PetsService {
     const [speciesList, total] = await Promise.all([
       this.prisma.petSpecies.findMany({
         where,
-        include: {
+        select: {
+          id:true,
+          name:true,
+          slug:true,
+          categoryIcon:true,
+          image:true,
+        
           breeds: {
+            select:{
+              id:true,
+              name:true,
+            },
             orderBy: { name: 'asc' },
           },
           _count: {

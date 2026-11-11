@@ -1,0 +1,50 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+enum CareLevel {
+  HIGH
+  LOW
+  MODERATE
+}
+
+type PetBreed {
+  careLevel: CareLevel
+  id: ID!
+  image: String
+  name: String!
+  originCountry: String
+  size: PetSize
+  slug: String!
+  species: PetSpecies
+  speciesId: String!
+  temperament: String
+}
+
+enum PetSize {
+  GIANT
+  LARGE
+  MEDIUM
+  SMALL
+}
+
+type PetSpecies {
+  _count: SpeciesCount
+  breeds: [PetBreed]
+  categoryIcon: String
+  id: ID!
+  image: String
+  name: String!
+  scientificGroup: String
+  shortDescription: String
+  slug: String!
+}
+
+type Query {
+  breed(idOrSlug: String!): PetBreed
+  species(idOrSlug: String!): PetSpecies
+}
+
+type SpeciesCount {
+  breeds: Int!
+}

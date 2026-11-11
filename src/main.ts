@@ -7,10 +7,10 @@ import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { setupSwagger } from './config/swagger.config';
-
+import compression from 'compression'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.use(compression())
   app.use(
     helmet({
       contentSecurityPolicy: false,

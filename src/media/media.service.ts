@@ -113,8 +113,10 @@ export class MediaService {
         }),
       );
     } catch (error) {
-      console.error('R2 Upload Error:', error);
-      throw new InternalServerErrorException('Failed to upload image to storage');
+      console.error('R2 Upload Error:', error?.message || error);
+      throw new InternalServerErrorException(
+        `Failed to upload image to storage: ${error?.message || 'Check R2 credentials and network connection'}`,
+      );
     }
 
     return this.prisma.mediaAsset.create({
@@ -265,6 +267,34 @@ export class MediaService {
       message: `Cleaned up ${deletedCount} orphaned media file(s)`,
       deletedCount,
     };
+  }
+
+  // 5. User Profile: Immediately delete previous avatar from R2 when replaced or removed
+  async deletePreviousAvatarByUrl(oldAvatarUrl?: string | null) {
+    if (!oldAvatarUrl || !this.isConfigured) return;
+
+    // Only process if it points to our R2 public domain
+    if (!oldAvatarUrl.startsWith(this.publicUrl)) return;
+
+    const asset = await this.prisma.mediaAsset.findFirst({
+      where: {
+        url: oldAvatarUrl,
+        objectKey: { startsWith: 'avatars/' },
+      },
+    });
+
+    if (asset) {
+      await this.deleteFromR2(asset.objectKey);
+      await this.prisma.mediaAsset
+        .delete({ where: { id: asset.id } })
+        .catch(() => {});
+    } else {
+      // Fallback: extract objectKey directly if matching URL is on R2
+      const objectKey = oldAvatarUrl.replace(`${this.publicUrl}/`, '').trim();
+      if (objectKey.startsWith('avatars/')) {
+        await this.deleteFromR2(objectKey);
+      }
+    }
   }
 
   private async deleteFromR2(objectKey: string): Promise<boolean> {

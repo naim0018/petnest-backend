@@ -11,7 +11,9 @@ import { MediaModule } from './media/media.module';
 import { PetsModule } from './pets/pets.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
-
+import {GraphQLModule} from '@nestjs/graphql'
+import {ApolloDriver,ApolloDriverConfig} from '@nestjs/apollo'
+import { join } from 'path';
 function validateEnv(config: Record<string, unknown>) {
   const requiredKeys = ['DATABASE_URL', 'JWT_SECRET', 'JWT_REFRESH_SECRET'];
   for (const key of requiredKeys) {
@@ -25,6 +27,12 @@ function validateEnv(config: Record<string, unknown>) {
 
 @Module({
   imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver:ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema:true,
+      playground:true,
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       validate: validateEnv,

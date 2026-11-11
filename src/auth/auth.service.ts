@@ -131,8 +131,16 @@ export class AuthService {
 
   async login(payload: LoginDto, ip: string, deviceInfo: any) {
     const { email, password } = payload;
-    const user = await this.prisma.user.findUnique({
-      where: { email },
+    const identifier = email.trim().toLowerCase();
+
+    const user = await this.prisma.user.findFirst({
+      where: {
+        OR: [
+          { email: identifier },
+          { email: `${identifier}@gmail.com` },
+          { name: { equals: email.trim(), mode: 'insensitive' } },
+        ],
+      },
     });
 
     if (!user) {
