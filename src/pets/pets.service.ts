@@ -125,7 +125,15 @@ export class PetsService {
     const species = await this.prisma.petSpecies.findUnique({
       where: isId ? { id: idOrSlug } : { slug: idOrSlug },
       include: {
-        breeds: { orderBy: { name: 'asc' } },
+        breeds: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+            image: true,
+          },
+          orderBy: { name: 'asc' },
+        },
         _count: { select: { breeds: true } },
       },
     });
@@ -171,18 +179,31 @@ export class PetsService {
     });
   }
 
-  async removeSpecies(idOrSlug: string) {
+  async removeSpecies(idOrSlug: string, force = false) {
     const species = await this.findOneSpecies(idOrSlug);
 
-    // Safeguard: Protect against accidental cascade deletion of all child breeds
-    if (species._count.breeds > 0) {
+    // Safeguard: Protect against accidental cascade deletion of child breeds unless force=true
+    if (species._count.breeds > 0 && !force) {
       throw new BadRequestException(
-        `Cannot delete species "${species.name}" because it still has ${species._count.breeds} active breed(s). Please delete or reassign its breeds first.`,
+        `Cannot delete species "${species.name}" because it still has ${species._count.breeds} active breed(s). Please delete or reassign its breeds first, or pass force=true to delete with breeds.`,
       );
     }
 
-    await this.prisma.petSpecies.delete({ where: { id: species.id } });
-    return { message: `Species "${species.name}" deleted successfully` };
+    if (force && species._count.breeds > 0) {
+      await this.prisma.$transaction([
+        this.prisma.petBreed.deleteMany({ where: { speciesId: species.id } }),
+        this.prisma.petSpecies.delete({ where: { id: species.id } }),
+      ]);
+    } else {
+      await this.prisma.petSpecies.delete({ where: { id: species.id } });
+    }
+
+    return {
+      message:
+        force && species._count.breeds > 0
+          ? `Species "${species.name}" and all ${species._count.breeds} child breed(s) deleted successfully`
+          : `Species "${species.name}" deleted successfully`,
+    };
   }
 
   // ==================== BREEDS ====================
@@ -227,6 +248,25 @@ export class PetsService {
     });
   }
 
+  async findBreedsBySpecies(idOrSlug: string, query: BreedQueryDto) {
+    const isId = UUID_REGEX.test(idOrSlug);
+
+    const species = await this.prisma.petSpecies.findUnique({
+      where: isId ? { id: idOrSlug } : { slug: idOrSlug },
+      select: { id: true },
+    });
+
+    if (!species) {
+      throw new NotFoundException(`Species "${idOrSlug}" not found`);
+    }
+
+    const breedQuery = Object.assign(new BreedQueryDto(), query, {
+      speciesId: species.id,
+    });
+
+    return this.findAllBreeds(breedQuery);
+  }
+
   async findAllBreeds(query: BreedQueryDto) {
     const {
       speciesId,
@@ -237,6 +277,8 @@ export class PetsService {
       sortBy = 'name',
       sortOrder = 'asc',
     } = query;
+
+    const computedSkip = skip !== undefined ? skip : (page - 1) * limit;
 
     const where: any = {};
 
@@ -260,7 +302,7 @@ export class PetsService {
         include: {
           species: { select: { id: true, name: true, image: true, slug: true } },
         },
-        skip,
+        skip: computedSkip,
         take: limit,
         orderBy: { [sortBy]: sortOrder },
       }),

@@ -35,6 +35,17 @@ export class PetsController {
     return this.petsService.findAllSpecies(query);
   }
 
+  @Get('species/:id/breeds')
+  @ApiOperation({
+    summary: 'Get all breeds under a species (paginated, search, sort)',
+  })
+  findBreedsBySpecies(
+    @Param('id') id: string,
+    @Query() query: BreedQueryDto,
+  ) {
+    return this.petsService.findBreedsBySpecies(id, query);
+  }
+
   @Get('species/:id')
   @ApiOperation({ summary: 'Get a single species by ID or slug' })
   findOneSpecies(@Param('id') id: string) {
@@ -81,8 +92,11 @@ export class PetsController {
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Delete a pet species' })
-  removeSpecies(@Param('id', ParseUUIDPipe) id: string) {
-    return this.petsService.removeSpecies(id);
+  removeSpecies(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query('force') force?: string,
+  ) {
+    return this.petsService.removeSpecies(id, force === 'true' || force === '1');
   }
 
   @Post('breeds')
