@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -11,14 +12,19 @@ import {
   Post,
   Query,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
+  ApiConsumes,
   ApiOperation,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import type { Request } from 'express';
 import { CurrentUser } from 'src/common/decorators/current-user.decerator';
 import { Roles } from 'src/common/decorators/roles.decoretors';
@@ -27,13 +33,18 @@ import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from 'src/common/guards/optional-jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/role.guard';
 import { CreateGuideCategoryDto } from './dto/create-category.dto';
-import { CreateGuideFaqDto } from './dto/create-faq.dto';
+import {
+  BulkCreateGuideFaqDto,
+  CreateGuideFaqDto,
+} from './dto/create-faq.dto';
 import { CreateGuideDto } from './dto/create-guide.dto';
+import { GenerateGuideAiDto } from './dto/generate-guide-ai.dto';
 import { GuideQueryDto } from './dto/guide-query.dto';
 import { ReviewGuideDto } from './dto/review-guide.dto';
 import { UpdateGuideCategoryDto } from './dto/update-category.dto';
 import { UpdateGuideFaqDto } from './dto/update-faq.dto';
 import { UpdateGuideDto } from './dto/update-guide.dto';
+import { GuideAiService } from './guide-ai.service';
 import { GuideCategoriesService } from './guide-categories.service';
 import { GuideFaqsService } from './guide-faqs.service';
 import { GuidesService } from './guides.service';
@@ -45,14 +56,16 @@ export class GuidesController {
     private readonly categoriesService: GuideCategoriesService,
     private readonly faqsService: GuideFaqsService,
     private readonly guidesService: GuidesService,
+    private readonly guideAiService: GuideAiService,
   ) {}
 
   // ==================== CATEGORIES ====================
 
   @Get('categories')
   @ApiOperation({ summary: 'Public: Get active guide categories for topic filter bar' })
-  findAllCategoriesPublic() {
-    return this.categoriesService.findAllPublic();
+  @ApiQuery({ name: 'excludeBasic', required: false, type: Boolean })
+  findAllCategoriesPublic(@Query('excludeBasic') excludeBasic?: string) {
+    return this.categoriesService.findAllPublic(excludeBasic === 'true');
   }
 
   @Get('categories/:idOrSlug')
@@ -140,6 +153,18 @@ export class GuidesController {
     return this.faqsService.create(dto, user);
   }
 
+  @Post('faqs/bulk')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles('AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN')
+  @ApiOperation({ summary: 'Bulk-create multiple FAQs for a species or guide' })
+  createFaqsBulk(
+    @Body() dto: BulkCreateGuideFaqDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    return this.faqsService.createBulk(dto, user);
+  }
+
   @Patch('faqs/:id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
@@ -166,6 +191,15 @@ export class GuidesController {
   }
 
   // ==================== EDITORIAL GUIDES & REVIEW QUEUE ====================
+
+  @Get('stats')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles('VET', 'ADMIN', 'SUPERADMIN')
+  @ApiOperation({ summary: 'Editorial Hub: Get summary counts, chart trends & total readership' })
+  getGuideOverviewStats() {
+    return this.guidesService.getEditorialStats();
+  }
 
   @Get('editorial/stats')
   @ApiBearerAuth()
@@ -258,6 +292,26 @@ export class GuidesController {
     return this.guidesService.findAllPublic(query, viewerId);
   }
 
+  // ==================== GUIDES BY SPECIES OR BREED ====================
+
+  @Get('species/:speciesIdOrSlug')
+  @ApiOperation({ summary: 'Get all guides targeting a specific species' })
+  findGuidesBySpecies(
+    @Param('speciesIdOrSlug') speciesIdOrSlug: string,
+    @Query() query: GuideQueryDto,
+  ) {
+    return this.guidesService.findGuidesBySpecies(speciesIdOrSlug, query);
+  }
+
+  @Get('breed/:breedIdOrSlug')
+  @ApiOperation({ summary: 'Get all guides targeting a specific breed only' })
+  findGuidesByBreed(
+    @Param('breedIdOrSlug') breedIdOrSlug: string,
+    @Query() query: GuideQueryDto,
+  ) {
+    return this.guidesService.findGuidesByBreed(breedIdOrSlug, query);
+  }
+
   @Get(':slug')
   @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({
@@ -280,6 +334,60 @@ export class GuidesController {
   }
 
   // ==================== EDITORIAL MUTATIONS ====================
+
+  @Post('generate-ai')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles('AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN')
+  @ApiOperation({
+    summary:
+      'Generate structured guide, body HTML, image prompts, and FAQs using Gemini AI',
+  })
+  generateGuideAi(
+    @Body() dto: GenerateGuideAiDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    return this.guideAiService.generate(dto, user);
+  }
+
+  @Post('bulk-import-zip')
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles('AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: { fileSize: 50 * 1024 * 1024 }, // 50MB max archive upload
+      fileFilter: (_req, file, callback) => {
+        const isZip =
+          file.mimetype === 'application/zip' ||
+          file.mimetype === 'application/x-zip-compressed' ||
+          file.mimetype === 'application/octet-stream' ||
+          file.originalname.toLowerCase().endsWith('.zip');
+        if (!isZip) {
+          return callback(
+            new BadRequestException('Only .zip archive files are allowed'),
+            false,
+          );
+        }
+        callback(null, true);
+      },
+    }),
+  )
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({
+    summary:
+      'Bulk Import (.zip): Extract images, upload to media storage, map tokens, and batch-create guides with FAQs',
+  })
+  bulkImportFromZip(
+    @UploadedFile() file: Express.Multer.File,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    if (!file) {
+      throw new BadRequestException('A .zip archive file is required');
+    }
+    return this.guidesService.bulkImportFromZip(file.buffer, user);
+  }
 
   @Post()
   @ApiBearerAuth()

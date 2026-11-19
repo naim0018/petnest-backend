@@ -58,6 +58,11 @@ export type PetSpecies = Prisma.PetSpeciesModel
  */
 export type PetBreed = Prisma.PetBreedModel
 /**
+ * Model SystemSetting
+ * 
+ */
+export type SystemSetting = Prisma.SystemSettingModel
+/**
  * Model User
  * 
  */

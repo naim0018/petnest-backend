@@ -41,7 +41,9 @@ type PetSpecies {
 }
 
 type Query {
+  allSpecies: [PetSpecies!]!
   breed(idOrSlug: String!): PetBreed
+  breedsBySpecies(speciesIdOrSlug: String!): [PetBreed!]!
   species(idOrSlug: String!): PetSpecies
 }
 

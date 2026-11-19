@@ -5,14 +5,22 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
+  private readonly logger = new Logger(AllExceptionsFilter.name);
+
   catch(exception: unknown, host: ArgumentsHost) {
+    if (host.getType<string>() === 'graphql') {
+      throw exception;
+    }
+
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let message: string | string[] = 'Internal server error';
@@ -50,6 +58,21 @@ export class AllExceptionsFilter implements ExceptionFilter {
         message = 'Requested record was not found';
         errorName = 'Not Found';
       }
+    }
+
+    // Only log full error stack traces for 5xx Internal Server Errors.
+    // 4xx errors (404 Not Found, 401 Unauthorized, etc.) are normal client responses and should not dump scary stack traces.
+    const method = request?.method || 'UNKNOWN';
+    const url = request?.originalUrl || request?.url || '';
+    const formattedMsg = Array.isArray(message) ? message.join(', ') : message;
+
+    if (status >= 500) {
+      this.logger.error(
+        `[${status}] ${method} ${url}: ${formattedMsg}`,
+        exception instanceof Error ? exception.stack : undefined,
+      );
+    } else {
+      this.logger.warn(`[${status}] ${method} ${url}: ${formattedMsg}`);
     }
 
     response.status(status).json({

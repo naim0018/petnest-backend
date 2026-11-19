@@ -11,6 +11,10 @@ export interface Response<T>{
 @Injectable()
 export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
   intercept(context: ExecutionContext, next: CallHandler): Observable<Response<T>> {
+    if (context.getType<string>() === 'graphql') {
+      return next.handle();
+    }
+
     const ctx = context.switchToHttp();
     const response = ctx.getResponse();
     const statusCode = response.statusCode;

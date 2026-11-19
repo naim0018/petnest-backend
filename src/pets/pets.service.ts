@@ -91,19 +91,11 @@ export class PetsService {
       this.prisma.petSpecies.findMany({
         where,
         select: {
-          id:true,
-          name:true,
-          slug:true,
-          categoryIcon:true,
-          image:true,
-        
-          breeds: {
-            select:{
-              id:true,
-              name:true,
-            },
-            orderBy: { name: 'asc' },
-          },
+          id: true,
+          name: true,
+          slug: true,
+          categoryIcon: true,
+          image: true,
           _count: {
             // Protected: only exposes breed count to public, never registered users!
             select: { breeds: true },
@@ -117,6 +109,39 @@ export class PetsService {
     ]);
 
     return createPaginatedResponse(speciesList, total, page, limit, sortBy, sortOrder);
+  }
+
+  async findAllSpeciesDropdown() {
+    return this.prisma.petSpecies.findMany({
+      select: {
+        id: true,
+        name: true,
+        image: true,
+        slug: true,
+      },
+      orderBy: { name: 'asc' },
+    });
+  }
+
+  async findBreedsBySpeciesDropdown(speciesIdOrSlug: string) {
+    const isId = UUID_REGEX.test(speciesIdOrSlug);
+    const species = await this.prisma.petSpecies.findUnique({
+      where: isId ? { id: speciesIdOrSlug } : { slug: speciesIdOrSlug },
+      select: { id: true },
+    });
+    if (!species) return [];
+
+    return this.prisma.petBreed.findMany({
+      where: { speciesId: species.id },
+      select: {
+        id: true,
+        speciesId: true,
+        name: true,
+        image: true,
+        slug: true,
+      },
+      orderBy: { name: 'asc' },
+    });
   }
 
   async findOneSpecies(idOrSlug: string) {

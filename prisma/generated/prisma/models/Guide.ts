@@ -28,6 +28,7 @@ export type AggregateGuide = {
 
 export type GuideAvgAggregateOutputType = {
   readTimeMinutes: number | null
+  displayOrder: number | null
   viewCount: number | null
   likeCount: number | null
   bookmarkCount: number | null
@@ -35,6 +36,7 @@ export type GuideAvgAggregateOutputType = {
 
 export type GuideSumAggregateOutputType = {
   readTimeMinutes: number | null
+  displayOrder: number | null
   viewCount: number | null
   likeCount: number | null
   bookmarkCount: number | null
@@ -49,8 +51,10 @@ export type GuideMinAggregateOutputType = {
   type: $Enums.GuideType | null
   coverImage: string | null
   coverImageAlt: string | null
+  faqImage: string | null
   videoUrl: string | null
   readTimeMinutes: number | null
+  displayOrder: number | null
   speciesId: string | null
   categoryId: string | null
   status: $Enums.GuideStatus | null
@@ -80,8 +84,10 @@ export type GuideMaxAggregateOutputType = {
   type: $Enums.GuideType | null
   coverImage: string | null
   coverImageAlt: string | null
+  faqImage: string | null
   videoUrl: string | null
   readTimeMinutes: number | null
+  displayOrder: number | null
   speciesId: string | null
   categoryId: string | null
   status: $Enums.GuideStatus | null
@@ -113,8 +119,10 @@ export type GuideCountAggregateOutputType = {
   type: number
   coverImage: number
   coverImageAlt: number
+  faqImage: number
   videoUrl: number
   readTimeMinutes: number
+  displayOrder: number
   speciesId: number
   categoryId: number
   tags: number
@@ -140,6 +148,7 @@ export type GuideCountAggregateOutputType = {
 
 export type GuideAvgAggregateInputType = {
   readTimeMinutes?: true
+  displayOrder?: true
   viewCount?: true
   likeCount?: true
   bookmarkCount?: true
@@ -147,6 +156,7 @@ export type GuideAvgAggregateInputType = {
 
 export type GuideSumAggregateInputType = {
   readTimeMinutes?: true
+  displayOrder?: true
   viewCount?: true
   likeCount?: true
   bookmarkCount?: true
@@ -161,8 +171,10 @@ export type GuideMinAggregateInputType = {
   type?: true
   coverImage?: true
   coverImageAlt?: true
+  faqImage?: true
   videoUrl?: true
   readTimeMinutes?: true
+  displayOrder?: true
   speciesId?: true
   categoryId?: true
   status?: true
@@ -192,8 +204,10 @@ export type GuideMaxAggregateInputType = {
   type?: true
   coverImage?: true
   coverImageAlt?: true
+  faqImage?: true
   videoUrl?: true
   readTimeMinutes?: true
+  displayOrder?: true
   speciesId?: true
   categoryId?: true
   status?: true
@@ -225,8 +239,10 @@ export type GuideCountAggregateInputType = {
   type?: true
   coverImage?: true
   coverImageAlt?: true
+  faqImage?: true
   videoUrl?: true
   readTimeMinutes?: true
+  displayOrder?: true
   speciesId?: true
   categoryId?: true
   tags?: true
@@ -346,8 +362,10 @@ export type GuideGroupByOutputType = {
   type: $Enums.GuideType
   coverImage: string | null
   coverImageAlt: string | null
+  faqImage: string | null
   videoUrl: string | null
   readTimeMinutes: number
+  displayOrder: number
   speciesId: string | null
   categoryId: string
   tags: string[]
@@ -403,8 +421,10 @@ export type GuideWhereInput = {
   type?: Prisma.EnumGuideTypeFilter<"Guide"> | $Enums.GuideType
   coverImage?: Prisma.StringNullableFilter<"Guide"> | string | null
   coverImageAlt?: Prisma.StringNullableFilter<"Guide"> | string | null
+  faqImage?: Prisma.StringNullableFilter<"Guide"> | string | null
   videoUrl?: Prisma.StringNullableFilter<"Guide"> | string | null
   readTimeMinutes?: Prisma.IntFilter<"Guide"> | number
+  displayOrder?: Prisma.IntFilter<"Guide"> | number
   speciesId?: Prisma.StringNullableFilter<"Guide"> | string | null
   categoryId?: Prisma.StringFilter<"Guide"> | string
   tags?: Prisma.StringNullableListFilter<"Guide">
@@ -446,8 +466,10 @@ export type GuideOrderByWithRelationInput = {
   type?: Prisma.SortOrder
   coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImageAlt?: Prisma.SortOrderInput | Prisma.SortOrder
+  faqImage?: Prisma.SortOrderInput | Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   readTimeMinutes?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   speciesId?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   tags?: Prisma.SortOrder
@@ -492,8 +514,10 @@ export type GuideWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.EnumGuideTypeFilter<"Guide"> | $Enums.GuideType
   coverImage?: Prisma.StringNullableFilter<"Guide"> | string | null
   coverImageAlt?: Prisma.StringNullableFilter<"Guide"> | string | null
+  faqImage?: Prisma.StringNullableFilter<"Guide"> | string | null
   videoUrl?: Prisma.StringNullableFilter<"Guide"> | string | null
   readTimeMinutes?: Prisma.IntFilter<"Guide"> | number
+  displayOrder?: Prisma.IntFilter<"Guide"> | number
   speciesId?: Prisma.StringNullableFilter<"Guide"> | string | null
   categoryId?: Prisma.StringFilter<"Guide"> | string
   tags?: Prisma.StringNullableListFilter<"Guide">
@@ -535,8 +559,10 @@ export type GuideOrderByWithAggregationInput = {
   type?: Prisma.SortOrder
   coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImageAlt?: Prisma.SortOrderInput | Prisma.SortOrder
+  faqImage?: Prisma.SortOrderInput | Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   readTimeMinutes?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   speciesId?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   tags?: Prisma.SortOrder
@@ -577,8 +603,10 @@ export type GuideScalarWhereWithAggregatesInput = {
   type?: Prisma.EnumGuideTypeWithAggregatesFilter<"Guide"> | $Enums.GuideType
   coverImage?: Prisma.StringNullableWithAggregatesFilter<"Guide"> | string | null
   coverImageAlt?: Prisma.StringNullableWithAggregatesFilter<"Guide"> | string | null
+  faqImage?: Prisma.StringNullableWithAggregatesFilter<"Guide"> | string | null
   videoUrl?: Prisma.StringNullableWithAggregatesFilter<"Guide"> | string | null
   readTimeMinutes?: Prisma.IntWithAggregatesFilter<"Guide"> | number
+  displayOrder?: Prisma.IntWithAggregatesFilter<"Guide"> | number
   speciesId?: Prisma.StringNullableWithAggregatesFilter<"Guide"> | string | null
   categoryId?: Prisma.StringWithAggregatesFilter<"Guide"> | string
   tags?: Prisma.StringNullableListFilter<"Guide">
@@ -611,8 +639,10 @@ export type GuideCreateInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -650,8 +680,10 @@ export type GuideUncheckedCreateInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -689,8 +721,10 @@ export type GuideUpdateInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -728,8 +762,10 @@ export type GuideUncheckedUpdateInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -767,8 +803,10 @@ export type GuideCreateManyInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -801,8 +839,10 @@ export type GuideUpdateManyMutationInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -831,8 +871,10 @@ export type GuideUncheckedUpdateManyInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -883,8 +925,10 @@ export type GuideCountOrderByAggregateInput = {
   type?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   coverImageAlt?: Prisma.SortOrder
+  faqImage?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   readTimeMinutes?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   tags?: Prisma.SortOrder
@@ -908,6 +952,7 @@ export type GuideCountOrderByAggregateInput = {
 
 export type GuideAvgOrderByAggregateInput = {
   readTimeMinutes?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
   bookmarkCount?: Prisma.SortOrder
@@ -922,8 +967,10 @@ export type GuideMaxOrderByAggregateInput = {
   type?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   coverImageAlt?: Prisma.SortOrder
+  faqImage?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   readTimeMinutes?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -953,8 +1000,10 @@ export type GuideMinOrderByAggregateInput = {
   type?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   coverImageAlt?: Prisma.SortOrder
+  faqImage?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   readTimeMinutes?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -977,6 +1026,7 @@ export type GuideMinOrderByAggregateInput = {
 
 export type GuideSumOrderByAggregateInput = {
   readTimeMinutes?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
   bookmarkCount?: Prisma.SortOrder
@@ -1308,8 +1358,10 @@ export type GuideCreateWithoutCategoryInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -1346,8 +1398,10 @@ export type GuideUncheckedCreateWithoutCategoryInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
@@ -1413,8 +1467,10 @@ export type GuideScalarWhereInput = {
   type?: Prisma.EnumGuideTypeFilter<"Guide"> | $Enums.GuideType
   coverImage?: Prisma.StringNullableFilter<"Guide"> | string | null
   coverImageAlt?: Prisma.StringNullableFilter<"Guide"> | string | null
+  faqImage?: Prisma.StringNullableFilter<"Guide"> | string | null
   videoUrl?: Prisma.StringNullableFilter<"Guide"> | string | null
   readTimeMinutes?: Prisma.IntFilter<"Guide"> | number
+  displayOrder?: Prisma.IntFilter<"Guide"> | number
   speciesId?: Prisma.StringNullableFilter<"Guide"> | string | null
   categoryId?: Prisma.StringFilter<"Guide"> | string
   tags?: Prisma.StringNullableListFilter<"Guide">
@@ -1447,8 +1503,10 @@ export type GuideCreateWithoutMediaInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -1485,8 +1543,10 @@ export type GuideUncheckedCreateWithoutMediaInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -1539,8 +1599,10 @@ export type GuideUpdateWithoutMediaInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1577,8 +1639,10 @@ export type GuideUncheckedUpdateWithoutMediaInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -1615,8 +1679,10 @@ export type GuideCreateWithoutFaqsInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -1653,8 +1719,10 @@ export type GuideUncheckedCreateWithoutFaqsInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -1707,8 +1775,10 @@ export type GuideUpdateWithoutFaqsInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1745,8 +1815,10 @@ export type GuideUncheckedUpdateWithoutFaqsInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -1783,8 +1855,10 @@ export type GuideCreateWithoutBookmarksInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -1821,8 +1895,10 @@ export type GuideUncheckedCreateWithoutBookmarksInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -1875,8 +1951,10 @@ export type GuideUpdateWithoutBookmarksInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1913,8 +1991,10 @@ export type GuideUncheckedUpdateWithoutBookmarksInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -1951,8 +2031,10 @@ export type GuideCreateWithoutLikesInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -1989,8 +2071,10 @@ export type GuideUncheckedCreateWithoutLikesInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -2043,8 +2127,10 @@ export type GuideUpdateWithoutLikesInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2081,8 +2167,10 @@ export type GuideUncheckedUpdateWithoutLikesInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -2119,8 +2207,10 @@ export type GuideCreateWithoutSpeciesInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -2157,8 +2247,10 @@ export type GuideUncheckedCreateWithoutSpeciesInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
@@ -2221,8 +2313,10 @@ export type GuideCreateWithoutBreedsInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -2259,8 +2353,10 @@ export type GuideUncheckedCreateWithoutBreedsInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -2318,8 +2414,10 @@ export type GuideCreateWithoutAuthorInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -2356,8 +2454,10 @@ export type GuideUncheckedCreateWithoutAuthorInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -2404,8 +2504,10 @@ export type GuideCreateWithoutReviewerInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
   isFeatured?: boolean
@@ -2442,8 +2544,10 @@ export type GuideUncheckedCreateWithoutReviewerInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -2522,8 +2626,10 @@ export type GuideCreateManyCategoryInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
@@ -2555,8 +2661,10 @@ export type GuideUpdateWithoutCategoryInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2593,8 +2701,10 @@ export type GuideUncheckedUpdateWithoutCategoryInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
@@ -2631,8 +2741,10 @@ export type GuideUncheckedUpdateManyWithoutCategoryInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
@@ -2664,8 +2776,10 @@ export type GuideCreateManySpeciesInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
   status?: $Enums.GuideStatus
@@ -2697,8 +2811,10 @@ export type GuideUpdateWithoutSpeciesInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2735,8 +2851,10 @@ export type GuideUncheckedUpdateWithoutSpeciesInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
@@ -2773,8 +2891,10 @@ export type GuideUncheckedUpdateManyWithoutSpeciesInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
@@ -2806,8 +2926,10 @@ export type GuideUpdateWithoutBreedsInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2844,8 +2966,10 @@ export type GuideUncheckedUpdateWithoutBreedsInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -2882,8 +3006,10 @@ export type GuideUncheckedUpdateManyWithoutBreedsInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -2916,8 +3042,10 @@ export type GuideCreateManyAuthorInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -2949,8 +3077,10 @@ export type GuideCreateManyReviewerInput = {
   type?: $Enums.GuideType
   coverImage?: string | null
   coverImageAlt?: string | null
+  faqImage?: string | null
   videoUrl?: string | null
   readTimeMinutes?: number
+  displayOrder?: number
   speciesId?: string | null
   categoryId: string
   tags?: Prisma.GuideCreatetagsInput | string[]
@@ -2982,8 +3112,10 @@ export type GuideUpdateWithoutAuthorInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3020,8 +3152,10 @@ export type GuideUncheckedUpdateWithoutAuthorInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -3058,8 +3192,10 @@ export type GuideUncheckedUpdateManyWithoutAuthorInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -3091,8 +3227,10 @@ export type GuideUpdateWithoutReviewerInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.GuideUpdatetagsInput | string[]
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3129,8 +3267,10 @@ export type GuideUncheckedUpdateWithoutReviewerInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -3167,8 +3307,10 @@ export type GuideUncheckedUpdateManyWithoutReviewerInput = {
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.GuideUpdatetagsInput | string[]
@@ -3267,8 +3409,10 @@ export type GuideSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   type?: boolean
   coverImage?: boolean
   coverImageAlt?: boolean
+  faqImage?: boolean
   videoUrl?: boolean
   readTimeMinutes?: boolean
+  displayOrder?: boolean
   speciesId?: boolean
   categoryId?: boolean
   tags?: boolean
@@ -3311,8 +3455,10 @@ export type GuideSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   type?: boolean
   coverImage?: boolean
   coverImageAlt?: boolean
+  faqImage?: boolean
   videoUrl?: boolean
   readTimeMinutes?: boolean
+  displayOrder?: boolean
   speciesId?: boolean
   categoryId?: boolean
   tags?: boolean
@@ -3349,8 +3495,10 @@ export type GuideSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   type?: boolean
   coverImage?: boolean
   coverImageAlt?: boolean
+  faqImage?: boolean
   videoUrl?: boolean
   readTimeMinutes?: boolean
+  displayOrder?: boolean
   speciesId?: boolean
   categoryId?: boolean
   tags?: boolean
@@ -3387,8 +3535,10 @@ export type GuideSelectScalar = {
   type?: boolean
   coverImage?: boolean
   coverImageAlt?: boolean
+  faqImage?: boolean
   videoUrl?: boolean
   readTimeMinutes?: boolean
+  displayOrder?: boolean
   speciesId?: boolean
   categoryId?: boolean
   tags?: boolean
@@ -3410,7 +3560,7 @@ export type GuideSelectScalar = {
   updatedAt?: boolean
 }
 
-export type GuideOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "previousSlugs" | "excerpt" | "keyTakeaways" | "content" | "type" | "coverImage" | "coverImageAlt" | "videoUrl" | "readTimeMinutes" | "speciesId" | "categoryId" | "tags" | "status" | "isFeatured" | "reviewNotes" | "authorId" | "reviewerId" | "lastReviewedAt" | "metaTitle" | "metaDescription" | "viewCount" | "likeCount" | "bookmarkCount" | "publishedAt" | "contentUpdatedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["guide"]>
+export type GuideOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "previousSlugs" | "excerpt" | "keyTakeaways" | "content" | "type" | "coverImage" | "coverImageAlt" | "faqImage" | "videoUrl" | "readTimeMinutes" | "displayOrder" | "speciesId" | "categoryId" | "tags" | "status" | "isFeatured" | "reviewNotes" | "authorId" | "reviewerId" | "lastReviewedAt" | "metaTitle" | "metaDescription" | "viewCount" | "likeCount" | "bookmarkCount" | "publishedAt" | "contentUpdatedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["guide"]>
 export type GuideInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   species?: boolean | Prisma.Guide$speciesArgs<ExtArgs>
   breeds?: boolean | Prisma.Guide$breedsArgs<ExtArgs>
@@ -3460,8 +3610,10 @@ export type $GuidePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     type: $Enums.GuideType
     coverImage: string | null
     coverImageAlt: string | null
+    faqImage: string | null
     videoUrl: string | null
     readTimeMinutes: number
+    displayOrder: number
     speciesId: string | null
     categoryId: string
     tags: string[]
@@ -3923,8 +4075,10 @@ export interface GuideFieldRefs {
   readonly type: Prisma.FieldRef<"Guide", 'GuideType'>
   readonly coverImage: Prisma.FieldRef<"Guide", 'String'>
   readonly coverImageAlt: Prisma.FieldRef<"Guide", 'String'>
+  readonly faqImage: Prisma.FieldRef<"Guide", 'String'>
   readonly videoUrl: Prisma.FieldRef<"Guide", 'String'>
   readonly readTimeMinutes: Prisma.FieldRef<"Guide", 'Int'>
+  readonly displayOrder: Prisma.FieldRef<"Guide", 'Int'>
   readonly speciesId: Prisma.FieldRef<"Guide", 'String'>
   readonly categoryId: Prisma.FieldRef<"Guide", 'String'>
   readonly tags: Prisma.FieldRef<"Guide", 'String[]'>

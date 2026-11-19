@@ -1,0 +1,13 @@
+model SystemSetting {
+    key         String   @id
+    value       String   @db.Text // Encrypted ciphertext if isSecret = true
+    isSecret    Boolean  @default(false)
+    iv          String?  // Initialization vector for AES-256-GCM
+    authTag     String?  // Authentication tag for AES-256-GCM verification
+    description String?
+    updatedById String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@index([key])
+}

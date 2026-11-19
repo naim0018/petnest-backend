@@ -39,13 +39,17 @@ model Guide {
     content       String    @db.Text
     type          GuideType @default(ARTICLE)
 
-    // Hero Media & Optional Featured Video (YouTube / Facebook URL)
+    // Hero Media, Optional Featured Video & FAQ Section Visual
     coverImage    String?
     coverImageAlt String?
+    faqImage      String?
     videoUrl      String?
 
     // Auto-calculated on save from stripped HTML word count
     readTimeMinutes Int @default(5)
+
+    // Display order on homepage / public lists (lower numbers appear first, default 0)
+    displayOrder Int @default(0)
 
     // Pet Targeting: 1 Optional Species -> Many Optional Breeds
     speciesId String?
@@ -93,6 +97,7 @@ model Guide {
     updatedAt        DateTime  @updatedAt
 
     @@index([status, deletedAt, publishedAt(sort: Desc)])
+    @@index([displayOrder])
     @@index([speciesId, status])
     @@index([categoryId, status])
     @@index([authorId])

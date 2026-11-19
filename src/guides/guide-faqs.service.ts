@@ -8,7 +8,10 @@ import { GuideStatus } from 'prisma/generated/prisma/enums';
 import type { AuthenticatedUser } from 'src/common/guards/jwt-auth.guard';
 import { UUID_REGEX } from 'src/common/utils/validation.util';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateGuideFaqDto } from './dto/create-faq.dto';
+import {
+  BulkCreateGuideFaqDto,
+  CreateGuideFaqDto,
+} from './dto/create-faq.dto';
 import { UpdateGuideFaqDto } from './dto/update-faq.dto';
 
 const REVIEWER_ROLES = new Set(['VET', 'ADMIN', 'SUPERADMIN']);
@@ -89,8 +92,12 @@ export class GuideFaqsService {
     });
   }
 
-  async create(dto: CreateGuideFaqDto, requester: AuthenticatedUser) {
-    if (!dto.speciesId && !dto.guideId) {
+  private async validateTargetAccess(
+    speciesId: string | null | undefined,
+    guideId: string | null | undefined,
+    requester: AuthenticatedUser,
+  ) {
+    if (!speciesId && !guideId) {
       throw new BadRequestException(
         'An FAQ must be linked to at least a speciesId or a guideId',
       );
@@ -98,23 +105,23 @@ export class GuideFaqsService {
 
     const isReviewerOrAdmin = REVIEWER_ROLES.has(requester.role);
 
-    if (dto.speciesId) {
+    if (speciesId) {
       if (!isReviewerOrAdmin) {
         throw new ForbiddenException(
           'Only Vets and Admins can create species-wide FAQs',
         );
       }
       const species = await this.prisma.petSpecies.findUnique({
-        where: { id: dto.speciesId },
+        where: { id: speciesId },
       });
       if (!species) {
         throw new BadRequestException('Selected speciesId does not exist');
       }
     }
 
-    if (dto.guideId) {
+    if (guideId) {
       const guide = await this.prisma.guide.findFirst({
-        where: { id: dto.guideId, deletedAt: null },
+        where: { id: guideId, deletedAt: null },
         select: { id: true, authorId: true, status: true },
       });
       if (!guide) {
@@ -133,6 +140,10 @@ export class GuideFaqsService {
         }
       }
     }
+  }
+
+  async create(dto: CreateGuideFaqDto, requester: AuthenticatedUser) {
+    await this.validateTargetAccess(dto.speciesId, dto.guideId, requester);
 
     return this.prisma.guideFaq.create({
       data: {
@@ -143,6 +154,21 @@ export class GuideFaqsService {
         speciesId: dto.speciesId || null,
         guideId: dto.guideId || null,
       },
+    });
+  }
+
+  async createBulk(dto: BulkCreateGuideFaqDto, requester: AuthenticatedUser) {
+    await this.validateTargetAccess(dto.speciesId, dto.guideId, requester);
+
+    return this.prisma.guideFaq.createManyAndReturn({
+      data: dto.faqs.map((item, idx) => ({
+        question: item.question,
+        answer: item.answer,
+        displayOrder: item.displayOrder ?? idx,
+        isActive: item.isActive ?? true,
+        speciesId: dto.speciesId || null,
+        guideId: dto.guideId || null,
+      })),
     });
   }
 

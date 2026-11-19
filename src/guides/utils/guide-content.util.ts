@@ -68,7 +68,9 @@ export function sanitizeGuideHtml(rawHtml: string): string {
     ],
     allowedAttributes: {
       a: ['href', 'name', 'target', 'rel'],
-      img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'data-media-id'],
+      img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'data-media-id', 'class'],
+      figure: ['class'],
+      figcaption: ['class'],
       iframe: [
         'src',
         'width',
@@ -81,6 +83,10 @@ export function sanitizeGuideHtml(rawHtml: string): string {
       div: ['class', 'data-video-embed', 'data-callout-type'],
       span: ['class'],
       p: ['class'],
+      h1: ['class'],
+      h2: ['class'],
+      h3: ['class'],
+      h4: ['class'],
       th: ['colspan', 'rowspan'],
       td: ['colspan', 'rowspan'],
     },

@@ -1,16 +1,18 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   ArrayMaxSize,
   IsArray,
   IsBoolean,
   IsEnum,
+  IsInt,
   IsNotEmpty,
   IsOptional,
   IsString,
   IsUUID,
   Matches,
   MaxLength,
+  Min,
   MinLength,
 } from 'class-validator';
 import { GuideStatus, GuideType } from 'prisma/generated/prisma/enums';
@@ -104,6 +106,25 @@ export class CreateGuideDto {
   coverImageAlt?: string;
 
   @ApiPropertyOptional({
+    example: 'https://cdn.petnest.org/guides/2026/11/faq-budgie.webp',
+    description: 'Single side visual image shown on the left of the guide Common Questions (FAQ) section',
+  })
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      const trimmed = value.trim();
+      return trimmed === '' ? null : trimmed;
+    }
+    return value;
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(500, { message: 'faqImage URL cannot exceed 500 characters' })
+  @Matches(SAFE_URL_REGEX, {
+    message: 'faqImage must be a valid HTTP/HTTPS URL or safe relative path',
+  })
+  faqImage?: string | null;
+
+  @ApiPropertyOptional({
     example: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   })
   @IsOptional()
@@ -131,10 +152,13 @@ export class CreateGuideDto {
   @IsUUID(undefined, { each: true, message: 'Each breedId must be a valid UUID' })
   breedIds?: string[];
 
-  @ApiProperty({ description: 'GuideCategory UUID' })
-  @IsNotEmpty({ message: 'categoryId is required' })
+  @ApiPropertyOptional({
+    description: 'GuideCategory UUID (defaults to the "Basic" category if omitted)',
+  })
+  @Transform(({ value }) => (value === '' ? undefined : value))
+  @IsOptional()
   @IsUUID(undefined, { message: 'Invalid categoryId UUID' })
-  categoryId: string;
+  categoryId?: string;
 
   @ApiPropertyOptional({ example: ['diet', 'seeds', 'pellets'] })
   @IsOptional()
@@ -143,6 +167,24 @@ export class CreateGuideDto {
   @IsString({ each: true })
   @MaxLength(40, { each: true, message: 'Each tag cannot exceed 40 characters' })
   tags?: string[];
+
+  @ApiPropertyOptional({
+    example: 1,
+    default: 0,
+    description:
+      'Display order / sort weight on homepage and lists (lower numbers appear first)',
+  })
+  @Transform(({ value, obj }) => {
+    const raw = value !== undefined ? value : obj?.order;
+    if (raw === undefined || raw === null || raw === '') return undefined;
+    const num = Number(raw);
+    return Number.isNaN(num) ? undefined : num;
+  })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt({ message: 'displayOrder must be an integer' })
+  @Min(0, { message: 'displayOrder cannot be negative' })
+  displayOrder?: number;
 
   @ApiPropertyOptional({ enum: GuideStatus, default: GuideStatus.DRAFT })
   @IsOptional()

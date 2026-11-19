@@ -133,13 +133,29 @@ export class MediaService {
     });
   }
 
-  // 2. Sync inline paragraph <img src="..."> + coverImage when a Guide is created/updated
+  // 1b. Buffer upload helper for bulk zip imports & system utilities
+  async uploadImageBuffer(
+    buffer: Buffer,
+    uploadedById: string,
+    folder: MediaFolder = 'guides',
+    altText?: string,
+  ) {
+    return this.uploadImage(
+      { buffer } as Express.Multer.File,
+      uploadedById,
+      folder,
+      altText,
+    );
+  }
+
+  // 2. Sync inline paragraph images (<img src> & Markdown ![](url)) + coverImage + faqImage when a Guide is created/updated
   //    Prevents cross-guide media hijacking by never claiming assets already linked to another guide.
   async syncGuideMedia(
     guideId: string,
     coverImage?: string | null,
     htmlContent?: string,
     requester?: { userId: string; role: string },
+    extraUrls?: (string | null | undefined)[],
   ) {
     const usedUrls = new Set<string>();
 
@@ -147,10 +163,25 @@ export class MediaService {
       usedUrls.add(coverImage.trim());
     }
 
+    if (extraUrls) {
+      for (const u of extraUrls) {
+        if (u && u.trim()) {
+          usedUrls.add(u.trim());
+        }
+      }
+    }
+
     if (htmlContent) {
       const imgRegex = /<img[^>]+src=["']([^"']+)["']/gi;
       let match: RegExpExecArray | null;
       while ((match = imgRegex.exec(htmlContent)) !== null) {
+        if (match[1]) {
+          usedUrls.add(match[1].trim());
+        }
+      }
+
+      const mdImgRegex = /!\[[^\]]*\]\(([^)\s]+)\)/g;
+      while ((match = mdImgRegex.exec(htmlContent)) !== null) {
         if (match[1]) {
           usedUrls.add(match[1].trim());
         }

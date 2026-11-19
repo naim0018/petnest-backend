@@ -14,6 +14,7 @@ import {
 import { GuideStatus, GuideType } from 'prisma/generated/prisma/enums';
 
 export const GUIDE_SORT_COLUMNS = [
+  'displayOrder',
   'publishedAt',
   'createdAt',
   'updatedAt',

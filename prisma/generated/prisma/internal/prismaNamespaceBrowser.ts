@@ -59,6 +59,7 @@ export const ModelName = {
   GuideLike: 'GuideLike',
   PetSpecies: 'PetSpecies',
   PetBreed: 'PetBreed',
+  SystemSetting: 'SystemSetting',
   User: 'User',
   Profile: 'Profile',
   Session: 'Session',
@@ -108,8 +109,10 @@ export const GuideScalarFieldEnum = {
   type: 'type',
   coverImage: 'coverImage',
   coverImageAlt: 'coverImageAlt',
+  faqImage: 'faqImage',
   videoUrl: 'videoUrl',
   readTimeMinutes: 'readTimeMinutes',
+  displayOrder: 'displayOrder',
   speciesId: 'speciesId',
   categoryId: 'categoryId',
   tags: 'tags',
@@ -218,6 +221,21 @@ export const PetBreedScalarFieldEnum = {
 } as const
 
 export type PetBreedScalarFieldEnum = (typeof PetBreedScalarFieldEnum)[keyof typeof PetBreedScalarFieldEnum]
+
+
+export const SystemSettingScalarFieldEnum = {
+  key: 'key',
+  value: 'value',
+  isSecret: 'isSecret',
+  iv: 'iv',
+  authTag: 'authTag',
+  description: 'description',
+  updatedById: 'updatedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SystemSettingScalarFieldEnum = (typeof SystemSettingScalarFieldEnum)[keyof typeof SystemSettingScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

@@ -405,6 +405,7 @@ export const ModelName = {
   GuideLike: 'GuideLike',
   PetSpecies: 'PetSpecies',
   PetBreed: 'PetBreed',
+  SystemSetting: 'SystemSetting',
   User: 'User',
   Profile: 'Profile',
   Session: 'Session',
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "guideCategory" | "guide" | "mediaAsset" | "guideFaq" | "guideBookmark" | "guideLike" | "petSpecies" | "petBreed" | "user" | "profile" | "session" | "visitor" | "pageView"
+    modelProps: "guideCategory" | "guide" | "mediaAsset" | "guideFaq" | "guideBookmark" | "guideLike" | "petSpecies" | "petBreed" | "systemSetting" | "user" | "profile" | "session" | "visitor" | "pageView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1021,6 +1022,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SystemSetting: {
+      payload: Prisma.$SystemSettingPayload<ExtArgs>
+      fields: Prisma.SystemSettingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SystemSettingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SystemSettingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        findFirst: {
+          args: Prisma.SystemSettingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SystemSettingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        findMany: {
+          args: Prisma.SystemSettingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>[]
+        }
+        create: {
+          args: Prisma.SystemSettingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        createMany: {
+          args: Prisma.SystemSettingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SystemSettingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>[]
+        }
+        delete: {
+          args: Prisma.SystemSettingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        update: {
+          args: Prisma.SystemSettingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        deleteMany: {
+          args: Prisma.SystemSettingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SystemSettingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SystemSettingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>[]
+        }
+        upsert: {
+          args: Prisma.SystemSettingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        aggregate: {
+          args: Prisma.SystemSettingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSystemSetting>
+        }
+        groupBy: {
+          args: Prisma.SystemSettingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemSettingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SystemSettingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemSettingCountAggregateOutputType> | number
+        }
+      }
+    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -1456,8 +1531,10 @@ export const GuideScalarFieldEnum = {
   type: 'type',
   coverImage: 'coverImage',
   coverImageAlt: 'coverImageAlt',
+  faqImage: 'faqImage',
   videoUrl: 'videoUrl',
   readTimeMinutes: 'readTimeMinutes',
+  displayOrder: 'displayOrder',
   speciesId: 'speciesId',
   categoryId: 'categoryId',
   tags: 'tags',
@@ -1566,6 +1643,21 @@ export const PetBreedScalarFieldEnum = {
 } as const
 
 export type PetBreedScalarFieldEnum = (typeof PetBreedScalarFieldEnum)[keyof typeof PetBreedScalarFieldEnum]
+
+
+export const SystemSettingScalarFieldEnum = {
+  key: 'key',
+  value: 'value',
+  isSecret: 'isSecret',
+  iv: 'iv',
+  authTag: 'authTag',
+  description: 'description',
+  updatedById: 'updatedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SystemSettingScalarFieldEnum = (typeof SystemSettingScalarFieldEnum)[keyof typeof SystemSettingScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -2006,6 +2098,7 @@ export type GlobalOmitConfig = {
   guideLike?: Prisma.GuideLikeOmit
   petSpecies?: Prisma.PetSpeciesOmit
   petBreed?: Prisma.PetBreedOmit
+  systemSetting?: Prisma.SystemSettingOmit
   user?: Prisma.UserOmit
   profile?: Prisma.ProfileOmit
   session?: Prisma.SessionOmit

@@ -22,4 +22,18 @@ export class PetsResolver {
   ) {
     return this.petsService.findOneBreed(idOrSlug);
   }
+
+  // Query all species (optimized for dropdown filters: id, name, image)
+  @Query(() => [PetSpeciesModel], { name: 'allSpecies' })
+  async getAllSpecies() {
+    return this.petsService.findAllSpeciesDropdown();
+  }
+
+  // Query breeds by species (optimized for dropdown filters: id, name, image)
+  @Query(() => [PetBreedModel], { name: 'breedsBySpecies' })
+  async getBreedsBySpecies(
+    @Args('speciesIdOrSlug', { type: () => String }) speciesIdOrSlug: string,
+  ) {
+    return this.petsService.findBreedsBySpeciesDropdown(speciesIdOrSlug);
+  }
 }
