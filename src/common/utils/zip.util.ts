@@ -17,12 +17,16 @@ const MAX_SINGLE_FILE_BYTES = 30 * 1024 * 1024; // 30MB max for any single file
  */
 export function extractZipInMemory(buffer: Buffer): Map<string, Buffer> {
   if (!buffer || buffer.length < 22) {
-    throw new BadRequestException('Invalid archive: File is too small to be a valid ZIP');
+    throw new BadRequestException(
+      'Invalid archive: File is too small to be a valid ZIP',
+    );
   }
 
   // 0. Verify magic PK header bytes
   if (buffer[0] !== 0x50 || buffer[1] !== 0x4b) {
-    throw new BadRequestException('Invalid archive: File header is not a PKZIP signature');
+    throw new BadRequestException(
+      'Invalid archive: File header is not a PKZIP signature',
+    );
   }
 
   // 1. Locate End of Central Directory (EOCD) signature 0x06054b50 (search backwards from end)
@@ -36,7 +40,9 @@ export function extractZipInMemory(buffer: Buffer): Map<string, Buffer> {
   }
 
   if (eocdOffset === -1) {
-    throw new BadRequestException('Corrupted or invalid ZIP file: End of Central Directory signature not found');
+    throw new BadRequestException(
+      'Corrupted or invalid ZIP file: End of Central Directory signature not found',
+    );
   }
 
   const totalEntries = buffer.readUInt16LE(eocdOffset + 10);
@@ -49,7 +55,9 @@ export function extractZipInMemory(buffer: Buffer): Map<string, Buffer> {
   }
 
   if (cdOffset >= buffer.length) {
-    throw new BadRequestException('Invalid ZIP structure: Central directory offset is out of bounds');
+    throw new BadRequestException(
+      'Invalid ZIP structure: Central directory offset is out of bounds',
+    );
   }
 
   const files = new Map<string, Buffer>();
@@ -68,7 +76,11 @@ export function extractZipInMemory(buffer: Buffer): Map<string, Buffer> {
     const commentLen = buffer.readUInt16LE(offset + 32);
     const localHeaderOffset = buffer.readUInt32LE(offset + 42);
 
-    const rawFileName = buffer.toString('utf8', offset + 46, offset + 46 + fileNameLen);
+    const rawFileName = buffer.toString(
+      'utf8',
+      offset + 46,
+      offset + 46 + fileNameLen,
+    );
     offset += 46 + fileNameLen + extraLen + commentLen;
 
     // Normalize path and prevent Zip-Slip path traversal

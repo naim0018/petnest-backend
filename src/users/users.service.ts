@@ -130,7 +130,9 @@ export class UsersService {
         select: { avatar: true },
       });
       if (existingProfile?.avatar && existingProfile.avatar !== avatar) {
-        await this.mediaService.deletePreviousAvatarByUrl(existingProfile.avatar);
+        await this.mediaService.deletePreviousAvatarByUrl(
+          existingProfile.avatar,
+        );
       }
     }
 

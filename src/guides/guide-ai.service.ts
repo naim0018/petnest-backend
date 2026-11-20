@@ -78,7 +78,8 @@ const GEMINI_RESPONSE_SCHEMA = {
     tags: {
       type: 'ARRAY',
       items: { type: 'STRING' },
-      description: '4 to 6 lowercase pet care tags (e.g. nutrition, budgies, symptoms)',
+      description:
+        '4 to 6 lowercase pet care tags (e.g. nutrition, budgies, symptoms)',
     },
     heroImagePrompt: {
       type: 'STRING',
@@ -218,7 +219,9 @@ Include:
 
         if (!response.ok) {
           const errText = await response.text();
-          this.logger.warn(`Gemini model ${model} failed (${response.status}): ${errText}`);
+          this.logger.warn(
+            `Gemini model ${model} failed (${response.status}): ${errText}`,
+          );
           lastError = errText;
           // Try next fallback model if 404 (not found) or 400 model name issue
           if (response.status === 404 || response.status === 400) {
@@ -280,7 +283,7 @@ Include:
             tags: generated.tags ?? [],
             categoryId: dto.categoryId,
             speciesId: dto.speciesId,
-            status: 'DRAFT' as any,
+            status: 'DRAFT',
           },
           requester,
         );

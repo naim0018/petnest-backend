@@ -129,7 +129,9 @@ export class MediaController {
 
   @Post('cleanup-orphans')
   @Roles('ADMIN', 'SUPERADMIN')
-  @ApiOperation({ summary: 'Admin: Purge unattached draft images older than 24h' })
+  @ApiOperation({
+    summary: 'Admin: Purge unattached draft images older than 24h',
+  })
   cleanupOrphans() {
     return this.mediaService.cleanupOrphanedMedia(24);
   }

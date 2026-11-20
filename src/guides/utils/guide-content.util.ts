@@ -68,7 +68,16 @@ export function sanitizeGuideHtml(rawHtml: string): string {
     ],
     allowedAttributes: {
       a: ['href', 'name', 'target', 'rel'],
-      img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'data-media-id', 'class'],
+      img: [
+        'src',
+        'alt',
+        'title',
+        'width',
+        'height',
+        'loading',
+        'data-media-id',
+        'class',
+      ],
       figure: ['class'],
       figcaption: ['class'],
       iframe: [
@@ -125,7 +134,9 @@ export function calculateReadTimeMinutes(html: string): number {
   return Math.max(1, Math.ceil(wordCount / 200));
 }
 
-export function validateExternalVideoUrl(videoUrl?: string | null): string | null {
+export function validateExternalVideoUrl(
+  videoUrl?: string | null,
+): string | null {
   if (!videoUrl || videoUrl.trim() === '') return null;
 
   let parsed: URL;

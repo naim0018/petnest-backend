@@ -33,10 +33,7 @@ import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from 'src/common/guards/optional-jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/role.guard';
 import { CreateGuideCategoryDto } from './dto/create-category.dto';
-import {
-  BulkCreateGuideFaqDto,
-  CreateGuideFaqDto,
-} from './dto/create-faq.dto';
+import { BulkCreateGuideFaqDto, CreateGuideFaqDto } from './dto/create-faq.dto';
 import { CreateGuideDto } from './dto/create-guide.dto';
 import { GenerateGuideAiDto } from './dto/generate-guide-ai.dto';
 import { GuideQueryDto } from './dto/guide-query.dto';
@@ -62,14 +59,18 @@ export class GuidesController {
   // ==================== CATEGORIES ====================
 
   @Get('categories')
-  @ApiOperation({ summary: 'Public: Get active guide categories for topic filter bar' })
+  @ApiOperation({
+    summary: 'Public: Get active guide categories for topic filter bar',
+  })
   @ApiQuery({ name: 'excludeBasic', required: false, type: Boolean })
   findAllCategoriesPublic(@Query('excludeBasic') excludeBasic?: string) {
     return this.categoriesService.findAllPublic(excludeBasic === 'true');
   }
 
   @Get('categories/:idOrSlug')
-  @ApiOperation({ summary: 'Public: Get a single guide category by ID or slug' })
+  @ApiOperation({
+    summary: 'Public: Get a single guide category by ID or slug',
+  })
   findOneCategory(@Param('idOrSlug') idOrSlug: string) {
     return this.categoriesService.findOne(idOrSlug);
   }
@@ -78,7 +79,9 @@ export class GuidesController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles('ADMIN', 'SUPERADMIN')
-  @ApiOperation({ summary: 'Admin: Get all categories with guide counts & views' })
+  @ApiOperation({
+    summary: 'Admin: Get all categories with guide counts & views',
+  })
   @ApiQuery({ name: 'search', required: false })
   findAllCategoriesAdmin(@Query('search') search?: string) {
     return this.categoriesService.findAllAdmin(search);
@@ -117,7 +120,9 @@ export class GuidesController {
   // ==================== FAQS ====================
 
   @Get('faqs')
-  @ApiOperation({ summary: 'Public: Get active FAQs by species (UUID/slug) or guideId' })
+  @ApiOperation({
+    summary: 'Public: Get active FAQs by species (UUID/slug) or guideId',
+  })
   @ApiQuery({ name: 'species', required: false })
   @ApiQuery({ name: 'guideId', required: false })
   findAllFaqsPublic(
@@ -196,7 +201,10 @@ export class GuidesController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles('VET', 'ADMIN', 'SUPERADMIN')
-  @ApiOperation({ summary: 'Editorial Hub: Get summary counts, chart trends & total readership' })
+  @ApiOperation({
+    summary:
+      'Editorial Hub: Get summary counts, chart trends & total readership',
+  })
   getGuideOverviewStats() {
     return this.guidesService.getEditorialStats();
   }
@@ -205,7 +213,9 @@ export class GuidesController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles('VET', 'ADMIN', 'SUPERADMIN')
-  @ApiOperation({ summary: 'Editorial Hub: Get summary counts & total readership' })
+  @ApiOperation({
+    summary: 'Editorial Hub: Get summary counts & total readership',
+  })
   getEditorialStats() {
     return this.guidesService.getEditorialStats();
   }
@@ -229,7 +239,9 @@ export class GuidesController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles('AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN')
-  @ApiOperation({ summary: 'Editorial: Get full guide details by ID for editing/review' })
+  @ApiOperation({
+    summary: 'Editorial: Get full guide details by ID for editing/review',
+  })
   findOneEditorial(
     @Param('id', ParseUUIDPipe) id: string,
     @CurrentUser() user: AuthenticatedUser,
@@ -393,7 +405,9 @@ export class GuidesController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles('AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN')
-  @ApiOperation({ summary: 'Create a new guide (Draft, In Review, or Published)' })
+  @ApiOperation({
+    summary: 'Create a new guide (Draft, In Review, or Published)',
+  })
   createGuide(
     @Body() dto: CreateGuideDto,
     @CurrentUser() user: AuthenticatedUser,

@@ -94,8 +94,7 @@ export class CreateGuideDto {
   @IsString()
   @MaxLength(500, { message: 'coverImage URL cannot exceed 500 characters' })
   @Matches(SAFE_URL_REGEX, {
-    message:
-      'coverImage must be a valid HTTP/HTTPS URL or safe relative path',
+    message: 'coverImage must be a valid HTTP/HTTPS URL or safe relative path',
   })
   coverImage?: string | null;
 
@@ -107,7 +106,8 @@ export class CreateGuideDto {
 
   @ApiPropertyOptional({
     example: 'https://cdn.petnest.org/guides/2026/11/faq-budgie.webp',
-    description: 'Single side visual image shown on the left of the guide Common Questions (FAQ) section',
+    description:
+      'Single side visual image shown on the left of the guide Common Questions (FAQ) section',
   })
   @Transform(({ value }) => {
     if (typeof value === 'string') {
@@ -149,11 +149,15 @@ export class CreateGuideDto {
   @IsOptional()
   @IsArray()
   @ArrayMaxSize(30)
-  @IsUUID(undefined, { each: true, message: 'Each breedId must be a valid UUID' })
+  @IsUUID(undefined, {
+    each: true,
+    message: 'Each breedId must be a valid UUID',
+  })
   breedIds?: string[];
 
   @ApiPropertyOptional({
-    description: 'GuideCategory UUID (defaults to the "Basic" category if omitted)',
+    description:
+      'GuideCategory UUID (defaults to the "Basic" category if omitted)',
   })
   @Transform(({ value }) => (value === '' ? undefined : value))
   @IsOptional()
@@ -165,7 +169,10 @@ export class CreateGuideDto {
   @IsArray()
   @ArrayMaxSize(15)
   @IsString({ each: true })
-  @MaxLength(40, { each: true, message: 'Each tag cannot exceed 40 characters' })
+  @MaxLength(40, {
+    each: true,
+    message: 'Each tag cannot exceed 40 characters',
+  })
   tags?: string[];
 
   @ApiPropertyOptional({

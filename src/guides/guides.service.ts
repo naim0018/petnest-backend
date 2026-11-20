@@ -180,7 +180,8 @@ export class GuidesService {
             ? { connect: uniqueBreedIds.map((id) => ({ id })) }
             : undefined,
         categoryId: resolvedCategoryId,
-        tags: dto.tags?.map((t) => t.trim().toLowerCase()).filter(Boolean) ?? [],
+        tags:
+          dto.tags?.map((t) => t.trim().toLowerCase()).filter(Boolean) ?? [],
         status: targetStatus,
         isFeatured,
         authorId: requester.userId,
@@ -856,7 +857,9 @@ export class GuidesService {
     // - If breed is selected: match guides tagged with that breed OR general species-wide guides (breeds is empty)
     // - If only species is selected: match guides for that species OR universal guides (speciesId: null)
     if (breed && breed !== 'all') {
-      const breedFilter = UUID_REGEX.test(breed) ? { id: breed } : { slug: breed };
+      const breedFilter = UUID_REGEX.test(breed)
+        ? { id: breed }
+        : { slug: breed };
       const targetBreed = await this.prisma.petBreed.findUnique({
         where: breedFilter,
         select: { id: true, speciesId: true },
@@ -1244,7 +1247,9 @@ export class GuidesService {
       });
 
       if (foundBreeds.length !== uniqueBreedIds.length) {
-        throw new BadRequestException('One or more selected breedIds do not exist');
+        throw new BadRequestException(
+          'One or more selected breedIds do not exist',
+        );
       }
 
       const mismatched = foundBreeds.find((b) => b.speciesId !== speciesId);
@@ -1320,7 +1325,10 @@ export class GuidesService {
     md = md.replace(/<(?:em|i)[^>]*>(.*?)<\/(?:em|i)>/gi, '*$1*');
 
     // Replace list items
-    md = md.replace(/<li[^>]*>(.*?)<\/li>/gi, (_, item) => `\n- ${item.trim()}`);
+    md = md.replace(
+      /<li[^>]*>(.*?)<\/li>/gi,
+      (_, item) => `\n- ${item.trim()}`,
+    );
     md = md.replace(/<\/?(?:ul|ol)[^>]*>/gi, '\n');
 
     // Replace paragraphs and line breaks
@@ -1378,7 +1386,9 @@ export class GuidesService {
     requester: AuthenticatedUser,
   ): Promise<BulkImportZipResponse> {
     if (!zipBuffer || zipBuffer.length === 0) {
-      throw new BadRequestException('A non-empty .zip file is required for bulk import');
+      throw new BadRequestException(
+        'A non-empty .zip file is required for bulk import',
+      );
     }
 
     // 1. Unzip archive in memory
@@ -1423,7 +1433,9 @@ export class GuidesService {
       : [parsedData];
 
     if (guidesArray.length === 0) {
-      throw new BadRequestException('The guides.json file does not contain any guides');
+      throw new BadRequestException(
+        'The guides.json file does not contain any guides',
+      );
     }
 
     const MAX_GUIDES_PER_IMPORT = 50;
@@ -1435,7 +1447,14 @@ export class GuidesService {
 
     // 3. Extract & upload all image files from the archive
     const imageMap = new Map<string, string>();
-    const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif']);
+    const IMAGE_EXTENSIONS = new Set([
+      '.jpg',
+      '.jpeg',
+      '.png',
+      '.webp',
+      '.avif',
+      '.gif',
+    ]);
 
     let uploadedImagesCount = 0;
     for (const [filePath, fileBuf] of extractedFiles.entries()) {
@@ -1465,7 +1484,10 @@ export class GuidesService {
           imageMap.set(withoutLeadingImages, uploadedUrl);
           imageMap.set(withoutLeadingImages.toLowerCase(), uploadedUrl);
         } catch (imgErr) {
-          console.error(`Bulk import: Failed to upload image ${filePath}:`, imgErr);
+          console.error(
+            `Bulk import: Failed to upload image ${filePath}:`,
+            imgErr,
+          );
         }
       }
     }
@@ -1509,11 +1531,15 @@ export class GuidesService {
 
       try {
         if (!guide || typeof guide !== 'object') {
-          throw new BadRequestException('Guide entry is not a valid JSON object');
+          throw new BadRequestException(
+            'Guide entry is not a valid JSON object',
+          );
         }
 
         if (!guide.title || guide.title.trim().length < 5) {
-          throw new BadRequestException('Title is required and must be at least 5 characters');
+          throw new BadRequestException(
+            'Title is required and must be at least 5 characters',
+          );
         }
 
         const excerpt = (guide.summary || guide.excerpt || '').trim();
@@ -1531,7 +1557,8 @@ export class GuidesService {
         } else if (guide.category) {
           const query = guide.category.trim().toLowerCase();
           const found = allCategories.find(
-            (c) => c.name.toLowerCase() === query || c.slug.toLowerCase() === query,
+            (c) =>
+              c.name.toLowerCase() === query || c.slug.toLowerCase() === query,
           );
           if (found) resolvedCategoryId = found.id;
         }
@@ -1545,7 +1572,9 @@ export class GuidesService {
         } else if (guide.species) {
           const sQuery = guide.species.trim().toLowerCase();
           matchingSpecies = allSpecies.find(
-            (s) => s.name.toLowerCase() === sQuery || s.slug.toLowerCase() === sQuery,
+            (s) =>
+              s.name.toLowerCase() === sQuery ||
+              s.slug.toLowerCase() === sQuery,
           );
           if (matchingSpecies) resolvedSpeciesId = matchingSpecies.id;
         }
@@ -1617,26 +1646,32 @@ export class GuidesService {
         }
 
         // Replace inline {{image:filename.ext}} tokens with markdown image
-        assembled = assembled.replace(/\{\{image:([^}]+)\}\}/gi, (_, fileName) => {
-          const trimmed = fileName.trim();
-          const imgUrl = resolveImageUrl(trimmed);
-          if (imgUrl) {
-            imagesLinked++;
-            return `\n\n![${trimmed}](${imgUrl})\n\n`;
-          }
-          return '';
-        });
+        assembled = assembled.replace(
+          /\{\{image:([^}]+)\}\}/gi,
+          (_, fileName) => {
+            const trimmed = fileName.trim();
+            const imgUrl = resolveImageUrl(trimmed);
+            if (imgUrl) {
+              imagesLinked++;
+              return `\n\n![${trimmed}](${imgUrl})\n\n`;
+            }
+            return '';
+          },
+        );
 
         // Replace markdown images ![alt](filename.ext)
-        assembled = assembled.replace(/!\[(.*?)\]\((.*?)\)/g, (match, altText, src) => {
-          if (/^https?:\/\//i.test(src)) return match;
-          const mapped = resolveImageUrl(src);
-          if (mapped) {
-            imagesLinked++;
-            return `![${altText}](${mapped})`;
-          }
-          return match;
-        });
+        assembled = assembled.replace(
+          /!\[(.*?)\]\((.*?)\)/g,
+          (match, altText, src) => {
+            if (/^https?:\/\//i.test(src)) return match;
+            const mapped = resolveImageUrl(src);
+            if (mapped) {
+              imagesLinked++;
+              return `![${altText}](${mapped})`;
+            }
+            return match;
+          },
+        );
 
         // Replace any remaining HTML <img> tags with markdown image
         assembled = assembled.replace(
@@ -1662,25 +1697,32 @@ export class GuidesService {
         const readTimeMinutes =
           typeof guide.readTime === 'number' && guide.readTime > 0
             ? Math.round(guide.readTime)
-            : typeof guide.readTimeMinutes === 'number' && guide.readTimeMinutes > 0
-            ? Math.round(guide.readTimeMinutes)
-            : calculateReadTimeMinutes(sanitizedContent);
+            : typeof guide.readTimeMinutes === 'number' &&
+                guide.readTimeMinutes > 0
+              ? Math.round(guide.readTimeMinutes)
+              : calculateReadTimeMinutes(sanitizedContent);
 
         // Cover and FAQ images
-        const resolvedCoverImage = resolveImageUrl(guide.heroImage || guide.coverImage);
+        const resolvedCoverImage = resolveImageUrl(
+          guide.heroImage || guide.coverImage,
+        );
         const resolvedFaqImage = resolveImageUrl(guide.faqImage);
         if (resolvedCoverImage) imagesLinked++;
         if (resolvedFaqImage) imagesLinked++;
 
         // Slug generation
-        const baseSlug = guide.slug ? slugify(guide.slug) : slugify(guide.title);
+        const baseSlug = guide.slug
+          ? slugify(guide.slug)
+          : slugify(guide.title);
         const uniqueSlug = await this.generateUniqueBulkSlug(baseSlug);
 
         // Target Status
         let targetStatus: GuideStatus = GuideStatus.DRAFT;
         const requestedStatus = (guide.status || '').toUpperCase();
         if (requestedStatus === 'PUBLISHED') {
-          targetStatus = canDirectPublish ? GuideStatus.PUBLISHED : GuideStatus.IN_REVIEW;
+          targetStatus = canDirectPublish
+            ? GuideStatus.PUBLISHED
+            : GuideStatus.IN_REVIEW;
         } else if (requestedStatus === 'IN_REVIEW') {
           targetStatus = GuideStatus.IN_REVIEW;
         } else if (requestedStatus === 'ARCHIVED' && canDirectPublish) {
@@ -1698,8 +1740,8 @@ export class GuidesService {
           typeof guide.displayOrder === 'number'
             ? Math.max(0, Math.round(guide.displayOrder))
             : typeof guide.order === 'number'
-            ? Math.max(0, Math.round(guide.order))
-            : 0;
+              ? Math.max(0, Math.round(guide.order))
+              : 0;
 
         // Create Guide and FAQs atomically within a database transaction
         let faqsCount = 0;
@@ -1710,7 +1752,9 @@ export class GuidesService {
               slug: uniqueSlug,
               excerpt,
               keyTakeaways: Array.isArray(guide.keyTakeaways)
-                ? guide.keyTakeaways.map((t) => String(t).trim()).filter(Boolean)
+                ? guide.keyTakeaways
+                    .map((t) => String(t).trim())
+                    .filter(Boolean)
                 : [],
               content: sanitizedContent,
               type: guide.type || 'ARTICLE',
@@ -1727,7 +1771,9 @@ export class GuidesService {
                   : undefined,
               categoryId: resolvedCategoryId,
               tags: Array.isArray(guide.tags)
-                ? guide.tags.map((t) => String(t).trim().toLowerCase()).filter(Boolean)
+                ? guide.tags
+                    .map((t) => String(t).trim().toLowerCase())
+                    .filter(Boolean)
                 : [],
               status: targetStatus,
               isFeatured: canDirectPublish ? Boolean(guide.isFeatured) : false,
@@ -1745,13 +1791,17 @@ export class GuidesService {
 
           if (Array.isArray(guide.faqs) && guide.faqs.length > 0) {
             const faqData = guide.faqs
-              .filter((f) => f && typeof f === 'object' && f.question && f.answer)
+              .filter(
+                (f) => f && typeof f === 'object' && f.question && f.answer,
+              )
               .map((f, fIdx) => ({
                 guideId: newGuide.id,
                 question: f.question.trim(),
                 answer: f.answer.trim(),
                 displayOrder:
-                  typeof f.displayOrder === 'number' ? Math.max(0, f.displayOrder) : fIdx,
+                  typeof f.displayOrder === 'number'
+                    ? Math.max(0, f.displayOrder)
+                    : fIdx,
                 isActive: typeof f.isActive === 'boolean' ? f.isActive : true,
               }));
 
@@ -1784,7 +1834,10 @@ export class GuidesService {
           success: true,
         });
       } catch (err: any) {
-        console.error(`Bulk import guide #${i + 1} ("${guideTitle}") failed:`, err);
+        console.error(
+          `Bulk import guide #${i + 1} ("${guideTitle}") failed:`,
+          err,
+        );
         results.push({
           index: i + 1,
           title: guideTitle,
@@ -1976,5 +2029,3 @@ export class GuidesService {
     };
   }
 }
-
-

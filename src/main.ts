@@ -57,7 +57,9 @@ async function bootstrap() {
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://petnest-guide.vercel.app',
-    ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL.replace(/\/$/, '')] : []),
+    ...(process.env.FRONTEND_URL
+      ? [process.env.FRONTEND_URL.replace(/\/$/, '')]
+      : []),
   ];
 
   app.enableCors({
@@ -75,7 +77,9 @@ async function bootstrap() {
   }
 
   await app.listen(process.env.PORT ?? 5000);
-  logger.log(`PetNest Backend successfully listening on port ${process.env.PORT ?? 5000}`);
+  logger.log(
+    `PetNest Backend successfully listening on port ${process.env.PORT ?? 5000}`,
+  );
 }
 bootstrap().catch((err) => {
   logger.error('Fatal error during bootstrap:', err?.stack || err);

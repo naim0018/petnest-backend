@@ -24,7 +24,9 @@ export function IsNameField() {
       minLength: 2,
       maxLength: 50,
     }),
-    Transform(({ value }) => (typeof value === 'string' ? value.trim() : value)),
+    Transform(({ value }) =>
+      typeof value === 'string' ? value.trim() : value,
+    ),
     IsNotEmpty({ message: 'Name is required' }),
     IsString({ message: 'Name must be a string' }),
     MinLength(2, { message: 'Name too short' }),
@@ -92,7 +94,9 @@ export function IsPhoneField() {
       description: 'Phone number in international format',
       example: '+14155552671',
     }),
-    Transform(({ value }) => (typeof value === 'string' ? value.trim() : value)),
+    Transform(({ value }) =>
+      typeof value === 'string' ? value.trim() : value,
+    ),
     IsNotEmpty({ message: 'Phone is required' }),
     IsString({ message: 'Phone must be a string' }),
     MaxLength(20, { message: 'Phone number is too long' }),

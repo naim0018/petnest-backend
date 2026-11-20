@@ -1,7 +1,6 @@
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { PetSize, CareLevel } from 'prisma/generated/prisma/enums';
 import { PetSpeciesModel } from './species.model';
- 
 
 // Register Prisma enums with GraphQL so queries can use them
 registerEnumType(PetSize, { name: 'PetSize' });

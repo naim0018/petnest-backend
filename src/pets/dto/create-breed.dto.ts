@@ -16,7 +16,10 @@ import { CareLevel, PetSize } from 'prisma/generated/prisma/enums';
 import { SAFE_URL_REGEX } from 'src/common/utils/validation.util';
 
 export class CreateBreedDto {
-  @ApiProperty({ example: 'Golden Retriever', description: 'Name of the pet breed' })
+  @ApiProperty({
+    example: 'Golden Retriever',
+    description: 'Name of the pet breed',
+  })
   @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   @IsNotEmpty({ message: 'Breed name is required' })
   @IsString({ message: 'Breed name must be a string' })
@@ -35,9 +38,12 @@ export class CreateBreedDto {
 
   @ApiPropertyOptional({
     example: 'golden-retriever',
-    description: 'URL-friendly unique slug (auto-generated from name if omitted)',
+    description:
+      'URL-friendly unique slug (auto-generated from name if omitted)',
   })
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim().toLowerCase() : value))
+  @Transform(({ value }) =>
+    typeof value === 'string' ? value.trim().toLowerCase() : value,
+  )
   @IsOptional()
   @IsString()
   @MaxLength(120, { message: 'Slug cannot exceed 120 characters' })
@@ -52,7 +58,8 @@ export class CreateBreedDto {
   @IsString()
   @MaxLength(500, { message: 'Image path cannot exceed 500 characters' })
   @Matches(SAFE_URL_REGEX, {
-    message: 'Image must be a valid HTTP/HTTPS URL or safe relative path (e.g. /uploads/breed.png)',
+    message:
+      'Image must be a valid HTTP/HTTPS URL or safe relative path (e.g. /uploads/breed.png)',
   })
   image?: string;
 
@@ -74,7 +81,10 @@ export class CreateBreedDto {
   @IsArray({ message: 'tags must be an array of strings' })
   @ArrayMaxSize(20, { message: 'You cannot provide more than 20 tags' })
   @IsString({ each: true, message: 'Each tag must be a string' })
-  @MaxLength(30, { each: true, message: 'Each tag cannot exceed 30 characters' })
+  @MaxLength(30, {
+    each: true,
+    message: 'Each tag cannot exceed 30 characters',
+  })
   tags?: string[];
 
   @ApiPropertyOptional({
@@ -90,10 +100,13 @@ export class CreateBreedDto {
   @ApiPropertyOptional({
     enum: PetSize,
     default: PetSize.MEDIUM,
-    description: 'Physical size category of the breed: SMALL, MEDIUM, LARGE, GIANT',
+    description:
+      'Physical size category of the breed: SMALL, MEDIUM, LARGE, GIANT',
   })
   @IsOptional()
-  @IsEnum(PetSize, { message: 'size must be one of: SMALL, MEDIUM, LARGE, GIANT' })
+  @IsEnum(PetSize, {
+    message: 'size must be one of: SMALL, MEDIUM, LARGE, GIANT',
+  })
   size?: PetSize;
 
   @ApiPropertyOptional({
@@ -102,7 +115,9 @@ export class CreateBreedDto {
     description: 'Maintenance/care level required: LOW, MODERATE, HIGH',
   })
   @IsOptional()
-  @IsEnum(CareLevel, { message: 'careLevel must be one of: LOW, MODERATE, HIGH' })
+  @IsEnum(CareLevel, {
+    message: 'careLevel must be one of: LOW, MODERATE, HIGH',
+  })
   careLevel?: CareLevel;
 
   @ApiPropertyOptional({

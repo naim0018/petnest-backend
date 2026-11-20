@@ -108,7 +108,14 @@ export class PetsService {
       this.prisma.petSpecies.count({ where }),
     ]);
 
-    return createPaginatedResponse(speciesList, total, page, limit, sortBy, sortOrder);
+    return createPaginatedResponse(
+      speciesList,
+      total,
+      page,
+      limit,
+      sortBy,
+      sortOrder,
+    );
   }
 
   async findAllSpeciesDropdown() {
@@ -179,8 +186,12 @@ export class PetsService {
       const duplicate = await this.prisma.petSpecies.findFirst({
         where: {
           OR: [
-            ...(dto.name ? [{ name: { equals: dto.name, mode: 'insensitive' as const } }] : []),
-            ...(newSlug ? [{ slug: { equals: newSlug, mode: 'insensitive' as const } }] : []),
+            ...(dto.name
+              ? [{ name: { equals: dto.name, mode: 'insensitive' as const } }]
+              : []),
+            ...(newSlug
+              ? [{ slug: { equals: newSlug, mode: 'insensitive' as const } }]
+              : []),
           ],
           NOT: { id: species.id },
         },
@@ -325,7 +336,9 @@ export class PetsService {
       this.prisma.petBreed.findMany({
         where,
         include: {
-          species: { select: { id: true, name: true, image: true, slug: true } },
+          species: {
+            select: { id: true, name: true, image: true, slug: true },
+          },
         },
         skip: computedSkip,
         take: limit,
@@ -334,7 +347,14 @@ export class PetsService {
       this.prisma.petBreed.count({ where }),
     ]);
 
-    return createPaginatedResponse(breeds, total, page, limit, sortBy, sortOrder);
+    return createPaginatedResponse(
+      breeds,
+      total,
+      page,
+      limit,
+      sortBy,
+      sortOrder,
+    );
   }
 
   async findOneBreed(idOrSlug: string) {
@@ -374,7 +394,9 @@ export class PetsService {
               speciesId: targetSpeciesId,
               name: { equals: targetName, mode: 'insensitive' },
             },
-            ...(newSlug ? [{ slug: { equals: newSlug, mode: 'insensitive' as const } }] : []),
+            ...(newSlug
+              ? [{ slug: { equals: newSlug, mode: 'insensitive' as const } }]
+              : []),
           ],
           NOT: { id: currentBreed.id },
         },

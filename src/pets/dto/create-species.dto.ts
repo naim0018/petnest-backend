@@ -22,9 +22,12 @@ export class CreateSpeciesDto {
 
   @ApiPropertyOptional({
     example: 'dogs',
-    description: 'URL-friendly unique slug (auto-generated from name if omitted)',
+    description:
+      'URL-friendly unique slug (auto-generated from name if omitted)',
   })
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim().toLowerCase() : value))
+  @Transform(({ value }) =>
+    typeof value === 'string' ? value.trim().toLowerCase() : value,
+  )
   @IsOptional()
   @IsString()
   @MaxLength(60, { message: 'Slug cannot exceed 60 characters' })
@@ -49,7 +52,8 @@ export class CreateSpeciesDto {
   @IsString()
   @MaxLength(500, { message: 'Image path cannot exceed 500 characters' })
   @Matches(SAFE_URL_REGEX, {
-    message: 'Image must be a valid HTTP/HTTPS URL or safe relative path (e.g. /uploads/dog.png)',
+    message:
+      'Image must be a valid HTTP/HTTPS URL or safe relative path (e.g. /uploads/dog.png)',
   })
   image?: string;
 
@@ -60,7 +64,9 @@ export class CreateSpeciesDto {
   @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   @IsOptional()
   @IsString()
-  @MaxLength(500, { message: 'Category icon path cannot exceed 500 characters' })
+  @MaxLength(500, {
+    message: 'Category icon path cannot exceed 500 characters',
+  })
   @Matches(SAFE_URL_REGEX, {
     message:
       'Category icon must be a valid HTTP/HTTPS URL or safe relative path (e.g. /uploads/icon.svg)',

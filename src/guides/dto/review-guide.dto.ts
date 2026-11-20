@@ -1,5 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsOptional, IsString, MaxLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export enum ReviewDecision {
   PUBLISH = 'PUBLISH',
@@ -13,7 +19,8 @@ export class ReviewGuideDto {
   decision: ReviewDecision;
 
   @ApiPropertyOptional({
-    description: 'Editorial or veterinary revision notes (required if NEEDS_REVISION)',
+    description:
+      'Editorial or veterinary revision notes (required if NEEDS_REVISION)',
   })
   @IsOptional()
   @IsString()

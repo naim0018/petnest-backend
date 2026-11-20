@@ -30,7 +30,9 @@ export class PetsController {
   // ==================== PUBLIC ENDPOINTS ====================
 
   @Get('species')
-  @ApiOperation({ summary: 'Get all pet species with their breeds (paginated)' })
+  @ApiOperation({
+    summary: 'Get all pet species with their breeds (paginated)',
+  })
   findAllSpecies(@Query() query: SpeciesQueryDto) {
     return this.petsService.findAllSpecies(query);
   }
@@ -39,10 +41,7 @@ export class PetsController {
   @ApiOperation({
     summary: 'Get all breeds under a species (paginated, search, sort)',
   })
-  findBreedsBySpecies(
-    @Param('id') id: string,
-    @Query() query: BreedQueryDto,
-  ) {
+  findBreedsBySpecies(@Param('id') id: string, @Query() query: BreedQueryDto) {
     return this.petsService.findBreedsBySpecies(id, query);
   }
 
@@ -53,7 +52,9 @@ export class PetsController {
   }
 
   @Get('breeds')
-  @ApiOperation({ summary: 'Get all breeds (paginated, filter by speciesId/search)' })
+  @ApiOperation({
+    summary: 'Get all breeds (paginated, filter by speciesId/search)',
+  })
   findAllBreeds(@Query() query: BreedQueryDto) {
     return this.petsService.findAllBreeds(query);
   }
@@ -96,7 +97,10 @@ export class PetsController {
     @Param('id', ParseUUIDPipe) id: string,
     @Query('force') force?: string,
   ) {
-    return this.petsService.removeSpecies(id, force === 'true' || force === '1');
+    return this.petsService.removeSpecies(
+      id,
+      force === 'true' || force === '1',
+    );
   }
 
   @Post('breeds')

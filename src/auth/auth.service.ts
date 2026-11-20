@@ -34,21 +34,16 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {
-    this.saltRounds = Number(this.configService.get('BCRYPT_SALT_ROUNDS')) || 10;
+    this.saltRounds =
+      Number(this.configService.get('BCRYPT_SALT_ROUNDS')) || 10;
     this.jwtSecret = this.configService.getOrThrow<string>('JWT_SECRET');
     this.jwtRefreshSecret =
       this.configService.getOrThrow<string>('JWT_REFRESH_SECRET');
   }
 
   async register(payload: RegisterDto, ip: string, deviceInfo: any) {
-    const {
-      name,
-      email,
-      password,
-      phone,
-      interestedBreed,
-      interestedSpecies,
-    } = payload;
+    const { name, email, password, phone, interestedBreed, interestedSpecies } =
+      payload;
 
     const existingUser = await this.prisma.user.findUnique({
       where: { email },

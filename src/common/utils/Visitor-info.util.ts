@@ -15,7 +15,9 @@ export interface VisitorInfo {
   };
 }
 
-function getSingleHeader(value: string | string[] | undefined): string | undefined {
+function getSingleHeader(
+  value: string | string[] | undefined,
+): string | undefined {
   if (typeof value === 'string') return value.trim();
   if (Array.isArray(value) && value.length > 0) return value[0].trim();
   return undefined;
@@ -67,23 +69,26 @@ export function extractVisitorInfo(req: Request): VisitorInfo {
     getSingleHeader(req.headers['cloudfront-viewer-time-zone']);
 
   // Fallbacks guarantee bounded non-null strings matching Prisma schema
-  const country = (rawCountry || (isDev ? 'Localhost' : 'Unknown')).slice(0, 100);
+  const country = (rawCountry || (isDev ? 'Localhost' : 'Unknown')).slice(
+    0,
+    100,
+  );
   const city = (
-    rawCity
-      ? safeDecodeURIComponent(rawCity)
-      : isDev
-        ? 'Localhost'
-        : 'Unknown'
+    rawCity ? safeDecodeURIComponent(rawCity) : isDev ? 'Localhost' : 'Unknown'
   ).slice(0, 100);
   const timezone = (rawTimezone || (isDev ? 'UTC' : 'Unknown')).slice(0, 100);
 
   // 3. Extract Device, OS, and Browser Info from User-Agent
-  const userAgent = (getSingleHeader(req.headers['user-agent']) || '').slice(0, 512);
+  const userAgent = (getSingleHeader(req.headers['user-agent']) || '').slice(
+    0,
+    512,
+  );
   const parser = new UAParser(userAgent);
   const parsed = parser.getResult();
 
   const deviceInfo = {
-    browser: `${parsed.browser.name || 'Unknown'} ${parsed.browser.major || ''}`.trim(),
+    browser:
+      `${parsed.browser.name || 'Unknown'} ${parsed.browser.major || ''}`.trim(),
     os: `${parsed.os.name || 'Unknown'} ${parsed.os.version || ''}`.trim(),
     device: parsed.device.type || 'Desktop',
     model: parsed.device.model || null,

@@ -77,7 +77,10 @@ export class JwtAuthGuard implements CanActivate {
   }
 
   private extractToken(req: Request): string | null {
-    if (typeof req.cookies?.accessToken === 'string' && req.cookies.accessToken) {
+    if (
+      typeof req.cookies?.accessToken === 'string' &&
+      req.cookies.accessToken
+    ) {
       return req.cookies.accessToken;
     }
 

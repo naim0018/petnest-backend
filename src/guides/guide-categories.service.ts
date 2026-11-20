@@ -21,7 +21,11 @@ export const DEFAULT_BASIC_CATEGORY_DATA = {
   isActive: true,
 };
 
-const RESERVED_CATEGORY_SLUGS = new Set(['all', 'admin', DEFAULT_BASIC_CATEGORY_SLUG]);
+const RESERVED_CATEGORY_SLUGS = new Set([
+  'all',
+  'admin',
+  DEFAULT_BASIC_CATEGORY_SLUG,
+]);
 
 function slugify(text: string): string {
   return text
@@ -47,7 +51,12 @@ export class GuideCategoriesService implements OnModuleInit {
       where: {
         OR: [
           { slug: DEFAULT_BASIC_CATEGORY_SLUG },
-          { name: { equals: DEFAULT_BASIC_CATEGORY_DATA.name, mode: 'insensitive' } },
+          {
+            name: {
+              equals: DEFAULT_BASIC_CATEGORY_DATA.name,
+              mode: 'insensitive',
+            },
+          },
         ],
       },
     });

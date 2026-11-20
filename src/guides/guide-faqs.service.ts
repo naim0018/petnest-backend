@@ -8,10 +8,7 @@ import { GuideStatus } from 'prisma/generated/prisma/enums';
 import type { AuthenticatedUser } from 'src/common/guards/jwt-auth.guard';
 import { UUID_REGEX } from 'src/common/utils/validation.util';
 import { PrismaService } from 'src/prisma/prisma.service';
-import {
-  BulkCreateGuideFaqDto,
-  CreateGuideFaqDto,
-} from './dto/create-faq.dto';
+import { BulkCreateGuideFaqDto, CreateGuideFaqDto } from './dto/create-faq.dto';
 import { UpdateGuideFaqDto } from './dto/update-faq.dto';
 
 const REVIEWER_ROLES = new Set(['VET', 'ADMIN', 'SUPERADMIN']);
@@ -189,7 +186,9 @@ export class GuideFaqsService {
     const isReviewerOrAdmin = REVIEWER_ROLES.has(requester.role);
     if (!isReviewerOrAdmin) {
       if (faq.guide?.authorId !== requester.userId) {
-        throw new ForbiddenException('You do not have permission to edit this FAQ');
+        throw new ForbiddenException(
+          'You do not have permission to edit this FAQ',
+        );
       }
       if (faq.guide && LOCKED_AUTHOR_STATUSES.has(faq.guide.status)) {
         throw new ForbiddenException(
@@ -249,7 +248,9 @@ export class GuideFaqsService {
       data: {
         ...(dto.question !== undefined && { question: dto.question }),
         ...(dto.answer !== undefined && { answer: dto.answer }),
-        ...(dto.displayOrder !== undefined && { displayOrder: dto.displayOrder }),
+        ...(dto.displayOrder !== undefined && {
+          displayOrder: dto.displayOrder,
+        }),
         ...(dto.isActive !== undefined && { isActive: dto.isActive }),
         speciesId: nextSpeciesId || null,
         guideId: nextGuideId || null,

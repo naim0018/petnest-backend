@@ -9,7 +9,10 @@ export class GqlThrottlerGuard extends ThrottlerGuard {
       const gqlCtx = GqlExecutionContext.create(context);
       const ctx = gqlCtx.getContext();
       if (ctx && ctx.req) {
-        return { req: ctx.req, res: ctx.res || context.switchToHttp().getResponse() };
+        return {
+          req: ctx.req,
+          res: ctx.res || context.switchToHttp().getResponse(),
+        };
       }
     }
     return super.getRequestResponse(context);

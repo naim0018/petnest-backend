@@ -9,17 +9,13 @@ export class PetsResolver {
 
   // Query a single species by ID or Slug
   @Query(() => PetSpeciesModel, { name: 'species', nullable: true })
-  async getSpecies(
-    @Args('idOrSlug', { type: () => String }) idOrSlug: string,
-  ) {
+  async getSpecies(@Args('idOrSlug', { type: () => String }) idOrSlug: string) {
     return this.petsService.findOneSpecies(idOrSlug);
   }
 
   // Query a single breed by ID or Slug
   @Query(() => PetBreedModel, { name: 'breed', nullable: true })
-  async getBreed(
-    @Args('idOrSlug', { type: () => String }) idOrSlug: string,
-  ) {
+  async getBreed(@Args('idOrSlug', { type: () => String }) idOrSlug: string) {
     return this.petsService.findOneBreed(idOrSlug);
   }
 

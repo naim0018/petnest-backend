@@ -31,14 +31,17 @@ export class MediaService {
     const accessKeyId = process.env.R2_ACCESS_KEY_ID?.trim() || '';
     const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY?.trim() || '';
     this.bucketName = process.env.R2_BUCKET_NAME?.trim() || '';
-    this.publicUrl = (process.env.R2_PUBLIC_URL?.trim() || '').replace(/\/$/, '');
+    this.publicUrl = (process.env.R2_PUBLIC_URL?.trim() || '').replace(
+      /\/$/,
+      '',
+    );
 
     this.isConfigured = Boolean(
       accountId &&
-        accessKeyId &&
-        secretAccessKey &&
-        this.bucketName &&
-        this.publicUrl,
+      accessKeyId &&
+      secretAccessKey &&
+      this.bucketName &&
+      this.publicUrl,
     );
 
     this.s3Client = new S3Client({
@@ -247,7 +250,9 @@ export class MediaService {
 
     const isAdmin = requesterRole === 'ADMIN' || requesterRole === 'SUPERADMIN';
     if (!isAdmin && asset.uploadedById !== requesterId) {
-      throw new ForbiddenException('You can only delete your own uploaded media');
+      throw new ForbiddenException(
+        'You can only delete your own uploaded media',
+      );
     }
 
     if (asset.guide && !asset.guide.deletedAt) {

@@ -1,5 +1,10 @@
 // Importing core interfaces, decorators, and exception classes from NestJS framework
-import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 // Reflector is a utility class provided by NestJS to read custom metadata attached to route handlers or controllers
 import { Reflector } from '@nestjs/core';
 // Import the custom metadata key string ('roles') used when attaching @Roles() decorator
@@ -18,16 +23,21 @@ export class RoleGuard implements CanActivate {
     context: ExecutionContext, // Provides details and utilities about the current execution context (HTTP request/response)
   ): boolean {
     // Extract required roles metadata from the route handler first, falling back to class-level (controller) metadata
-    const requiredRoles = this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
-      context.getHandler(), // Checks method/handler level (e.g., @Roles('ADMIN') on @Get())
-      context.getClass(),   // Checks controller class level (e.g., @Roles('ADMIN') on @Controller())
-    ]);
+    const requiredRoles = this.reflector.getAllAndOverride<string[]>(
+      ROLES_KEY,
+      [
+        context.getHandler(), // Checks method/handler level (e.g., @Roles('ADMIN') on @Get())
+        context.getClass(), // Checks controller class level (e.g., @Roles('ADMIN') on @Controller())
+      ],
+    );
 
     // If no roles are specified on the endpoint or the array is empty, grant access immediately
     if (!requiredRoles || requiredRoles.length === 0) return true;
 
     // Switch the context to HTTP and retrieve the underlying Express Request object typed with our user payload
-    const request = context.switchToHttp().getRequest<{ user?: AuthenticatedUser }>();
+    const request = context
+      .switchToHttp()
+      .getRequest<{ user?: AuthenticatedUser }>();
 
     // Extract the user object that was previously decoded and attached by JwtAuthGuard
     const user = request.user;
@@ -42,11 +52,12 @@ export class RoleGuard implements CanActivate {
 
     // If the user's role does not match any required role, deny access with a detailed error message
     if (!hasRole) {
-      throw new ForbiddenException(`Access denied: Requires [${requiredRoles.join(', ')}], you have ${user.role}`);
+      throw new ForbiddenException(
+        `Access denied: Requires [${requiredRoles.join(', ')}], you have ${user.role}`,
+      );
     }
 
     // If all checks pass, allow the request to proceed to the controller handler
     return true;
   }
 }
-

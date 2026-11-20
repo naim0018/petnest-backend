@@ -64,7 +64,9 @@ export class GuideQueryDto {
   @MaxLength(100)
   breed?: string;
 
-  @ApiPropertyOptional({ description: 'Category UUID or slug (e.g. "nutrition")' })
+  @ApiPropertyOptional({
+    description: 'Category UUID or slug (e.g. "nutrition")',
+  })
   @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   @IsOptional()
   @IsString()
@@ -76,7 +78,10 @@ export class GuideQueryDto {
   @IsEnum(GuideType)
   type?: GuideType;
 
-  @ApiPropertyOptional({ enum: GuideStatus, description: 'Editorial status filter' })
+  @ApiPropertyOptional({
+    enum: GuideStatus,
+    description: 'Editorial status filter',
+  })
   @IsOptional()
   @IsEnum(GuideStatus)
   status?: GuideStatus;

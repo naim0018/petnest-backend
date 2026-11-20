@@ -22,7 +22,9 @@ export class VisitorTracingMiddleware implements NestMiddleware {
 
     const rawVisitorHeader = req.headers['x-visitor-id'];
     const candidateId =
-      (typeof rawVisitorHeader === 'string' ? rawVisitorHeader.trim() : undefined) ||
+      (typeof rawVisitorHeader === 'string'
+        ? rawVisitorHeader.trim()
+        : undefined) ||
       (typeof req.cookies?.['visitor_id'] === 'string'
         ? req.cookies['visitor_id'].trim()
         : undefined);

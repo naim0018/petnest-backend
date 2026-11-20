@@ -35,7 +35,9 @@ export class SettingsService {
 
       if (setting.isSecret) {
         if (!setting.iv || !setting.authTag) {
-          this.logger.warn(`Setting ${key} is secret but missing iv or authTag.`);
+          this.logger.warn(
+            `Setting ${key} is secret but missing iv or authTag.`,
+          );
           return null;
         }
         return CryptoUtil.decryptAes256Gcm(
@@ -47,7 +49,9 @@ export class SettingsService {
 
       return setting.value;
     } catch (err: any) {
-      this.logger.error(`Failed to decrypt secret setting ${key}: ${err.message}`);
+      this.logger.error(
+        `Failed to decrypt secret setting ${key}: ${err.message}`,
+      );
       return null;
     }
   }
@@ -207,13 +211,15 @@ export class SettingsService {
         },
       );
 
-      const data = (await response.json()) as any;
+      const data = await response.json();
 
       if (!response.ok) {
         const errorMsg =
           data?.error?.message ||
           `Google API returned HTTP status ${response.status} (${response.statusText})`;
-        throw new BadRequestException(`Gemini API connection failed: ${errorMsg}`);
+        throw new BadRequestException(
+          `Gemini API connection failed: ${errorMsg}`,
+        );
       }
 
       const modelCount = Array.isArray(data?.models) ? data.models.length : 0;
