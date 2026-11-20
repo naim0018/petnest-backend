@@ -56,16 +56,43 @@ async function bootstrap() {
   const allowedOrigins = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
+    'http://localhost:3001',
+    'http://127.0.0.1:3001',
+    'http://200.141.12.188:3001',
     'https://petnest-guide.vercel.app',
     ...(process.env.FRONTEND_URL
-      ? [process.env.FRONTEND_URL.replace(/\/$/, '')]
+      ? process.env.FRONTEND_URL.split(',').map((u) => u.trim().replace(/\/$/, ''))
       : []),
   ];
 
   app.enableCors({
-    origin: Array.from(new Set(allowedOrigins)),
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, curl, server-to-server)
+      if (!origin) return callback(null, true);
+
+      // Allow if in whitelist or if coming from any IP on port 3000/3001
+      if (
+        allowedOrigins.includes(origin) ||
+        /^http:\/\/\d+\.\d+\.\d+\.\d+:(3000|3001)$/.test(origin)
+      ) {
+        return callback(null, true);
+      }
+
+      // Permissive fallback for staging/custom domain setups
+      return callback(null, true);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'x-visitor-id',
+      'Cookie',
+      'Accept',
+      'Origin',
+      'X-Requested-With',
+    ],
+    exposedHeaders: ['Set-Cookie'],
   });
 
   // Setup Swagger Documentation outside production (or when explicitly enabled)
