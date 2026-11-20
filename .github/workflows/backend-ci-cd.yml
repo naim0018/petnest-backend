@@ -155,7 +155,7 @@ jobs:
           port: ${{ secrets.HOSTINGER_SSH_PORT || 22 }}
           script_stop: true
           script: |
-            cd /opt/petnest
+            cd /root/petnest
             docker compose pull backend
             docker compose up -d backend
             docker compose exec -T backend npx prisma migrate deploy
