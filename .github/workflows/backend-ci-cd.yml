@@ -158,5 +158,4 @@ jobs:
             cd /root/petnest
             docker compose pull backend
             docker compose up -d backend
-            docker compose exec -T backend npx prisma migrate deploy
             docker image prune -f
