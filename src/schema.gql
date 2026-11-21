@@ -2,10 +2,153 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type BreedGuidesResponse {
+  breed: GuideBreedSummary!
+  items: [GuideSummary!]!
+  meta: GuidePaginationMeta!
+}
+
 enum CareLevel {
   HIGH
   LOW
   MODERATE
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type GuideAuthorSummary {
+  id: ID!
+  name: String!
+  profile: GuideProfileSummary
+  role: String!
+}
+
+type GuideBreedSummary {
+  id: ID!
+  image: String
+  name: String!
+  slug: String!
+}
+
+type GuideCategorySummary {
+  icon: String
+  id: ID!
+  name: String!
+  slug: String!
+}
+
+type GuideDetail {
+  author: GuideAuthorSummary
+  bookmarkCount: Int!
+  breeds: [GuideBreedSummary]
+  category: GuideCategorySummary
+  content: String!
+  contentUpdatedAt: DateTime
+  coverImage: String
+  coverImageAlt: String
+  createdAt: DateTime
+  displayOrder: Int
+  excerpt: String!
+  faqImage: String
+  faqs: [GuideFaq]
+  id: ID!
+  isBookmarked: Boolean
+  isFeatured: Boolean!
+  isLiked: Boolean
+  keyTakeaways: [String!]
+  lastReviewedAt: DateTime
+  likeCount: Int!
+  metaDescription: String
+  metaTitle: String
+  publishedAt: DateTime
+  readTimeMinutes: Int
+  reviewer: GuideAuthorSummary
+  slug: String!
+  species: GuideSpeciesSummary
+  status: String!
+  tags: [String!]!
+  title: String!
+  type: GuideType!
+  videoUrl: String
+  viewCount: Int!
+}
+
+type GuideFaq {
+  answer: String!
+  displayOrder: Int!
+  id: ID!
+  question: String!
+}
+
+type GuidePaginationMeta {
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  page: Int!
+  total: Int!
+  totalPages: Int!
+}
+
+type GuideProfileSummary {
+  avatar: String
+  specialization: String
+}
+
+type GuidePublicDetailResponse {
+  guide: GuideDetail!
+  redirectTo: String
+  relatedGuides: [GuideSummary!]!
+}
+
+type GuideSpeciesSummary {
+  categoryIcon: String
+  id: ID!
+  name: String!
+  slug: String!
+}
+
+type GuideSummary {
+  author: GuideAuthorSummary
+  bookmarkCount: Int!
+  breeds: [GuideBreedSummary]
+  category: GuideCategorySummary
+  contentUpdatedAt: DateTime
+  coverImage: String
+  coverImageAlt: String
+  createdAt: DateTime
+  displayOrder: Int
+  excerpt: String!
+  id: ID!
+  isBookmarked: Boolean
+  isFeatured: Boolean!
+  isLiked: Boolean
+  lastReviewedAt: DateTime
+  likeCount: Int!
+  publishedAt: DateTime
+  readTimeMinutes: Int
+  reviewer: GuideAuthorSummary
+  slug: String!
+  species: GuideSpeciesSummary
+  status: String!
+  tags: [String!]!
+  title: String!
+  type: GuideType!
+  videoUrl: String
+  viewCount: Int!
+}
+
+enum GuideType {
+  ARTICLE
+  CHECKLIST
+  PILLAR
+}
+
+type PaginatedGuides {
+  items: [GuideSummary!]!
+  meta: GuidePaginationMeta!
 }
 
 type PetBreed {
@@ -44,9 +187,19 @@ type Query {
   allSpecies: [PetSpecies!]!
   breed(idOrSlug: String!): PetBreed
   breedsBySpecies(speciesIdOrSlug: String!): [PetBreed!]!
+  guide(slug: String!): GuidePublicDetailResponse
+  guides(breed: String, category: String, isFeatured: Boolean, limit: Int, page: Int, search: String, sortBy: String, sortOrder: String, species: String, type: GuideType): PaginatedGuides!
+  guidesByBreed(breedIdOrSlug: String!, limit: Int, page: Int, search: String): BreedGuidesResponse
+  guidesBySpecies(limit: Int, page: Int, search: String, speciesIdOrSlug: String!): SpeciesGuidesResponse
   species(idOrSlug: String!): PetSpecies
 }
 
 type SpeciesCount {
   breeds: Int!
+}
+
+type SpeciesGuidesResponse {
+  items: [GuideSummary!]!
+  meta: GuidePaginationMeta!
+  species: GuideSpeciesSummary!
 }

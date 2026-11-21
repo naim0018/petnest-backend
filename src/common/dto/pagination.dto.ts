@@ -18,12 +18,12 @@ export class PaginationDto {
   @Min(1)
   page: number = 1;
 
-  @ApiPropertyOptional({ default: 10, description: 'Items per page (max 100)' })
+  @ApiPropertyOptional({ default: 10, description: 'Items per page (max 1000)' })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  @Max(100, { message: 'limit cannot exceed 100 items per page' })
+  @Max(1000, { message: 'limit cannot exceed 1000 items per page' })
   limit: number = 10;
 
   @ApiPropertyOptional({ description: 'Search query keyword (max 100 chars)' })

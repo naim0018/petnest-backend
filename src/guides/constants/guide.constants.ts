@@ -1,6 +1,8 @@
 import { GuideStatus } from 'prisma/generated/prisma/enums';
 
 export const RESERVED_GUIDE_SLUGS = new Set([
+  'all',
+  'stats',
   'categories',
   'faqs',
   'editorial',

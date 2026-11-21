@@ -195,7 +195,7 @@ export class GuidesController {
     return this.faqsService.remove(id, user);
   }
 
-  // ==================== EDITORIAL GUIDES & REVIEW QUEUE ====================
+  // ==================== ALL GUIDES & REVIEW QUEUE ====================
 
   @Get('stats')
   @ApiBearerAuth()
@@ -203,7 +203,7 @@ export class GuidesController {
   @Roles('VET', 'ADMIN', 'SUPERADMIN')
   @ApiOperation({
     summary:
-      'Editorial Hub: Get summary counts, chart trends & total readership',
+      'Editorial & Admin Hub: Get summary counts, chart trends & total readership',
   })
   getGuideOverviewStats() {
     return this.guidesService.getEditorialStats();
@@ -220,13 +220,28 @@ export class GuidesController {
     return this.guidesService.getEditorialStats();
   }
 
+  @Get('all')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles('ADMIN', 'SUPERADMIN')
+  @ApiOperation({
+    summary:
+      'All Guides: List all guides (Admins/Superadmins only)',
+  })
+  findAllGuides(
+    @Query() query: GuideQueryDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    return this.guidesService.findAllEditorial(query, user);
+  }
+
   @Get('editorial')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles('AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({
     summary:
-      'Editorial: List guides (Vets/Admins see all + Review Queue; Authors see own drafts)',
+      'Editorial: List all guides (Admins/Superadmins only)',
   })
   findAllEditorial(
     @Query() query: GuideQueryDto,
@@ -235,12 +250,26 @@ export class GuidesController {
     return this.guidesService.findAllEditorial(query, user);
   }
 
+  @Get('all/:id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles('ADMIN', 'SUPERADMIN')
+  @ApiOperation({
+    summary: 'Get full guide details by ID (Admins/Superadmins only)',
+  })
+  findOneGuide(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    return this.guidesService.findOneEditorial(id, user);
+  }
+
   @Get('editorial/:id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles('AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN')
+  @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({
-    summary: 'Editorial: Get full guide details by ID for editing/review',
+    summary: 'Editorial: Get full guide details by ID (Admins/Superadmins only)',
   })
   findOneEditorial(
     @Param('id', ParseUUIDPipe) id: string,

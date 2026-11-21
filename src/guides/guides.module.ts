@@ -8,6 +8,7 @@ import { GuideEngagementService } from './guide-engagement.service';
 import { GuideExplorerService } from './guide-explorer.service';
 import { GuideFaqsService } from './guide-faqs.service';
 import { GuidesController } from './guides.controller';
+import { GuidesResolver } from './guides.resolver';
 import { GuidesService } from './guides.service';
 
 @Module({
@@ -21,6 +22,7 @@ import { GuidesService } from './guides.service';
     GuideEditorialService,
     GuideEngagementService,
     GuidesService,
+    GuidesResolver,
   ],
   exports: [
     GuideAiService,
@@ -30,6 +32,7 @@ import { GuidesService } from './guides.service';
     GuideEditorialService,
     GuideEngagementService,
     GuidesService,
+    GuidesResolver,
   ],
 })
 export class GuidesModule {}

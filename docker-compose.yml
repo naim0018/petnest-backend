@@ -1,0 +1,51 @@
+services:
+  # ========================================================
+  # 🐘 PostgreSQL Database Service
+  # ========================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: petnest-backend-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-petnest}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-petnest_password}
+      POSTGRES_DB: ${POSTGRES_DB:-petnest}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-petnest} -d ${POSTGRES_DB:-petnest}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ========================================================
+  # 🚀 NestJS Backend API Service
+  # ========================================================
+  backend:
+    image: ${BACKEND_IMAGE:-petnest-backend:local}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: petnest-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${PORT:-5001}:5000"
+    environment:
+      PORT: 5000
+      NODE_ENV: ${NODE_ENV:-development}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-petnest}:${POSTGRES_PASSWORD:-petnest_password}@postgres:5432/${POSTGRES_DB:-petnest}?schema=public}
+      JWT_SECRET: ${JWT_SECRET:-petnest_jwt_secret_replace_in_production}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-petnest_refresh_secret_replace_in_production}
+      BCRYPT_SALT_ROUNDS: ${BCRYPT_SALT_ROUNDS:-10}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+
+volumes:
+  postgres_data:
+    driver: local

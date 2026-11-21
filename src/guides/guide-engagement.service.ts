@@ -92,7 +92,7 @@ export class GuideEngagementService {
   // Logged-in User's Saved / Bookmarked Guides (hydrates both isBookmarked & isLiked)
   async getMyBookmarks(userId: string, page = 1, limit = 12) {
     const safePage = Math.max(1, Number(page) || 1);
-    const safeLimit = Math.min(50, Math.max(1, Number(limit) || 12));
+    const safeLimit = Math.min(1000, Math.max(1, Number(limit) || 12));
     const skip = (safePage - 1) * safeLimit;
 
     const where = {

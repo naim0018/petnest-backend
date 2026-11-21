@@ -35,12 +35,12 @@ export class GuideQueryDto {
   @Min(1)
   page: number = 1;
 
-  @ApiPropertyOptional({ default: 12, maximum: 50 })
+  @ApiPropertyOptional({ default: 12, maximum: 1000 })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  @Max(50)
+  @Max(1000, { message: 'limit cannot exceed 1000 items per page' })
   limit: number = 12;
 
   @ApiPropertyOptional({ description: 'Search by title, excerpt, or tags' })

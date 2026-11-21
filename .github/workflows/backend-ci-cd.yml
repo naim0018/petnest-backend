@@ -23,39 +23,10 @@ permissions:
 
 jobs:
   # ========================================================
-  # 1. Quality & Type Checking
+  # 1. Quality, Type Checking & Database Tests
   # ========================================================
-  lint-and-typecheck:
-    name: Lint & Typecheck
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Generate Prisma Client
-        run: npx prisma generate
-
-      - name: Run Type Checking
-        run: npx tsc --noEmit
-
-      - name: Run ESLint
-        run: npm run lint
-
-  # ========================================================
-  # 2. Build & Test with Test Database
-  # ========================================================
-  build-and-test:
-    name: Build & Test
-    needs: lint-and-typecheck
+  validate-and-test:
+    name: Validate & Test
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -94,21 +65,24 @@ jobs:
       - name: Generate Prisma Client
         run: npx prisma generate
 
+      - name: Run Type Checking
+        run: npx tsc --noEmit
+
+      - name: Run ESLint
+        run: npm run lint
+
       - name: Push Schema to Test Database
         run: npx prisma db push --accept-data-loss
 
       - name: Run Unit Tests
         run: npm run test -- --passWithNoTests
 
-      - name: Build Production Bundle
-        run: npm run build
-
   # ========================================================
-  # 3. Docker Image Build & Push to GHCR
+  # 2. Docker Image Build & Push to GHCR
   # ========================================================
   docker-build:
     name: Docker Build & Push
-    needs: build-and-test
+    needs: validate-and-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
@@ -138,7 +112,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   # ========================================================
-  # 4. Deploy to Hostinger VPS
+  # 3. Deploy to Hostinger VPS
   # ========================================================
   deploy:
     name: Deploy to Hostinger VPS
