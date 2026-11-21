@@ -40,7 +40,12 @@ export class AuthController {
       ip,
       deviceInfo,
     );
-    CookieUtil.setAuthCookies(res, tokens.accessToken, tokens.refreshToken);
+    CookieUtil.setAuthCookies(
+      res,
+      tokens.accessToken,
+      tokens.refreshToken,
+      Boolean(payload.rememberMe),
+    );
     return {
       ...user,
     };
@@ -114,8 +119,8 @@ export class AuthController {
       throw new UnauthorizedException('No refresh token provided');
     }
 
-    const tokens = await this.authService.refreshToken(refreshToken);
-    CookieUtil.setAuthCookies(res, tokens.accessToken, tokens.refreshToken);
+    const { tokens, rememberMe } = await this.authService.refreshToken(refreshToken);
+    CookieUtil.setAuthCookies(res, tokens.accessToken, tokens.refreshToken, rememberMe);
     return {
       message: 'Tokens refreshed successfully',
     };

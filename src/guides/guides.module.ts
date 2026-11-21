@@ -3,6 +3,9 @@ import { MediaModule } from 'src/media/media.module';
 import { SettingsModule } from 'src/settings/settings.module';
 import { GuideAiService } from './guide-ai.service';
 import { GuideCategoriesService } from './guide-categories.service';
+import { GuideEditorialService } from './guide-editorial.service';
+import { GuideEngagementService } from './guide-engagement.service';
+import { GuideExplorerService } from './guide-explorer.service';
 import { GuideFaqsService } from './guide-faqs.service';
 import { GuidesController } from './guides.controller';
 import { GuidesService } from './guides.service';
@@ -14,12 +17,18 @@ import { GuidesService } from './guides.service';
     GuideAiService,
     GuideCategoriesService,
     GuideFaqsService,
+    GuideExplorerService,
+    GuideEditorialService,
+    GuideEngagementService,
     GuidesService,
   ],
   exports: [
     GuideAiService,
     GuideCategoriesService,
     GuideFaqsService,
+    GuideExplorerService,
+    GuideEditorialService,
+    GuideEngagementService,
     GuidesService,
   ],
 })

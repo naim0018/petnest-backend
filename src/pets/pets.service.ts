@@ -96,8 +96,16 @@ export class PetsService {
           slug: true,
           categoryIcon: true,
           image: true,
+          breeds: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+              image: true,
+            },
+            orderBy: { name: 'asc' },
+          },
           _count: {
-            // Protected: only exposes breed count to public, never registered users!
             select: { breeds: true },
           },
         },

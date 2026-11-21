@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class LoginDto {
@@ -20,4 +20,12 @@ export class LoginDto {
   @IsString({ message: 'Password must be a string' })
   @MaxLength(72, { message: 'Password cannot exceed 72 characters' })
   password: string;
+
+  @ApiPropertyOptional({
+    description: 'Whether to remember user session for 30 days',
+    example: true,
+  })
+  @IsOptional()
+  @IsBoolean({ message: 'rememberMe must be a boolean' })
+  rememberMe?: boolean;
 }

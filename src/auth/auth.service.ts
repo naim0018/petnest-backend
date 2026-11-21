@@ -152,6 +152,7 @@ export class AuthService {
       user.role,
       ip,
       deviceInfo,
+      Boolean(payload.rememberMe),
     );
 
     return {
@@ -221,11 +222,22 @@ export class AuthService {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
-    return this.rotateSessionTokens(
+    // Check if original session was configured for 30 days (rememberMe)
+    const wasRememberMe =
+      session.expiresAt.getTime() - session.createdAt.getTime() >
+      14 * 24 * 60 * 60 * 1000;
+
+    const tokens = await this.rotateSessionTokens(
       session.id,
       session.user.id,
       session.user.role,
+      wasRememberMe,
     );
+
+    return {
+      tokens,
+      rememberMe: wasRememberMe,
+    };
   }
 
   async forgotPassword(payload: ForgotPasswordDto) {
@@ -330,10 +342,14 @@ export class AuthService {
     role: string,
     ip: string,
     deviceInfo: any,
+    rememberMe = false,
   ) {
     const sessionId = randomUUID();
-    const tokens = await this.generateTokens(userId, role, sessionId);
+    const tokens = await this.generateTokens(userId, role, sessionId, rememberMe);
     const hashedRefreshToken = CryptoUtil.hashSha256(tokens.refreshToken);
+    const sessionDurationMs = rememberMe
+      ? 30 * 24 * 60 * 60 * 1000 // 30 days
+      : 1 * 24 * 60 * 60 * 1000;  // 1 day session
 
     await this.prisma.session.create({
       data: {
@@ -342,7 +358,7 @@ export class AuthService {
         hashToken: hashedRefreshToken,
         deviceInfo,
         ipAddress: ip,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week
+        expiresAt: new Date(Date.now() + sessionDurationMs),
       },
     });
 
@@ -353,15 +369,19 @@ export class AuthService {
     sessionId: string,
     userId: string,
     role: string,
+    rememberMe = false,
   ) {
-    const tokens = await this.generateTokens(userId, role, sessionId);
+    const tokens = await this.generateTokens(userId, role, sessionId, rememberMe);
     const hashedRefreshToken = CryptoUtil.hashSha256(tokens.refreshToken);
+    const sessionDurationMs = rememberMe
+      ? 30 * 24 * 60 * 60 * 1000 // 30 days
+      : 1 * 24 * 60 * 60 * 1000;  // 1 day session
 
     await this.prisma.session.update({
       where: { id: sessionId },
       data: {
         hashToken: hashedRefreshToken,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        expiresAt: new Date(Date.now() + sessionDurationMs),
       },
     });
 
@@ -372,6 +392,7 @@ export class AuthService {
     userId: string,
     role: string,
     sessionId: string,
+    rememberMe = false,
   ) {
     const accessPayload: TokenPayload = {
       userId,
@@ -386,6 +407,8 @@ export class AuthService {
       jti: randomUUID(),
     };
 
+    const refreshExpiresIn = rememberMe ? '30d' : '1d';
+
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(accessPayload, {
         secret: this.jwtSecret,
@@ -393,7 +416,7 @@ export class AuthService {
       }),
       this.jwtService.signAsync(refreshPayload, {
         secret: this.jwtRefreshSecret,
-        expiresIn: '7d',
+        expiresIn: refreshExpiresIn,
       }),
     ]);
 
