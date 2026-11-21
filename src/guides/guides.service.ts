@@ -86,6 +86,10 @@ export class GuidesService {
     return this.explorerService.findGuidesByBreed(breedIdOrSlug, query);
   }
 
+  findRelatedGuides(idOrSlug: string, limit?: number) {
+    return this.explorerService.findRelatedGuides(idOrSlug, limit);
+  }
+
   // ==================== USER ENGAGEMENT ====================
 
   toggleLike(guideId: string, userId: string) {

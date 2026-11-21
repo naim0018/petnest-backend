@@ -117,6 +117,7 @@ export type GuideCountAggregateOutputType = {
   keyTakeaways: number
   content: number
   type: number
+  translations: number
   coverImage: number
   coverImageAlt: number
   faqImage: number
@@ -237,6 +238,7 @@ export type GuideCountAggregateInputType = {
   keyTakeaways?: true
   content?: true
   type?: true
+  translations?: true
   coverImage?: true
   coverImageAlt?: true
   faqImage?: true
@@ -360,6 +362,7 @@ export type GuideGroupByOutputType = {
   keyTakeaways: string[]
   content: string
   type: $Enums.GuideType
+  translations: runtime.JsonValue | null
   coverImage: string | null
   coverImageAlt: string | null
   faqImage: string | null
@@ -419,6 +422,7 @@ export type GuideWhereInput = {
   keyTakeaways?: Prisma.StringNullableListFilter<"Guide">
   content?: Prisma.StringFilter<"Guide"> | string
   type?: Prisma.EnumGuideTypeFilter<"Guide"> | $Enums.GuideType
+  translations?: Prisma.JsonNullableFilter<"Guide">
   coverImage?: Prisma.StringNullableFilter<"Guide"> | string | null
   coverImageAlt?: Prisma.StringNullableFilter<"Guide"> | string | null
   faqImage?: Prisma.StringNullableFilter<"Guide"> | string | null
@@ -464,6 +468,7 @@ export type GuideOrderByWithRelationInput = {
   keyTakeaways?: Prisma.SortOrder
   content?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  translations?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImageAlt?: Prisma.SortOrderInput | Prisma.SortOrder
   faqImage?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -512,6 +517,7 @@ export type GuideWhereUniqueInput = Prisma.AtLeast<{
   keyTakeaways?: Prisma.StringNullableListFilter<"Guide">
   content?: Prisma.StringFilter<"Guide"> | string
   type?: Prisma.EnumGuideTypeFilter<"Guide"> | $Enums.GuideType
+  translations?: Prisma.JsonNullableFilter<"Guide">
   coverImage?: Prisma.StringNullableFilter<"Guide"> | string | null
   coverImageAlt?: Prisma.StringNullableFilter<"Guide"> | string | null
   faqImage?: Prisma.StringNullableFilter<"Guide"> | string | null
@@ -557,6 +563,7 @@ export type GuideOrderByWithAggregationInput = {
   keyTakeaways?: Prisma.SortOrder
   content?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  translations?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImageAlt?: Prisma.SortOrderInput | Prisma.SortOrder
   faqImage?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -601,6 +608,7 @@ export type GuideScalarWhereWithAggregatesInput = {
   keyTakeaways?: Prisma.StringNullableListFilter<"Guide">
   content?: Prisma.StringWithAggregatesFilter<"Guide"> | string
   type?: Prisma.EnumGuideTypeWithAggregatesFilter<"Guide"> | $Enums.GuideType
+  translations?: Prisma.JsonNullableWithAggregatesFilter<"Guide">
   coverImage?: Prisma.StringNullableWithAggregatesFilter<"Guide"> | string | null
   coverImageAlt?: Prisma.StringNullableWithAggregatesFilter<"Guide"> | string | null
   faqImage?: Prisma.StringNullableWithAggregatesFilter<"Guide"> | string | null
@@ -637,6 +645,7 @@ export type GuideCreateInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -678,6 +687,7 @@ export type GuideUncheckedCreateInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -719,6 +729,7 @@ export type GuideUpdateInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -760,6 +771,7 @@ export type GuideUncheckedUpdateInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -801,6 +813,7 @@ export type GuideCreateManyInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -837,6 +850,7 @@ export type GuideUpdateManyMutationInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -869,6 +883,7 @@ export type GuideUncheckedUpdateManyInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -923,6 +938,7 @@ export type GuideCountOrderByAggregateInput = {
   keyTakeaways?: Prisma.SortOrder
   content?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  translations?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   coverImageAlt?: Prisma.SortOrder
   faqImage?: Prisma.SortOrder
@@ -1356,6 +1372,7 @@ export type GuideCreateWithoutCategoryInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -1396,6 +1413,7 @@ export type GuideUncheckedCreateWithoutCategoryInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -1465,6 +1483,7 @@ export type GuideScalarWhereInput = {
   keyTakeaways?: Prisma.StringNullableListFilter<"Guide">
   content?: Prisma.StringFilter<"Guide"> | string
   type?: Prisma.EnumGuideTypeFilter<"Guide"> | $Enums.GuideType
+  translations?: Prisma.JsonNullableFilter<"Guide">
   coverImage?: Prisma.StringNullableFilter<"Guide"> | string | null
   coverImageAlt?: Prisma.StringNullableFilter<"Guide"> | string | null
   faqImage?: Prisma.StringNullableFilter<"Guide"> | string | null
@@ -1501,6 +1520,7 @@ export type GuideCreateWithoutMediaInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -1541,6 +1561,7 @@ export type GuideUncheckedCreateWithoutMediaInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -1597,6 +1618,7 @@ export type GuideUpdateWithoutMediaInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1637,6 +1659,7 @@ export type GuideUncheckedUpdateWithoutMediaInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1677,6 +1700,7 @@ export type GuideCreateWithoutFaqsInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -1717,6 +1741,7 @@ export type GuideUncheckedCreateWithoutFaqsInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -1773,6 +1798,7 @@ export type GuideUpdateWithoutFaqsInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1813,6 +1839,7 @@ export type GuideUncheckedUpdateWithoutFaqsInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1853,6 +1880,7 @@ export type GuideCreateWithoutBookmarksInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -1893,6 +1921,7 @@ export type GuideUncheckedCreateWithoutBookmarksInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -1949,6 +1978,7 @@ export type GuideUpdateWithoutBookmarksInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1989,6 +2019,7 @@ export type GuideUncheckedUpdateWithoutBookmarksInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2029,6 +2060,7 @@ export type GuideCreateWithoutLikesInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2069,6 +2101,7 @@ export type GuideUncheckedCreateWithoutLikesInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2125,6 +2158,7 @@ export type GuideUpdateWithoutLikesInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2165,6 +2199,7 @@ export type GuideUncheckedUpdateWithoutLikesInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2205,6 +2240,7 @@ export type GuideCreateWithoutSpeciesInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2245,6 +2281,7 @@ export type GuideUncheckedCreateWithoutSpeciesInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2311,6 +2348,7 @@ export type GuideCreateWithoutBreedsInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2351,6 +2389,7 @@ export type GuideUncheckedCreateWithoutBreedsInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2412,6 +2451,7 @@ export type GuideCreateWithoutAuthorInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2452,6 +2492,7 @@ export type GuideUncheckedCreateWithoutAuthorInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2502,6 +2543,7 @@ export type GuideCreateWithoutReviewerInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2542,6 +2584,7 @@ export type GuideUncheckedCreateWithoutReviewerInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2624,6 +2667,7 @@ export type GuideCreateManyCategoryInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2659,6 +2703,7 @@ export type GuideUpdateWithoutCategoryInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2699,6 +2744,7 @@ export type GuideUncheckedUpdateWithoutCategoryInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2739,6 +2785,7 @@ export type GuideUncheckedUpdateManyWithoutCategoryInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2774,6 +2821,7 @@ export type GuideCreateManySpeciesInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -2809,6 +2857,7 @@ export type GuideUpdateWithoutSpeciesInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2849,6 +2898,7 @@ export type GuideUncheckedUpdateWithoutSpeciesInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2889,6 +2939,7 @@ export type GuideUncheckedUpdateManyWithoutSpeciesInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2924,6 +2975,7 @@ export type GuideUpdateWithoutBreedsInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2964,6 +3016,7 @@ export type GuideUncheckedUpdateWithoutBreedsInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3004,6 +3057,7 @@ export type GuideUncheckedUpdateManyWithoutBreedsInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3040,6 +3094,7 @@ export type GuideCreateManyAuthorInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -3075,6 +3130,7 @@ export type GuideCreateManyReviewerInput = {
   keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
   content: string
   type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: string | null
   coverImageAlt?: string | null
   faqImage?: string | null
@@ -3110,6 +3166,7 @@ export type GuideUpdateWithoutAuthorInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3150,6 +3207,7 @@ export type GuideUncheckedUpdateWithoutAuthorInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3190,6 +3248,7 @@ export type GuideUncheckedUpdateManyWithoutAuthorInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3225,6 +3284,7 @@ export type GuideUpdateWithoutReviewerInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3265,6 +3325,7 @@ export type GuideUncheckedUpdateWithoutReviewerInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3305,6 +3366,7 @@ export type GuideUncheckedUpdateManyWithoutReviewerInput = {
   keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
   content?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3407,6 +3469,7 @@ export type GuideSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   keyTakeaways?: boolean
   content?: boolean
   type?: boolean
+  translations?: boolean
   coverImage?: boolean
   coverImageAlt?: boolean
   faqImage?: boolean
@@ -3453,6 +3516,7 @@ export type GuideSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   keyTakeaways?: boolean
   content?: boolean
   type?: boolean
+  translations?: boolean
   coverImage?: boolean
   coverImageAlt?: boolean
   faqImage?: boolean
@@ -3493,6 +3557,7 @@ export type GuideSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   keyTakeaways?: boolean
   content?: boolean
   type?: boolean
+  translations?: boolean
   coverImage?: boolean
   coverImageAlt?: boolean
   faqImage?: boolean
@@ -3533,6 +3598,7 @@ export type GuideSelectScalar = {
   keyTakeaways?: boolean
   content?: boolean
   type?: boolean
+  translations?: boolean
   coverImage?: boolean
   coverImageAlt?: boolean
   faqImage?: boolean
@@ -3560,7 +3626,7 @@ export type GuideSelectScalar = {
   updatedAt?: boolean
 }
 
-export type GuideOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "previousSlugs" | "excerpt" | "keyTakeaways" | "content" | "type" | "coverImage" | "coverImageAlt" | "faqImage" | "videoUrl" | "readTimeMinutes" | "displayOrder" | "speciesId" | "categoryId" | "tags" | "status" | "isFeatured" | "reviewNotes" | "authorId" | "reviewerId" | "lastReviewedAt" | "metaTitle" | "metaDescription" | "viewCount" | "likeCount" | "bookmarkCount" | "publishedAt" | "contentUpdatedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["guide"]>
+export type GuideOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "previousSlugs" | "excerpt" | "keyTakeaways" | "content" | "type" | "translations" | "coverImage" | "coverImageAlt" | "faqImage" | "videoUrl" | "readTimeMinutes" | "displayOrder" | "speciesId" | "categoryId" | "tags" | "status" | "isFeatured" | "reviewNotes" | "authorId" | "reviewerId" | "lastReviewedAt" | "metaTitle" | "metaDescription" | "viewCount" | "likeCount" | "bookmarkCount" | "publishedAt" | "contentUpdatedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["guide"]>
 export type GuideInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   species?: boolean | Prisma.Guide$speciesArgs<ExtArgs>
   breeds?: boolean | Prisma.Guide$breedsArgs<ExtArgs>
@@ -3608,6 +3674,7 @@ export type $GuidePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     keyTakeaways: string[]
     content: string
     type: $Enums.GuideType
+    translations: runtime.JsonValue | null
     coverImage: string | null
     coverImageAlt: string | null
     faqImage: string | null
@@ -4073,6 +4140,7 @@ export interface GuideFieldRefs {
   readonly keyTakeaways: Prisma.FieldRef<"Guide", 'String[]'>
   readonly content: Prisma.FieldRef<"Guide", 'String'>
   readonly type: Prisma.FieldRef<"Guide", 'GuideType'>
+  readonly translations: Prisma.FieldRef<"Guide", 'Json'>
   readonly coverImage: Prisma.FieldRef<"Guide", 'String'>
   readonly coverImageAlt: Prisma.FieldRef<"Guide", 'String'>
   readonly faqImage: Prisma.FieldRef<"Guide", 'String'>

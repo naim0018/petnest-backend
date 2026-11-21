@@ -46,6 +46,7 @@ export const guideSummarySelect = {
   slug: true,
   excerpt: true,
   type: true,
+  translations: true,
   coverImage: true,
   coverImageAlt: true,
   videoUrl: true,

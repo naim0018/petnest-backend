@@ -92,6 +92,7 @@ export class GuideEditorialService {
         keyTakeaways:
           dto.keyTakeaways?.map((t) => t.trim()).filter(Boolean) ?? [],
         content: sanitizedContent,
+        translations: dto.translations ?? {},
         type: dto.type,
         coverImage: dto.coverImage?.trim() || null,
         coverImageAlt: dto.coverImageAlt?.trim() || null,
@@ -258,6 +259,7 @@ export class GuideEditorialService {
           content: sanitizedContent,
           readTimeMinutes,
         }),
+        ...(dto.translations !== undefined && { translations: dto.translations }),
         ...(dto.type !== undefined && { type: dto.type }),
         ...(dto.coverImage !== undefined && {
           coverImage: dto.coverImage?.trim() || null,

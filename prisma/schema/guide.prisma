@@ -39,6 +39,9 @@ model Guide {
     content       String    @db.Text
     type          GuideType @default(ARTICLE)
 
+    // Localized language variants dictionary (e.g. { "bn": { "title": "...", "excerpt": "...", "content": "..." } })
+    translations  Json?     @default("{}")
+
     // Hero Media, Optional Featured Video & FAQ Section Visual
     coverImage    String?
     coverImageAlt String?

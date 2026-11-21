@@ -209,20 +209,8 @@ export class GuideExplorerService {
       didIncrementView = true;
     }
 
-    const relatedGuides = await this.prisma.guide.findMany({
-      where: {
-        status: GuideStatus.PUBLISHED,
-        deletedAt: null,
-        id: { not: guide.id },
-        OR: [
-          ...(guide.species?.id ? [{ speciesId: guide.species.id }] : []),
-          { categoryId: guide.category.id },
-        ],
-      },
-      select: guideSummarySelect,
-      orderBy: { viewCount: 'desc' },
-      take: 3,
-    });
+    // Priority-based related guides (Category -> Breed -> Species -> Fallback)
+    const relatedGuides = await this.findRelatedGuides(guide.id, 4);
 
     const { likes, bookmarks, ...guideData } = guide;
 
@@ -236,6 +224,109 @@ export class GuideExplorerService {
       },
       relatedGuides,
     };
+  }
+
+  // Find related guides: Priority 1: Similar category -> Priority 2: Breed -> Priority 3: Species -> Fallback
+  async findRelatedGuides(idOrSlug: string, limit = 4) {
+    let cleanKey: string;
+    try {
+      cleanKey = decodeURIComponent(idOrSlug).trim().toLowerCase();
+    } catch {
+      cleanKey = idOrSlug.trim().toLowerCase();
+    }
+
+    const isUuid = UUID_REGEX.test(cleanKey);
+
+    const target = await this.prisma.guide.findFirst({
+      where: {
+        OR: [
+          ...(isUuid
+            ? [{ id: cleanKey }]
+            : [{ slug: cleanKey }, { previousSlugs: { has: cleanKey } }]),
+        ],
+        status: GuideStatus.PUBLISHED,
+        deletedAt: null,
+      },
+      select: {
+        id: true,
+        categoryId: true,
+        speciesId: true,
+        breeds: { select: { id: true } },
+      },
+    });
+
+    if (!target) {
+      return [];
+    }
+
+    const baseWhere = {
+      status: GuideStatus.PUBLISHED,
+      deletedAt: null,
+      id: { not: target.id },
+    };
+
+    const breedIds = target.breeds?.map((b) => b.id) || [];
+
+    // Priority 1: Similar category
+    let related = await this.prisma.guide.findMany({
+      where: {
+        ...baseWhere,
+        categoryId: target.categoryId,
+      },
+      select: guideSummarySelect,
+      orderBy: [
+        { displayOrder: 'asc' },
+        { viewCount: 'desc' },
+        { publishedAt: 'desc' },
+      ],
+      take: limit,
+    });
+
+    // Priority 2: If no related guides in that similar category, check breed
+    if (related.length === 0 && breedIds.length > 0) {
+      related = await this.prisma.guide.findMany({
+        where: {
+          ...baseWhere,
+          breeds: { some: { id: { in: breedIds } } },
+        },
+        select: guideSummarySelect,
+        orderBy: [
+          { displayOrder: 'asc' },
+          { viewCount: 'desc' },
+          { publishedAt: 'desc' },
+        ],
+        take: limit,
+      });
+    }
+
+    // Priority 3: If no breed guides (or no breeds attached), check species
+    if (related.length === 0 && target.speciesId) {
+      related = await this.prisma.guide.findMany({
+        where: {
+          ...baseWhere,
+          speciesId: target.speciesId,
+        },
+        select: guideSummarySelect,
+        orderBy: [
+          { displayOrder: 'asc' },
+          { viewCount: 'desc' },
+          { publishedAt: 'desc' },
+        ],
+        take: limit,
+      });
+    }
+
+    // Priority 4: Fallback to general published guides if still empty
+    if (related.length === 0) {
+      related = await this.prisma.guide.findMany({
+        where: baseWhere,
+        select: guideSummarySelect,
+        orderBy: [{ viewCount: 'desc' }, { publishedAt: 'desc' }],
+        take: limit,
+      });
+    }
+
+    return related;
   }
 
   // Find guides by species

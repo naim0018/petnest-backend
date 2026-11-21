@@ -214,4 +214,11 @@ export class CreateGuideDto {
   @IsString()
   @MaxLength(160)
   metaDescription?: string;
+
+  @ApiPropertyOptional({
+    description:
+      'Multi-language variants map. Example: { "bn": { "title": "...", "excerpt": "...", "content": "..." } }',
+  })
+  @IsOptional()
+  translations?: Record<string, any>;
 }

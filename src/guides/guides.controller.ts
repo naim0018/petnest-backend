@@ -353,6 +353,21 @@ export class GuidesController {
     return this.guidesService.findGuidesByBreed(breedIdOrSlug, query);
   }
 
+  @Get(':idOrSlug/related')
+  @ApiOperation({
+    summary:
+      'Public: Get related guides prioritized by similar category -> breed -> species fallback',
+  })
+  findRelatedGuides(
+    @Param('idOrSlug') idOrSlug: string,
+    @Query('limit') limit?: number,
+  ) {
+    return this.guidesService.findRelatedGuides(
+      idOrSlug,
+      limit ? Number(limit) : 4,
+    );
+  }
+
   @Get(':slug')
   @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({

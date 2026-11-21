@@ -337,6 +337,7 @@ export class PetsService {
         { slug: { contains: trimmed, mode: 'insensitive' } },
         { originCountry: { contains: trimmed, mode: 'insensitive' } },
         { temperament: { contains: trimmed, mode: 'insensitive' } },
+        { shortDescription: { contains: trimmed, mode: 'insensitive' } },
       ];
     }
 
