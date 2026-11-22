@@ -5,6 +5,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { GuideQueryDto } from './dto/guide-query.dto';
 import {
   guideSummarySelect,
+  publicGuideCardSelect,
+  sanitizeCardTranslations,
   MAX_VIEW_CACHE_ENTRIES,
   VIEW_DEDUPE_TTL_MS,
 } from './constants/guide.constants';
@@ -98,7 +100,7 @@ export class GuideExplorerService {
       this.prisma.guide.findMany({
         where,
         select: {
-          ...guideSummarySelect,
+          ...publicGuideCardSelect,
           ...(viewerId && {
             likes: { where: { userId: viewerId }, select: { id: true } },
             bookmarks: { where: { userId: viewerId }, select: { id: true } },
@@ -115,9 +117,11 @@ export class GuideExplorerService {
     ]);
 
     const hydratedItems = items.map((item: any) => {
-      const { likes, bookmarks, ...rest } = item;
+      const { likes, bookmarks, translations, ...rest } = item;
       return {
         ...rest,
+        translations: sanitizeCardTranslations(translations),
+        expertReviewed: Boolean(item.lastReviewedAt),
         isLiked: viewerId ? Boolean(likes?.length) : false,
         isBookmarked: viewerId ? Boolean(bookmarks?.length) : false,
       };

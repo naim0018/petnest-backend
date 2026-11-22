@@ -42,7 +42,7 @@ type GuideCategorySummary {
 
 type GuideDetail {
   author: GuideAuthorSummary
-  bookmarkCount: Int!
+  bookmarkCount: Int
   breeds: [GuideBreedSummary]
   category: GuideCategorySummary
   content: String!
@@ -52,15 +52,16 @@ type GuideDetail {
   createdAt: DateTime
   displayOrder: Int
   excerpt: String!
+  expertReviewed: Boolean
   faqImage: String
   faqs: [GuideFaq]
   id: ID!
   isBookmarked: Boolean
-  isFeatured: Boolean!
+  isFeatured: Boolean
   isLiked: Boolean
   keyTakeaways: [String!]
   lastReviewedAt: DateTime
-  likeCount: Int!
+  likeCount: Int
   metaDescription: String
   metaTitle: String
   publishedAt: DateTime
@@ -68,12 +69,12 @@ type GuideDetail {
   reviewer: GuideAuthorSummary
   slug: String!
   species: GuideSpeciesSummary
-  status: String!
-  tags: [String!]!
+  status: String
+  tags: [String!]
   title: String!
   type: GuideType!
   videoUrl: String
-  viewCount: Int!
+  viewCount: Int
 }
 
 type GuideFaq {
@@ -112,7 +113,7 @@ type GuideSpeciesSummary {
 
 type GuideSummary {
   author: GuideAuthorSummary
-  bookmarkCount: Int!
+  bookmarkCount: Int
   breeds: [GuideBreedSummary]
   category: GuideCategorySummary
   contentUpdatedAt: DateTime
@@ -121,23 +122,24 @@ type GuideSummary {
   createdAt: DateTime
   displayOrder: Int
   excerpt: String!
+  expertReviewed: Boolean
   id: ID!
   isBookmarked: Boolean
-  isFeatured: Boolean!
+  isFeatured: Boolean
   isLiked: Boolean
   lastReviewedAt: DateTime
-  likeCount: Int!
+  likeCount: Int
   publishedAt: DateTime
   readTimeMinutes: Int
   reviewer: GuideAuthorSummary
   slug: String!
   species: GuideSpeciesSummary
-  status: String!
-  tags: [String!]!
+  status: String
+  tags: [String!]
   title: String!
   type: GuideType!
   videoUrl: String
-  viewCount: Int!
+  viewCount: Int
 }
 
 enum GuideType {

@@ -141,3 +141,92 @@ export function extractZipInMemory(buffer: Buffer): Map<string, Buffer> {
 
   return files;
 }
+
+export interface ZipFileEntry {
+  path: string;
+  data: Buffer | string;
+}
+
+/**
+ * Pure Node.js in-memory ZIP packager using standard zlib and PKZIP central directory.
+ * Requires 0 external npm dependencies, fast, and generates valid standard .zip archives.
+ */
+export function createZipInMemory(entries: ZipFileEntry[]): Buffer {
+  const localChunks: Buffer[] = [];
+  const cdChunks: Buffer[] = [];
+  let offset = 0;
+
+  for (const entry of entries) {
+    const normalizedPath = entry.path.replace(/\\/g, '/').replace(/^\/+/, '');
+    const fileNameBuf = Buffer.from(normalizedPath, 'utf8');
+    const uncompressedData: Buffer = Buffer.isBuffer(entry.data)
+      ? Buffer.from(entry.data)
+      : Buffer.from(entry.data, 'utf8');
+    const uncompressedSize = uncompressedData.length;
+    const crc = zlib.crc32(uncompressedData);
+
+    const deflated = zlib.deflateRawSync(uncompressedData);
+    let method = 8;
+    let compressedData: Buffer = deflated;
+    let compressedSize = deflated.length;
+    if (deflated.length >= uncompressedSize) {
+      method = 0;
+      compressedData = Buffer.from(uncompressedData);
+      compressedSize = uncompressedSize;
+    }
+
+    const localHeader = Buffer.alloc(30);
+    localHeader.writeUInt32LE(0x04034b50, 0);
+    localHeader.writeUInt16LE(20, 4);
+    localHeader.writeUInt16LE(0x0800, 6); // UTF-8 filename flag
+    localHeader.writeUInt16LE(method, 8);
+    localHeader.writeUInt16LE(0, 10);
+    localHeader.writeUInt16LE(0, 12);
+    localHeader.writeUInt32LE(crc, 14);
+    localHeader.writeUInt32LE(compressedSize, 18);
+    localHeader.writeUInt32LE(uncompressedSize, 22);
+    localHeader.writeUInt16LE(fileNameBuf.length, 26);
+    localHeader.writeUInt16LE(0, 28);
+
+    const localOffset = offset;
+    localChunks.push(localHeader, fileNameBuf, compressedData);
+    offset += 30 + fileNameBuf.length + compressedSize;
+
+    const cdHeader = Buffer.alloc(46);
+    cdHeader.writeUInt32LE(0x02014b50, 0);
+    cdHeader.writeUInt16LE(20, 4);
+    cdHeader.writeUInt16LE(20, 6);
+    cdHeader.writeUInt16LE(0x0800, 8);
+    cdHeader.writeUInt16LE(method, 10);
+    cdHeader.writeUInt16LE(0, 12);
+    cdHeader.writeUInt16LE(0, 14);
+    cdHeader.writeUInt32LE(crc, 16);
+    cdHeader.writeUInt32LE(compressedSize, 20);
+    cdHeader.writeUInt32LE(uncompressedSize, 24);
+    cdHeader.writeUInt16LE(fileNameBuf.length, 28);
+    cdHeader.writeUInt16LE(0, 30);
+    cdHeader.writeUInt16LE(0, 32);
+    cdHeader.writeUInt16LE(0, 34);
+    cdHeader.writeUInt16LE(0, 36);
+    cdHeader.writeUInt32LE(0, 38);
+    cdHeader.writeUInt32LE(localOffset, 42);
+
+    cdChunks.push(cdHeader, fileNameBuf);
+  }
+
+  const cdOffset = offset;
+  const cdBuf = Buffer.concat(cdChunks);
+  const cdSize = cdBuf.length;
+
+  const eocd = Buffer.alloc(22);
+  eocd.writeUInt32LE(0x06054b50, 0);
+  eocd.writeUInt16LE(0, 4);
+  eocd.writeUInt16LE(0, 6);
+  eocd.writeUInt16LE(entries.length, 8);
+  eocd.writeUInt16LE(entries.length, 10);
+  eocd.writeUInt32LE(cdSize, 12);
+  eocd.writeUInt32LE(cdOffset, 16);
+  eocd.writeUInt16LE(0, 20);
+
+  return Buffer.concat([...localChunks, cdBuf, eocd]);
+}

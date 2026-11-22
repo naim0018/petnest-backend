@@ -119,26 +119,29 @@ export class GuideSummaryModel {
   @Field(() => Int, { nullable: true })
   displayOrder?: number;
 
-  @Field(() => [String])
-  tags: string[];
+  @Field(() => [String], { nullable: true })
+  tags?: string[];
 
-  @Field()
-  status: string;
+  @Field({ nullable: true })
+  status?: string;
 
-  @Field()
-  isFeatured: boolean;
+  @Field({ nullable: true })
+  isFeatured?: boolean;
 
   @Field(() => Date, { nullable: true })
   lastReviewedAt?: Date;
 
-  @Field(() => Int)
-  viewCount: number;
+  @Field({ nullable: true })
+  expertReviewed?: boolean;
 
-  @Field(() => Int)
-  likeCount: number;
+  @Field(() => Int, { nullable: true })
+  viewCount?: number;
 
-  @Field(() => Int)
-  bookmarkCount: number;
+  @Field(() => Int, { nullable: true })
+  likeCount?: number;
+
+  @Field(() => Int, { nullable: true })
+  bookmarkCount?: number;
 
   @Field(() => Date, { nullable: true })
   publishedAt?: Date;
@@ -242,26 +245,29 @@ export class GuideDetailModel {
   @Field(() => Int, { nullable: true })
   displayOrder?: number;
 
-  @Field(() => [String])
-  tags: string[];
+  @Field(() => [String], { nullable: true })
+  tags?: string[];
 
-  @Field()
-  status: string;
+  @Field({ nullable: true })
+  status?: string;
 
-  @Field()
-  isFeatured: boolean;
+  @Field({ nullable: true })
+  isFeatured?: boolean;
 
   @Field(() => Date, { nullable: true })
   lastReviewedAt?: Date;
 
-  @Field(() => Int)
-  viewCount: number;
+  @Field({ nullable: true })
+  expertReviewed?: boolean;
 
-  @Field(() => Int)
-  likeCount: number;
+  @Field(() => Int, { nullable: true })
+  viewCount?: number;
 
-  @Field(() => Int)
-  bookmarkCount: number;
+  @Field(() => Int, { nullable: true })
+  likeCount?: number;
+
+  @Field(() => Int, { nullable: true })
+  bookmarkCount?: number;
 
   @Field(() => Date, { nullable: true })
   publishedAt?: Date;

@@ -87,6 +87,7 @@ async function bootstrap() {
       'Content-Type',
       'Authorization',
       'x-visitor-id',
+      'x-timezone',
       'Cookie',
       'Accept',
       'Origin',

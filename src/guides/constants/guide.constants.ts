@@ -40,6 +40,48 @@ export function escapeHtml(str: string): string {
     .replace(/'/g, '&#39;');
 }
 
+export const publicGuideCardSelect = {
+  id: true,
+  title: true,
+  slug: true,
+  excerpt: true,
+  type: true,
+  coverImage: true,
+  coverImageAlt: true,
+  readTimeMinutes: true,
+  displayOrder: true,
+  publishedAt: true,
+  lastReviewedAt: true,
+  translations: true,
+  category: {
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      icon: true,
+    },
+  },
+};
+
+export function sanitizeCardTranslations(
+  translations: any,
+): Record<string, { title?: string; excerpt?: string }> | null {
+  if (!translations || typeof translations !== 'object') return null;
+  const sanitized: Record<string, { title?: string; excerpt?: string }> = {};
+  for (const [locale, val] of Object.entries(translations)) {
+    if (val && typeof val === 'object') {
+      const { title, excerpt } = val as any;
+      if (title || excerpt) {
+        sanitized[locale] = {
+          ...(title && { title: String(title) }),
+          ...(excerpt && { excerpt: String(excerpt) }),
+        };
+      }
+    }
+  }
+  return Object.keys(sanitized).length > 0 ? sanitized : null;
+}
+
 export const guideSummarySelect = {
   id: true,
   title: true,

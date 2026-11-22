@@ -68,6 +68,21 @@ export class GuidesService {
     return this.editorialService.bulkImportFromZip(zipBuffer, requester);
   }
 
+  exportGuideAsZip(
+    id: string,
+    requester: AuthenticatedUser,
+  ): Promise<{ buffer: Buffer; filename: string }> {
+    return this.editorialService.exportGuideAsZip(id, requester);
+  }
+
+  importGuideZip(
+    id: string,
+    zipBuffer: Buffer,
+    requester: AuthenticatedUser,
+  ): Promise<any> {
+    return this.editorialService.importGuideZip(id, zipBuffer, requester);
+  }
+
   // ==================== PUBLIC EXPLORER ====================
 
   findAllPublic(query: GuideQueryDto, viewerId?: string) {

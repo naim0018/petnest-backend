@@ -21,10 +21,15 @@ import {
   validateExternalVideoUrl,
 } from './utils/guide-content.util';
 import * as path from 'path';
-import { extractZipInMemory } from 'src/common/utils/zip.util';
+import {
+  extractZipInMemory,
+  createZipInMemory,
+  ZipFileEntry,
+} from 'src/common/utils/zip.util';
 import {
   BulkImportGuideItem,
   BulkImportGuideResult,
+  BulkImportSectionItem,
   BulkImportZipResponse,
 } from './dto/bulk-import-guide.dto';
 import {
@@ -886,9 +891,95 @@ export class GuideEditorialService {
     const canDirectPublish = EDITORIAL_REVIEWER_ROLES.has(requester.role);
     const results: BulkImportGuideResult[] = [];
 
+    // 3b. Pair English & Bangla variants if present in the archive
+    const isBanglaItem = (item: BulkImportGuideItem): boolean => {
+      if (!item) return false;
+      const lang = (item.lang || item.language || '').toLowerCase();
+      if (lang === 'bn' || lang === 'bangla') return true;
+
+      const slug = (item.slug || '').toLowerCase();
+      if (
+        slug.endsWith('-bn') ||
+        slug.endsWith('_bn') ||
+        slug.endsWith('-bangla') ||
+        slug.endsWith('_bangla')
+      ) {
+        return true;
+      }
+
+      if (
+        Array.isArray(item.tags) &&
+        item.tags.some((t) => {
+          const s = String(t).toLowerCase();
+          return s === 'bangla-guide' || s === 'bangla' || s === 'bn';
+        })
+      ) {
+        return true;
+      }
+
+      // Check for Bengali Unicode characters in title or summary
+      if (
+        /[\u0980-\u09FF]/.test(item.title || '') ||
+        /[\u0980-\u09FF]/.test(item.summary || '')
+      ) {
+        return true;
+      }
+
+      return false;
+    };
+
+    const getBaseSlug = (slug?: string): string => {
+      if (!slug) return '';
+      return slug
+        .trim()
+        .toLowerCase()
+        .replace(/[_-](?:bn|bangla)$/i, '');
+    };
+
+    const pairedBanglaMap = new Map<number, BulkImportGuideItem>();
+    const consumedIndices = new Set<number>();
+
+    // Pass 1: For each primary (non-Bangla) guide, match with its corresponding Bangla variant
+    for (let i = 0; i < guidesArray.length; i++) {
+      const item = guidesArray[i];
+      if (isBanglaItem(item)) continue;
+
+      const primarySlug = (item.slug || '').trim().toLowerCase();
+
+      for (let j = 0; j < guidesArray.length; j++) {
+        if (i === j || consumedIndices.has(j)) continue;
+        const candidate = guidesArray[j];
+        if (!isBanglaItem(candidate)) continue;
+
+        const candidateBaseSlug = getBaseSlug(candidate.slug);
+        const isSlugMatch =
+          Boolean(primarySlug && candidateBaseSlug && candidateBaseSlug === primarySlug);
+        const isPairInTwo = guidesArray.length === 2;
+        const isMetaMatch = Boolean(
+          item.species &&
+          candidate.species &&
+          item.species.toLowerCase() === candidate.species.toLowerCase() &&
+          item.category &&
+          candidate.category &&
+          item.category.toLowerCase() === candidate.category.toLowerCase()
+        );
+
+        if (isSlugMatch || isPairInTwo || isMetaMatch) {
+          pairedBanglaMap.set(i, candidate);
+          consumedIndices.add(j);
+          break;
+        }
+      }
+    }
+
     // 4. Process each guide sequentially
     for (let i = 0; i < guidesArray.length; i++) {
+      if (consumedIndices.has(i)) {
+        continue;
+      }
+
       const guide = guidesArray[i];
+      const banglaVariant = pairedBanglaMap.get(i);
       const guideTitle = guide?.title?.trim() || `Guide #${i + 1}`;
 
       try {
@@ -967,93 +1058,27 @@ export class GuideEditorialService {
         }
 
         // Assemble Content (sections[] + body + tokens) in clean Markdown
-        let assembled = '';
         let imagesLinked = 0;
+        const { content: sanitizedContent, imagesLinked: enImagesLinked } =
+          this.assembleContent(
+            guide.sections,
+            guide.content,
+            guide.body,
+            resolveImageUrl,
+          );
+        imagesLinked += enImagesLinked;
 
-        if (Array.isArray(guide.sections) && guide.sections.length > 0) {
-          for (const sec of guide.sections) {
-            if (sec.heading) {
-              assembled += `\n\n## ${sec.heading.trim()}\n\n`;
-            }
-            if (sec.image) {
-              const imgUrl = resolveImageUrl(sec.image);
-              if (imgUrl) {
-                imagesLinked++;
-                const caption = (sec.imageCaption || sec.caption || '').trim();
-                assembled += `![${caption || sec.heading || 'Guide illustration'}](${imgUrl})\n\n`;
-              }
-            }
-            if (sec.body) {
-              assembled += `${this.convertHtmlToMarkdown(sec.body.trim())}\n\n`;
-            }
-          }
-        }
-
-        if (guide.content || guide.body) {
-          const extra = (guide.content || guide.body || '').trim();
-          const extraMd = this.convertHtmlToMarkdown(extra);
-          assembled = assembled ? `${assembled}\n\n${extraMd}` : extraMd;
-        }
-
-        if (!assembled || assembled.length < 30) {
+        if (!sanitizedContent || sanitizedContent.length < 30) {
           throw new BadRequestException(
             'Guide content or sections are required (minimum 30 characters of text)',
           );
         }
 
-        if (assembled.length > 150000) {
+        if (sanitizedContent.length > 150000) {
           throw new BadRequestException(
-            `Assembled guide content (${assembled.length} characters) exceeds the 150,000 character maximum limit`,
+            `Assembled guide content (${sanitizedContent.length} characters) exceeds the 150,000 character maximum limit`,
           );
         }
-
-        // Replace inline {{image:filename.ext}} tokens with markdown image
-        assembled = assembled.replace(
-          /\{\{image:([^}]+)\}\}/gi,
-          (_, fileName) => {
-            const trimmed = fileName.trim();
-            const imgUrl = resolveImageUrl(trimmed);
-            if (imgUrl) {
-              imagesLinked++;
-              return `\n\n![${trimmed}](${imgUrl})\n\n`;
-            }
-            return '';
-          },
-        );
-
-        // Replace markdown images ![alt](filename.ext)
-        assembled = assembled.replace(
-          /!\[(.*?)\]\((.*?)\)/g,
-          (match, altText, src) => {
-            if (/^https?:\/\//i.test(src)) return match;
-            const mapped = resolveImageUrl(src);
-            if (mapped) {
-              imagesLinked++;
-              return `![${altText}](${mapped})`;
-            }
-            return match;
-          },
-        );
-
-        // Replace any remaining HTML <img> tags with markdown image
-        assembled = assembled.replace(
-          /<img[^>]+src=["']([^"']+)["'][^>]*(?:alt=["']([^"']*)["'])?[^>]*>/gi,
-          (match, src, alt) => {
-            const mapped = resolveImageUrl(src) || src;
-            if (mapped !== src) imagesLinked++;
-            return `![${(alt || '').trim()}](${mapped})`;
-          },
-        );
-
-        // Normalize spacing
-        assembled = assembled
-          .replace(/\r\n/g, '\n')
-          .replace(/[ \t]+$/gm, '')
-          .replace(/\n{3,}/g, '\n\n')
-          .trim();
-
-        // Sanitize assembled content
-        const sanitizedContent = sanitizeGuideHtml(assembled);
 
         // Calculate read time
         const readTimeMinutes =
@@ -1077,6 +1102,83 @@ export class GuideEditorialService {
           ? slugify(guide.slug)
           : slugify(guide.title);
         const uniqueSlug = await this.generateUniqueBulkSlug(baseSlug);
+
+        // Assemble localized Bangla translation if paired or nested
+        const translationsPayload: Record<string, any> = {
+          ...(guide.translations || {}),
+        };
+
+        if (banglaVariant) {
+          const { content: bnContent, imagesLinked: bnImagesLinked } =
+            this.assembleContent(
+              banglaVariant.sections,
+              banglaVariant.content,
+              banglaVariant.body,
+              resolveImageUrl,
+            );
+          imagesLinked += bnImagesLinked;
+
+          const bnExcerpt = (
+            banglaVariant.summary ||
+            banglaVariant.excerpt ||
+            ''
+          ).trim();
+          const bnTakeaways = Array.isArray(banglaVariant.keyTakeaways)
+            ? banglaVariant.keyTakeaways
+                .map((t) => String(t).trim())
+                .filter(Boolean)
+            : [];
+          const bnFaqs = Array.isArray(banglaVariant.faqs)
+            ? banglaVariant.faqs
+                .filter(
+                  (f) => f && typeof f === 'object' && f.question && f.answer,
+                )
+                .map((f, fIdx) => ({
+                  id: `bn-faq-${fIdx + 1}`,
+                  question: f.question.trim(),
+                  answer: f.answer.trim(),
+                  displayOrder:
+                    typeof f.displayOrder === 'number'
+                      ? f.displayOrder
+                      : fIdx + 1,
+                  isActive:
+                    typeof f.isActive === 'boolean' ? f.isActive : true,
+                }))
+            : [];
+
+          translationsPayload.bn = {
+            title: banglaVariant.title.trim(),
+            slug: banglaVariant.slug?.trim() || `${uniqueSlug}-bn`,
+            excerpt: bnExcerpt,
+            content: bnContent,
+            keyTakeaways: bnTakeaways,
+            metaTitle: banglaVariant.metaTitle?.trim() || null,
+            metaDescription: banglaVariant.metaDescription?.trim() || null,
+            faqs: bnFaqs,
+          };
+        } else if (guide.translations?.bn) {
+          const inlineBn = guide.translations.bn;
+          const { content: inlineBnContent, imagesLinked: inlineImagesLinked } =
+            this.assembleContent(
+              inlineBn.sections,
+              inlineBn.content,
+              inlineBn.body,
+              resolveImageUrl,
+            );
+          imagesLinked += inlineImagesLinked;
+          translationsPayload.bn = {
+            ...inlineBn,
+            content: inlineBnContent || inlineBn.content,
+          };
+        }
+
+        const previousSlugs: string[] = [];
+        if (
+          banglaVariant?.slug &&
+          banglaVariant.slug.trim().toLowerCase() !== uniqueSlug
+        ) {
+          previousSlugs.push(banglaVariant.slug.trim().toLowerCase());
+        }
 
         // Target Status
         let targetStatus: GuideStatus = GuideStatus.DRAFT;
@@ -1112,6 +1214,7 @@ export class GuideEditorialService {
             data: {
               title: guide.title.trim(),
               slug: uniqueSlug,
+              previousSlugs,
               excerpt,
               keyTakeaways: Array.isArray(guide.keyTakeaways)
                 ? guide.keyTakeaways
@@ -1119,6 +1222,7 @@ export class GuideEditorialService {
                     .filter(Boolean)
                 : [],
               content: sanitizedContent,
+              translations: translationsPayload,
               type: guide.type || 'ARTICLE',
               coverImage: resolvedCoverImage,
               coverImageAlt: guide.coverImageAlt?.trim() || null,
@@ -1176,23 +1280,29 @@ export class GuideEditorialService {
           return newGuide;
         });
 
-        // Link media assets
+        // Link media assets for both primary content and translation
         await this.mediaService.syncGuideMedia(
           createdGuide.id,
           createdGuide.coverImage,
-          createdGuide.content,
+          `${createdGuide.content} ${translationsPayload.bn?.content || ''}`,
           requester,
           [createdGuide.faqImage],
         );
 
+        const hasTranslation = Boolean(
+          translationsPayload.bn?.content || translationsPayload.bn?.title,
+        );
         results.push({
           index: i + 1,
           id: createdGuide.id,
-          title: createdGuide.title,
+          title: hasTranslation
+            ? `${createdGuide.title} (English + বাংলা)`
+            : createdGuide.title,
           slug: createdGuide.slug,
           status: createdGuide.status,
           faqsCount,
           imagesLinked,
+          hasTranslation,
           success: true,
         });
       } catch (err: any) {
@@ -1310,6 +1420,93 @@ export class GuideEditorialService {
     }
   }
 
+  private assembleContent(
+    sections?: BulkImportSectionItem[],
+    content?: string,
+    body?: string,
+    resolveImageUrl?: (ref?: string | null) => string | null,
+  ): { content: string; imagesLinked: number } {
+    let assembled = '';
+    let imagesLinked = 0;
+
+    const resolve = resolveImageUrl || ((r) => r || null);
+
+    if (Array.isArray(sections) && sections.length > 0) {
+      for (const sec of sections) {
+        if (sec.heading) {
+          assembled += `\n\n## ${sec.heading.trim()}\n\n`;
+        }
+        if (sec.image) {
+          const imgUrl = resolve(sec.image);
+          if (imgUrl) {
+            imagesLinked++;
+            const caption = (sec.imageCaption || sec.caption || '').trim();
+            assembled += `![${caption || sec.heading || 'Guide illustration'}](${imgUrl})\n\n`;
+          }
+        }
+        if (sec.body) {
+          assembled += `${this.convertHtmlToMarkdown(sec.body.trim())}\n\n`;
+        }
+      }
+    }
+
+    if (content || body) {
+      const extra = (content || body || '').trim();
+      const extraMd = this.convertHtmlToMarkdown(extra);
+      assembled = assembled ? `${assembled}\n\n${extraMd}` : extraMd;
+    }
+
+    if (assembled) {
+      // Replace inline {{image:filename.ext}} tokens with markdown image
+      assembled = assembled.replace(
+        /\{\{image:([^}]+)\}\}/gi,
+        (_, fileName) => {
+          const trimmed = fileName.trim();
+          const imgUrl = resolve(trimmed);
+          if (imgUrl) {
+            imagesLinked++;
+            return `\n\n![${trimmed}](${imgUrl})\n\n`;
+          }
+          return '';
+        },
+      );
+
+      // Replace markdown images ![alt](filename.ext)
+      assembled = assembled.replace(
+        /!\[(.*?)\]\((.*?)\)/g,
+        (match, altText, src) => {
+          if (/^https?:\/\//i.test(src)) return match;
+          const mapped = resolve(src);
+          if (mapped) {
+            imagesLinked++;
+            return `![${altText}](${mapped})`;
+          }
+          return match;
+        },
+      );
+
+      // Replace any remaining HTML <img> tags with markdown image
+      assembled = assembled.replace(
+        /<img[^>]+src=["']([^"']+)["'][^>]*(?:alt=["']([^"']*)["'])?[^>]*>/gi,
+        (match, src, alt) => {
+          const mapped = resolve(src) || src;
+          if (mapped !== src) imagesLinked++;
+          return `![${(alt || '').trim()}](${mapped})`;
+        },
+      );
+
+      // Normalize spacing
+      assembled = assembled
+        .replace(/\r\n/g, '\n')
+        .replace(/[ \t]+$/gm, '')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+    }
+
+    const sanitizedContent = sanitizeGuideHtml(assembled);
+    return { content: sanitizedContent, imagesLinked };
+  }
+
   private convertHtmlToMarkdown(text: string): string {
     if (!text) return '';
     let md = text;
@@ -1398,5 +1595,377 @@ export class GuideEditorialService {
       counter++;
       candidate = `${baseSlug || 'guide'}-${counter}`;
     }
+  }
+
+  async exportGuideAsZip(
+    guideId: string,
+    requester: AuthenticatedUser,
+  ): Promise<{ buffer: Buffer; filename: string }> {
+    const guide = await this.prisma.guide.findFirst({
+      where: { id: guideId, deletedAt: null },
+      include: {
+        category: true,
+        species: true,
+        breeds: true,
+        faqs: { orderBy: { displayOrder: 'asc' } },
+        author: { select: { id: true, name: true, role: true } },
+      },
+    });
+
+    if (!guide) {
+      throw new NotFoundException(`Guide with ID ${guideId} not found`);
+    }
+
+    const cleanSlug = guide.slug || slugify(guide.title) || 'guide';
+    const entries: ZipFileEntry[] = [];
+    const downloadedImages = new Map<string, string>(); // remoteUrl -> localFilename
+
+    const downloadAndRegisterImage = async (
+      url: string,
+      prefix: string,
+    ): Promise<string> => {
+      if (!url || !/^https?:\/\//i.test(url)) return url;
+      if (downloadedImages.has(url)) return downloadedImages.get(url)!;
+
+      try {
+        const parsed = new URL(url);
+        let ext = path.extname(parsed.pathname).toLowerCase();
+        if (!ext || ext.length > 5) ext = '.jpg';
+
+        const filename = `${cleanSlug}-${prefix}${ext}`;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+        const resp = await fetch(url, {
+          signal: controller.signal,
+          headers: { 'User-Agent': 'PetNest/1.0' },
+        });
+        clearTimeout(timeoutId);
+
+        if (resp.ok) {
+          const arrayBuffer = await resp.arrayBuffer();
+          const buf = Buffer.from(arrayBuffer);
+          entries.push({ path: `images/${filename}`, data: buf });
+          downloadedImages.set(url, filename);
+          return filename;
+        }
+      } catch (err) {
+        console.warn(`Export ZIP: Failed to download image ${url}:`, err);
+      }
+      return url;
+    };
+
+    // 1. Cover Image
+    let heroImageRef: string | null = null;
+    if (guide.coverImage) {
+      heroImageRef = await downloadAndRegisterImage(guide.coverImage, 'cover');
+    }
+
+    // 2. FAQ Image
+    let faqImageRef: string | null = null;
+    if (guide.faqImage) {
+      faqImageRef = await downloadAndRegisterImage(guide.faqImage, 'faq');
+    }
+
+    // 3. Scan & Download Inline Images in Content
+    let exportedContent = guide.content || '';
+    const imgUrlsInContent = new Set<string>();
+
+    const mdImgRegex = /!\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g;
+    let match: RegExpExecArray | null;
+    while ((match = mdImgRegex.exec(exportedContent)) !== null) {
+      imgUrlsInContent.add(match[2]);
+    }
+
+    const htmlImgRegex = /<img[^>]+src=["'](https?:\/\/[^"']+)["']/gi;
+    while ((match = htmlImgRegex.exec(exportedContent)) !== null) {
+      imgUrlsInContent.add(match[1]);
+    }
+
+    const translations = (guide.translations as Record<string, any>) || {};
+    const exportedTranslations: Record<string, any> = JSON.parse(
+      JSON.stringify(translations),
+    );
+
+    for (const langKey of Object.keys(exportedTranslations)) {
+      const variant = exportedTranslations[langKey];
+      if (variant?.content && typeof variant.content === 'string') {
+        while ((match = mdImgRegex.exec(variant.content)) !== null) {
+          imgUrlsInContent.add(match[2]);
+        }
+        while ((match = htmlImgRegex.exec(variant.content)) !== null) {
+          imgUrlsInContent.add(match[1]);
+        }
+      }
+    }
+
+    let inlineIdx = 1;
+    for (const imgUrl of imgUrlsInContent) {
+      if (imgUrl !== guide.coverImage && imgUrl !== guide.faqImage) {
+        const localName = await downloadAndRegisterImage(
+          imgUrl,
+          `inline-${inlineIdx++}`,
+        );
+        exportedContent = exportedContent.split(imgUrl).join(`images/${localName}`);
+        for (const langKey of Object.keys(exportedTranslations)) {
+          const v = exportedTranslations[langKey];
+          if (v?.content && typeof v.content === 'string') {
+            v.content = v.content.split(imgUrl).join(`images/${localName}`);
+          }
+        }
+      } else if (imgUrl === guide.coverImage && heroImageRef) {
+        exportedContent = exportedContent.split(imgUrl).join(`images/${heroImageRef}`);
+      } else if (imgUrl === guide.faqImage && faqImageRef) {
+        exportedContent = exportedContent.split(imgUrl).join(`images/${faqImageRef}`);
+      }
+    }
+
+    const guideItem: BulkImportGuideItem = {
+      id: guide.id,
+      title: guide.title,
+      slug: guide.slug,
+      category: guide.category?.name || 'General Care',
+      categoryId: guide.category?.id,
+      species: guide.species?.name || undefined,
+      speciesId: guide.species?.id || undefined,
+      breeds: guide.breeds.map((b) => b.name),
+      breedIds: guide.breeds.map((b) => b.id),
+      summary: guide.excerpt,
+      excerpt: guide.excerpt,
+      keyTakeaways: guide.keyTakeaways || [],
+      type: guide.type as any,
+      status: guide.status as any,
+      isFeatured: guide.isFeatured,
+      displayOrder: guide.displayOrder,
+      readTimeMinutes: guide.readTimeMinutes,
+      heroImage: heroImageRef || undefined,
+      coverImageAlt: guide.coverImageAlt || undefined,
+      faqImage: faqImageRef || undefined,
+      videoUrl: guide.videoUrl || undefined,
+      tags: guide.tags || [],
+      metaTitle: guide.metaTitle || undefined,
+      metaDescription: guide.metaDescription || undefined,
+      content: exportedContent,
+      translations: exportedTranslations,
+      faqs: (guide.faqs || []).map((f) => ({
+        question: f.question,
+        answer: f.answer,
+        displayOrder: f.displayOrder,
+        isActive: f.isActive,
+      })),
+    };
+
+    entries.unshift({
+      path: 'guides.json',
+      data: JSON.stringify([guideItem], null, 2),
+    });
+
+    const buffer = createZipInMemory(entries);
+    return { buffer, filename: `${cleanSlug}.zip` };
+  }
+
+  async importGuideZip(
+    guideId: string,
+    zipBuffer: Buffer,
+    requester: AuthenticatedUser,
+  ): Promise<any> {
+    const existing = await this.prisma.guide.findFirst({
+      where: { id: guideId, deletedAt: null },
+      include: { category: true, species: true, breeds: true, faqs: true },
+    });
+    if (!existing) {
+      throw new NotFoundException(`Guide with ID ${guideId} not found`);
+    }
+
+    const canDirectPublish = EDITORIAL_REVIEWER_ROLES.has(requester.role);
+    if (!canDirectPublish && existing.authorId !== requester.userId) {
+      throw new ForbiddenException('You can only edit your own guides');
+    }
+
+    const extractedFiles = extractZipInMemory(zipBuffer);
+    let jsonBuffer: Buffer | undefined;
+    for (const [filePath, buf] of extractedFiles.entries()) {
+      if (/(?:^|\/)guides?\.json$/i.test(filePath)) {
+        jsonBuffer = buf;
+        break;
+      }
+    }
+    if (!jsonBuffer) {
+      throw new BadRequestException(
+        'Could not find guides.json (or guide.json) in the uploaded .zip archive',
+      );
+    }
+
+    let parsed: any;
+    try {
+      let rawJson = jsonBuffer.toString('utf8');
+      if (rawJson.charCodeAt(0) === 0xfeff) rawJson = rawJson.slice(1);
+      parsed = JSON.parse(rawJson);
+    } catch {
+      throw new BadRequestException('Invalid JSON syntax in guides.json');
+    }
+
+    const item: BulkImportGuideItem = Array.isArray(parsed) ? parsed[0] : parsed;
+    if (!item || typeof item !== 'object') {
+      throw new BadRequestException('Invalid guide object in guides.json');
+    }
+
+    // Upload any images from the zip
+    const imageMap = new Map<string, string>();
+    for (const [filePath, fileBuf] of extractedFiles.entries()) {
+      const ext = path.extname(filePath).toLowerCase();
+      if (['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif'].includes(ext)) {
+        try {
+          const originalBaseName = path.basename(filePath);
+          const uploaded = await this.mediaService.uploadImageBuffer(
+            fileBuf,
+            requester.userId,
+            'guides',
+            originalBaseName,
+          );
+          imageMap.set(filePath, uploaded.url);
+          imageMap.set(filePath.toLowerCase(), uploaded.url);
+          imageMap.set(originalBaseName, uploaded.url);
+          imageMap.set(originalBaseName.toLowerCase(), uploaded.url);
+          imageMap.set(`images/${originalBaseName}`, uploaded.url);
+          imageMap.set(`images/${originalBaseName}`.toLowerCase(), uploaded.url);
+        } catch (imgErr) {
+          console.error(`Failed to upload zip image ${filePath}:`, imgErr);
+        }
+      }
+    }
+
+    const resolveImg = (ref?: string | null): string | null => {
+      if (!ref) return null;
+      if (/^https?:\/\//i.test(ref)) return ref;
+      const baseName = path.basename(ref);
+      return (
+        imageMap.get(ref) ||
+        imageMap.get(baseName) ||
+        imageMap.get(`images/${baseName}`) ||
+        ref
+      );
+    };
+
+    let assembled = '';
+    if (Array.isArray(item.sections) && item.sections.length > 0) {
+      for (const sec of item.sections) {
+        if (sec.heading) assembled += `\n\n## ${sec.heading.trim()}\n\n`;
+        if (sec.image) {
+          const url = resolveImg(sec.image);
+          if (url) {
+            assembled += `![${sec.imageCaption || sec.heading || 'Illustration'}](${url})\n\n`;
+          }
+        }
+        if (sec.body) assembled += `${sec.body.trim()}\n\n`;
+      }
+    }
+    if (item.content || item.body) {
+      const extra = (item.content || item.body || '').trim();
+      assembled = assembled ? `${assembled}\n\n${extra}` : extra;
+    }
+    if (!assembled && existing.content) {
+      assembled = existing.content;
+    }
+
+    assembled = assembled.replace(/\{\{image:([^}]+)\}\}/gi, (_, fileName) => {
+      const url = resolveImg(fileName.trim());
+      return url ? `\n\n![${fileName}](${url})\n\n` : '';
+    });
+    assembled = assembled.replace(/!\[(.*?)\]\((.*?)\)/g, (match, alt, src) => {
+      const mapped = resolveImg(src);
+      return mapped ? `![${alt}](${mapped})` : match;
+    });
+
+    const sanitizedContent = sanitizeGuideHtml(assembled);
+    const readTimeMinutes = calculateReadTimeMinutes(sanitizedContent);
+
+    const coverImage =
+      resolveImg(item.heroImage || item.coverImage) || existing.coverImage;
+    const faqImage = resolveImg(item.faqImage) || existing.faqImage;
+
+    let translations =
+      item.translations !== undefined
+        ? item.translations
+        : (existing.translations as any);
+    if (translations && typeof translations === 'object') {
+      for (const langKey of Object.keys(translations)) {
+        const v = translations[langKey];
+        if (v?.content && typeof v.content === 'string') {
+          v.content = v.content.replace(
+            /\{\{image:([^}]+)\}\}/gi,
+            (_: string, f: string) => {
+              const url = resolveImg(f.trim());
+              return url ? `\n\n![${f}](${url})\n\n` : '';
+            },
+          );
+          v.content = v.content.replace(
+            /!\[(.*?)\]\((.*?)\)/g,
+            (m: string, a: string, s: string) => {
+              const mapped = resolveImg(s);
+              return mapped ? `![${a}](${mapped})` : m;
+            },
+          );
+        }
+      }
+    }
+
+    const updated = await this.prisma.guide.update({
+      where: { id: guideId },
+      data: {
+        ...(item.title && { title: item.title.trim() }),
+        ...((item.summary || item.excerpt) && {
+          excerpt: (item.summary || item.excerpt)!.trim(),
+        }),
+        ...(Array.isArray(item.keyTakeaways) && {
+          keyTakeaways: item.keyTakeaways,
+        }),
+        content: sanitizedContent,
+        readTimeMinutes,
+        coverImage,
+        coverImageAlt: item.coverImageAlt?.trim() || existing.coverImageAlt,
+        faqImage,
+        ...(Array.isArray(item.tags) && {
+          tags: item.tags.map((t) => String(t).toLowerCase()),
+        }),
+        ...(item.metaTitle && { metaTitle: item.metaTitle.trim() }),
+        ...(item.metaDescription && {
+          metaDescription: item.metaDescription.trim(),
+        }),
+        ...(translations !== undefined && { translations }),
+      },
+      include: {
+        category: true,
+        species: true,
+        breeds: true,
+        faqs: true,
+        author: { select: { id: true, name: true, role: true } },
+      },
+    });
+
+    if (Array.isArray(item.faqs) && item.faqs.length > 0) {
+      await this.prisma.guideFaq.deleteMany({ where: { guideId } });
+      await this.prisma.guideFaq.createMany({
+        data: item.faqs
+          .filter((f) => f && f.question && f.answer)
+          .map((f, idx) => ({
+            guideId,
+            question: f.question.trim(),
+            answer: f.answer.trim(),
+            displayOrder:
+              typeof f.displayOrder === 'number' ? f.displayOrder : idx,
+            isActive: typeof f.isActive === 'boolean' ? f.isActive : true,
+          })),
+      });
+    }
+
+    await this.mediaService.syncGuideMedia(
+      updated.id,
+      updated.coverImage,
+      updated.content,
+      requester,
+      [updated.faqImage],
+    );
+
+    return updated;
   }
 }

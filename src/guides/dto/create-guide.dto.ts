@@ -7,6 +7,7 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
+  IsObject,
   IsOptional,
   IsString,
   IsUUID,
@@ -220,5 +221,6 @@ export class CreateGuideDto {
       'Multi-language variants map. Example: { "bn": { "title": "...", "excerpt": "...", "content": "..." } }',
   })
   @IsOptional()
+  @IsObject()
   translations?: Record<string, any>;
 }

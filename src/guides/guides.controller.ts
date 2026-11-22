@@ -12,6 +12,7 @@ import {
   Post,
   Query,
   Req,
+  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -25,7 +26,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import type { Request } from 'express';
+import type { Request, Response } from 'express';
 import { CurrentUser } from 'src/common/decorators/current-user.decerator';
 import { Roles } from 'src/common/decorators/roles.decoretors';
 import type { AuthenticatedUser } from 'src/common/guards/jwt-auth.guard';
@@ -486,6 +487,52 @@ export class GuidesController {
     @CurrentUser() user: AuthenticatedUser,
   ) {
     return this.guidesService.reviewGuide(id, dto, user);
+  }
+
+  @Get(':id/export-zip')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles('AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN')
+  @ApiOperation({
+    summary:
+      'Export a guide as an archive ZIP file containing guides.json and images/',
+  })
+  async exportGuideZip(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() user: AuthenticatedUser,
+    @Res() res: Response,
+  ) {
+    const { buffer, filename } = await this.guidesService.exportGuideAsZip(
+      id,
+      user,
+    );
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Length', buffer.length.toString());
+    res.end(buffer);
+  }
+
+  @Post(':id/import-zip')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles('AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: { fileSize: 50 * 1024 * 1024 },
+    }),
+  )
+  @ApiOperation({
+    summary: 'Update an existing guide from an uploaded ZIP archive',
+  })
+  importGuideZip(
+    @Param('id', ParseUUIDPipe) id: string,
+    @UploadedFile() file: Express.Multer.File,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    if (!file) {
+      throw new BadRequestException('A .zip archive file is required');
+    }
+    return this.guidesService.importGuideZip(id, file.buffer, user);
   }
 
   @Delete(':id')

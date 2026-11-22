@@ -14,6 +14,7 @@ export interface BulkImportSectionItem {
 }
 
 export interface BulkImportGuideItem {
+  id?: string;
   title: string;
   slug?: string;
   category?: string;
@@ -48,6 +49,11 @@ export interface BulkImportGuideItem {
 
   // Full FAQ support
   faqs?: BulkImportFaqItem[];
+
+  // Optional language tag / nested translations
+  lang?: string;
+  language?: string;
+  translations?: Record<string, any>;
 }
 
 export interface BulkImportGuideResult {
@@ -58,6 +64,7 @@ export interface BulkImportGuideResult {
   status?: string;
   faqsCount: number;
   imagesLinked: number;
+  hasTranslation?: boolean;
   success: boolean;
   error?: string;
 }

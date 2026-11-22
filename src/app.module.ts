@@ -5,6 +5,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { GqlThrottlerGuard } from './common/guards/gql-throttler.guard';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AnalyticsModule } from './analytics/analytics.module';
 import { AuthModule } from './auth/auth.module';
 import { VisitorTracingMiddleware } from './common/middlewae/visitor-tracing.middleware';
 import { GuidesModule } from './guides/guides.module';
@@ -69,6 +70,7 @@ function validateEnv(config: Record<string, unknown>) {
     MediaModule,
     GuidesModule,
     SettingsModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [
