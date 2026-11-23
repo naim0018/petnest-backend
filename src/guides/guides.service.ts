@@ -85,12 +85,22 @@ export class GuidesService {
 
   // ==================== PUBLIC EXPLORER ====================
 
-  findAllPublic(query: GuideQueryDto, viewerId?: string) {
-    return this.explorerService.findAllPublic(query, viewerId);
+  findAllPublic(query: GuideQueryDto, viewerId?: string, targetLang = 'en') {
+    return this.explorerService.findAllPublic(query, viewerId, targetLang);
   }
 
-  findOnePublicBySlug(slug: string, viewerId?: string, visitorKey = 'anon') {
-    return this.explorerService.findOnePublicBySlug(slug, viewerId, visitorKey);
+  findOnePublicBySlug(
+    slug: string,
+    viewerId?: string,
+    visitorKey = 'anon',
+    targetLang = 'en',
+  ) {
+    return this.explorerService.findOnePublicBySlug(
+      slug,
+      viewerId,
+      visitorKey,
+      targetLang,
+    );
   }
 
   findGuidesBySpecies(speciesIdOrSlug: string, query?: GuideQueryDto) {
@@ -101,8 +111,8 @@ export class GuidesService {
     return this.explorerService.findGuidesByBreed(breedIdOrSlug, query);
   }
 
-  findRelatedGuides(idOrSlug: string, limit?: number) {
-    return this.explorerService.findRelatedGuides(idOrSlug, limit);
+  findRelatedGuides(idOrSlug: string, limit?: number, targetLang = 'en') {
+    return this.explorerService.findRelatedGuides(idOrSlug, limit, targetLang);
   }
 
   // ==================== USER ENGAGEMENT ====================

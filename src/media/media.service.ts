@@ -14,7 +14,7 @@ import { randomUUID } from 'crypto';
 import sharp from 'sharp';
 import { PrismaService } from 'src/prisma/prisma.service';
 
-export type MediaFolder = 'guides' | 'pets' | 'avatars';
+export type MediaFolder = 'guides' | 'pets' | 'avatars' | 'categories';
 
 const MAX_INPUT_PIXELS = 40_000_000; // ~40 MP cap against decompression-bomb DoS
 const EDITORIAL_PRIVILEGED_ROLES = new Set(['VET', 'ADMIN', 'SUPERADMIN']);

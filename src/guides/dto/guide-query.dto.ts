@@ -111,4 +111,9 @@ export class GuideQueryDto {
   @IsOptional()
   @IsEnum(['asc', 'desc'])
   sortOrder?: 'asc' | 'desc' = 'desc';
+
+  @ApiPropertyOptional({ description: 'Target language override (e.g. "bn", "en")' })
+  @IsOptional()
+  @IsString()
+  lang?: string;
 }

@@ -3,7 +3,9 @@ import {
   ConflictException,
   ForbiddenException,
   Injectable,
+  Logger,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { GuideStatus } from 'prisma/generated/prisma/enums';
 import type { AuthenticatedUser } from 'src/common/guards/jwt-auth.guard';
@@ -41,12 +43,67 @@ import {
 } from './constants/guide.constants';
 
 @Injectable()
-export class GuideEditorialService {
+export class GuideEditorialService implements OnModuleInit {
+  private readonly logger = new Logger(GuideEditorialService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly mediaService: MediaService,
     private readonly guideCategoriesService: GuideCategoriesService,
   ) {}
+
+  async onModuleInit() {
+    await this.resolveExistingDisplayOrderCollisions();
+  }
+
+  /**
+   * Resequences existing duplicate positive display orders so every ranked guide has a unique order.
+   */
+  async resolveExistingDisplayOrderCollisions(): Promise<void> {
+    try {
+      const guides = await this.prisma.guide.findMany({
+        where: { displayOrder: { gt: 0 } },
+        select: {
+          id: true,
+          displayOrder: true,
+          title: true,
+          publishedAt: true,
+          createdAt: true,
+        },
+        orderBy: [
+          { displayOrder: 'asc' },
+          { publishedAt: 'asc' },
+          { createdAt: 'asc' },
+        ],
+      });
+
+      const seenOrders = new Set<number>();
+      let maxOrder = 0;
+      for (const g of guides) {
+        if (g.displayOrder > maxOrder) maxOrder = g.displayOrder;
+      }
+
+      for (const g of guides) {
+        if (seenOrders.has(g.displayOrder)) {
+          maxOrder += 1;
+          await this.prisma.guide.update({
+            where: { id: g.id },
+            data: { displayOrder: maxOrder },
+          });
+          seenOrders.add(maxOrder);
+          this.logger.log(
+            `Resolved duplicate order for guide "${g.title}": reassigned to #${maxOrder}`,
+          );
+        } else {
+          seenOrders.add(g.displayOrder);
+        }
+      }
+    } catch (err: any) {
+      this.logger.warn(
+        `Failed to resolve displayOrder collisions on boot: ${err?.message || err}`,
+      );
+    }
+  }
 
   // ==================== EDITORIAL CRUD & REVIEW WORKFLOW ====================
 
@@ -89,6 +146,26 @@ export class GuideEditorialService {
     const isPublishingNow = targetStatus === GuideStatus.PUBLISHED;
     const isVetPublishing = isPublishingNow && requester.role === 'VET';
 
+    // Resolve displayOrder with automatic collision detection
+    let resolvedDisplayOrder =
+      typeof dto.displayOrder === 'number'
+        ? Math.max(0, Math.round(dto.displayOrder))
+        : 0;
+
+    if (resolvedDisplayOrder > 0) {
+      const existingWithOrder = await this.prisma.guide.findFirst({
+        where: { displayOrder: resolvedDisplayOrder },
+        select: { id: true },
+      });
+      if (existingWithOrder) {
+        const maxOrderGuide = await this.prisma.guide.findFirst({
+          orderBy: { displayOrder: 'desc' },
+          select: { displayOrder: true },
+        });
+        resolvedDisplayOrder = (maxOrderGuide?.displayOrder ?? 0) + 1;
+      }
+    }
+
     const guide = await this.prisma.guide.create({
       data: {
         title: dto.title,
@@ -104,7 +181,7 @@ export class GuideEditorialService {
         faqImage: dto.faqImage?.trim() || null,
         videoUrl: validatedVideoUrl,
         readTimeMinutes,
-        displayOrder: dto.displayOrder ?? 0,
+        displayOrder: resolvedDisplayOrder,
         speciesId: dto.speciesId || null,
         breeds:
           uniqueBreedIds.length > 0
@@ -250,6 +327,31 @@ export class GuideEditorialService {
     const shouldClearStaleReview =
       !canDirectPublish && didContentChange && existing.reviewerId !== null;
 
+    // Automatic collision handling for displayOrder on update
+    if (dto.displayOrder !== undefined && dto.displayOrder > 0) {
+      const targetOrder = Math.max(0, Math.round(dto.displayOrder));
+      const conflicting = await this.prisma.guide.findFirst({
+        where: {
+          displayOrder: targetOrder,
+          id: { not: id },
+        },
+        select: { id: true },
+      });
+
+      if (conflicting) {
+        // Shift conflicting guide and subsequent guides by +1
+        await this.prisma.guide.updateMany({
+          where: {
+            displayOrder: { gte: targetOrder },
+            id: { not: id },
+          },
+          data: {
+            displayOrder: { increment: 1 },
+          },
+        });
+      }
+    }
+
     const updated = await this.prisma.guide.update({
       where: { id },
       data: {
@@ -273,7 +375,7 @@ export class GuideEditorialService {
           coverImageAlt: dto.coverImageAlt?.trim() || null,
         }),
         ...(dto.displayOrder !== undefined && {
-          displayOrder: dto.displayOrder,
+          displayOrder: Math.max(0, Math.round(dto.displayOrder)),
         }),
         ...(dto.faqImage !== undefined && {
           faqImage: dto.faqImage?.trim() || null,
@@ -394,7 +496,7 @@ export class GuideEditorialService {
       status,
       isFeatured,
       authorId,
-      sortBy = 'updatedAt',
+      sortBy = 'createdAt',
       sortOrder = 'desc',
     } = query;
 
@@ -443,16 +545,13 @@ export class GuideEditorialService {
     const [items, total] = await Promise.all([
       this.prisma.guide.findMany({
         where,
-        select: {
-          ...guideSummarySelect,
-          reviewNotes: true,
-        },
+        select: guideSummarySelect,
         skip,
         take: limit,
         orderBy:
           sortBy === 'displayOrder'
-            ? [{ displayOrder: sortOrder }, { updatedAt: 'desc' as const }]
-            : { [sortBy]: sortOrder },
+            ? [{ displayOrder: sortOrder }, { createdAt: 'desc' as const }, { id: 'desc' as const }]
+            : [{ [sortBy]: sortOrder }, { id: 'desc' as const }],
       }),
       this.prisma.guide.count({ where }),
     ]);
@@ -972,6 +1071,19 @@ export class GuideEditorialService {
       }
     }
 
+    // 3c. Preload existing positive display orders to guarantee zero collisions
+    const existingOrders = await this.prisma.guide.findMany({
+      where: { displayOrder: { gt: 0 } },
+      select: { displayOrder: true },
+    });
+    const usedDisplayOrders = new Set<number>(
+      existingOrders.map((g) => g.displayOrder),
+    );
+    let currentMaxOrder = existingOrders.reduce(
+      (max, g) => (g.displayOrder > max ? g.displayOrder : max),
+      0,
+    );
+
     // 4. Process each guide sequentially
     for (let i = 0; i < guidesArray.length; i++) {
       if (consumedIndices.has(i)) {
@@ -1199,13 +1311,26 @@ export class GuideEditorialService {
         const isPublishingNow = targetStatus === GuideStatus.PUBLISHED;
         const isVetPublishing = isPublishingNow && requester.role === 'VET';
 
-        // Display order
-        const displayOrder =
+        // Display order resolution with automatic collision handling
+        const rawDisplayOrder =
           typeof guide.displayOrder === 'number'
             ? Math.max(0, Math.round(guide.displayOrder))
             : typeof guide.order === 'number'
               ? Math.max(0, Math.round(guide.order))
               : 0;
+
+        let displayOrder = rawDisplayOrder;
+        if (displayOrder > 0) {
+          if (usedDisplayOrders.has(displayOrder)) {
+            // Collision detected! Auto-assign MAX(displayOrder) + 1
+            currentMaxOrder += 1;
+            displayOrder = currentMaxOrder;
+          }
+          usedDisplayOrders.add(displayOrder);
+          if (displayOrder > currentMaxOrder) {
+            currentMaxOrder = displayOrder;
+          }
+        }
 
         // Create Guide and FAQs atomically within a database transaction
         let faqsCount = 0;

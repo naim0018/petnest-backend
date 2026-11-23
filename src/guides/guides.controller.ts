@@ -46,6 +46,7 @@ import { GuideAiService } from './guide-ai.service';
 import { GuideCategoriesService } from './guide-categories.service';
 import { GuideFaqsService } from './guide-faqs.service';
 import { GuidesService } from './guides.service';
+import { resolveTargetLocale } from './constants/guide.constants';
 
 @ApiTags('guides')
 @Controller('guides')
@@ -329,9 +330,13 @@ export class GuidesController {
   })
   findAllPublic(
     @Query() query: GuideQueryDto,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
     @CurrentUser('userId') viewerId?: string,
   ) {
-    return this.guidesService.findAllPublic(query, viewerId);
+    res.setHeader('Vary', 'Origin, Cookie, x-visitor-lang, x-timezone');
+    const { targetLang } = resolveTargetLocale(req);
+    return this.guidesService.findAllPublic(query, viewerId, targetLang);
   }
 
   // ==================== GUIDES BY SPECIES OR BREED ====================
@@ -361,11 +366,16 @@ export class GuidesController {
   })
   findRelatedGuides(
     @Param('idOrSlug') idOrSlug: string,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
     @Query('limit') limit?: number,
   ) {
+    res.setHeader('Vary', 'Origin, Cookie, x-visitor-lang, x-timezone');
+    const { targetLang } = resolveTargetLocale(req);
     return this.guidesService.findRelatedGuides(
       idOrSlug,
       limit ? Number(limit) : 4,
+      targetLang,
     );
   }
 
@@ -378,8 +388,10 @@ export class GuidesController {
   findOnePublicBySlug(
     @Param('slug') slug: string,
     @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
     @CurrentUser('userId') viewerId?: string,
   ) {
+    res.setHeader('Vary', 'Origin, Cookie, x-visitor-lang, x-timezone');
     const visitorHeader = req.headers['x-visitor-id'];
     const visitorKey =
       viewerId ||
@@ -387,7 +399,14 @@ export class GuidesController {
       req.ip ||
       'anon';
 
-    return this.guidesService.findOnePublicBySlug(slug, viewerId, visitorKey);
+    const { targetLang } = resolveTargetLocale(req);
+
+    return this.guidesService.findOnePublicBySlug(
+      slug,
+      viewerId,
+      visitorKey,
+      targetLang,
+    );
   }
 
   // ==================== EDITORIAL MUTATIONS ====================

@@ -7,6 +7,8 @@ import {
   guideSummarySelect,
   publicGuideCardSelect,
   sanitizeCardTranslations,
+  localizeGuideDetail,
+  localizeGuideCards,
   MAX_VIEW_CACHE_ENTRIES,
   VIEW_DEDUPE_TTL_MS,
 } from './constants/guide.constants';
@@ -18,7 +20,7 @@ export class GuideExplorerService {
   constructor(private readonly prisma: PrismaService) {}
 
   // Public Explorer List (smart species + multi-breed matching + user like/bookmark hydration)
-  async findAllPublic(query: GuideQueryDto, viewerId?: string) {
+  async findAllPublic(query: GuideQueryDto, viewerId?: string, targetLang = 'en') {
     const {
       page = 1,
       limit = 12,
@@ -117,18 +119,19 @@ export class GuideExplorerService {
     ]);
 
     const hydratedItems = items.map((item: any) => {
-      const { likes, bookmarks, translations, ...rest } = item;
+      const { likes, bookmarks, ...rest } = item;
       return {
         ...rest,
-        translations: sanitizeCardTranslations(translations),
         expertReviewed: Boolean(item.lastReviewedAt),
         isLiked: viewerId ? Boolean(likes?.length) : false,
         isBookmarked: viewerId ? Boolean(bookmarks?.length) : false,
       };
     });
 
+    const localizedItems = localizeGuideCards(hydratedItems, targetLang);
+
     return {
-      items: hydratedItems,
+      items: localizedItems,
       meta: {
         total,
         page,
@@ -145,6 +148,7 @@ export class GuideExplorerService {
     slug: string,
     viewerId?: string,
     visitorKey = 'anon',
+    targetLang = 'en',
   ) {
     let cleanSlug: string;
     try {
@@ -160,6 +164,7 @@ export class GuideExplorerService {
       content: true,
       metaTitle: true,
       metaDescription: true,
+      translations: true,
       faqs: {
         where: { isActive: true },
         orderBy: { displayOrder: 'asc' as const },
@@ -214,24 +219,28 @@ export class GuideExplorerService {
     }
 
     // Priority-based related guides (Category -> Breed -> Species -> Fallback)
-    const relatedGuides = await this.findRelatedGuides(guide.id, 4);
+    const relatedGuides = await this.findRelatedGuides(guide.id, 4, targetLang);
 
     const { likes, bookmarks, ...guideData } = guide;
 
+    const baseGuide = {
+      ...guideData,
+      viewCount: guideData.viewCount + (didIncrementView ? 1 : 0),
+      isLiked: viewerId ? Boolean(likes?.length) : false,
+      isBookmarked: viewerId ? Boolean(bookmarks?.length) : false,
+    };
+
+    const localizedGuide = localizeGuideDetail(baseGuide, targetLang);
+
     return {
       redirectTo,
-      guide: {
-        ...guideData,
-        viewCount: guideData.viewCount + (didIncrementView ? 1 : 0),
-        isLiked: viewerId ? Boolean(likes?.length) : false,
-        isBookmarked: viewerId ? Boolean(bookmarks?.length) : false,
-      },
+      guide: localizedGuide,
       relatedGuides,
     };
   }
 
   // Find related guides: Priority 1: Similar category -> Priority 2: Breed -> Priority 3: Species -> Fallback
-  async findRelatedGuides(idOrSlug: string, limit = 4) {
+  async findRelatedGuides(idOrSlug: string, limit = 4, targetLang = 'en') {
     let cleanKey: string;
     try {
       cleanKey = decodeURIComponent(idOrSlug).trim().toLowerCase();
@@ -270,6 +279,10 @@ export class GuideExplorerService {
     };
 
     const breedIds = target.breeds?.map((b) => b.id) || [];
+    const relatedSelect = {
+      ...guideSummarySelect,
+      translations: true,
+    };
 
     // Priority 1: Similar category
     let related = await this.prisma.guide.findMany({
@@ -277,7 +290,7 @@ export class GuideExplorerService {
         ...baseWhere,
         categoryId: target.categoryId,
       },
-      select: guideSummarySelect,
+      select: relatedSelect,
       orderBy: [
         { displayOrder: 'asc' },
         { viewCount: 'desc' },
@@ -293,7 +306,7 @@ export class GuideExplorerService {
           ...baseWhere,
           breeds: { some: { id: { in: breedIds } } },
         },
-        select: guideSummarySelect,
+        select: relatedSelect,
         orderBy: [
           { displayOrder: 'asc' },
           { viewCount: 'desc' },
@@ -310,7 +323,7 @@ export class GuideExplorerService {
           ...baseWhere,
           speciesId: target.speciesId,
         },
-        select: guideSummarySelect,
+        select: relatedSelect,
         orderBy: [
           { displayOrder: 'asc' },
           { viewCount: 'desc' },
@@ -324,13 +337,13 @@ export class GuideExplorerService {
     if (related.length === 0) {
       related = await this.prisma.guide.findMany({
         where: baseWhere,
-        select: guideSummarySelect,
+        select: relatedSelect,
         orderBy: [{ viewCount: 'desc' }, { publishedAt: 'desc' }],
         take: limit,
       });
     }
 
-    return related;
+    return localizeGuideCards(related, targetLang);
   }
 
   // Find guides by species

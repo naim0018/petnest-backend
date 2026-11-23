@@ -35,9 +35,20 @@ const ALLOWED_MIME_TYPES = [
   'image/avif',
 ];
 
-const ALLOWED_FOLDERS: MediaFolder[] = ['guides', 'pets', 'avatars'];
+const ALLOWED_FOLDERS: MediaFolder[] = [
+  'guides',
+  'pets',
+  'avatars',
+  'categories',
+];
 const GUIDE_UPLOAD_ROLES = new Set(['AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN']);
 const PET_UPLOAD_ROLES = new Set(['ADMIN', 'SUPERADMIN']);
+const CATEGORY_UPLOAD_ROLES = new Set([
+  'ADMIN',
+  'SUPERADMIN',
+  'AUTHOR',
+  'VET',
+]);
 
 @ApiTags('media')
 @ApiBearerAuth()
@@ -58,7 +69,7 @@ export class MediaController {
         file: { type: 'string', format: 'binary' },
         folder: {
           type: 'string',
-          enum: ['guides', 'pets', 'avatars'],
+          enum: ['guides', 'pets', 'avatars', 'categories'],
           default: 'guides',
         },
         altText: { type: 'string', maxLength: 250 },
@@ -104,6 +115,12 @@ export class MediaController {
 
     if (targetFolder === 'pets' && !PET_UPLOAD_ROLES.has(user.role)) {
       throw new ForbiddenException('Only Admins can upload pet catalog media');
+    }
+
+    if (targetFolder === 'categories' && !CATEGORY_UPLOAD_ROLES.has(user.role)) {
+      throw new ForbiddenException(
+        'Only Admins, Authors, and Vets can upload category media',
+      );
     }
 
     if (altText && altText.length > 250) {

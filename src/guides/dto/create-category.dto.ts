@@ -38,7 +38,7 @@ export class CreateGuideCategoryDto {
   @ApiPropertyOptional({ example: 'UtensilsCrossed' })
   @IsOptional()
   @IsString()
-  @MaxLength(60)
+  @MaxLength(2048)
   icon?: string;
 
   @ApiPropertyOptional({ example: 1, default: 0 })
