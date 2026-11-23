@@ -1209,14 +1209,56 @@ export class GuideEditorialService implements OnModuleInit {
         if (resolvedCoverImage) imagesLinked++;
         if (resolvedFaqImage) imagesLinked++;
 
+        // Check if existing guide matches by ID or exact slug (for updating)
+        let existingGuide: any = null;
+        if (guide.id && typeof guide.id === 'string' && guide.id.trim()) {
+          existingGuide = await this.prisma.guide.findFirst({
+            where: { id: guide.id.trim(), deletedAt: null },
+          });
+        }
+        if (
+          !existingGuide &&
+          guide.slug &&
+          typeof guide.slug === 'string' &&
+          guide.slug.trim()
+        ) {
+          const candidateSlug = slugify(guide.slug.trim());
+          existingGuide = await this.prisma.guide.findFirst({
+            where: {
+              OR: [
+                { slug: candidateSlug },
+                { previousSlugs: { has: candidateSlug } },
+              ],
+              deletedAt: null,
+            },
+          });
+        }
+
+        if (existingGuide) {
+          if (!canDirectPublish && existingGuide.authorId !== requester.userId) {
+            throw new ForbiddenException(
+              `You do not have permission to update guide "${existingGuide.title}" (ID: ${existingGuide.id})`,
+            );
+          }
+        }
+
         // Slug generation
         const baseSlug = guide.slug
           ? slugify(guide.slug)
-          : slugify(guide.title);
-        const uniqueSlug = await this.generateUniqueBulkSlug(baseSlug);
+          : existingGuide
+            ? existingGuide.slug
+            : slugify(guide.title);
+        const uniqueSlug = await this.generateUniqueBulkSlug(
+          baseSlug,
+          existingGuide?.id,
+        );
 
         // Assemble localized Bangla translation if paired or nested
         const translationsPayload: Record<string, any> = {
+          ...(existingGuide?.translations &&
+          typeof existingGuide.translations === 'object'
+            ? (existingGuide.translations as Record<string, any>)
+            : {}),
           ...(guide.translations || {}),
         };
 
@@ -1284,16 +1326,30 @@ export class GuideEditorialService implements OnModuleInit {
           };
         }
 
-        const previousSlugs: string[] = [];
+        const previousSlugs: string[] = Array.isArray(
+          existingGuide?.previousSlugs,
+        )
+          ? [...existingGuide.previousSlugs]
+          : [];
+        if (
+          existingGuide &&
+          existingGuide.slug !== uniqueSlug &&
+          !previousSlugs.includes(existingGuide.slug)
+        ) {
+          previousSlugs.push(existingGuide.slug);
+        }
         if (
           banglaVariant?.slug &&
-          banglaVariant.slug.trim().toLowerCase() !== uniqueSlug
+          banglaVariant.slug.trim().toLowerCase() !== uniqueSlug &&
+          !previousSlugs.includes(banglaVariant.slug.trim().toLowerCase())
         ) {
           previousSlugs.push(banglaVariant.slug.trim().toLowerCase());
         }
 
         // Target Status
-        let targetStatus: GuideStatus = GuideStatus.DRAFT;
+        let targetStatus: GuideStatus = existingGuide
+          ? existingGuide.status
+          : GuideStatus.DRAFT;
         const requestedStatus = (guide.status || '').toUpperCase();
         if (requestedStatus === 'PUBLISHED') {
           targetStatus = canDirectPublish
@@ -1305,6 +1361,8 @@ export class GuideEditorialService implements OnModuleInit {
           targetStatus = GuideStatus.ARCHIVED;
         } else if (requestedStatus === 'NEEDS_REVISION' && canDirectPublish) {
           targetStatus = GuideStatus.NEEDS_REVISION;
+        } else if (requestedStatus === 'DRAFT') {
+          targetStatus = GuideStatus.DRAFT;
         }
 
         const now = new Date();
@@ -1317,11 +1375,15 @@ export class GuideEditorialService implements OnModuleInit {
             ? Math.max(0, Math.round(guide.displayOrder))
             : typeof guide.order === 'number'
               ? Math.max(0, Math.round(guide.order))
-              : 0;
+              : existingGuide
+                ? existingGuide.displayOrder
+                : 0;
 
         let displayOrder = rawDisplayOrder;
         if (displayOrder > 0) {
-          if (usedDisplayOrders.has(displayOrder)) {
+          const isSelfOrder =
+            existingGuide && existingGuide.displayOrder === displayOrder;
+          if (!isSelfOrder && usedDisplayOrders.has(displayOrder)) {
             // Collision detected! Auto-assign MAX(displayOrder) + 1
             currentMaxOrder += 1;
             displayOrder = currentMaxOrder;
@@ -1332,86 +1394,181 @@ export class GuideEditorialService implements OnModuleInit {
           }
         }
 
-        // Create Guide and FAQs atomically within a database transaction
+        // Create or update Guide and FAQs atomically within a database transaction
         let faqsCount = 0;
-        const createdGuide = await this.prisma.$transaction(async (tx) => {
-          const newGuide = await tx.guide.create({
-            data: {
-              title: guide.title.trim(),
-              slug: uniqueSlug,
-              previousSlugs,
-              excerpt,
-              keyTakeaways: Array.isArray(guide.keyTakeaways)
-                ? guide.keyTakeaways
-                    .map((t) => String(t).trim())
-                    .filter(Boolean)
-                : [],
-              content: sanitizedContent,
-              translations: translationsPayload,
-              type: guide.type || 'ARTICLE',
-              coverImage: resolvedCoverImage,
-              coverImageAlt: guide.coverImageAlt?.trim() || null,
-              faqImage: resolvedFaqImage,
-              videoUrl: validateExternalVideoUrl(guide.videoUrl),
-              readTimeMinutes,
-              displayOrder,
-              speciesId: resolvedSpeciesId,
-              breeds:
-                resolvedBreedIds.length > 0
-                  ? { connect: resolvedBreedIds.map((id) => ({ id })) }
-                  : undefined,
-              categoryId: resolvedCategoryId,
-              tags: Array.isArray(guide.tags)
-                ? guide.tags
-                    .map((t) => String(t).trim().toLowerCase())
-                    .filter(Boolean)
-                : [],
-              status: targetStatus,
-              isFeatured: canDirectPublish ? Boolean(guide.isFeatured) : false,
-              authorId: requester.userId,
-              ...(isVetPublishing && {
-                reviewerId: requester.userId,
-                lastReviewedAt: now,
-              }),
-              metaTitle: guide.metaTitle?.trim() || null,
-              metaDescription: guide.metaDescription?.trim() || null,
-              publishedAt: isPublishingNow ? now : null,
-              contentUpdatedAt: now,
-            },
-          });
+        const savedGuide = await this.prisma.$transaction(async (tx) => {
+          let resultGuide: any;
 
-          if (Array.isArray(guide.faqs) && guide.faqs.length > 0) {
-            const faqData = guide.faqs
-              .filter(
-                (f) => f && typeof f === 'object' && f.question && f.answer,
-              )
-              .map((f, fIdx) => ({
-                guideId: newGuide.id,
-                question: f.question.trim(),
-                answer: f.answer.trim(),
-                displayOrder:
-                  typeof f.displayOrder === 'number'
-                    ? Math.max(0, f.displayOrder)
-                    : fIdx,
-                isActive: typeof f.isActive === 'boolean' ? f.isActive : true,
-              }));
+          if (existingGuide) {
+            resultGuide = await tx.guide.update({
+              where: { id: existingGuide.id },
+              data: {
+                title: guide.title.trim(),
+                slug: uniqueSlug,
+                previousSlugs,
+                excerpt,
+                keyTakeaways: Array.isArray(guide.keyTakeaways)
+                  ? guide.keyTakeaways
+                      .map((t) => String(t).trim())
+                      .filter(Boolean)
+                  : existingGuide.keyTakeaways,
+                content: sanitizedContent,
+                translations: translationsPayload,
+                type: guide.type || existingGuide.type,
+                coverImage: resolvedCoverImage || existingGuide.coverImage,
+                coverImageAlt:
+                  guide.coverImageAlt !== undefined
+                    ? guide.coverImageAlt?.trim() || null
+                    : existingGuide.coverImageAlt,
+                faqImage: resolvedFaqImage || existingGuide.faqImage,
+                videoUrl:
+                  guide.videoUrl !== undefined
+                    ? validateExternalVideoUrl(guide.videoUrl)
+                    : existingGuide.videoUrl,
+                readTimeMinutes,
+                displayOrder,
+                speciesId: resolvedSpeciesId ?? existingGuide.speciesId,
+                breeds:
+                  resolvedBreedIds.length > 0
+                    ? { set: resolvedBreedIds.map((id) => ({ id })) }
+                    : undefined,
+                categoryId: resolvedCategoryId ?? existingGuide.categoryId,
+                tags: Array.isArray(guide.tags)
+                  ? guide.tags
+                      .map((t) => String(t).trim().toLowerCase())
+                      .filter(Boolean)
+                  : existingGuide.tags,
+                status: targetStatus,
+                isFeatured:
+                  canDirectPublish && guide.isFeatured !== undefined
+                    ? Boolean(guide.isFeatured)
+                    : existingGuide.isFeatured,
+                metaTitle:
+                  guide.metaTitle !== undefined
+                    ? guide.metaTitle?.trim() || null
+                    : existingGuide.metaTitle,
+                metaDescription:
+                  guide.metaDescription !== undefined
+                    ? guide.metaDescription?.trim() || null
+                    : existingGuide.metaDescription,
+                ...(isPublishingNow && !existingGuide.publishedAt && {
+                  publishedAt: now,
+                }),
+                ...(isVetPublishing && {
+                  reviewerId: requester.userId,
+                  lastReviewedAt: now,
+                }),
+                contentUpdatedAt: now,
+              },
+            });
 
-            if (faqData.length > 0) {
-              await tx.guideFaq.createMany({ data: faqData });
-              faqsCount = faqData.length;
+            if (Array.isArray(guide.faqs)) {
+              await tx.guideFaq.deleteMany({
+                where: { guideId: existingGuide.id },
+              });
+              const faqData = guide.faqs
+                .filter(
+                  (f) => f && typeof f === 'object' && f.question && f.answer,
+                )
+                .map((f, fIdx) => ({
+                  guideId: existingGuide.id,
+                  question: f.question.trim(),
+                  answer: f.answer.trim(),
+                  displayOrder:
+                    typeof f.displayOrder === 'number'
+                      ? Math.max(0, f.displayOrder)
+                      : fIdx + 1,
+                  isActive: typeof f.isActive === 'boolean' ? f.isActive : true,
+                }));
+
+              if (faqData.length > 0) {
+                await tx.guideFaq.createMany({ data: faqData });
+                faqsCount = faqData.length;
+              }
+            } else {
+              faqsCount = await tx.guideFaq.count({
+                where: { guideId: existingGuide.id },
+              });
+            }
+          } else {
+            resultGuide = await tx.guide.create({
+              data: {
+                title: guide.title.trim(),
+                slug: uniqueSlug,
+                previousSlugs,
+                excerpt,
+                keyTakeaways: Array.isArray(guide.keyTakeaways)
+                  ? guide.keyTakeaways
+                      .map((t) => String(t).trim())
+                      .filter(Boolean)
+                  : [],
+                content: sanitizedContent,
+                translations: translationsPayload,
+                type: guide.type || 'ARTICLE',
+                coverImage: resolvedCoverImage,
+                coverImageAlt: guide.coverImageAlt?.trim() || null,
+                faqImage: resolvedFaqImage,
+                videoUrl: validateExternalVideoUrl(guide.videoUrl),
+                readTimeMinutes,
+                displayOrder,
+                speciesId: resolvedSpeciesId,
+                breeds:
+                  resolvedBreedIds.length > 0
+                    ? { connect: resolvedBreedIds.map((id) => ({ id })) }
+                    : undefined,
+                categoryId: resolvedCategoryId,
+                tags: Array.isArray(guide.tags)
+                  ? guide.tags
+                      .map((t) => String(t).trim().toLowerCase())
+                      .filter(Boolean)
+                  : [],
+                status: targetStatus,
+                isFeatured: canDirectPublish ? Boolean(guide.isFeatured) : false,
+                authorId: requester.userId,
+                ...(isVetPublishing && {
+                  reviewerId: requester.userId,
+                  lastReviewedAt: now,
+                }),
+                metaTitle: guide.metaTitle?.trim() || null,
+                metaDescription: guide.metaDescription?.trim() || null,
+                publishedAt: isPublishingNow ? now : null,
+                contentUpdatedAt: now,
+              },
+            });
+
+            if (Array.isArray(guide.faqs) && guide.faqs.length > 0) {
+              const faqData = guide.faqs
+                .filter(
+                  (f) => f && typeof f === 'object' && f.question && f.answer,
+                )
+                .map((f, fIdx) => ({
+                  guideId: resultGuide.id,
+                  question: f.question.trim(),
+                  answer: f.answer.trim(),
+                  displayOrder:
+                    typeof f.displayOrder === 'number'
+                      ? Math.max(0, f.displayOrder)
+                      : fIdx + 1,
+                  isActive: typeof f.isActive === 'boolean' ? f.isActive : true,
+                }));
+
+              if (faqData.length > 0) {
+                await tx.guideFaq.createMany({ data: faqData });
+                faqsCount = faqData.length;
+              }
             }
           }
 
-          return newGuide;
+          return resultGuide;
         });
 
         // Link media assets for both primary content and translation
         await this.mediaService.syncGuideMedia(
-          createdGuide.id,
-          createdGuide.coverImage,
-          `${createdGuide.content} ${translationsPayload.bn?.content || ''}`,
+          savedGuide.id,
+          savedGuide.coverImage,
+          `${savedGuide.content} ${translationsPayload.bn?.content || ''}`,
           requester,
-          [createdGuide.faqImage],
+          [savedGuide.faqImage],
         );
 
         const hasTranslation = Boolean(
@@ -1419,15 +1576,16 @@ export class GuideEditorialService implements OnModuleInit {
         );
         results.push({
           index: i + 1,
-          id: createdGuide.id,
+          id: savedGuide.id,
           title: hasTranslation
-            ? `${createdGuide.title} (English + বাংলা)`
-            : createdGuide.title,
-          slug: createdGuide.slug,
-          status: createdGuide.status,
+            ? `${savedGuide.title} (English + বাংলা)`
+            : savedGuide.title,
+          slug: savedGuide.slug,
+          status: savedGuide.status,
           faqsCount,
           imagesLinked,
           hasTranslation,
+          isUpdated: Boolean(existingGuide),
           success: true,
         });
       } catch (err: any) {
@@ -1448,10 +1606,19 @@ export class GuideEditorialService implements OnModuleInit {
 
     const successCount = results.filter((r) => r.success).length;
     const failureCount = results.length - successCount;
+    const updatedCount = results.filter((r) => r.success && r.isUpdated).length;
+    const createdCount = successCount - updatedCount;
+
+    let message = `Bulk import completed: ${successCount} guide${successCount === 1 ? '' : 's'} imported, ${failureCount} failed.`;
+    if (updatedCount > 0 && createdCount > 0) {
+      message = `Bulk import completed: ${createdCount} created, ${updatedCount} updated, ${failureCount} failed.`;
+    } else if (updatedCount > 0) {
+      message = `Bulk import completed: ${updatedCount} guide${updatedCount === 1 ? '' : 's'} updated successfully (${uploadedImagesCount} images hosted).`;
+    }
 
     return {
       success: successCount > 0,
-      message: `Bulk import completed: ${successCount} guide${successCount === 1 ? '' : 's'} imported, ${failureCount} failed.`,
+      message,
       totalProcessed: results.length,
       successCount,
       failureCount,
@@ -1695,7 +1862,10 @@ export class GuideEditorialService implements OnModuleInit {
       .trim();
   }
 
-  private async generateUniqueBulkSlug(baseSlug: string): Promise<string> {
+  private async generateUniqueBulkSlug(
+    baseSlug: string,
+    excludeGuideId?: string,
+  ): Promise<string> {
     let candidate = baseSlug || 'guide';
     let counter = 1;
 
@@ -1709,6 +1879,8 @@ export class GuideEditorialService implements OnModuleInit {
       const existing = await this.prisma.guide.findFirst({
         where: {
           OR: [{ slug: candidate }, { previousSlugs: { has: candidate } }],
+          deletedAt: null,
+          ...(excludeGuideId ? { id: { not: excludeGuideId } } : {}),
         },
         select: { id: true },
       });
@@ -1929,9 +2101,64 @@ export class GuideEditorialService implements OnModuleInit {
       throw new BadRequestException('Invalid JSON syntax in guides.json');
     }
 
-    const item: BulkImportGuideItem = Array.isArray(parsed) ? parsed[0] : parsed;
-    if (!item || typeof item !== 'object') {
-      throw new BadRequestException('Invalid guide object in guides.json');
+    const guidesArray: BulkImportGuideItem[] = Array.isArray(parsed)
+      ? parsed
+      : [parsed];
+    if (guidesArray.length === 0 || !guidesArray[0]) {
+      throw new BadRequestException('No valid guide objects found in guides.json');
+    }
+
+    const isBanglaItem = (it: BulkImportGuideItem): boolean => {
+      if (!it) return false;
+      const lang = (it.lang || it.language || '').toLowerCase();
+      if (lang === 'bn' || lang === 'bangla') return true;
+      const slug = (it.slug || '').toLowerCase();
+      if (
+        slug.endsWith('-bn') ||
+        slug.endsWith('_bn') ||
+        slug.endsWith('-bangla') ||
+        slug.endsWith('_bangla')
+      ) {
+        return true;
+      }
+      if (
+        Array.isArray(it.tags) &&
+        it.tags.some((t) => {
+          const s = String(t).toLowerCase();
+          return s === 'bangla-guide' || s === 'bangla' || s === 'bn';
+        })
+      ) {
+        return true;
+      }
+      if (
+        /[\u0980-\u09FF]/.test(it.title || '') ||
+        /[\u0980-\u09FF]/.test(it.summary || '')
+      ) {
+        return true;
+      }
+      return false;
+    };
+
+    let item: BulkImportGuideItem = guidesArray[0];
+    let banglaVariant: BulkImportGuideItem | undefined;
+
+    if (guidesArray.length === 2) {
+      if (isBanglaItem(guidesArray[0]) && !isBanglaItem(guidesArray[1])) {
+        item = guidesArray[1];
+        banglaVariant = guidesArray[0];
+      } else if (!isBanglaItem(guidesArray[0]) && isBanglaItem(guidesArray[1])) {
+        item = guidesArray[0];
+        banglaVariant = guidesArray[1];
+      } else {
+        item = guidesArray[0];
+        banglaVariant = guidesArray[1];
+      }
+    } else if (guidesArray.length > 2) {
+      const matchPrimary = guidesArray.find((g) => !isBanglaItem(g));
+      if (matchPrimary) item = matchPrimary;
+      banglaVariant = guidesArray.find((g) => isBanglaItem(g));
+    } else if (isBanglaItem(guidesArray[0])) {
+      banglaVariant = guidesArray[0];
     }
 
     // Upload any images from the zip
@@ -1971,66 +2198,147 @@ export class GuideEditorialService implements OnModuleInit {
       );
     };
 
-    let assembled = '';
-    if (Array.isArray(item.sections) && item.sections.length > 0) {
-      for (const sec of item.sections) {
-        if (sec.heading) assembled += `\n\n## ${sec.heading.trim()}\n\n`;
-        if (sec.image) {
-          const url = resolveImg(sec.image);
-          if (url) {
-            assembled += `![${sec.imageCaption || sec.heading || 'Illustration'}](${url})\n\n`;
-          }
-        }
-        if (sec.body) assembled += `${sec.body.trim()}\n\n`;
-      }
-    }
-    if (item.content || item.body) {
-      const extra = (item.content || item.body || '').trim();
-      assembled = assembled ? `${assembled}\n\n${extra}` : extra;
-    }
-    if (!assembled && existing.content) {
-      assembled = existing.content;
-    }
+    const { content: sanitizedContent } = this.assembleContent(
+      item.sections,
+      item.content,
+      item.body,
+      resolveImg,
+    );
 
-    assembled = assembled.replace(/\{\{image:([^}]+)\}\}/gi, (_, fileName) => {
-      const url = resolveImg(fileName.trim());
-      return url ? `\n\n![${fileName}](${url})\n\n` : '';
-    });
-    assembled = assembled.replace(/!\[(.*?)\]\((.*?)\)/g, (match, alt, src) => {
-      const mapped = resolveImg(src);
-      return mapped ? `![${alt}](${mapped})` : match;
-    });
-
-    const sanitizedContent = sanitizeGuideHtml(assembled);
-    const readTimeMinutes = calculateReadTimeMinutes(sanitizedContent);
+    const finalContent = sanitizedContent || existing.content;
+    const readTimeMinutes = calculateReadTimeMinutes(finalContent);
 
     const coverImage =
       resolveImg(item.heroImage || item.coverImage) || existing.coverImage;
     const faqImage = resolveImg(item.faqImage) || existing.faqImage;
 
-    let translations =
-      item.translations !== undefined
-        ? item.translations
-        : (existing.translations as any);
-    if (translations && typeof translations === 'object') {
-      for (const langKey of Object.keys(translations)) {
-        const v = translations[langKey];
-        if (v?.content && typeof v.content === 'string') {
-          v.content = v.content.replace(
-            /\{\{image:([^}]+)\}\}/gi,
-            (_: string, f: string) => {
-              const url = resolveImg(f.trim());
-              return url ? `\n\n![${f}](${url})\n\n` : '';
-            },
-          );
-          v.content = v.content.replace(
-            /!\[(.*?)\]\((.*?)\)/g,
-            (m: string, a: string, s: string) => {
-              const mapped = resolveImg(s);
-              return mapped ? `![${a}](${mapped})` : m;
-            },
-          );
-        }
+    const translationsPayload: Record<string, any> = {
+      ...(existing.translations && typeof existing.translations === 'object'
+        ? (existing.translations as Record<string, any>)
+        : {}),
+      ...(item.translations || {}),
+    };
+
+    if (banglaVariant) {
+      const { content: bnContent } = this.assembleContent(
+        banglaVariant.sections,
+        banglaVariant.content,
+        banglaVariant.body,
+        resolveImg,
+      );
+      const bnExcerpt = (
+        banglaVariant.summary ||
+        banglaVariant.excerpt ||
+        ''
+      ).trim();
+      const bnTakeaways = Array.isArray(banglaVariant.keyTakeaways)
+        ? banglaVariant.keyTakeaways.map((t) => String(t).trim()).filter(Boolean)
+        : [];
+      const bnFaqs = Array.isArray(banglaVariant.faqs)
+        ? banglaVariant.faqs
+            .filter((f) => f && typeof f === 'object' && f.question && f.answer)
+            .map((f, fIdx) => ({
+              id: `bn-faq-${fIdx + 1}`,
+              question: f.question.trim(),
+              answer: f.answer.trim(),
+              displayOrder:
+                typeof f.displayOrder === 'number' ? f.displayOrder : fIdx + 1,
+              isActive: typeof f.isActive === 'boolean' ? f.isActive : true,
+            }))
+        : [];
+
+      translationsPayload.bn = {
+        title: banglaVariant.title.trim(),
+        slug: banglaVariant.slug?.trim() || `${existing.slug}-bn`,
+        excerpt: bnExcerpt,
+        content: bnContent,
+        keyTakeaways: bnTakeaways,
+        metaTitle: banglaVariant.metaTitle?.trim() || null,
+        metaDescription: banglaVariant.metaDescription?.trim() || null,
+        faqs: bnFaqs,
+      };
+    } else if (item.translations?.bn) {
+      const inlineBn = item.translations.bn;
+      const { content: inlineBnContent } = this.assembleContent(
+        inlineBn.sections,
+        inlineBn.content,
+        inlineBn.body,
+        resolveImg,
+      );
+      translationsPayload.bn = {
+        ...inlineBn,
+        content: inlineBnContent || inlineBn.content,
+      };
+    }
+
+    // Resolve Category
+    let resolvedCategoryId = existing.categoryId;
+    if (item.categoryId) {
+      const cat = await this.prisma.guideCategory.findUnique({
+        where: { id: item.categoryId },
+      });
+      if (cat) resolvedCategoryId = cat.id;
+    } else if (item.category) {
+      const cQuery = item.category.trim().toLowerCase();
+      const cat = await this.prisma.guideCategory.findFirst({
+        where: {
+          OR: [
+            { name: { equals: cQuery, mode: 'insensitive' } },
+            { slug: { equals: cQuery, mode: 'insensitive' } },
+          ],
+        },
+      });
+      if (cat) resolvedCategoryId = cat.id;
+    }
+
+    // Resolve Species & Breeds
+    let resolvedSpeciesId = existing.speciesId;
+    if (item.speciesId) {
+      resolvedSpeciesId = item.speciesId;
+    } else if (item.species) {
+      const sQuery = item.species.trim().toLowerCase();
+      const spec = await this.prisma.petSpecies.findFirst({
+        where: {
+          OR: [
+            { name: { equals: sQuery, mode: 'insensitive' } },
+            { slug: { equals: sQuery, mode: 'insensitive' } },
+          ],
+        },
+      });
+      if (spec) resolvedSpeciesId = spec.id;
+    }
+
+    const resolvedBreedIds: string[] = [];
+    if (Array.isArray(item.breedIds) && item.breedIds.length > 0) {
+      resolvedBreedIds.push(...item.breedIds);
+    } else if (Array.isArray(item.breeds) && item.breeds.length > 0) {
+      const breedNames = item.breeds.map((b) => b.trim().toLowerCase());
+      const foundBreeds = await this.prisma.petBreed.findMany({
+        where: {
+          OR: [
+            { name: { in: breedNames, mode: 'insensitive' } },
+            { slug: { in: breedNames, mode: 'insensitive' } },
+          ],
+        },
+        select: { id: true },
+      });
+      resolvedBreedIds.push(...foundBreeds.map((b) => b.id));
+    }
+
+    if (Array.isArray(item.faqs)) {
+      await this.prisma.guideFaq.deleteMany({ where: { guideId } });
+      const faqData = item.faqs
+        .filter((f) => f && f.question && f.answer)
+        .map((f, idx) => ({
+          guideId,
+          question: f.question.trim(),
+          answer: f.answer.trim(),
+          displayOrder:
+            typeof f.displayOrder === 'number' ? f.displayOrder : idx + 1,
+          isActive: typeof f.isActive === 'boolean' ? f.isActive : true,
+        }));
+      if (faqData.length > 0) {
+        await this.prisma.guideFaq.createMany({ data: faqData });
       }
     }
 
@@ -2042,51 +2350,53 @@ export class GuideEditorialService implements OnModuleInit {
           excerpt: (item.summary || item.excerpt)!.trim(),
         }),
         ...(Array.isArray(item.keyTakeaways) && {
-          keyTakeaways: item.keyTakeaways,
+          keyTakeaways: item.keyTakeaways.map((t) => String(t).trim()).filter(Boolean),
         }),
-        content: sanitizedContent,
+        content: finalContent,
         readTimeMinutes,
         coverImage,
-        coverImageAlt: item.coverImageAlt?.trim() || existing.coverImageAlt,
+        coverImageAlt:
+          item.coverImageAlt !== undefined
+            ? item.coverImageAlt?.trim() || null
+            : existing.coverImageAlt,
         faqImage,
+        videoUrl:
+          item.videoUrl !== undefined
+            ? validateExternalVideoUrl(item.videoUrl)
+            : existing.videoUrl,
+        ...(resolvedCategoryId && { categoryId: resolvedCategoryId }),
+        ...(resolvedSpeciesId !== undefined && { speciesId: resolvedSpeciesId }),
+        ...(resolvedBreedIds.length > 0 && {
+          breeds: { set: resolvedBreedIds.map((id) => ({ id })) },
+        }),
+        ...(typeof item.displayOrder === 'number' && {
+          displayOrder: Math.max(0, Math.round(item.displayOrder)),
+        }),
         ...(Array.isArray(item.tags) && {
           tags: item.tags.map((t) => String(t).toLowerCase()),
         }),
-        ...(item.metaTitle && { metaTitle: item.metaTitle.trim() }),
-        ...(item.metaDescription && {
-          metaDescription: item.metaDescription.trim(),
+        ...(item.metaTitle !== undefined && {
+          metaTitle: item.metaTitle?.trim() || null,
         }),
-        ...(translations !== undefined && { translations }),
+        ...(item.metaDescription !== undefined && {
+          metaDescription: item.metaDescription?.trim() || null,
+        }),
+        translations: translationsPayload,
+        contentUpdatedAt: new Date(),
       },
       include: {
         category: true,
         species: true,
         breeds: true,
-        faqs: true,
+        faqs: { orderBy: { displayOrder: 'asc' } },
         author: { select: { id: true, name: true, role: true } },
       },
     });
 
-    if (Array.isArray(item.faqs) && item.faqs.length > 0) {
-      await this.prisma.guideFaq.deleteMany({ where: { guideId } });
-      await this.prisma.guideFaq.createMany({
-        data: item.faqs
-          .filter((f) => f && f.question && f.answer)
-          .map((f, idx) => ({
-            guideId,
-            question: f.question.trim(),
-            answer: f.answer.trim(),
-            displayOrder:
-              typeof f.displayOrder === 'number' ? f.displayOrder : idx,
-            isActive: typeof f.isActive === 'boolean' ? f.isActive : true,
-          })),
-      });
-    }
-
     await this.mediaService.syncGuideMedia(
       updated.id,
       updated.coverImage,
-      updated.content,
+      `${updated.content} ${translationsPayload.bn?.content || ''}`,
       requester,
       [updated.faqImage],
     );
