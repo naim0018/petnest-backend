@@ -38,6 +38,10 @@ model User {
     guideLikes     GuideLike[]
     uploadedMedia  MediaAsset[]
 
+    // Notifications
+    notifications     Notification[]     @relation("UserNotifications")
+    notificationReads NotificationRead[]
+
     // Marketplace Admin Relations
     createdLivePets       LivePetListing[]      @relation("AdminCreatedLivePets")
     createdPetFoods       PetFoodListing[]      @relation("AdminCreatedPetFoods")

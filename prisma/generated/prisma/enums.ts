@@ -137,6 +137,20 @@ export const MedicineDosageForm = {
 export type MedicineDosageForm = (typeof MedicineDosageForm)[keyof typeof MedicineDosageForm]
 
 
+export const NotificationType = {
+  NEW_INTEREST_GUIDE: 'NEW_INTEREST_GUIDE',
+  ACCOUNT_SUSPENDED: 'ACCOUNT_SUSPENDED',
+  ACCOUNT_RESTORED: 'ACCOUNT_RESTORED',
+  VERIFICATION_APPROVED: 'VERIFICATION_APPROVED',
+  VERIFICATION_REJECTED: 'VERIFICATION_REJECTED',
+  VERIFICATION_SUBMITTED: 'VERIFICATION_SUBMITTED',
+  USER_REGISTERED: 'USER_REGISTERED',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
 export const PetSize = {
   SMALL: 'SMALL',
   MEDIUM: 'MEDIUM',

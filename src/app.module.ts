@@ -16,6 +16,7 @@ import { SettingsModule } from './settings/settings.module';
 import { UsersModule } from './users/users.module';
 import { SearchModule } from './search/search.module';
 import { MarketplaceModule } from './marketplace/marketplace.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { existsSync } from 'fs';
@@ -75,6 +76,7 @@ function validateEnv(config: Record<string, unknown>) {
     AnalyticsModule,
     SearchModule,
     MarketplaceModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [

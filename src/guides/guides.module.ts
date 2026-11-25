@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MediaModule } from 'src/media/media.module';
 import { SettingsModule } from 'src/settings/settings.module';
+import { NotificationsModule } from 'src/notifications/notifications.module';
 import { GuideAiService } from './guide-ai.service';
 import { GuideCategoriesService } from './guide-categories.service';
 import { GuideEditorialService } from './guide-editorial.service';
@@ -12,7 +13,7 @@ import { GuidesResolver } from './guides.resolver';
 import { GuidesService } from './guides.service';
 
 @Module({
-  imports: [MediaModule, SettingsModule],
+  imports: [MediaModule, SettingsModule, NotificationsModule],
   controllers: [GuidesController],
   providers: [
     GuideAiService,

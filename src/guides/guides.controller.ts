@@ -322,6 +322,29 @@ export class GuidesController {
 
   // ==================== PUBLIC GUIDE EXPLORER & DETAIL ====================
 
+  @Get('slider')
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiOperation({
+    summary:
+      'Public: Get basic guides for top interactive slider by species & breed',
+  })
+  @ApiQuery({ name: 'species', required: false })
+  @ApiQuery({ name: 'breed', required: false })
+  @ApiQuery({ name: 'lang', required: false })
+  getSliderGuides(
+    @Query('species') species: string | undefined,
+    @Query('breed') breed: string | undefined,
+    @Query('lang') lang: string | undefined,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+    @CurrentUser('userId') viewerId?: string,
+  ) {
+    res.setHeader('Vary', 'Origin, Cookie, x-visitor-lang, x-timezone');
+    const { targetLang } = resolveTargetLocale(req);
+    const resolvedLang = lang || targetLang;
+    return this.guidesService.getSliderGuides(species, breed, viewerId, resolvedLang);
+  }
+
   @Get()
   @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({

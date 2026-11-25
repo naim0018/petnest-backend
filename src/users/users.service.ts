@@ -10,6 +10,7 @@ import { createPaginatedResponse } from 'src/common/dto/pagination.dto';
 import type { AuthenticatedUser } from 'src/common/guards/jwt-auth.guard';
 import { MediaService } from 'src/media/media.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { NotificationsService } from 'src/notifications/notifications.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { UpdateUserRoleDto } from './dto/update-role.dto';
@@ -38,6 +39,7 @@ export class UsersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly mediaService: MediaService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   // 1. Get Logged-in User Profile
@@ -449,6 +451,13 @@ export class UsersService {
         data: { revokedAt: new Date() },
       });
     }
+
+    // Dispatch real-time account suspension/restoration notification
+    await this.notificationsService.notifyAccountSuspension(
+      id,
+      updatedUser.bannedReason,
+      isBanned,
+    );
 
     return updatedUser;
   }

@@ -89,6 +89,10 @@ export class GuidesService {
     return this.explorerService.findAllPublic(query, viewerId, targetLang);
   }
 
+  getSliderGuides(species?: string, breed?: string, viewerId?: string, targetLang = 'en') {
+    return this.explorerService.getSliderGuides(species, breed, viewerId, targetLang);
+  }
+
   findOnePublicBySlug(
     slug: string,
     viewerId?: string,

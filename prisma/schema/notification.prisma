@@ -1,0 +1,50 @@
+enum NotificationType {
+    NEW_INTEREST_GUIDE
+    ACCOUNT_SUSPENDED
+    ACCOUNT_RESTORED
+    VERIFICATION_APPROVED
+    VERIFICATION_REJECTED
+    VERIFICATION_SUBMITTED
+    USER_REGISTERED
+    SYSTEM
+}
+
+model Notification {
+    id        String           @id @default(uuid())
+    type      NotificationType
+    title     String
+    message   String
+    actionUrl String?
+    data      Json?
+
+    // Targeting: Specific user OR broadcast to a platform role
+    userId     String?
+    user       User?   @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+    targetRole Role?
+
+    // Read status for user-specific notification
+    isRead Boolean   @default(false)
+    readAt DateTime?
+
+    // Read status tracking for broadcast/role notifications
+    reads NotificationRead[]
+
+    createdAt DateTime @default(now())
+    expiresAt DateTime // Retention threshold (auto-purge / query filter)
+
+    @@index([userId, isRead, createdAt])
+    @@index([targetRole, createdAt])
+    @@index([expiresAt])
+}
+
+model NotificationRead {
+    id             String       @id @default(uuid())
+    notificationId String
+    notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+    userId         String
+    user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+    readAt         DateTime     @default(now())
+
+    @@unique([notificationId, userId])
+    @@index([userId])
+}

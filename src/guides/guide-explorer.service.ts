@@ -32,6 +32,7 @@ export class GuideExplorerService {
       isFeatured,
       sortBy = 'publishedAt',
       sortOrder = 'desc',
+      excludeBasic,
     } = query;
 
     const skip = (page - 1) * limit;
@@ -39,6 +40,15 @@ export class GuideExplorerService {
       { status: GuideStatus.PUBLISHED },
       { deletedAt: null },
     ];
+
+    if (excludeBasic) {
+      andConditions.push({
+        category: {
+          slug: { not: 'basic' },
+          name: { not: 'Basic' },
+        },
+      });
+    }
 
     if (type) {
       andConditions.push({ type });
@@ -140,6 +150,88 @@ export class GuideExplorerService {
         hasNextPage: page * limit < total,
         hasPrevPage: page > 1,
       },
+    };
+  }
+
+  // Public Basic Slider Guides: Fetches basic guides for species and breed
+  async getSliderGuides(
+    species?: string,
+    breed?: string,
+    viewerId?: string,
+    targetLang = 'en',
+  ) {
+    const andConditions: any[] = [
+      { status: GuideStatus.PUBLISHED },
+      { deletedAt: null },
+      {
+        category: {
+          OR: [
+            { slug: 'basic' },
+            { name: { equals: 'Basic', mode: 'insensitive' } },
+          ],
+        },
+      },
+    ];
+
+    if (breed && breed !== 'all') {
+      const breedFilter = UUID_REGEX.test(breed)
+        ? { id: breed }
+        : { slug: breed.toLowerCase() };
+      const targetBreed = await this.prisma.petBreed.findFirst({
+        where: breedFilter,
+        select: { id: true, speciesId: true },
+      });
+
+      if (targetBreed) {
+        andConditions.push({
+          OR: [
+            { breeds: { some: { id: targetBreed.id } } },
+            { speciesId: targetBreed.speciesId, breeds: { none: {} } },
+          ],
+        });
+      } else {
+        andConditions.push({ breeds: { some: breedFilter } });
+      }
+    } else if (species && species !== 'all') {
+      const speciesFilter = UUID_REGEX.test(species)
+        ? { id: species }
+        : { slug: species.toLowerCase() };
+      andConditions.push({ species: speciesFilter });
+    }
+
+    const where = { AND: andConditions };
+
+    const items = await this.prisma.guide.findMany({
+      where,
+      select: {
+        ...publicGuideCardSelect,
+        ...(viewerId && {
+          likes: { where: { userId: viewerId }, select: { id: true } },
+          bookmarks: { where: { userId: viewerId }, select: { id: true } },
+        }),
+      },
+      take: 20,
+      orderBy: [
+        { displayOrder: 'asc' },
+        { publishedAt: 'desc' },
+      ],
+    });
+
+    const hydratedItems = items.map((item: any) => {
+      const { likes, bookmarks, ...rest } = item;
+      return {
+        ...rest,
+        expertReviewed: Boolean(item.lastReviewedAt),
+        isLiked: viewerId ? Boolean(likes?.length) : false,
+        isBookmarked: viewerId ? Boolean(bookmarks?.length) : false,
+      };
+    });
+
+    const localizedItems = localizeGuideCards(hydratedItems, targetLang);
+
+    return {
+      items: localizedItems,
+      total: localizedItems.length,
     };
   }
 

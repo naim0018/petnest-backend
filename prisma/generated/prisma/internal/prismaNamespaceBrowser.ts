@@ -62,6 +62,8 @@ export const ModelName = {
   PetAccessoryListing: 'PetAccessoryListing',
   PetBookListing: 'PetBookListing',
   PetMedicineListing: 'PetMedicineListing',
+  Notification: 'Notification',
+  NotificationRead: 'NotificationRead',
   PetSpecies: 'PetSpecies',
   PetBreed: 'PetBreed',
   SystemSetting: 'SystemSetting',
@@ -355,6 +357,34 @@ export const PetMedicineListingScalarFieldEnum = {
 } as const
 
 export type PetMedicineListingScalarFieldEnum = (typeof PetMedicineListingScalarFieldEnum)[keyof typeof PetMedicineListingScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  actionUrl: 'actionUrl',
+  data: 'data',
+  userId: 'userId',
+  targetRole: 'targetRole',
+  isRead: 'isRead',
+  readAt: 'readAt',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const NotificationReadScalarFieldEnum = {
+  id: 'id',
+  notificationId: 'notificationId',
+  userId: 'userId',
+  readAt: 'readAt'
+} as const
+
+export type NotificationReadScalarFieldEnum = (typeof NotificationReadScalarFieldEnum)[keyof typeof NotificationReadScalarFieldEnum]
 
 
 export const PetSpeciesScalarFieldEnum = {

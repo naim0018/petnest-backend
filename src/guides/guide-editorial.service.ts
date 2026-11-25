@@ -17,6 +17,7 @@ import { GuideQueryDto } from './dto/guide-query.dto';
 import { ReviewDecision, ReviewGuideDto } from './dto/review-guide.dto';
 import { UpdateGuideDto } from './dto/update-guide.dto';
 import { GuideCategoriesService } from './guide-categories.service';
+import { NotificationsService } from 'src/notifications/notifications.service';
 import {
   calculateReadTimeMinutes,
   sanitizeGuideHtml,
@@ -50,6 +51,7 @@ export class GuideEditorialService implements OnModuleInit {
     private readonly prisma: PrismaService,
     private readonly mediaService: MediaService,
     private readonly guideCategoriesService: GuideCategoriesService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   async onModuleInit() {
@@ -222,6 +224,13 @@ export class GuideEditorialService implements OnModuleInit {
       requester,
       [guide.faqImage],
     );
+
+    // Notify users whose pet interests match if guide was published immediately
+    if (isPublishingNow) {
+      this.notificationsService.notifyMatchingInterestUsers(guide).catch((err) => {
+        this.logger.error(`Failed to dispatch interest notification: ${err.message}`);
+      });
+    }
 
     return guide;
   }
@@ -408,6 +417,13 @@ export class GuideEditorialService implements OnModuleInit {
       );
     }
 
+    // Notify users if guide transitioned to PUBLISHED status
+    if (isFirstTimePublish || (nextStatus === GuideStatus.PUBLISHED && existing.status !== GuideStatus.PUBLISHED)) {
+      this.notificationsService.notifyMatchingInterestUsers(updated).catch((err) => {
+        this.logger.error(`Failed to dispatch interest notification: ${err.message}`);
+      });
+    }
+
     return updated;
   }
 
@@ -419,6 +435,7 @@ export class GuideEditorialService implements OnModuleInit {
   ) {
     const guide = await this.prisma.guide.findFirst({
       where: { id, deletedAt: null },
+      include: { breeds: { select: { id: true } } },
     });
 
     if (!guide) {
@@ -445,7 +462,7 @@ export class GuideEditorialService implements OnModuleInit {
 
     const nextStatus = statusMap[dto.decision];
 
-    return this.prisma.guide.update({
+    const updated = await this.prisma.guide.update({
       where: { id },
       data: {
         status: nextStatus,
@@ -460,6 +477,25 @@ export class GuideEditorialService implements OnModuleInit {
       },
       select: guideSummarySelect,
     });
+
+    if (nextStatus === GuideStatus.PUBLISHED && guide.status !== GuideStatus.PUBLISHED) {
+      this.notificationsService
+        .notifyMatchingInterestUsers({
+          id: updated.id,
+          title: updated.title,
+          slug: updated.slug,
+          speciesId: guide.speciesId,
+          authorId: guide.authorId,
+          breeds: guide.breeds,
+        })
+        .catch((err) => {
+          this.logger.error(
+            `Failed to dispatch interest notification: ${err.message}`,
+          );
+        });
+    }
+
+    return updated;
   }
 
   // Editorial list (Admin / Vet see all; Author sees only their own guides)
@@ -839,6 +875,7 @@ export class GuideEditorialService implements OnModuleInit {
   async softDelete(id: string, requester: AuthenticatedUser) {
     const guide = await this.prisma.guide.findFirst({
       where: { id, deletedAt: null },
+      include: { breeds: { select: { id: true } } },
     });
 
     if (!guide) {
@@ -1394,18 +1431,23 @@ export class GuideEditorialService implements OnModuleInit {
         const isPublishingNow = targetStatus === GuideStatus.PUBLISHED;
         const isVetPublishing = isPublishingNow && requester.role === 'VET';
 
-        // Display order resolution with automatic collision handling
+        // Display order resolution: if 0 or missing, auto-assign next sequential number at the end
         const rawDisplayOrder =
           typeof guide.displayOrder === 'number'
             ? Math.max(0, Math.round(guide.displayOrder))
             : typeof guide.order === 'number'
               ? Math.max(0, Math.round(guide.order))
-              : existingGuide
+              : existingGuide && existingGuide.displayOrder > 0
                 ? existingGuide.displayOrder
                 : 0;
 
         let displayOrder = rawDisplayOrder;
-        if (displayOrder > 0) {
+        if (displayOrder <= 0) {
+          // If display order is 0 (or missing), automatically assign to the last number
+          currentMaxOrder += 1;
+          displayOrder = currentMaxOrder;
+          usedDisplayOrders.add(displayOrder);
+        } else {
           const isSelfOrder =
             existingGuide && existingGuide.displayOrder === displayOrder;
           if (!isSelfOrder && usedDisplayOrders.has(displayOrder)) {
@@ -2394,9 +2436,20 @@ export class GuideEditorialService implements OnModuleInit {
         ...(resolvedBreedIds.length > 0 && {
           breeds: { set: resolvedBreedIds.map((id) => ({ id })) },
         }),
-        ...(typeof item.displayOrder === 'number' && {
-          displayOrder: Math.max(0, Math.round(item.displayOrder)),
-        }),
+        ...(typeof item.displayOrder === 'number'
+          ? item.displayOrder > 0
+            ? { displayOrder: Math.round(item.displayOrder) }
+            : existing.displayOrder > 0
+              ? {}
+              : {
+                  displayOrder:
+                    ((await this.prisma.guide.findFirst({
+                      where: { deletedAt: null },
+                      orderBy: { displayOrder: 'desc' },
+                      select: { displayOrder: true },
+                    }))?.displayOrder ?? 0) + 1,
+                }
+          : {}),
         ...(Array.isArray(item.tags) && {
           tags: item.tags.map((t) => String(t).toLowerCase()),
         }),

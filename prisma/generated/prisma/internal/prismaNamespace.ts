@@ -408,6 +408,8 @@ export const ModelName = {
   PetAccessoryListing: 'PetAccessoryListing',
   PetBookListing: 'PetBookListing',
   PetMedicineListing: 'PetMedicineListing',
+  Notification: 'Notification',
+  NotificationRead: 'NotificationRead',
   PetSpecies: 'PetSpecies',
   PetBreed: 'PetBreed',
   SystemSetting: 'SystemSetting',
@@ -431,7 +433,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "guideCategory" | "guide" | "mediaAsset" | "guideFaq" | "guideBookmark" | "guideLike" | "livePetListing" | "petFoodListing" | "petAccessoryListing" | "petBookListing" | "petMedicineListing" | "petSpecies" | "petBreed" | "systemSetting" | "user" | "profile" | "session" | "visitor" | "pageView"
+    modelProps: "guideCategory" | "guide" | "mediaAsset" | "guideFaq" | "guideBookmark" | "guideLike" | "livePetListing" | "petFoodListing" | "petAccessoryListing" | "petBookListing" | "petMedicineListing" | "notification" | "notificationRead" | "petSpecies" | "petBreed" | "systemSetting" | "user" | "profile" | "session" | "visitor" | "pageView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1246,6 +1248,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PetMedicineListingCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PetMedicineListingCountAggregateOutputType> | number
+        }
+      }
+    }
+    Notification: {
+      payload: Prisma.$NotificationPayload<ExtArgs>
+      fields: Prisma.NotificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NotificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NotificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        findFirst: {
+          args: Prisma.NotificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NotificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        findMany: {
+          args: Prisma.NotificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+        }
+        create: {
+          args: Prisma.NotificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        createMany: {
+          args: Prisma.NotificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NotificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+        }
+        delete: {
+          args: Prisma.NotificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        update: {
+          args: Prisma.NotificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.NotificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NotificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NotificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.NotificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        aggregate: {
+          args: Prisma.NotificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNotification>
+        }
+        groupBy: {
+          args: Prisma.NotificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NotificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationCountAggregateOutputType> | number
+        }
+      }
+    }
+    NotificationRead: {
+      payload: Prisma.$NotificationReadPayload<ExtArgs>
+      fields: Prisma.NotificationReadFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NotificationReadFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NotificationReadFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload>
+        }
+        findFirst: {
+          args: Prisma.NotificationReadFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NotificationReadFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload>
+        }
+        findMany: {
+          args: Prisma.NotificationReadFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload>[]
+        }
+        create: {
+          args: Prisma.NotificationReadCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload>
+        }
+        createMany: {
+          args: Prisma.NotificationReadCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NotificationReadCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload>[]
+        }
+        delete: {
+          args: Prisma.NotificationReadDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload>
+        }
+        update: {
+          args: Prisma.NotificationReadUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload>
+        }
+        deleteMany: {
+          args: Prisma.NotificationReadDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NotificationReadUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NotificationReadUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload>[]
+        }
+        upsert: {
+          args: Prisma.NotificationReadUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationReadPayload>
+        }
+        aggregate: {
+          args: Prisma.NotificationReadAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNotificationRead>
+        }
+        groupBy: {
+          args: Prisma.NotificationReadGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationReadGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NotificationReadCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationReadCountAggregateOutputType> | number
         }
       }
     }
@@ -2149,6 +2299,34 @@ export const PetMedicineListingScalarFieldEnum = {
 export type PetMedicineListingScalarFieldEnum = (typeof PetMedicineListingScalarFieldEnum)[keyof typeof PetMedicineListingScalarFieldEnum]
 
 
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  actionUrl: 'actionUrl',
+  data: 'data',
+  userId: 'userId',
+  targetRole: 'targetRole',
+  isRead: 'isRead',
+  readAt: 'readAt',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const NotificationReadScalarFieldEnum = {
+  id: 'id',
+  notificationId: 'notificationId',
+  userId: 'userId',
+  readAt: 'readAt'
+} as const
+
+export type NotificationReadScalarFieldEnum = (typeof NotificationReadScalarFieldEnum)[keyof typeof NotificationReadScalarFieldEnum]
+
+
 export const PetSpeciesScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -2580,6 +2758,34 @@ export type ListEnumMedicineDosageFormFieldRefInput<$PrismaModel> = FieldRefInpu
 
 
 /**
+ * Reference to a field of type 'NotificationType'
+ */
+export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
+    
+
+
+/**
+ * Reference to a field of type 'NotificationType[]'
+ */
+export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Role'
+ */
+export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+/**
+ * Reference to a field of type 'Role[]'
+ */
+export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+/**
  * Reference to a field of type 'PetSize'
  */
 export type EnumPetSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetSize'>
@@ -2604,20 +2810,6 @@ export type EnumCareLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'CareLevel[]'
  */
 export type ListEnumCareLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CareLevel[]'>
-    
-
-
-/**
- * Reference to a field of type 'Role'
- */
-export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
-    
-
-
-/**
- * Reference to a field of type 'Role[]'
- */
-export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
     
 
 
@@ -2796,6 +2988,8 @@ export type GlobalOmitConfig = {
   petAccessoryListing?: Prisma.PetAccessoryListingOmit
   petBookListing?: Prisma.PetBookListingOmit
   petMedicineListing?: Prisma.PetMedicineListingOmit
+  notification?: Prisma.NotificationOmit
+  notificationRead?: Prisma.NotificationReadOmit
   petSpecies?: Prisma.PetSpeciesOmit
   petBreed?: Prisma.PetBreedOmit
   systemSetting?: Prisma.SystemSettingOmit

@@ -95,6 +95,16 @@ export type PetBookListing = Prisma.PetBookListingModel
  */
 export type PetMedicineListing = Prisma.PetMedicineListingModel
 /**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model NotificationRead
+ * 
+ */
+export type NotificationRead = Prisma.NotificationReadModel
+/**
  * Model PetSpecies
  * 
  */
