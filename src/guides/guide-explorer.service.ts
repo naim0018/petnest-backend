@@ -210,7 +210,7 @@ export class GuideExplorerService {
           bookmarks: { where: { userId: viewerId }, select: { id: true } },
         }),
       },
-      take: 20,
+      take: 100,
       orderBy: [
         { displayOrder: 'asc' },
         { publishedAt: 'desc' },
