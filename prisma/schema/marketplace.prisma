@@ -1,0 +1,294 @@
+enum ListingStatus {
+  DRAFT
+  ACTIVE
+  SOLD_OUT
+  ARCHIVED
+}
+
+enum PetGender {
+  MALE
+  FEMALE
+  PROVEN_PAIR
+  UNSEXED
+}
+
+enum HealthVerificationStatus {
+  HEALTHY_UNVERIFIED
+  VACCINATED
+  DEWORMED
+  VET_CERTIFIED
+}
+
+enum LiveDeliveryMethod {
+  LOCAL_PICKUP
+  BREEDER_SPECIAL_TRANSIT
+}
+
+enum FoodType {
+  SEED_MIX
+  PELLETS
+  DRY_KIBBLE
+  WET_CANNED
+  TREATS
+  SUPPLEMENT
+}
+
+enum WeightUnit {
+  G
+  KG
+  LB
+  OZ
+}
+
+enum FoodLifeStage {
+  BABY_HANDFEEDING
+  JUNIOR
+  ADULT
+  BREEDING
+  SENIOR
+  ALL_STAGES
+}
+
+enum AccessoryCategory {
+  CAGE
+  AQUARIUM_TERRARIUM
+  PERCH_BRANCH
+  FEEDER_BOWL
+  BED_NEST
+  TOY
+  CARRIER
+  HARNESS_LEASH
+  GROOMING_TOOL
+}
+
+enum BookFormat {
+  PAPERBACK
+  HARDCOVER
+  DIGITAL_PDF
+}
+
+enum MedicineDosageForm {
+  ORAL_DROPS
+  WATER_SOLUBLE_POWDER
+  TABLET
+  TOPICAL_SPRAY
+  OINTMENT
+  INJECTION
+}
+
+// ==========================================
+// 1. LIVE PET LISTINGS
+// ==========================================
+model LivePetListing {
+  id                   String                   @id @default(uuid())
+  title                String
+  slug                 String                   @unique
+  status               ListingStatus            @default(DRAFT)
+  price                Decimal                  @db.Decimal(10, 2)
+  salePrice            Decimal?                 @db.Decimal(10, 2)
+  quantity             Int                      @default(1)
+
+  speciesId            String
+  species              PetSpecies               @relation(fields: [speciesId], references: [id])
+  breedId              String?
+  breed                PetBreed?                @relation(fields: [breedId], references: [id])
+
+  gender               PetGender                @default(UNSEXED)
+  ageText              String                   // e.g., "3 Months", "Weaned"
+  dob                  DateTime?
+  colorMutation        String?                  // e.g., "Opaline Sky Blue", "Lutino"
+  ringNumber           String?                  // Avian leg ring tracking ID
+  microchipId          String?                  // Canine/Feline microchip
+
+  healthStatus         HealthVerificationStatus @default(HEALTHY_UNVERIFIED)
+  dewormed             Boolean                  @default(false)
+  vaccinated           Boolean                  @default(false)
+  dnaSexingCertUrl     String?
+  pedigreePaperUrl     String?
+
+  deliveryMethod       LiveDeliveryMethod       @default(LOCAL_PICKUP)
+  transitGuarantee     Boolean                  @default(false)
+  pickupAddress        String?
+
+  coverImage           String
+  galleryImages        String[]                 @default([])
+  videoUrl             String?
+  description          String                   @db.Text
+  isFeatured           Boolean                  @default(false)
+
+  storeName            String                   @default("PetNest Official Direct")
+  createdById          String?
+  createdBy            User?                    @relation("AdminCreatedLivePets", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt            DateTime                 @default(now())
+  updatedAt            DateTime                 @updatedAt
+
+  @@index([speciesId])
+  @@index([breedId])
+  @@index([status])
+}
+
+// ==========================================
+// 2. PET FOOD & NUTRITION
+// ==========================================
+model PetFoodListing {
+  id                   String            @id @default(uuid())
+  title                String
+  slug                 String            @unique
+  status               ListingStatus     @default(DRAFT)
+  price                Decimal           @db.Decimal(10, 2)
+  salePrice            Decimal?          @db.Decimal(10, 2)
+  stockQuantity        Int               @default(1)
+  sku                  String?
+
+  brand                String
+  foodType             FoodType
+  lifeStage            FoodLifeStage     @default(ALL_STAGES)
+  netWeight            Decimal           @db.Decimal(8, 2)
+  weightUnit           WeightUnit        @default(KG)
+
+  targetSpeciesId      String
+  targetSpecies        PetSpecies        @relation(fields: [targetSpeciesId], references: [id])
+
+  ingredients          String?           @db.Text
+  guaranteedAnalysis   Json?             // { protein: "14%", fat: "6%", fiber: "4%" }
+  expiryDate           DateTime?
+  isOrganic            Boolean           @default(false)
+
+  coverImage           String
+  galleryImages        String[]          @default([])
+  description          String            @db.Text
+  isFeatured           Boolean           @default(false)
+
+  storeName            String            @default("PetNest Official Direct")
+  createdById          String?
+  createdBy            User?             @relation("AdminCreatedPetFoods", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+
+  @@index([targetSpeciesId])
+  @@index([foodType])
+  @@index([status])
+}
+
+// ==========================================
+// 3. ACCESSORIES & GEAR
+// ==========================================
+model PetAccessoryListing {
+  id                   String            @id @default(uuid())
+  title                String
+  slug                 String            @unique
+  status               ListingStatus     @default(DRAFT)
+  price                Decimal           @db.Decimal(10, 2)
+  salePrice            Decimal?          @db.Decimal(10, 2)
+  stockQuantity        Int               @default(1)
+  sku                  String?
+
+  category             AccessoryCategory
+  brand                String?
+  targetSpeciesId      String?
+  targetSpecies        PetSpecies?       @relation(fields: [targetSpeciesId], references: [id])
+
+  dimensions           String?           // e.g. "60 x 38 x 52 cm"
+  barSpacing           String?           // Crucial for bird cages, e.g. "10 mm"
+  material             String?           // e.g. "Powder-coated iron"
+  color                String?
+  sizeOption           String?           // "S", "M", "L", "XL"
+
+  coverImage           String
+  galleryImages        String[]          @default([])
+  description          String            @db.Text
+  isFeatured           Boolean           @default(false)
+
+  storeName            String            @default("PetNest Official Direct")
+  createdById          String?
+  createdBy            User?             @relation("AdminCreatedPetAccessories", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+
+  @@index([category])
+  @@index([targetSpeciesId])
+  @@index([status])
+}
+
+// ==========================================
+// 4. BOOKS & LITERATURE
+// ==========================================
+model PetBookListing {
+  id                   String            @id @default(uuid())
+  title                String
+  slug                 String            @unique
+  status               ListingStatus     @default(DRAFT)
+  price                Decimal           @db.Decimal(10, 2)
+  salePrice            Decimal?          @db.Decimal(10, 2)
+  stockQuantity        Int               @default(1)
+
+  author               String
+  publisher            String?
+  language             String            @default("English")
+  format               BookFormat        @default(PAPERBACK)
+  isbn                 String?
+  totalPages           Int?
+  publicationYear      Int?
+  edition              String?
+  downloadUrl          String?           // For DIGITAL_PDF
+  samplePdfUrl         String?
+
+  coverImage           String
+  galleryImages        String[]          @default([])
+  description          String            @db.Text
+  isFeatured           Boolean           @default(false)
+
+  storeName            String            @default("PetNest Official Direct")
+  createdById          String?
+  createdBy            User?             @relation("AdminCreatedPetBooks", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+
+  @@index([format])
+  @@index([language])
+  @@index([status])
+}
+
+// ==========================================
+// 5. MEDICINE & HEALTHCARE
+// ==========================================
+model PetMedicineListing {
+  id                   String             @id @default(uuid())
+  title                String
+  slug                 String             @unique
+  status               ListingStatus      @default(DRAFT)
+  price                Decimal            @db.Decimal(10, 2)
+  salePrice            Decimal?           @db.Decimal(10, 2)
+  stockQuantity        Int                @default(1)
+  sku                  String?
+
+  genericName          String             // Active chemical compound
+  manufacturer         String?            // Pharma lab
+  dosageForm           MedicineDosageForm
+  packSize             String             // e.g. "100g sachet", "50ml bottle"
+  prescriptionRequired Boolean            @default(false)
+  targetSpeciesList    String[]           // ["Birds", "Dogs"]
+  dosageInstructions   String             @db.Text
+  expiryDate           DateTime?
+  batchNumber          String?
+
+  coverImage           String
+  galleryImages        String[]           @default([])
+  description          String             @db.Text
+  isFeatured           Boolean            @default(false)
+
+  storeName            String            @default("PetNest Official Direct")
+  createdById          String?
+  createdBy            User?             @relation("AdminCreatedPetMedicines", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  @@index([dosageForm])
+  @@index([prescriptionRequired])
+  @@index([status])
+}

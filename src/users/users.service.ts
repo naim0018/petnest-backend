@@ -21,6 +21,9 @@ const userSafeSelect = {
   email: true,
   phone: true,
   role: true,
+  isBanned: true,
+  bannedAt: true,
+  bannedReason: true,
   interestedSpeciesId: true,
   interestedBreedId: true,
   interestedSpecies: { select: { id: true, name: true, image: true } },
@@ -360,5 +363,93 @@ export class UsersService {
 
     await this.prisma.user.delete({ where: { id } });
     return { message: `User ${user.email} deleted successfully` };
+  }
+
+  // 8. Admin: Get platform user metrics and stats
+  async getStats() {
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    const [
+      totalUsers,
+      newThisMonth,
+      verifiedSellersVets,
+      activeStaff,
+      bannedUsers,
+    ] = await Promise.all([
+      this.prisma.user.count(),
+      this.prisma.user.count({
+        where: { createdAt: { gte: startOfMonth } },
+      }),
+      this.prisma.user.count({
+        where: { role: { in: [Role.VET, Role.AUTHOR] } },
+      }),
+      this.prisma.user.count({
+        where: { role: { in: [Role.ADMIN, Role.SUPERADMIN] } },
+      }),
+      this.prisma.user.count({
+        where: { isBanned: true },
+      }),
+    ]);
+
+    return {
+      totalUsers,
+      newThisMonth,
+      verifiedSellersVets,
+      activeStaff,
+      bannedUsers,
+    };
+  }
+
+  // 9. Admin: Ban or Unban User
+  async toggleBan(
+    id: string,
+    isBanned: boolean,
+    reason: string | undefined,
+    requester: AuthenticatedUser,
+  ) {
+    if (id === requester.userId) {
+      throw new BadRequestException('You cannot ban or suspend your own account');
+    }
+
+    const targetUser = await this.prisma.user.findUnique({
+      where: { id },
+      select: { id: true, role: true, isBanned: true, email: true },
+    });
+
+    if (!targetUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    if (targetUser.role === Role.SUPERADMIN) {
+      throw new ForbiddenException('SUPERADMIN accounts cannot be banned or suspended');
+    }
+
+    if (requester.role !== Role.SUPERADMIN && targetUser.role === Role.ADMIN) {
+      throw new ForbiddenException('Only SUPERADMIN can ban or suspend an ADMIN account');
+    }
+
+    const updatedUser = await this.prisma.user.update({
+      where: { id },
+      data: {
+        isBanned,
+        bannedAt: isBanned ? new Date() : null,
+        bannedReason: isBanned
+          ? reason?.trim() || 'Account suspended by administrator'
+          : null,
+      },
+      select: userSafeSelect,
+    });
+
+    // Revoke all existing sessions immediately if user was banned
+    if (isBanned) {
+      await this.prisma.session.updateMany({
+        where: { userId: id, revokedAt: null },
+        data: { revokedAt: new Date() },
+      });
+    }
+
+    return updatedUser;
   }
 }

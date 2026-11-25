@@ -40,6 +40,7 @@ const ALLOWED_FOLDERS: MediaFolder[] = [
   'pets',
   'avatars',
   'categories',
+  'marketplace',
 ];
 const GUIDE_UPLOAD_ROLES = new Set(['AUTHOR', 'VET', 'ADMIN', 'SUPERADMIN']);
 const PET_UPLOAD_ROLES = new Set(['ADMIN', 'SUPERADMIN']);
@@ -49,6 +50,7 @@ const CATEGORY_UPLOAD_ROLES = new Set([
   'AUTHOR',
   'VET',
 ]);
+const MARKETPLACE_UPLOAD_ROLES = new Set(['ADMIN', 'SUPERADMIN']);
 
 @ApiTags('media')
 @ApiBearerAuth()
@@ -121,6 +123,10 @@ export class MediaController {
       throw new ForbiddenException(
         'Only Admins, Authors, and Vets can upload category media',
       );
+    }
+
+    if (targetFolder === 'marketplace' && !MARKETPLACE_UPLOAD_ROLES.has(user.role)) {
+      throw new ForbiddenException('Only Admins can upload marketplace media');
     }
 
     if (altText && altText.length > 250) {

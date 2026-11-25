@@ -19,6 +19,7 @@ import type { AuthenticatedUser } from 'src/common/guards/jwt-auth.guard';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/role.guard';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { BanUserDto } from './dto/ban-user.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { UpdateUserRoleDto } from './dto/update-role.dto';
 import { UserQueryDto } from './dto/user-query.dto';
@@ -69,12 +70,32 @@ export class UsersController {
     return this.usersService.findAll(query);
   }
 
+  // 4.1 Admin: Get user stats and counts
+  @Get('stats')
+  @Roles('ADMIN', 'SUPERADMIN')
+  @ApiOperation({ summary: 'Admin: Get overall platform user statistics' })
+  async getStats() {
+    return this.usersService.getStats();
+  }
+
   // 5. Admin: Get user by ID
   @Get(':id')
   @Roles('ADMIN', 'SUPERADMIN')
   @ApiOperation({ summary: 'Admin: Get user details by ID' })
   async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.findOne(id);
+  }
+
+  // 5.1 Admin: Ban or Unban user
+  @Patch(':id/ban')
+  @Roles('ADMIN', 'SUPERADMIN')
+  @ApiOperation({ summary: 'Admin: Ban or unban user and revoke sessions' })
+  async toggleBan(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: BanUserDto,
+    @CurrentUser() requester: AuthenticatedUser,
+  ) {
+    return this.usersService.toggleBan(id, dto.isBanned, dto.reason, requester);
   }
 
   // 6. Admin: Assign user role (e.g. AUTHOR, VET, ADMIN)

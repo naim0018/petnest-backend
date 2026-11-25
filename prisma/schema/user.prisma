@@ -14,6 +14,10 @@ model User {
     password String
     role     Role    @default(USER)
 
+    isBanned     Boolean   @default(false)
+    bannedAt     DateTime?
+    bannedReason String?
+
     interestedSpeciesId String?
     interestedSpecies   PetSpecies? @relation(fields: [interestedSpeciesId], references: [id], onDelete: SetNull)
 
@@ -33,6 +37,13 @@ model User {
     guideBookmarks GuideBookmark[]
     guideLikes     GuideLike[]
     uploadedMedia  MediaAsset[]
+
+    // Marketplace Admin Relations
+    createdLivePets       LivePetListing[]      @relation("AdminCreatedLivePets")
+    createdPetFoods       PetFoodListing[]      @relation("AdminCreatedPetFoods")
+    createdPetAccessories PetAccessoryListing[] @relation("AdminCreatedPetAccessories")
+    createdPetBooks       PetBookListing[]      @relation("AdminCreatedPetBooks")
+    createdPetMedicines   PetMedicineListing[]  @relation("AdminCreatedPetMedicines")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

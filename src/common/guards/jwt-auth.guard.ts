@@ -52,13 +52,17 @@ export class JwtAuthGuard implements CanActivate {
         },
         include: {
           user: {
-            select: { id: true, role: true },
+            select: { id: true, role: true, isBanned: true },
           },
         },
       });
 
-      if (!session || !session.user) {
-        throw new UnauthorizedException('Session revoked or expired');
+      if (!session || !session.user || session.user.isBanned) {
+        throw new UnauthorizedException(
+          session?.user?.isBanned
+            ? 'Account has been suspended'
+            : 'Session revoked or expired',
+        );
       }
 
       // Always attach live role from database so role demotions take effect immediately

@@ -29,6 +29,114 @@ export const GuideType = {
 export type GuideType = (typeof GuideType)[keyof typeof GuideType]
 
 
+export const ListingStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  SOLD_OUT: 'SOLD_OUT',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ListingStatus = (typeof ListingStatus)[keyof typeof ListingStatus]
+
+
+export const PetGender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  PROVEN_PAIR: 'PROVEN_PAIR',
+  UNSEXED: 'UNSEXED'
+} as const
+
+export type PetGender = (typeof PetGender)[keyof typeof PetGender]
+
+
+export const HealthVerificationStatus = {
+  HEALTHY_UNVERIFIED: 'HEALTHY_UNVERIFIED',
+  VACCINATED: 'VACCINATED',
+  DEWORMED: 'DEWORMED',
+  VET_CERTIFIED: 'VET_CERTIFIED'
+} as const
+
+export type HealthVerificationStatus = (typeof HealthVerificationStatus)[keyof typeof HealthVerificationStatus]
+
+
+export const LiveDeliveryMethod = {
+  LOCAL_PICKUP: 'LOCAL_PICKUP',
+  BREEDER_SPECIAL_TRANSIT: 'BREEDER_SPECIAL_TRANSIT'
+} as const
+
+export type LiveDeliveryMethod = (typeof LiveDeliveryMethod)[keyof typeof LiveDeliveryMethod]
+
+
+export const FoodType = {
+  SEED_MIX: 'SEED_MIX',
+  PELLETS: 'PELLETS',
+  DRY_KIBBLE: 'DRY_KIBBLE',
+  WET_CANNED: 'WET_CANNED',
+  TREATS: 'TREATS',
+  SUPPLEMENT: 'SUPPLEMENT'
+} as const
+
+export type FoodType = (typeof FoodType)[keyof typeof FoodType]
+
+
+export const WeightUnit = {
+  G: 'G',
+  KG: 'KG',
+  LB: 'LB',
+  OZ: 'OZ'
+} as const
+
+export type WeightUnit = (typeof WeightUnit)[keyof typeof WeightUnit]
+
+
+export const FoodLifeStage = {
+  BABY_HANDFEEDING: 'BABY_HANDFEEDING',
+  JUNIOR: 'JUNIOR',
+  ADULT: 'ADULT',
+  BREEDING: 'BREEDING',
+  SENIOR: 'SENIOR',
+  ALL_STAGES: 'ALL_STAGES'
+} as const
+
+export type FoodLifeStage = (typeof FoodLifeStage)[keyof typeof FoodLifeStage]
+
+
+export const AccessoryCategory = {
+  CAGE: 'CAGE',
+  AQUARIUM_TERRARIUM: 'AQUARIUM_TERRARIUM',
+  PERCH_BRANCH: 'PERCH_BRANCH',
+  FEEDER_BOWL: 'FEEDER_BOWL',
+  BED_NEST: 'BED_NEST',
+  TOY: 'TOY',
+  CARRIER: 'CARRIER',
+  HARNESS_LEASH: 'HARNESS_LEASH',
+  GROOMING_TOOL: 'GROOMING_TOOL'
+} as const
+
+export type AccessoryCategory = (typeof AccessoryCategory)[keyof typeof AccessoryCategory]
+
+
+export const BookFormat = {
+  PAPERBACK: 'PAPERBACK',
+  HARDCOVER: 'HARDCOVER',
+  DIGITAL_PDF: 'DIGITAL_PDF'
+} as const
+
+export type BookFormat = (typeof BookFormat)[keyof typeof BookFormat]
+
+
+export const MedicineDosageForm = {
+  ORAL_DROPS: 'ORAL_DROPS',
+  WATER_SOLUBLE_POWDER: 'WATER_SOLUBLE_POWDER',
+  TABLET: 'TABLET',
+  TOPICAL_SPRAY: 'TOPICAL_SPRAY',
+  OINTMENT: 'OINTMENT',
+  INJECTION: 'INJECTION'
+} as const
+
+export type MedicineDosageForm = (typeof MedicineDosageForm)[keyof typeof MedicineDosageForm]
+
+
 export const PetSize = {
   SMALL: 'SMALL',
   MEDIUM: 'MEDIUM',

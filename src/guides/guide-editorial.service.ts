@@ -57,12 +57,12 @@ export class GuideEditorialService implements OnModuleInit {
   }
 
   /**
-   * Resequences existing duplicate positive display orders so every ranked guide has a unique order.
+   * Resequences existing duplicate positive display orders and unassigned (<= 0) orders
+   * so every guide in the catalog has a unique positive sequential order.
    */
   async resolveExistingDisplayOrderCollisions(): Promise<void> {
     try {
       const guides = await this.prisma.guide.findMany({
-        where: { displayOrder: { gt: 0 } },
         select: {
           id: true,
           displayOrder: true,
@@ -84,7 +84,7 @@ export class GuideEditorialService implements OnModuleInit {
       }
 
       for (const g of guides) {
-        if (seenOrders.has(g.displayOrder)) {
+        if (!g.displayOrder || g.displayOrder <= 0 || seenOrders.has(g.displayOrder)) {
           maxOrder += 1;
           await this.prisma.guide.update({
             where: { id: g.id },
@@ -92,7 +92,7 @@ export class GuideEditorialService implements OnModuleInit {
           });
           seenOrders.add(maxOrder);
           this.logger.log(
-            `Resolved duplicate order for guide "${g.title}": reassigned to #${maxOrder}`,
+            `Auto-assigned sequential order for guide "${g.title}": reassigned to #${maxOrder}`,
           );
         } else {
           seenOrders.add(g.displayOrder);
@@ -146,13 +146,10 @@ export class GuideEditorialService implements OnModuleInit {
     const isPublishingNow = targetStatus === GuideStatus.PUBLISHED;
     const isVetPublishing = isPublishingNow && requester.role === 'VET';
 
-    // Resolve displayOrder with automatic collision detection
-    let resolvedDisplayOrder =
-      typeof dto.displayOrder === 'number'
-        ? Math.max(0, Math.round(dto.displayOrder))
-        : 0;
-
-    if (resolvedDisplayOrder > 0) {
+    // Resolve displayOrder with automatic collision detection and next-order auto-assignment
+    let resolvedDisplayOrder: number;
+    if (typeof dto.displayOrder === 'number' && dto.displayOrder > 0) {
+      resolvedDisplayOrder = Math.round(dto.displayOrder);
       const existingWithOrder = await this.prisma.guide.findFirst({
         where: { displayOrder: resolvedDisplayOrder },
         select: { id: true },
@@ -164,6 +161,13 @@ export class GuideEditorialService implements OnModuleInit {
         });
         resolvedDisplayOrder = (maxOrderGuide?.displayOrder ?? 0) + 1;
       }
+    } else {
+      // Auto-assign next positive sequential order
+      const maxOrderGuide = await this.prisma.guide.findFirst({
+        orderBy: { displayOrder: 'desc' },
+        select: { displayOrder: true },
+      });
+      resolvedDisplayOrder = (maxOrderGuide?.displayOrder ?? 0) + 1;
     }
 
     const guide = await this.prisma.guide.create({
@@ -327,31 +331,6 @@ export class GuideEditorialService implements OnModuleInit {
     const shouldClearStaleReview =
       !canDirectPublish && didContentChange && existing.reviewerId !== null;
 
-    // Automatic collision handling for displayOrder on update
-    if (dto.displayOrder !== undefined && dto.displayOrder > 0) {
-      const targetOrder = Math.max(0, Math.round(dto.displayOrder));
-      const conflicting = await this.prisma.guide.findFirst({
-        where: {
-          displayOrder: targetOrder,
-          id: { not: id },
-        },
-        select: { id: true },
-      });
-
-      if (conflicting) {
-        // Shift conflicting guide and subsequent guides by +1
-        await this.prisma.guide.updateMany({
-          where: {
-            displayOrder: { gte: targetOrder },
-            id: { not: id },
-          },
-          data: {
-            displayOrder: { increment: 1 },
-          },
-        });
-      }
-    }
-
     const updated = await this.prisma.guide.update({
       where: { id },
       data: {
@@ -375,7 +354,7 @@ export class GuideEditorialService implements OnModuleInit {
           coverImageAlt: dto.coverImageAlt?.trim() || null,
         }),
         ...(dto.displayOrder !== undefined && {
-          displayOrder: Math.max(0, Math.round(dto.displayOrder)),
+          displayOrder: Math.max(1, Math.round(dto.displayOrder)),
         }),
         ...(dto.faqImage !== undefined && {
           faqImage: dto.faqImage?.trim() || null,
@@ -542,19 +521,65 @@ export class GuideEditorialService implements OnModuleInit {
       ];
     }
 
+    let orderByClause: any;
+    const sortField = sortBy as string;
+    if (sortField === 'displayOrder') {
+      orderByClause = [
+        { displayOrder: sortOrder },
+        { createdAt: 'desc' as const },
+        { id: 'desc' as const },
+      ];
+    } else if (sortField === 'category') {
+      orderByClause = [
+        { category: { name: sortOrder } },
+        { id: 'desc' as const },
+      ];
+    } else if (sortField === 'species') {
+      orderByClause = [
+        { species: { name: sortOrder } },
+        { id: 'desc' as const },
+      ];
+    } else if (sortField === 'views' || sortField === 'viewCount') {
+      orderByClause = [{ viewCount: sortOrder }, { id: 'desc' as const }];
+    } else if (sortField === 'reactions' || sortField === 'likeCount') {
+      orderByClause = [{ likeCount: sortOrder }, { id: 'desc' as const }];
+    } else if (sortField === 'title') {
+      orderByClause = [{ title: sortOrder }, { id: 'desc' as const }];
+    } else if (sortField === 'status') {
+      orderByClause = [{ status: sortOrder }, { id: 'desc' as const }];
+    } else if (sortField === 'author') {
+      orderByClause = [
+        { author: { name: sortOrder } },
+        { id: 'desc' as const },
+      ];
+    } else if (sortField === 'breed' || sortField === 'breeds') {
+      orderByClause = [{ createdAt: sortOrder }, { id: 'desc' as const }];
+    } else if (sortField === 'updatedAt') {
+      orderByClause = [{ updatedAt: sortOrder }, { id: 'desc' as const }];
+    } else {
+      orderByClause = [{ createdAt: sortOrder }, { id: 'desc' as const }];
+    }
+
     const [items, total] = await Promise.all([
       this.prisma.guide.findMany({
         where,
         select: guideSummarySelect,
         skip,
         take: limit,
-        orderBy:
-          sortBy === 'displayOrder'
-            ? [{ displayOrder: sortOrder }, { createdAt: 'desc' as const }, { id: 'desc' as const }]
-            : [{ [sortBy]: sortOrder }, { id: 'desc' as const }],
+        orderBy: orderByClause,
       }),
       this.prisma.guide.count({ where }),
     ]);
+
+    if (sortField === 'breed' || sortField === 'breeds') {
+      items.sort((a, b) => {
+        const breedA = a.breeds?.map((br) => br.name).join(', ') || '';
+        const breedB = b.breeds?.map((br) => br.name).join(', ') || '';
+        return sortOrder === 'asc'
+          ? breedA.localeCompare(breedB)
+          : breedB.localeCompare(breedA);
+      });
+    }
 
     return {
       items,

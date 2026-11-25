@@ -31,6 +31,9 @@ export type UserMinAggregateOutputType = {
   phone: string | null
   password: string | null
   role: $Enums.Role | null
+  isBanned: boolean | null
+  bannedAt: Date | null
+  bannedReason: string | null
   interestedSpeciesId: string | null
   interestedBreedId: string | null
   resetPasswordToken: string | null
@@ -46,6 +49,9 @@ export type UserMaxAggregateOutputType = {
   phone: string | null
   password: string | null
   role: $Enums.Role | null
+  isBanned: boolean | null
+  bannedAt: Date | null
+  bannedReason: string | null
   interestedSpeciesId: string | null
   interestedBreedId: string | null
   resetPasswordToken: string | null
@@ -61,6 +67,9 @@ export type UserCountAggregateOutputType = {
   phone: number
   password: number
   role: number
+  isBanned: number
+  bannedAt: number
+  bannedReason: number
   interestedSpeciesId: number
   interestedBreedId: number
   resetPasswordToken: number
@@ -78,6 +87,9 @@ export type UserMinAggregateInputType = {
   phone?: true
   password?: true
   role?: true
+  isBanned?: true
+  bannedAt?: true
+  bannedReason?: true
   interestedSpeciesId?: true
   interestedBreedId?: true
   resetPasswordToken?: true
@@ -93,6 +105,9 @@ export type UserMaxAggregateInputType = {
   phone?: true
   password?: true
   role?: true
+  isBanned?: true
+  bannedAt?: true
+  bannedReason?: true
   interestedSpeciesId?: true
   interestedBreedId?: true
   resetPasswordToken?: true
@@ -108,6 +123,9 @@ export type UserCountAggregateInputType = {
   phone?: true
   password?: true
   role?: true
+  isBanned?: true
+  bannedAt?: true
+  bannedReason?: true
   interestedSpeciesId?: true
   interestedBreedId?: true
   resetPasswordToken?: true
@@ -196,6 +214,9 @@ export type UserGroupByOutputType = {
   phone: string | null
   password: string
   role: $Enums.Role
+  isBanned: boolean
+  bannedAt: Date | null
+  bannedReason: string | null
   interestedSpeciesId: string | null
   interestedBreedId: string | null
   resetPasswordToken: string | null
@@ -232,6 +253,9 @@ export type UserWhereInput = {
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  isBanned?: Prisma.BoolFilter<"User"> | boolean
+  bannedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   interestedSpeciesId?: Prisma.StringNullableFilter<"User"> | string | null
   interestedBreedId?: Prisma.StringNullableFilter<"User"> | string | null
   resetPasswordToken?: Prisma.StringNullableFilter<"User"> | string | null
@@ -248,6 +272,11 @@ export type UserWhereInput = {
   guideBookmarks?: Prisma.GuideBookmarkListRelationFilter
   guideLikes?: Prisma.GuideLikeListRelationFilter
   uploadedMedia?: Prisma.MediaAssetListRelationFilter
+  createdLivePets?: Prisma.LivePetListingListRelationFilter
+  createdPetFoods?: Prisma.PetFoodListingListRelationFilter
+  createdPetAccessories?: Prisma.PetAccessoryListingListRelationFilter
+  createdPetBooks?: Prisma.PetBookListingListRelationFilter
+  createdPetMedicines?: Prisma.PetMedicineListingListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -257,6 +286,9 @@ export type UserOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isBanned?: Prisma.SortOrder
+  bannedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   interestedSpeciesId?: Prisma.SortOrderInput | Prisma.SortOrder
   interestedBreedId?: Prisma.SortOrderInput | Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -273,6 +305,11 @@ export type UserOrderByWithRelationInput = {
   guideBookmarks?: Prisma.GuideBookmarkOrderByRelationAggregateInput
   guideLikes?: Prisma.GuideLikeOrderByRelationAggregateInput
   uploadedMedia?: Prisma.MediaAssetOrderByRelationAggregateInput
+  createdLivePets?: Prisma.LivePetListingOrderByRelationAggregateInput
+  createdPetFoods?: Prisma.PetFoodListingOrderByRelationAggregateInput
+  createdPetAccessories?: Prisma.PetAccessoryListingOrderByRelationAggregateInput
+  createdPetBooks?: Prisma.PetBookListingOrderByRelationAggregateInput
+  createdPetMedicines?: Prisma.PetMedicineListingOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -285,6 +322,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  isBanned?: Prisma.BoolFilter<"User"> | boolean
+  bannedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   interestedSpeciesId?: Prisma.StringNullableFilter<"User"> | string | null
   interestedBreedId?: Prisma.StringNullableFilter<"User"> | string | null
   resetPasswordToken?: Prisma.StringNullableFilter<"User"> | string | null
@@ -301,6 +341,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   guideBookmarks?: Prisma.GuideBookmarkListRelationFilter
   guideLikes?: Prisma.GuideLikeListRelationFilter
   uploadedMedia?: Prisma.MediaAssetListRelationFilter
+  createdLivePets?: Prisma.LivePetListingListRelationFilter
+  createdPetFoods?: Prisma.PetFoodListingListRelationFilter
+  createdPetAccessories?: Prisma.PetAccessoryListingListRelationFilter
+  createdPetBooks?: Prisma.PetBookListingListRelationFilter
+  createdPetMedicines?: Prisma.PetMedicineListingListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -310,6 +355,9 @@ export type UserOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isBanned?: Prisma.SortOrder
+  bannedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   interestedSpeciesId?: Prisma.SortOrderInput | Prisma.SortOrder
   interestedBreedId?: Prisma.SortOrderInput | Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -331,6 +379,9 @@ export type UserScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  isBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  bannedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  bannedReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   interestedSpeciesId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   interestedBreedId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   resetPasswordToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -346,6 +397,9 @@ export type UserCreateInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -360,6 +414,11 @@ export type UserCreateInput = {
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -369,6 +428,9 @@ export type UserUncheckedCreateInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -383,6 +445,11 @@ export type UserUncheckedCreateInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUpdateInput = {
@@ -392,6 +459,9 @@ export type UserUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -406,6 +476,11 @@ export type UserUpdateInput = {
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -415,6 +490,9 @@ export type UserUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -429,6 +507,11 @@ export type UserUncheckedUpdateInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -438,6 +521,9 @@ export type UserCreateManyInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -453,6 +539,9 @@ export type UserUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -466,6 +555,9 @@ export type UserUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -501,6 +593,9 @@ export type UserCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isBanned?: Prisma.SortOrder
+  bannedAt?: Prisma.SortOrder
+  bannedReason?: Prisma.SortOrder
   interestedSpeciesId?: Prisma.SortOrder
   interestedBreedId?: Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrder
@@ -516,6 +611,9 @@ export type UserMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isBanned?: Prisma.SortOrder
+  bannedAt?: Prisma.SortOrder
+  bannedReason?: Prisma.SortOrder
   interestedSpeciesId?: Prisma.SortOrder
   interestedBreedId?: Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrder
@@ -531,6 +629,9 @@ export type UserMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isBanned?: Prisma.SortOrder
+  bannedAt?: Prisma.SortOrder
+  bannedReason?: Prisma.SortOrder
   interestedSpeciesId?: Prisma.SortOrder
   interestedBreedId?: Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrder
@@ -611,6 +712,86 @@ export type UserUpdateOneRequiredWithoutGuideLikesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutGuideLikesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideLikesInput, Prisma.UserUpdateWithoutGuideLikesInput>, Prisma.UserUncheckedUpdateWithoutGuideLikesInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedLivePetsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedLivePetsInput, Prisma.UserUncheckedCreateWithoutCreatedLivePetsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedLivePetsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedLivePetsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedLivePetsInput, Prisma.UserUncheckedCreateWithoutCreatedLivePetsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedLivePetsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedLivePetsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedLivePetsInput, Prisma.UserUpdateWithoutCreatedLivePetsInput>, Prisma.UserUncheckedUpdateWithoutCreatedLivePetsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedPetFoodsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetFoodsInput, Prisma.UserUncheckedCreateWithoutCreatedPetFoodsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPetFoodsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedPetFoodsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetFoodsInput, Prisma.UserUncheckedCreateWithoutCreatedPetFoodsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPetFoodsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedPetFoodsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedPetFoodsInput, Prisma.UserUpdateWithoutCreatedPetFoodsInput>, Prisma.UserUncheckedUpdateWithoutCreatedPetFoodsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedPetAccessoriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetAccessoriesInput, Prisma.UserUncheckedCreateWithoutCreatedPetAccessoriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPetAccessoriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedPetAccessoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetAccessoriesInput, Prisma.UserUncheckedCreateWithoutCreatedPetAccessoriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPetAccessoriesInput
+  upsert?: Prisma.UserUpsertWithoutCreatedPetAccessoriesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedPetAccessoriesInput, Prisma.UserUpdateWithoutCreatedPetAccessoriesInput>, Prisma.UserUncheckedUpdateWithoutCreatedPetAccessoriesInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedPetBooksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetBooksInput, Prisma.UserUncheckedCreateWithoutCreatedPetBooksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPetBooksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedPetBooksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetBooksInput, Prisma.UserUncheckedCreateWithoutCreatedPetBooksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPetBooksInput
+  upsert?: Prisma.UserUpsertWithoutCreatedPetBooksInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedPetBooksInput, Prisma.UserUpdateWithoutCreatedPetBooksInput>, Prisma.UserUncheckedUpdateWithoutCreatedPetBooksInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedPetMedicinesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetMedicinesInput, Prisma.UserUncheckedCreateWithoutCreatedPetMedicinesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPetMedicinesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedPetMedicinesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetMedicinesInput, Prisma.UserUncheckedCreateWithoutCreatedPetMedicinesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPetMedicinesInput
+  upsert?: Prisma.UserUpsertWithoutCreatedPetMedicinesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedPetMedicinesInput, Prisma.UserUpdateWithoutCreatedPetMedicinesInput>, Prisma.UserUncheckedUpdateWithoutCreatedPetMedicinesInput>
 }
 
 export type UserCreateNestedManyWithoutInterestedSpeciesInput = {
@@ -752,6 +933,9 @@ export type UserCreateWithoutAuthoredGuidesInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -765,6 +949,11 @@ export type UserCreateWithoutAuthoredGuidesInput = {
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAuthoredGuidesInput = {
@@ -774,6 +963,9 @@ export type UserUncheckedCreateWithoutAuthoredGuidesInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -787,6 +979,11 @@ export type UserUncheckedCreateWithoutAuthoredGuidesInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAuthoredGuidesInput = {
@@ -801,6 +998,9 @@ export type UserCreateWithoutReviewedGuidesInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -814,6 +1014,11 @@ export type UserCreateWithoutReviewedGuidesInput = {
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewedGuidesInput = {
@@ -823,6 +1028,9 @@ export type UserUncheckedCreateWithoutReviewedGuidesInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -836,6 +1044,11 @@ export type UserUncheckedCreateWithoutReviewedGuidesInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewedGuidesInput = {
@@ -861,6 +1074,9 @@ export type UserUpdateWithoutAuthoredGuidesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -874,6 +1090,11 @@ export type UserUpdateWithoutAuthoredGuidesInput = {
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuthoredGuidesInput = {
@@ -883,6 +1104,9 @@ export type UserUncheckedUpdateWithoutAuthoredGuidesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -896,6 +1120,11 @@ export type UserUncheckedUpdateWithoutAuthoredGuidesInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutReviewedGuidesInput = {
@@ -916,6 +1145,9 @@ export type UserUpdateWithoutReviewedGuidesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -929,6 +1161,11 @@ export type UserUpdateWithoutReviewedGuidesInput = {
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedGuidesInput = {
@@ -938,6 +1175,9 @@ export type UserUncheckedUpdateWithoutReviewedGuidesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -951,6 +1191,11 @@ export type UserUncheckedUpdateWithoutReviewedGuidesInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutUploadedMediaInput = {
@@ -960,6 +1205,9 @@ export type UserCreateWithoutUploadedMediaInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -973,6 +1221,11 @@ export type UserCreateWithoutUploadedMediaInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutUploadedMediaInput = {
@@ -982,6 +1235,9 @@ export type UserUncheckedCreateWithoutUploadedMediaInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -995,6 +1251,11 @@ export type UserUncheckedCreateWithoutUploadedMediaInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutUploadedMediaInput = {
@@ -1020,6 +1281,9 @@ export type UserUpdateWithoutUploadedMediaInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1033,6 +1297,11 @@ export type UserUpdateWithoutUploadedMediaInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedMediaInput = {
@@ -1042,6 +1311,9 @@ export type UserUncheckedUpdateWithoutUploadedMediaInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1055,6 +1327,11 @@ export type UserUncheckedUpdateWithoutUploadedMediaInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutGuideBookmarksInput = {
@@ -1064,6 +1341,9 @@ export type UserCreateWithoutGuideBookmarksInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -1077,6 +1357,11 @@ export type UserCreateWithoutGuideBookmarksInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutGuideBookmarksInput = {
@@ -1086,6 +1371,9 @@ export type UserUncheckedCreateWithoutGuideBookmarksInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -1099,6 +1387,11 @@ export type UserUncheckedCreateWithoutGuideBookmarksInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutGuideBookmarksInput = {
@@ -1124,6 +1417,9 @@ export type UserUpdateWithoutGuideBookmarksInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1137,6 +1433,11 @@ export type UserUpdateWithoutGuideBookmarksInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuideBookmarksInput = {
@@ -1146,6 +1447,9 @@ export type UserUncheckedUpdateWithoutGuideBookmarksInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1159,6 +1463,11 @@ export type UserUncheckedUpdateWithoutGuideBookmarksInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutGuideLikesInput = {
@@ -1168,6 +1477,9 @@ export type UserCreateWithoutGuideLikesInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -1181,6 +1493,11 @@ export type UserCreateWithoutGuideLikesInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutGuideLikesInput = {
@@ -1190,6 +1507,9 @@ export type UserUncheckedCreateWithoutGuideLikesInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -1203,6 +1523,11 @@ export type UserUncheckedCreateWithoutGuideLikesInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutGuideLikesInput = {
@@ -1228,6 +1553,9 @@ export type UserUpdateWithoutGuideLikesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1241,6 +1569,11 @@ export type UserUpdateWithoutGuideLikesInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuideLikesInput = {
@@ -1250,6 +1583,9 @@ export type UserUncheckedUpdateWithoutGuideLikesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1263,19 +1599,28 @@ export type UserUncheckedUpdateWithoutGuideLikesInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
-export type UserCreateWithoutInterestedSpeciesInput = {
+export type UserCreateWithoutCreatedLivePetsInput = {
   id?: string
   name: string
   email: string
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
   interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   session?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -1285,15 +1630,23 @@ export type UserCreateWithoutInterestedSpeciesInput = {
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
-export type UserUncheckedCreateWithoutInterestedSpeciesInput = {
+export type UserUncheckedCreateWithoutCreatedLivePetsInput = {
   id?: string
   name: string
   email: string
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
@@ -1307,6 +1660,690 @@ export type UserUncheckedCreateWithoutInterestedSpeciesInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedLivePetsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedLivePetsInput, Prisma.UserUncheckedCreateWithoutCreatedLivePetsInput>
+}
+
+export type UserUpsertWithoutCreatedLivePetsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedLivePetsInput, Prisma.UserUncheckedUpdateWithoutCreatedLivePetsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedLivePetsInput, Prisma.UserUncheckedCreateWithoutCreatedLivePetsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedLivePetsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedLivePetsInput, Prisma.UserUncheckedUpdateWithoutCreatedLivePetsInput>
+}
+
+export type UserUpdateWithoutCreatedLivePetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedLivePetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedPetFoodsInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedPetFoodsInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedPetFoodsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetFoodsInput, Prisma.UserUncheckedCreateWithoutCreatedPetFoodsInput>
+}
+
+export type UserUpsertWithoutCreatedPetFoodsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPetFoodsInput, Prisma.UserUncheckedUpdateWithoutCreatedPetFoodsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetFoodsInput, Prisma.UserUncheckedCreateWithoutCreatedPetFoodsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedPetFoodsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPetFoodsInput, Prisma.UserUncheckedUpdateWithoutCreatedPetFoodsInput>
+}
+
+export type UserUpdateWithoutCreatedPetFoodsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedPetFoodsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedPetAccessoriesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedPetAccessoriesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedPetAccessoriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetAccessoriesInput, Prisma.UserUncheckedCreateWithoutCreatedPetAccessoriesInput>
+}
+
+export type UserUpsertWithoutCreatedPetAccessoriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPetAccessoriesInput, Prisma.UserUncheckedUpdateWithoutCreatedPetAccessoriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetAccessoriesInput, Prisma.UserUncheckedCreateWithoutCreatedPetAccessoriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedPetAccessoriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPetAccessoriesInput, Prisma.UserUncheckedUpdateWithoutCreatedPetAccessoriesInput>
+}
+
+export type UserUpdateWithoutCreatedPetAccessoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedPetAccessoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedPetBooksInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedPetBooksInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedPetBooksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetBooksInput, Prisma.UserUncheckedCreateWithoutCreatedPetBooksInput>
+}
+
+export type UserUpsertWithoutCreatedPetBooksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPetBooksInput, Prisma.UserUncheckedUpdateWithoutCreatedPetBooksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetBooksInput, Prisma.UserUncheckedCreateWithoutCreatedPetBooksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedPetBooksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPetBooksInput, Prisma.UserUncheckedUpdateWithoutCreatedPetBooksInput>
+}
+
+export type UserUpdateWithoutCreatedPetBooksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedPetBooksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedPetMedicinesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedPetMedicinesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedPetMedicinesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetMedicinesInput, Prisma.UserUncheckedCreateWithoutCreatedPetMedicinesInput>
+}
+
+export type UserUpsertWithoutCreatedPetMedicinesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPetMedicinesInput, Prisma.UserUncheckedUpdateWithoutCreatedPetMedicinesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPetMedicinesInput, Prisma.UserUncheckedCreateWithoutCreatedPetMedicinesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedPetMedicinesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPetMedicinesInput, Prisma.UserUncheckedUpdateWithoutCreatedPetMedicinesInput>
+}
+
+export type UserUpdateWithoutCreatedPetMedicinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedPetMedicinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutInterestedSpeciesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutInterestedSpeciesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password: string
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutInterestedSpeciesInput = {
@@ -1345,6 +2382,9 @@ export type UserScalarWhereInput = {
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  isBanned?: Prisma.BoolFilter<"User"> | boolean
+  bannedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   interestedSpeciesId?: Prisma.StringNullableFilter<"User"> | string | null
   interestedBreedId?: Prisma.StringNullableFilter<"User"> | string | null
   resetPasswordToken?: Prisma.StringNullableFilter<"User"> | string | null
@@ -1360,6 +2400,9 @@ export type UserCreateWithoutInterestedBreedInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -1373,6 +2416,11 @@ export type UserCreateWithoutInterestedBreedInput = {
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutInterestedBreedInput = {
@@ -1382,6 +2430,9 @@ export type UserUncheckedCreateWithoutInterestedBreedInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
@@ -1395,6 +2446,11 @@ export type UserUncheckedCreateWithoutInterestedBreedInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutInterestedBreedInput = {
@@ -1430,6 +2486,9 @@ export type UserCreateWithoutProfileInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -1443,6 +2502,11 @@ export type UserCreateWithoutProfileInput = {
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -1452,6 +2516,9 @@ export type UserUncheckedCreateWithoutProfileInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -1465,6 +2532,11 @@ export type UserUncheckedCreateWithoutProfileInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -1490,6 +2562,9 @@ export type UserUpdateWithoutProfileInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1503,6 +2578,11 @@ export type UserUpdateWithoutProfileInput = {
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -1512,6 +2592,9 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1525,6 +2608,11 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSessionInput = {
@@ -1534,6 +2622,9 @@ export type UserCreateWithoutSessionInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -1547,6 +2638,11 @@ export type UserCreateWithoutSessionInput = {
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionInput = {
@@ -1556,6 +2652,9 @@ export type UserUncheckedCreateWithoutSessionInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -1569,6 +2668,11 @@ export type UserUncheckedCreateWithoutSessionInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionInput = {
@@ -1594,6 +2698,9 @@ export type UserUpdateWithoutSessionInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1607,6 +2714,11 @@ export type UserUpdateWithoutSessionInput = {
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionInput = {
@@ -1616,6 +2728,9 @@ export type UserUncheckedUpdateWithoutSessionInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1629,6 +2744,11 @@ export type UserUncheckedUpdateWithoutSessionInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutVisitorInput = {
@@ -1638,6 +2758,9 @@ export type UserCreateWithoutVisitorInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -1651,6 +2774,11 @@ export type UserCreateWithoutVisitorInput = {
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutVisitorInput = {
@@ -1660,6 +2788,9 @@ export type UserUncheckedCreateWithoutVisitorInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
@@ -1673,6 +2804,11 @@ export type UserUncheckedCreateWithoutVisitorInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutVisitorInput = {
@@ -1698,6 +2834,9 @@ export type UserUpdateWithoutVisitorInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1711,6 +2850,11 @@ export type UserUpdateWithoutVisitorInput = {
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVisitorInput = {
@@ -1720,6 +2864,9 @@ export type UserUncheckedUpdateWithoutVisitorInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1733,6 +2880,11 @@ export type UserUncheckedUpdateWithoutVisitorInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyInterestedSpeciesInput = {
@@ -1742,6 +2894,9 @@ export type UserCreateManyInterestedSpeciesInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedBreedId?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
@@ -1756,6 +2911,9 @@ export type UserUpdateWithoutInterestedSpeciesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1769,6 +2927,11 @@ export type UserUpdateWithoutInterestedSpeciesInput = {
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInterestedSpeciesInput = {
@@ -1778,6 +2941,9 @@ export type UserUncheckedUpdateWithoutInterestedSpeciesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1791,6 +2957,11 @@ export type UserUncheckedUpdateWithoutInterestedSpeciesInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutInterestedSpeciesInput = {
@@ -1800,6 +2971,9 @@ export type UserUncheckedUpdateManyWithoutInterestedSpeciesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1814,6 +2988,9 @@ export type UserCreateManyInterestedBreedInput = {
   phone?: string | null
   password: string
   role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
   interestedSpeciesId?: string | null
   resetPasswordToken?: string | null
   resetPasswordExpires?: Date | string | null
@@ -1828,6 +3005,9 @@ export type UserUpdateWithoutInterestedBreedInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1841,6 +3021,11 @@ export type UserUpdateWithoutInterestedBreedInput = {
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInterestedBreedInput = {
@@ -1850,6 +3035,9 @@ export type UserUncheckedUpdateWithoutInterestedBreedInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1863,6 +3051,11 @@ export type UserUncheckedUpdateWithoutInterestedBreedInput = {
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutInterestedBreedInput = {
@@ -1872,6 +3065,9 @@ export type UserUncheckedUpdateManyWithoutInterestedBreedInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1891,6 +3087,11 @@ export type UserCountOutputType = {
   guideBookmarks: number
   guideLikes: number
   uploadedMedia: number
+  createdLivePets: number
+  createdPetFoods: number
+  createdPetAccessories: number
+  createdPetBooks: number
+  createdPetMedicines: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1900,6 +3101,11 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   guideBookmarks?: boolean | UserCountOutputTypeCountGuideBookmarksArgs
   guideLikes?: boolean | UserCountOutputTypeCountGuideLikesArgs
   uploadedMedia?: boolean | UserCountOutputTypeCountUploadedMediaArgs
+  createdLivePets?: boolean | UserCountOutputTypeCountCreatedLivePetsArgs
+  createdPetFoods?: boolean | UserCountOutputTypeCountCreatedPetFoodsArgs
+  createdPetAccessories?: boolean | UserCountOutputTypeCountCreatedPetAccessoriesArgs
+  createdPetBooks?: boolean | UserCountOutputTypeCountCreatedPetBooksArgs
+  createdPetMedicines?: boolean | UserCountOutputTypeCountCreatedPetMedicinesArgs
 }
 
 /**
@@ -1954,6 +3160,41 @@ export type UserCountOutputTypeCountUploadedMediaArgs<ExtArgs extends runtime.Ty
   where?: Prisma.MediaAssetWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedLivePetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LivePetListingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedPetFoodsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PetFoodListingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedPetAccessoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PetAccessoryListingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedPetBooksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PetBookListingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedPetMedicinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PetMedicineListingWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1962,6 +3203,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   phone?: boolean
   password?: boolean
   role?: boolean
+  isBanned?: boolean
+  bannedAt?: boolean
+  bannedReason?: boolean
   interestedSpeciesId?: boolean
   interestedBreedId?: boolean
   resetPasswordToken?: boolean
@@ -1978,6 +3222,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   guideBookmarks?: boolean | Prisma.User$guideBookmarksArgs<ExtArgs>
   guideLikes?: boolean | Prisma.User$guideLikesArgs<ExtArgs>
   uploadedMedia?: boolean | Prisma.User$uploadedMediaArgs<ExtArgs>
+  createdLivePets?: boolean | Prisma.User$createdLivePetsArgs<ExtArgs>
+  createdPetFoods?: boolean | Prisma.User$createdPetFoodsArgs<ExtArgs>
+  createdPetAccessories?: boolean | Prisma.User$createdPetAccessoriesArgs<ExtArgs>
+  createdPetBooks?: boolean | Prisma.User$createdPetBooksArgs<ExtArgs>
+  createdPetMedicines?: boolean | Prisma.User$createdPetMedicinesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1988,6 +3237,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   password?: boolean
   role?: boolean
+  isBanned?: boolean
+  bannedAt?: boolean
+  bannedReason?: boolean
   interestedSpeciesId?: boolean
   interestedBreedId?: boolean
   resetPasswordToken?: boolean
@@ -2005,6 +3257,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   password?: boolean
   role?: boolean
+  isBanned?: boolean
+  bannedAt?: boolean
+  bannedReason?: boolean
   interestedSpeciesId?: boolean
   interestedBreedId?: boolean
   resetPasswordToken?: boolean
@@ -2022,6 +3277,9 @@ export type UserSelectScalar = {
   phone?: boolean
   password?: boolean
   role?: boolean
+  isBanned?: boolean
+  bannedAt?: boolean
+  bannedReason?: boolean
   interestedSpeciesId?: boolean
   interestedBreedId?: boolean
   resetPasswordToken?: boolean
@@ -2030,7 +3288,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "password" | "role" | "interestedSpeciesId" | "interestedBreedId" | "resetPasswordToken" | "resetPasswordExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "password" | "role" | "isBanned" | "bannedAt" | "bannedReason" | "interestedSpeciesId" | "interestedBreedId" | "resetPasswordToken" | "resetPasswordExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   interestedSpecies?: boolean | Prisma.User$interestedSpeciesArgs<ExtArgs>
   interestedBreed?: boolean | Prisma.User$interestedBreedArgs<ExtArgs>
@@ -2042,6 +3300,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   guideBookmarks?: boolean | Prisma.User$guideBookmarksArgs<ExtArgs>
   guideLikes?: boolean | Prisma.User$guideLikesArgs<ExtArgs>
   uploadedMedia?: boolean | Prisma.User$uploadedMediaArgs<ExtArgs>
+  createdLivePets?: boolean | Prisma.User$createdLivePetsArgs<ExtArgs>
+  createdPetFoods?: boolean | Prisma.User$createdPetFoodsArgs<ExtArgs>
+  createdPetAccessories?: boolean | Prisma.User$createdPetAccessoriesArgs<ExtArgs>
+  createdPetBooks?: boolean | Prisma.User$createdPetBooksArgs<ExtArgs>
+  createdPetMedicines?: boolean | Prisma.User$createdPetMedicinesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2066,6 +3329,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     guideBookmarks: Prisma.$GuideBookmarkPayload<ExtArgs>[]
     guideLikes: Prisma.$GuideLikePayload<ExtArgs>[]
     uploadedMedia: Prisma.$MediaAssetPayload<ExtArgs>[]
+    createdLivePets: Prisma.$LivePetListingPayload<ExtArgs>[]
+    createdPetFoods: Prisma.$PetFoodListingPayload<ExtArgs>[]
+    createdPetAccessories: Prisma.$PetAccessoryListingPayload<ExtArgs>[]
+    createdPetBooks: Prisma.$PetBookListingPayload<ExtArgs>[]
+    createdPetMedicines: Prisma.$PetMedicineListingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2074,6 +3342,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     phone: string | null
     password: string
     role: $Enums.Role
+    isBanned: boolean
+    bannedAt: Date | null
+    bannedReason: string | null
     interestedSpeciesId: string | null
     interestedBreedId: string | null
     resetPasswordToken: string | null
@@ -2484,6 +3755,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   guideBookmarks<T extends Prisma.User$guideBookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideBookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   guideLikes<T extends Prisma.User$guideLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   uploadedMedia<T extends Prisma.User$uploadedMediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedMediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdLivePets<T extends Prisma.User$createdLivePetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdLivePetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LivePetListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdPetFoods<T extends Prisma.User$createdPetFoodsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdPetFoodsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PetFoodListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdPetAccessories<T extends Prisma.User$createdPetAccessoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdPetAccessoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PetAccessoryListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdPetBooks<T extends Prisma.User$createdPetBooksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdPetBooksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PetBookListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdPetMedicines<T extends Prisma.User$createdPetMedicinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdPetMedicinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PetMedicineListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2519,6 +3795,9 @@ export interface UserFieldRefs {
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly isBanned: Prisma.FieldRef<"User", 'Boolean'>
+  readonly bannedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly bannedReason: Prisma.FieldRef<"User", 'String'>
   readonly interestedSpeciesId: Prisma.FieldRef<"User", 'String'>
   readonly interestedBreedId: Prisma.FieldRef<"User", 'String'>
   readonly resetPasswordToken: Prisma.FieldRef<"User", 'String'>
@@ -3143,6 +4422,126 @@ export type User$uploadedMediaArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.MediaAssetScalarFieldEnum | Prisma.MediaAssetScalarFieldEnum[]
+}
+
+/**
+ * User.createdLivePets
+ */
+export type User$createdLivePetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LivePetListing
+   */
+  select?: Prisma.LivePetListingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LivePetListing
+   */
+  omit?: Prisma.LivePetListingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LivePetListingInclude<ExtArgs> | null
+  where?: Prisma.LivePetListingWhereInput
+  orderBy?: Prisma.LivePetListingOrderByWithRelationInput | Prisma.LivePetListingOrderByWithRelationInput[]
+  cursor?: Prisma.LivePetListingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LivePetListingScalarFieldEnum | Prisma.LivePetListingScalarFieldEnum[]
+}
+
+/**
+ * User.createdPetFoods
+ */
+export type User$createdPetFoodsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PetFoodListing
+   */
+  select?: Prisma.PetFoodListingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PetFoodListing
+   */
+  omit?: Prisma.PetFoodListingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PetFoodListingInclude<ExtArgs> | null
+  where?: Prisma.PetFoodListingWhereInput
+  orderBy?: Prisma.PetFoodListingOrderByWithRelationInput | Prisma.PetFoodListingOrderByWithRelationInput[]
+  cursor?: Prisma.PetFoodListingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PetFoodListingScalarFieldEnum | Prisma.PetFoodListingScalarFieldEnum[]
+}
+
+/**
+ * User.createdPetAccessories
+ */
+export type User$createdPetAccessoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PetAccessoryListing
+   */
+  select?: Prisma.PetAccessoryListingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PetAccessoryListing
+   */
+  omit?: Prisma.PetAccessoryListingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PetAccessoryListingInclude<ExtArgs> | null
+  where?: Prisma.PetAccessoryListingWhereInput
+  orderBy?: Prisma.PetAccessoryListingOrderByWithRelationInput | Prisma.PetAccessoryListingOrderByWithRelationInput[]
+  cursor?: Prisma.PetAccessoryListingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PetAccessoryListingScalarFieldEnum | Prisma.PetAccessoryListingScalarFieldEnum[]
+}
+
+/**
+ * User.createdPetBooks
+ */
+export type User$createdPetBooksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PetBookListing
+   */
+  select?: Prisma.PetBookListingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PetBookListing
+   */
+  omit?: Prisma.PetBookListingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PetBookListingInclude<ExtArgs> | null
+  where?: Prisma.PetBookListingWhereInput
+  orderBy?: Prisma.PetBookListingOrderByWithRelationInput | Prisma.PetBookListingOrderByWithRelationInput[]
+  cursor?: Prisma.PetBookListingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PetBookListingScalarFieldEnum | Prisma.PetBookListingScalarFieldEnum[]
+}
+
+/**
+ * User.createdPetMedicines
+ */
+export type User$createdPetMedicinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PetMedicineListing
+   */
+  select?: Prisma.PetMedicineListingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PetMedicineListing
+   */
+  omit?: Prisma.PetMedicineListingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PetMedicineListingInclude<ExtArgs> | null
+  where?: Prisma.PetMedicineListingWhereInput
+  orderBy?: Prisma.PetMedicineListingOrderByWithRelationInput | Prisma.PetMedicineListingOrderByWithRelationInput[]
+  cursor?: Prisma.PetMedicineListingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PetMedicineListingScalarFieldEnum | Prisma.PetMedicineListingScalarFieldEnum[]
 }
 
 /**

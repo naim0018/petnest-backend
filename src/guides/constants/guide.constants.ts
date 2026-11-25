@@ -65,6 +65,20 @@ export const publicGuideCardSelect = {
       icon: true,
     },
   },
+  species: {
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+    },
+  },
+  breeds: {
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+    },
+  },
 };
 
 export function sanitizeCardTranslations(

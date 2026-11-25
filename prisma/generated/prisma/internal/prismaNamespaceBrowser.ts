@@ -57,6 +57,11 @@ export const ModelName = {
   GuideFaq: 'GuideFaq',
   GuideBookmark: 'GuideBookmark',
   GuideLike: 'GuideLike',
+  LivePetListing: 'LivePetListing',
+  PetFoodListing: 'PetFoodListing',
+  PetAccessoryListing: 'PetAccessoryListing',
+  PetBookListing: 'PetBookListing',
+  PetMedicineListing: 'PetMedicineListing',
   PetSpecies: 'PetSpecies',
   PetBreed: 'PetBreed',
   SystemSetting: 'SystemSetting',
@@ -190,6 +195,168 @@ export const GuideLikeScalarFieldEnum = {
 export type GuideLikeScalarFieldEnum = (typeof GuideLikeScalarFieldEnum)[keyof typeof GuideLikeScalarFieldEnum]
 
 
+export const LivePetListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  quantity: 'quantity',
+  speciesId: 'speciesId',
+  breedId: 'breedId',
+  gender: 'gender',
+  ageText: 'ageText',
+  dob: 'dob',
+  colorMutation: 'colorMutation',
+  ringNumber: 'ringNumber',
+  microchipId: 'microchipId',
+  healthStatus: 'healthStatus',
+  dewormed: 'dewormed',
+  vaccinated: 'vaccinated',
+  dnaSexingCertUrl: 'dnaSexingCertUrl',
+  pedigreePaperUrl: 'pedigreePaperUrl',
+  deliveryMethod: 'deliveryMethod',
+  transitGuarantee: 'transitGuarantee',
+  pickupAddress: 'pickupAddress',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  videoUrl: 'videoUrl',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LivePetListingScalarFieldEnum = (typeof LivePetListingScalarFieldEnum)[keyof typeof LivePetListingScalarFieldEnum]
+
+
+export const PetFoodListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  stockQuantity: 'stockQuantity',
+  sku: 'sku',
+  brand: 'brand',
+  foodType: 'foodType',
+  lifeStage: 'lifeStage',
+  netWeight: 'netWeight',
+  weightUnit: 'weightUnit',
+  targetSpeciesId: 'targetSpeciesId',
+  ingredients: 'ingredients',
+  guaranteedAnalysis: 'guaranteedAnalysis',
+  expiryDate: 'expiryDate',
+  isOrganic: 'isOrganic',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PetFoodListingScalarFieldEnum = (typeof PetFoodListingScalarFieldEnum)[keyof typeof PetFoodListingScalarFieldEnum]
+
+
+export const PetAccessoryListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  stockQuantity: 'stockQuantity',
+  sku: 'sku',
+  category: 'category',
+  brand: 'brand',
+  targetSpeciesId: 'targetSpeciesId',
+  dimensions: 'dimensions',
+  barSpacing: 'barSpacing',
+  material: 'material',
+  color: 'color',
+  sizeOption: 'sizeOption',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PetAccessoryListingScalarFieldEnum = (typeof PetAccessoryListingScalarFieldEnum)[keyof typeof PetAccessoryListingScalarFieldEnum]
+
+
+export const PetBookListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  stockQuantity: 'stockQuantity',
+  author: 'author',
+  publisher: 'publisher',
+  language: 'language',
+  format: 'format',
+  isbn: 'isbn',
+  totalPages: 'totalPages',
+  publicationYear: 'publicationYear',
+  edition: 'edition',
+  downloadUrl: 'downloadUrl',
+  samplePdfUrl: 'samplePdfUrl',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PetBookListingScalarFieldEnum = (typeof PetBookListingScalarFieldEnum)[keyof typeof PetBookListingScalarFieldEnum]
+
+
+export const PetMedicineListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  stockQuantity: 'stockQuantity',
+  sku: 'sku',
+  genericName: 'genericName',
+  manufacturer: 'manufacturer',
+  dosageForm: 'dosageForm',
+  packSize: 'packSize',
+  prescriptionRequired: 'prescriptionRequired',
+  targetSpeciesList: 'targetSpeciesList',
+  dosageInstructions: 'dosageInstructions',
+  expiryDate: 'expiryDate',
+  batchNumber: 'batchNumber',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PetMedicineListingScalarFieldEnum = (typeof PetMedicineListingScalarFieldEnum)[keyof typeof PetMedicineListingScalarFieldEnum]
+
+
 export const PetSpeciesScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -246,6 +413,9 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   password: 'password',
   role: 'role',
+  isBanned: 'isBanned',
+  bannedAt: 'bannedAt',
+  bannedReason: 'bannedReason',
   interestedSpeciesId: 'interestedSpeciesId',
   interestedBreedId: 'interestedBreedId',
   resetPasswordToken: 'resetPasswordToken',

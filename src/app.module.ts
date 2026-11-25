@@ -14,6 +14,8 @@ import { PetsModule } from './pets/pets.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { SettingsModule } from './settings/settings.module';
 import { UsersModule } from './users/users.module';
+import { SearchModule } from './search/search.module';
+import { MarketplaceModule } from './marketplace/marketplace.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { existsSync } from 'fs';
@@ -71,6 +73,8 @@ function validateEnv(config: Record<string, unknown>) {
     GuidesModule,
     SettingsModule,
     AnalyticsModule,
+    SearchModule,
+    MarketplaceModule,
   ],
   controllers: [AppController],
   providers: [

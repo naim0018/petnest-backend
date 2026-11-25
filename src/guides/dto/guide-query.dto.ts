@@ -23,6 +23,14 @@ export const GUIDE_SORT_COLUMNS = [
   'bookmarkCount',
   'readTimeMinutes',
   'title',
+  'status',
+  'category',
+  'species',
+  'breed',
+  'breeds',
+  'author',
+  'views',
+  'reactions',
 ] as const;
 
 export type GuideSortColumn = (typeof GUIDE_SORT_COLUMNS)[number];

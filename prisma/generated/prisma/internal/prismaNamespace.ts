@@ -403,6 +403,11 @@ export const ModelName = {
   GuideFaq: 'GuideFaq',
   GuideBookmark: 'GuideBookmark',
   GuideLike: 'GuideLike',
+  LivePetListing: 'LivePetListing',
+  PetFoodListing: 'PetFoodListing',
+  PetAccessoryListing: 'PetAccessoryListing',
+  PetBookListing: 'PetBookListing',
+  PetMedicineListing: 'PetMedicineListing',
   PetSpecies: 'PetSpecies',
   PetBreed: 'PetBreed',
   SystemSetting: 'SystemSetting',
@@ -426,7 +431,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "guideCategory" | "guide" | "mediaAsset" | "guideFaq" | "guideBookmark" | "guideLike" | "petSpecies" | "petBreed" | "systemSetting" | "user" | "profile" | "session" | "visitor" | "pageView"
+    modelProps: "guideCategory" | "guide" | "mediaAsset" | "guideFaq" | "guideBookmark" | "guideLike" | "livePetListing" | "petFoodListing" | "petAccessoryListing" | "petBookListing" | "petMedicineListing" | "petSpecies" | "petBreed" | "systemSetting" | "user" | "profile" | "session" | "visitor" | "pageView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -871,6 +876,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.GuideLikeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.GuideLikeCountAggregateOutputType> | number
+        }
+      }
+    }
+    LivePetListing: {
+      payload: Prisma.$LivePetListingPayload<ExtArgs>
+      fields: Prisma.LivePetListingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LivePetListingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LivePetListingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload>
+        }
+        findFirst: {
+          args: Prisma.LivePetListingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LivePetListingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload>
+        }
+        findMany: {
+          args: Prisma.LivePetListingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload>[]
+        }
+        create: {
+          args: Prisma.LivePetListingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload>
+        }
+        createMany: {
+          args: Prisma.LivePetListingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LivePetListingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload>[]
+        }
+        delete: {
+          args: Prisma.LivePetListingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload>
+        }
+        update: {
+          args: Prisma.LivePetListingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload>
+        }
+        deleteMany: {
+          args: Prisma.LivePetListingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LivePetListingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LivePetListingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload>[]
+        }
+        upsert: {
+          args: Prisma.LivePetListingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LivePetListingPayload>
+        }
+        aggregate: {
+          args: Prisma.LivePetListingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLivePetListing>
+        }
+        groupBy: {
+          args: Prisma.LivePetListingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LivePetListingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LivePetListingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LivePetListingCountAggregateOutputType> | number
+        }
+      }
+    }
+    PetFoodListing: {
+      payload: Prisma.$PetFoodListingPayload<ExtArgs>
+      fields: Prisma.PetFoodListingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PetFoodListingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PetFoodListingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload>
+        }
+        findFirst: {
+          args: Prisma.PetFoodListingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PetFoodListingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload>
+        }
+        findMany: {
+          args: Prisma.PetFoodListingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload>[]
+        }
+        create: {
+          args: Prisma.PetFoodListingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload>
+        }
+        createMany: {
+          args: Prisma.PetFoodListingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PetFoodListingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload>[]
+        }
+        delete: {
+          args: Prisma.PetFoodListingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload>
+        }
+        update: {
+          args: Prisma.PetFoodListingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload>
+        }
+        deleteMany: {
+          args: Prisma.PetFoodListingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PetFoodListingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PetFoodListingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload>[]
+        }
+        upsert: {
+          args: Prisma.PetFoodListingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetFoodListingPayload>
+        }
+        aggregate: {
+          args: Prisma.PetFoodListingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePetFoodListing>
+        }
+        groupBy: {
+          args: Prisma.PetFoodListingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetFoodListingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PetFoodListingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetFoodListingCountAggregateOutputType> | number
+        }
+      }
+    }
+    PetAccessoryListing: {
+      payload: Prisma.$PetAccessoryListingPayload<ExtArgs>
+      fields: Prisma.PetAccessoryListingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PetAccessoryListingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PetAccessoryListingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload>
+        }
+        findFirst: {
+          args: Prisma.PetAccessoryListingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PetAccessoryListingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload>
+        }
+        findMany: {
+          args: Prisma.PetAccessoryListingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload>[]
+        }
+        create: {
+          args: Prisma.PetAccessoryListingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload>
+        }
+        createMany: {
+          args: Prisma.PetAccessoryListingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PetAccessoryListingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload>[]
+        }
+        delete: {
+          args: Prisma.PetAccessoryListingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload>
+        }
+        update: {
+          args: Prisma.PetAccessoryListingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload>
+        }
+        deleteMany: {
+          args: Prisma.PetAccessoryListingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PetAccessoryListingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PetAccessoryListingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload>[]
+        }
+        upsert: {
+          args: Prisma.PetAccessoryListingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetAccessoryListingPayload>
+        }
+        aggregate: {
+          args: Prisma.PetAccessoryListingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePetAccessoryListing>
+        }
+        groupBy: {
+          args: Prisma.PetAccessoryListingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetAccessoryListingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PetAccessoryListingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetAccessoryListingCountAggregateOutputType> | number
+        }
+      }
+    }
+    PetBookListing: {
+      payload: Prisma.$PetBookListingPayload<ExtArgs>
+      fields: Prisma.PetBookListingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PetBookListingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PetBookListingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload>
+        }
+        findFirst: {
+          args: Prisma.PetBookListingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PetBookListingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload>
+        }
+        findMany: {
+          args: Prisma.PetBookListingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload>[]
+        }
+        create: {
+          args: Prisma.PetBookListingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload>
+        }
+        createMany: {
+          args: Prisma.PetBookListingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PetBookListingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload>[]
+        }
+        delete: {
+          args: Prisma.PetBookListingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload>
+        }
+        update: {
+          args: Prisma.PetBookListingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload>
+        }
+        deleteMany: {
+          args: Prisma.PetBookListingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PetBookListingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PetBookListingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload>[]
+        }
+        upsert: {
+          args: Prisma.PetBookListingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetBookListingPayload>
+        }
+        aggregate: {
+          args: Prisma.PetBookListingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePetBookListing>
+        }
+        groupBy: {
+          args: Prisma.PetBookListingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetBookListingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PetBookListingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetBookListingCountAggregateOutputType> | number
+        }
+      }
+    }
+    PetMedicineListing: {
+      payload: Prisma.$PetMedicineListingPayload<ExtArgs>
+      fields: Prisma.PetMedicineListingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PetMedicineListingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PetMedicineListingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload>
+        }
+        findFirst: {
+          args: Prisma.PetMedicineListingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PetMedicineListingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload>
+        }
+        findMany: {
+          args: Prisma.PetMedicineListingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload>[]
+        }
+        create: {
+          args: Prisma.PetMedicineListingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload>
+        }
+        createMany: {
+          args: Prisma.PetMedicineListingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PetMedicineListingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload>[]
+        }
+        delete: {
+          args: Prisma.PetMedicineListingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload>
+        }
+        update: {
+          args: Prisma.PetMedicineListingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload>
+        }
+        deleteMany: {
+          args: Prisma.PetMedicineListingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PetMedicineListingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PetMedicineListingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload>[]
+        }
+        upsert: {
+          args: Prisma.PetMedicineListingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetMedicineListingPayload>
+        }
+        aggregate: {
+          args: Prisma.PetMedicineListingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePetMedicineListing>
+        }
+        groupBy: {
+          args: Prisma.PetMedicineListingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetMedicineListingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PetMedicineListingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetMedicineListingCountAggregateOutputType> | number
         }
       }
     }
@@ -1612,6 +1987,168 @@ export const GuideLikeScalarFieldEnum = {
 export type GuideLikeScalarFieldEnum = (typeof GuideLikeScalarFieldEnum)[keyof typeof GuideLikeScalarFieldEnum]
 
 
+export const LivePetListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  quantity: 'quantity',
+  speciesId: 'speciesId',
+  breedId: 'breedId',
+  gender: 'gender',
+  ageText: 'ageText',
+  dob: 'dob',
+  colorMutation: 'colorMutation',
+  ringNumber: 'ringNumber',
+  microchipId: 'microchipId',
+  healthStatus: 'healthStatus',
+  dewormed: 'dewormed',
+  vaccinated: 'vaccinated',
+  dnaSexingCertUrl: 'dnaSexingCertUrl',
+  pedigreePaperUrl: 'pedigreePaperUrl',
+  deliveryMethod: 'deliveryMethod',
+  transitGuarantee: 'transitGuarantee',
+  pickupAddress: 'pickupAddress',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  videoUrl: 'videoUrl',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LivePetListingScalarFieldEnum = (typeof LivePetListingScalarFieldEnum)[keyof typeof LivePetListingScalarFieldEnum]
+
+
+export const PetFoodListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  stockQuantity: 'stockQuantity',
+  sku: 'sku',
+  brand: 'brand',
+  foodType: 'foodType',
+  lifeStage: 'lifeStage',
+  netWeight: 'netWeight',
+  weightUnit: 'weightUnit',
+  targetSpeciesId: 'targetSpeciesId',
+  ingredients: 'ingredients',
+  guaranteedAnalysis: 'guaranteedAnalysis',
+  expiryDate: 'expiryDate',
+  isOrganic: 'isOrganic',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PetFoodListingScalarFieldEnum = (typeof PetFoodListingScalarFieldEnum)[keyof typeof PetFoodListingScalarFieldEnum]
+
+
+export const PetAccessoryListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  stockQuantity: 'stockQuantity',
+  sku: 'sku',
+  category: 'category',
+  brand: 'brand',
+  targetSpeciesId: 'targetSpeciesId',
+  dimensions: 'dimensions',
+  barSpacing: 'barSpacing',
+  material: 'material',
+  color: 'color',
+  sizeOption: 'sizeOption',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PetAccessoryListingScalarFieldEnum = (typeof PetAccessoryListingScalarFieldEnum)[keyof typeof PetAccessoryListingScalarFieldEnum]
+
+
+export const PetBookListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  stockQuantity: 'stockQuantity',
+  author: 'author',
+  publisher: 'publisher',
+  language: 'language',
+  format: 'format',
+  isbn: 'isbn',
+  totalPages: 'totalPages',
+  publicationYear: 'publicationYear',
+  edition: 'edition',
+  downloadUrl: 'downloadUrl',
+  samplePdfUrl: 'samplePdfUrl',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PetBookListingScalarFieldEnum = (typeof PetBookListingScalarFieldEnum)[keyof typeof PetBookListingScalarFieldEnum]
+
+
+export const PetMedicineListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  price: 'price',
+  salePrice: 'salePrice',
+  stockQuantity: 'stockQuantity',
+  sku: 'sku',
+  genericName: 'genericName',
+  manufacturer: 'manufacturer',
+  dosageForm: 'dosageForm',
+  packSize: 'packSize',
+  prescriptionRequired: 'prescriptionRequired',
+  targetSpeciesList: 'targetSpeciesList',
+  dosageInstructions: 'dosageInstructions',
+  expiryDate: 'expiryDate',
+  batchNumber: 'batchNumber',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  description: 'description',
+  isFeatured: 'isFeatured',
+  storeName: 'storeName',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PetMedicineListingScalarFieldEnum = (typeof PetMedicineListingScalarFieldEnum)[keyof typeof PetMedicineListingScalarFieldEnum]
+
+
 export const PetSpeciesScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -1668,6 +2205,9 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   password: 'password',
   role: 'role',
+  isBanned: 'isBanned',
+  bannedAt: 'bannedAt',
+  bannedReason: 'bannedReason',
   interestedSpeciesId: 'interestedSpeciesId',
   interestedBreedId: 'interestedBreedId',
   resetPasswordToken: 'resetPasswordToken',
@@ -1886,6 +2426,160 @@ export type ListEnumGuideStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'ListingStatus'
+ */
+export type EnumListingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ListingStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ListingStatus[]'
+ */
+export type ListEnumListingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ListingStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PetGender'
+ */
+export type EnumPetGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetGender'>
+    
+
+
+/**
+ * Reference to a field of type 'PetGender[]'
+ */
+export type ListEnumPetGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetGender[]'>
+    
+
+
+/**
+ * Reference to a field of type 'HealthVerificationStatus'
+ */
+export type EnumHealthVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HealthVerificationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'HealthVerificationStatus[]'
+ */
+export type ListEnumHealthVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HealthVerificationStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LiveDeliveryMethod'
+ */
+export type EnumLiveDeliveryMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LiveDeliveryMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'LiveDeliveryMethod[]'
+ */
+export type ListEnumLiveDeliveryMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LiveDeliveryMethod[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FoodType'
+ */
+export type EnumFoodTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoodType'>
+    
+
+
+/**
+ * Reference to a field of type 'FoodType[]'
+ */
+export type ListEnumFoodTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoodType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FoodLifeStage'
+ */
+export type EnumFoodLifeStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoodLifeStage'>
+    
+
+
+/**
+ * Reference to a field of type 'FoodLifeStage[]'
+ */
+export type ListEnumFoodLifeStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoodLifeStage[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WeightUnit'
+ */
+export type EnumWeightUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeightUnit'>
+    
+
+
+/**
+ * Reference to a field of type 'WeightUnit[]'
+ */
+export type ListEnumWeightUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeightUnit[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AccessoryCategory'
+ */
+export type EnumAccessoryCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccessoryCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'AccessoryCategory[]'
+ */
+export type ListEnumAccessoryCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccessoryCategory[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BookFormat'
+ */
+export type EnumBookFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookFormat'>
+    
+
+
+/**
+ * Reference to a field of type 'BookFormat[]'
+ */
+export type ListEnumBookFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookFormat[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MedicineDosageForm'
+ */
+export type EnumMedicineDosageFormFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MedicineDosageForm'>
+    
+
+
+/**
+ * Reference to a field of type 'MedicineDosageForm[]'
+ */
+export type ListEnumMedicineDosageFormFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MedicineDosageForm[]'>
+    
+
+
+/**
  * Reference to a field of type 'PetSize'
  */
 export type EnumPetSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetSize'>
@@ -2097,6 +2791,11 @@ export type GlobalOmitConfig = {
   guideFaq?: Prisma.GuideFaqOmit
   guideBookmark?: Prisma.GuideBookmarkOmit
   guideLike?: Prisma.GuideLikeOmit
+  livePetListing?: Prisma.LivePetListingOmit
+  petFoodListing?: Prisma.PetFoodListingOmit
+  petAccessoryListing?: Prisma.PetAccessoryListingOmit
+  petBookListing?: Prisma.PetBookListingOmit
+  petMedicineListing?: Prisma.PetMedicineListingOmit
   petSpecies?: Prisma.PetSpeciesOmit
   petBreed?: Prisma.PetBreedOmit
   systemSetting?: Prisma.SystemSettingOmit

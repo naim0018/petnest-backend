@@ -25,6 +25,11 @@ model PetSpecies {
     guides    Guide[]
     guideFaqs GuideFaq[]
 
+    // Marketplace Relations
+    livePets    LivePetListing[]
+    petFoods    PetFoodListing[]
+    accessories PetAccessoryListing[]
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -46,6 +51,9 @@ model PetBreed {
 
     users  User[]
     guides Guide[] @relation("GuideBreeds")
+
+    // Marketplace Relations
+    livePets LivePetListing[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

@@ -48,6 +48,31 @@ export type GuideBookmark = Prisma.GuideBookmarkModel
  */
 export type GuideLike = Prisma.GuideLikeModel
 /**
+ * Model LivePetListing
+ * 
+ */
+export type LivePetListing = Prisma.LivePetListingModel
+/**
+ * Model PetFoodListing
+ * 
+ */
+export type PetFoodListing = Prisma.PetFoodListingModel
+/**
+ * Model PetAccessoryListing
+ * 
+ */
+export type PetAccessoryListing = Prisma.PetAccessoryListingModel
+/**
+ * Model PetBookListing
+ * 
+ */
+export type PetBookListing = Prisma.PetBookListingModel
+/**
+ * Model PetMedicineListing
+ * 
+ */
+export type PetMedicineListing = Prisma.PetMedicineListingModel
+/**
  * Model PetSpecies
  * 
  */
