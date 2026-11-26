@@ -11,7 +11,8 @@ model User {
     name     String
     email    String  @unique
     phone    String?
-    password String
+    password String?
+    googleId String? @unique
     role     Role    @default(USER)
 
     isBanned     Boolean   @default(false)

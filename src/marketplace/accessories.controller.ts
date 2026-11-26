@@ -13,6 +13,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from 'src/common/decorators/current-user.decerator';
 import { Roles } from 'src/common/decorators/roles.decoretors';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { OptionalJwtAuthGuard } from 'src/common/guards/optional-jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/role.guard';
 import { CreateAccessoryDto, UpdateAccessoryDto } from './dto/accessory.dto';
 import { ListingQueryDto } from './dto/listing-query.dto';
@@ -33,15 +34,17 @@ export class AccessoriesController {
   }
 
   @Get()
+  @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({ summary: 'List accessory listings' })
-  findAll(@Query() query: ListingQueryDto) {
-    return this.service.findAll(query);
+  findAll(@Query() query: ListingQueryDto, @CurrentUser() user: any) {
+    return this.service.findAll(query, user?.role);
   }
 
   @Get(':id')
+  @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({ summary: 'Get single accessory listing' })
-  findOne(@Param('id') id: string) {
-    return this.service.findOne(id);
+  findOne(@Param('id') id: string, @CurrentUser() user: any) {
+    return this.service.findOne(id, user?.role);
   }
 
   @Patch(':id')

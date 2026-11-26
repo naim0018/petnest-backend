@@ -151,6 +151,58 @@ export class MediaService {
     );
   }
 
+  // 1c. Direct Video Upload to Cloudflare R2 (MP4, WebM, QuickTime)
+  async uploadVideo(
+    file: Express.Multer.File,
+    uploadedById: string,
+    folder: MediaFolder = 'marketplace',
+  ) {
+    this.ensureConfigured();
+
+    if (!file) {
+      throw new BadRequestException('Video file is required');
+    }
+
+    const extMap: Record<string, string> = {
+      'video/mp4': 'mp4',
+      'video/webm': 'webm',
+      'video/quicktime': 'mov',
+    };
+    const ext = extMap[file.mimetype] || 'mp4';
+
+    const now = new Date();
+    const yearMonth = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const objectKey = `${folder}/videos/${yearMonth}/${randomUUID()}.${ext}`;
+    const url = `${this.publicUrl}/${objectKey}`;
+
+    try {
+      await this.s3Client.send(
+        new PutObjectCommand({
+          Bucket: this.bucketName,
+          Key: objectKey,
+          Body: file.buffer,
+          ContentType: file.mimetype,
+          CacheControl: 'public, max-age=31536000, immutable',
+        }),
+      );
+    } catch (error) {
+      console.error('R2 Video Upload Error:', error?.message || error);
+      throw new InternalServerErrorException(
+        `Failed to upload video to storage: ${error?.message || 'Check R2 credentials and network connection'}`,
+      );
+    }
+
+    return this.prisma.mediaAsset.create({
+      data: {
+        objectKey,
+        url,
+        mimeType: file.mimetype,
+        sizeBytes: file.size,
+        uploadedById,
+      },
+    });
+  }
+
   // 2. Sync inline paragraph images (<img src> & Markdown ![](url)) + coverImage + faqImage when a Guide is created/updated
   //    Prevents cross-guide media hijacking by never claiming assets already linked to another guide.
   async syncGuideMedia(

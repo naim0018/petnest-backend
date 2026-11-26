@@ -35,6 +35,12 @@ const ALLOWED_MIME_TYPES = [
   'image/avif',
 ];
 
+const ALLOWED_VIDEO_MIME_TYPES = [
+  'video/mp4',
+  'video/webm',
+  'video/quicktime',
+];
+
 const ALLOWED_FOLDERS: MediaFolder[] = [
   'guides',
   'pets',
@@ -139,6 +145,53 @@ export class MediaController {
       targetFolder,
       altText,
     );
+  }
+
+  @Post('upload-video')
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
+  @ApiOperation({ summary: 'Upload a video directly to Cloudflare R2' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['file'],
+      properties: {
+        file: { type: 'string', format: 'binary' },
+        folder: {
+          type: 'string',
+          enum: ['marketplace', 'guides'],
+          default: 'marketplace',
+        },
+      },
+    },
+  })
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: { fileSize: 50 * 1024 * 1024 }, // 50 MB max
+      fileFilter: (_req, file, callback) => {
+        if (!ALLOWED_VIDEO_MIME_TYPES.includes(file.mimetype)) {
+          return callback(
+            new BadRequestException(
+              'Only MP4, WebM, and MOV video formats are allowed',
+            ),
+            false,
+          );
+        }
+        callback(null, true);
+      },
+    }),
+  )
+  uploadVideo(
+    @UploadedFile() file: Express.Multer.File,
+    @CurrentUser() user: AuthenticatedUser,
+    @Body('folder') folder?: MediaFolder,
+  ) {
+    const targetFolder: MediaFolder = folder ?? 'marketplace';
+    if (!['ADMIN', 'SUPERADMIN', 'AUTHOR', 'VET'].includes(user.role)) {
+      throw new ForbiddenException('You do not have permission to upload videos');
+    }
+
+    return this.mediaService.uploadVideo(file, user.userId, targetFolder);
   }
 
   @Delete(':id')

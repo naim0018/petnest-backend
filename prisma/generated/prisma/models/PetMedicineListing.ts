@@ -29,12 +29,14 @@ export type AggregatePetMedicineListing = {
 export type PetMedicineListingAvgAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
 }
 
 export type PetMedicineListingSumAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
 }
 
@@ -45,6 +47,7 @@ export type PetMedicineListingMinAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   sku: string | null
   genericName: string | null
@@ -55,6 +58,7 @@ export type PetMedicineListingMinAggregateOutputType = {
   dosageInstructions: string | null
   expiryDate: Date | null
   batchNumber: string | null
+  thumbnailImage: string | null
   coverImage: string | null
   description: string | null
   isFeatured: boolean | null
@@ -71,6 +75,7 @@ export type PetMedicineListingMaxAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   sku: string | null
   genericName: string | null
@@ -81,6 +86,7 @@ export type PetMedicineListingMaxAggregateOutputType = {
   dosageInstructions: string | null
   expiryDate: Date | null
   batchNumber: string | null
+  thumbnailImage: string | null
   coverImage: string | null
   description: string | null
   isFeatured: boolean | null
@@ -97,6 +103,7 @@ export type PetMedicineListingCountAggregateOutputType = {
   status: number
   price: number
   salePrice: number
+  buyingPrice: number
   stockQuantity: number
   sku: number
   genericName: number
@@ -108,8 +115,10 @@ export type PetMedicineListingCountAggregateOutputType = {
   dosageInstructions: number
   expiryDate: number
   batchNumber: number
+  thumbnailImage: number
   coverImage: number
   galleryImages: number
+  videoUrls: number
   description: number
   isFeatured: number
   storeName: number
@@ -123,12 +132,14 @@ export type PetMedicineListingCountAggregateOutputType = {
 export type PetMedicineListingAvgAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
 }
 
 export type PetMedicineListingSumAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
 }
 
@@ -139,6 +150,7 @@ export type PetMedicineListingMinAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   sku?: true
   genericName?: true
@@ -149,6 +161,7 @@ export type PetMedicineListingMinAggregateInputType = {
   dosageInstructions?: true
   expiryDate?: true
   batchNumber?: true
+  thumbnailImage?: true
   coverImage?: true
   description?: true
   isFeatured?: true
@@ -165,6 +178,7 @@ export type PetMedicineListingMaxAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   sku?: true
   genericName?: true
@@ -175,6 +189,7 @@ export type PetMedicineListingMaxAggregateInputType = {
   dosageInstructions?: true
   expiryDate?: true
   batchNumber?: true
+  thumbnailImage?: true
   coverImage?: true
   description?: true
   isFeatured?: true
@@ -191,6 +206,7 @@ export type PetMedicineListingCountAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   sku?: true
   genericName?: true
@@ -202,8 +218,10 @@ export type PetMedicineListingCountAggregateInputType = {
   dosageInstructions?: true
   expiryDate?: true
   batchNumber?: true
+  thumbnailImage?: true
   coverImage?: true
   galleryImages?: true
+  videoUrls?: true
   description?: true
   isFeatured?: true
   storeName?: true
@@ -306,6 +324,7 @@ export type PetMedicineListingGroupByOutputType = {
   status: $Enums.ListingStatus
   price: runtime.Decimal
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number
   sku: string | null
   genericName: string
@@ -317,8 +336,10 @@ export type PetMedicineListingGroupByOutputType = {
   dosageInstructions: string
   expiryDate: Date | null
   batchNumber: string | null
+  thumbnailImage: string | null
   coverImage: string
   galleryImages: string[]
+  videoUrls: string[]
   description: string
   isFeatured: boolean
   storeName: string
@@ -357,6 +378,7 @@ export type PetMedicineListingWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"PetMedicineListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetMedicineListing"> | number
   sku?: Prisma.StringNullableFilter<"PetMedicineListing"> | string | null
   genericName?: Prisma.StringFilter<"PetMedicineListing"> | string
@@ -368,8 +390,10 @@ export type PetMedicineListingWhereInput = {
   dosageInstructions?: Prisma.StringFilter<"PetMedicineListing"> | string
   expiryDate?: Prisma.DateTimeNullableFilter<"PetMedicineListing"> | Date | string | null
   batchNumber?: Prisma.StringNullableFilter<"PetMedicineListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"PetMedicineListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetMedicineListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetMedicineListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetMedicineListing">
   description?: Prisma.StringFilter<"PetMedicineListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetMedicineListing"> | boolean
   storeName?: Prisma.StringFilter<"PetMedicineListing"> | string
@@ -386,6 +410,7 @@ export type PetMedicineListingOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrderInput | Prisma.SortOrder
   genericName?: Prisma.SortOrder
@@ -397,8 +422,10 @@ export type PetMedicineListingOrderByWithRelationInput = {
   dosageInstructions?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -418,6 +445,7 @@ export type PetMedicineListingWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumListingStatusFilter<"PetMedicineListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetMedicineListing"> | number
   sku?: Prisma.StringNullableFilter<"PetMedicineListing"> | string | null
   genericName?: Prisma.StringFilter<"PetMedicineListing"> | string
@@ -429,8 +457,10 @@ export type PetMedicineListingWhereUniqueInput = Prisma.AtLeast<{
   dosageInstructions?: Prisma.StringFilter<"PetMedicineListing"> | string
   expiryDate?: Prisma.DateTimeNullableFilter<"PetMedicineListing"> | Date | string | null
   batchNumber?: Prisma.StringNullableFilter<"PetMedicineListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"PetMedicineListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetMedicineListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetMedicineListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetMedicineListing">
   description?: Prisma.StringFilter<"PetMedicineListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetMedicineListing"> | boolean
   storeName?: Prisma.StringFilter<"PetMedicineListing"> | string
@@ -447,6 +477,7 @@ export type PetMedicineListingOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrderInput | Prisma.SortOrder
   genericName?: Prisma.SortOrder
@@ -458,8 +489,10 @@ export type PetMedicineListingOrderByWithAggregationInput = {
   dosageInstructions?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -483,6 +516,7 @@ export type PetMedicineListingScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumListingStatusWithAggregatesFilter<"PetMedicineListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalWithAggregatesFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableWithAggregatesFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableWithAggregatesFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntWithAggregatesFilter<"PetMedicineListing"> | number
   sku?: Prisma.StringNullableWithAggregatesFilter<"PetMedicineListing"> | string | null
   genericName?: Prisma.StringWithAggregatesFilter<"PetMedicineListing"> | string
@@ -494,8 +528,10 @@ export type PetMedicineListingScalarWhereWithAggregatesInput = {
   dosageInstructions?: Prisma.StringWithAggregatesFilter<"PetMedicineListing"> | string
   expiryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"PetMedicineListing"> | Date | string | null
   batchNumber?: Prisma.StringNullableWithAggregatesFilter<"PetMedicineListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableWithAggregatesFilter<"PetMedicineListing"> | string | null
   coverImage?: Prisma.StringWithAggregatesFilter<"PetMedicineListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetMedicineListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetMedicineListing">
   description?: Prisma.StringWithAggregatesFilter<"PetMedicineListing"> | string
   isFeatured?: Prisma.BoolWithAggregatesFilter<"PetMedicineListing"> | boolean
   storeName?: Prisma.StringWithAggregatesFilter<"PetMedicineListing"> | string
@@ -511,6 +547,7 @@ export type PetMedicineListingCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   genericName: string
@@ -522,8 +559,10 @@ export type PetMedicineListingCreateInput = {
   dosageInstructions: string
   expiryDate?: Date | string | null
   batchNumber?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetMedicineListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -539,6 +578,7 @@ export type PetMedicineListingUncheckedCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   genericName: string
@@ -550,8 +590,10 @@ export type PetMedicineListingUncheckedCreateInput = {
   dosageInstructions: string
   expiryDate?: Date | string | null
   batchNumber?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetMedicineListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -567,6 +609,7 @@ export type PetMedicineListingUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   genericName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -578,8 +621,10 @@ export type PetMedicineListingUpdateInput = {
   dosageInstructions?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetMedicineListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -595,6 +640,7 @@ export type PetMedicineListingUncheckedUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   genericName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -606,8 +652,10 @@ export type PetMedicineListingUncheckedUpdateInput = {
   dosageInstructions?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetMedicineListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -623,6 +671,7 @@ export type PetMedicineListingCreateManyInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   genericName: string
@@ -634,8 +683,10 @@ export type PetMedicineListingCreateManyInput = {
   dosageInstructions: string
   expiryDate?: Date | string | null
   batchNumber?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetMedicineListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -651,6 +702,7 @@ export type PetMedicineListingUpdateManyMutationInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   genericName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -662,8 +714,10 @@ export type PetMedicineListingUpdateManyMutationInput = {
   dosageInstructions?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetMedicineListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -678,6 +732,7 @@ export type PetMedicineListingUncheckedUpdateManyInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   genericName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -689,8 +744,10 @@ export type PetMedicineListingUncheckedUpdateManyInput = {
   dosageInstructions?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetMedicineListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -706,6 +763,7 @@ export type PetMedicineListingCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrder
   genericName?: Prisma.SortOrder
@@ -717,8 +775,10 @@ export type PetMedicineListingCountOrderByAggregateInput = {
   dosageInstructions?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   batchNumber?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -730,6 +790,7 @@ export type PetMedicineListingCountOrderByAggregateInput = {
 export type PetMedicineListingAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
 }
 
@@ -740,6 +801,7 @@ export type PetMedicineListingMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrder
   genericName?: Prisma.SortOrder
@@ -750,6 +812,7 @@ export type PetMedicineListingMaxOrderByAggregateInput = {
   dosageInstructions?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   batchNumber?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
@@ -766,6 +829,7 @@ export type PetMedicineListingMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrder
   genericName?: Prisma.SortOrder
@@ -776,6 +840,7 @@ export type PetMedicineListingMinOrderByAggregateInput = {
   dosageInstructions?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   batchNumber?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
@@ -788,6 +853,7 @@ export type PetMedicineListingMinOrderByAggregateInput = {
 export type PetMedicineListingSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
 }
 
@@ -809,6 +875,10 @@ export type PetMedicineListingCreategalleryImagesInput = {
   set: string[]
 }
 
+export type PetMedicineListingCreatevideoUrlsInput = {
+  set: string[]
+}
+
 export type EnumMedicineDosageFormFieldUpdateOperationsInput = {
   set?: $Enums.MedicineDosageForm
 }
@@ -819,6 +889,11 @@ export type PetMedicineListingUpdatetargetSpeciesListInput = {
 }
 
 export type PetMedicineListingUpdategalleryImagesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type PetMedicineListingUpdatevideoUrlsInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -872,6 +947,7 @@ export type PetMedicineListingCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   genericName: string
@@ -883,8 +959,10 @@ export type PetMedicineListingCreateWithoutCreatedByInput = {
   dosageInstructions: string
   expiryDate?: Date | string | null
   batchNumber?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetMedicineListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -899,6 +977,7 @@ export type PetMedicineListingUncheckedCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   genericName: string
@@ -910,8 +989,10 @@ export type PetMedicineListingUncheckedCreateWithoutCreatedByInput = {
   dosageInstructions: string
   expiryDate?: Date | string | null
   batchNumber?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetMedicineListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -955,6 +1036,7 @@ export type PetMedicineListingScalarWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"PetMedicineListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetMedicineListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetMedicineListing"> | number
   sku?: Prisma.StringNullableFilter<"PetMedicineListing"> | string | null
   genericName?: Prisma.StringFilter<"PetMedicineListing"> | string
@@ -966,8 +1048,10 @@ export type PetMedicineListingScalarWhereInput = {
   dosageInstructions?: Prisma.StringFilter<"PetMedicineListing"> | string
   expiryDate?: Prisma.DateTimeNullableFilter<"PetMedicineListing"> | Date | string | null
   batchNumber?: Prisma.StringNullableFilter<"PetMedicineListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"PetMedicineListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetMedicineListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetMedicineListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetMedicineListing">
   description?: Prisma.StringFilter<"PetMedicineListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetMedicineListing"> | boolean
   storeName?: Prisma.StringFilter<"PetMedicineListing"> | string
@@ -983,6 +1067,7 @@ export type PetMedicineListingCreateManyCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   genericName: string
@@ -994,8 +1079,10 @@ export type PetMedicineListingCreateManyCreatedByInput = {
   dosageInstructions: string
   expiryDate?: Date | string | null
   batchNumber?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetMedicineListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1010,6 +1097,7 @@ export type PetMedicineListingUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   genericName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1021,8 +1109,10 @@ export type PetMedicineListingUpdateWithoutCreatedByInput = {
   dosageInstructions?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetMedicineListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1037,6 +1127,7 @@ export type PetMedicineListingUncheckedUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   genericName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1048,8 +1139,10 @@ export type PetMedicineListingUncheckedUpdateWithoutCreatedByInput = {
   dosageInstructions?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetMedicineListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1064,6 +1157,7 @@ export type PetMedicineListingUncheckedUpdateManyWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   genericName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1075,8 +1169,10 @@ export type PetMedicineListingUncheckedUpdateManyWithoutCreatedByInput = {
   dosageInstructions?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetMedicineListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetMedicineListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1093,6 +1189,7 @@ export type PetMedicineListingSelect<ExtArgs extends runtime.Types.Extensions.In
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   genericName?: boolean
@@ -1104,8 +1201,10 @@ export type PetMedicineListingSelect<ExtArgs extends runtime.Types.Extensions.In
   dosageInstructions?: boolean
   expiryDate?: boolean
   batchNumber?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1122,6 +1221,7 @@ export type PetMedicineListingSelectCreateManyAndReturn<ExtArgs extends runtime.
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   genericName?: boolean
@@ -1133,8 +1233,10 @@ export type PetMedicineListingSelectCreateManyAndReturn<ExtArgs extends runtime.
   dosageInstructions?: boolean
   expiryDate?: boolean
   batchNumber?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1151,6 +1253,7 @@ export type PetMedicineListingSelectUpdateManyAndReturn<ExtArgs extends runtime.
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   genericName?: boolean
@@ -1162,8 +1265,10 @@ export type PetMedicineListingSelectUpdateManyAndReturn<ExtArgs extends runtime.
   dosageInstructions?: boolean
   expiryDate?: boolean
   batchNumber?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1180,6 +1285,7 @@ export type PetMedicineListingSelectScalar = {
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   genericName?: boolean
@@ -1191,8 +1297,10 @@ export type PetMedicineListingSelectScalar = {
   dosageInstructions?: boolean
   expiryDate?: boolean
   batchNumber?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1201,7 +1309,7 @@ export type PetMedicineListingSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PetMedicineListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "stockQuantity" | "sku" | "genericName" | "manufacturer" | "dosageForm" | "packSize" | "prescriptionRequired" | "targetSpeciesList" | "dosageInstructions" | "expiryDate" | "batchNumber" | "coverImage" | "galleryImages" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["petMedicineListing"]>
+export type PetMedicineListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "buyingPrice" | "stockQuantity" | "sku" | "genericName" | "manufacturer" | "dosageForm" | "packSize" | "prescriptionRequired" | "targetSpeciesList" | "dosageInstructions" | "expiryDate" | "batchNumber" | "thumbnailImage" | "coverImage" | "galleryImages" | "videoUrls" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["petMedicineListing"]>
 export type PetMedicineListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.PetMedicineListing$createdByArgs<ExtArgs>
 }
@@ -1224,6 +1332,7 @@ export type $PetMedicineListingPayload<ExtArgs extends runtime.Types.Extensions.
     status: $Enums.ListingStatus
     price: runtime.Decimal
     salePrice: runtime.Decimal | null
+    buyingPrice: runtime.Decimal | null
     stockQuantity: number
     sku: string | null
     genericName: string
@@ -1235,8 +1344,10 @@ export type $PetMedicineListingPayload<ExtArgs extends runtime.Types.Extensions.
     dosageInstructions: string
     expiryDate: Date | null
     batchNumber: string | null
+    thumbnailImage: string | null
     coverImage: string
     galleryImages: string[]
+    videoUrls: string[]
     description: string
     isFeatured: boolean
     storeName: string
@@ -1673,6 +1784,7 @@ export interface PetMedicineListingFieldRefs {
   readonly status: Prisma.FieldRef<"PetMedicineListing", 'ListingStatus'>
   readonly price: Prisma.FieldRef<"PetMedicineListing", 'Decimal'>
   readonly salePrice: Prisma.FieldRef<"PetMedicineListing", 'Decimal'>
+  readonly buyingPrice: Prisma.FieldRef<"PetMedicineListing", 'Decimal'>
   readonly stockQuantity: Prisma.FieldRef<"PetMedicineListing", 'Int'>
   readonly sku: Prisma.FieldRef<"PetMedicineListing", 'String'>
   readonly genericName: Prisma.FieldRef<"PetMedicineListing", 'String'>
@@ -1684,8 +1796,10 @@ export interface PetMedicineListingFieldRefs {
   readonly dosageInstructions: Prisma.FieldRef<"PetMedicineListing", 'String'>
   readonly expiryDate: Prisma.FieldRef<"PetMedicineListing", 'DateTime'>
   readonly batchNumber: Prisma.FieldRef<"PetMedicineListing", 'String'>
+  readonly thumbnailImage: Prisma.FieldRef<"PetMedicineListing", 'String'>
   readonly coverImage: Prisma.FieldRef<"PetMedicineListing", 'String'>
   readonly galleryImages: Prisma.FieldRef<"PetMedicineListing", 'String[]'>
+  readonly videoUrls: Prisma.FieldRef<"PetMedicineListing", 'String[]'>
   readonly description: Prisma.FieldRef<"PetMedicineListing", 'String'>
   readonly isFeatured: Prisma.FieldRef<"PetMedicineListing", 'Boolean'>
   readonly storeName: Prisma.FieldRef<"PetMedicineListing", 'String'>

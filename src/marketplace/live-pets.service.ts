@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateLivePetDto, UpdateLivePetDto } from './dto/live-pet.dto';
 import { ListingQueryDto } from './dto/listing-query.dto';
-import { slugifyListing } from './marketplace.util';
+import { isStaffRole, normalizeMediaPayload, sanitizeListingForViewer, slugifyListing } from './marketplace.util';
 
 @Injectable()
 export class LivePetsService {
@@ -12,10 +12,10 @@ export class LivePetsService {
     const slug = slugifyListing(dto.title);
     return this.prisma.livePetListing.create({
       data: {
-        ...dto,
+        ...normalizeMediaPayload(dto, true),
         slug,
-        createdById: adminUserId,
-      },
+        createdById: adminUserId ?? null,
+      } as any,
       include: {
         species: true,
         breed: true,
@@ -23,7 +23,7 @@ export class LivePetsService {
     });
   }
 
-  async findAll(query: ListingQueryDto) {
+  async findAll(query: ListingQueryDto, role?: string) {
     const { page = 1, limit = 20, status, search, speciesId, breedId, sortBy = 'createdAt', sortOrder = 'desc' } = query;
     const skip = (page - 1) * limit;
 
@@ -51,8 +51,10 @@ export class LivePetsService {
       this.prisma.livePetListing.count({ where }),
     ]);
 
+    const isStaff = isStaffRole(role);
+
     return {
-      items,
+      items: items.map((i) => sanitizeListingForViewer(i, isStaff)),
       meta: {
         total,
         page,
@@ -62,13 +64,13 @@ export class LivePetsService {
     };
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, role?: string) {
     const item = await this.prisma.livePetListing.findUnique({
       where: { id },
       include: { species: true, breed: true },
     });
     if (!item) throw new NotFoundException(`Live pet listing with ID ${id} not found`);
-    return item;
+    return sanitizeListingForViewer(item, isStaffRole(role));
   }
 
   async update(id: string, dto: UpdateLivePetDto) {

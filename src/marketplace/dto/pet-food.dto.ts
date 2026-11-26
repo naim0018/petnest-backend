@@ -38,6 +38,12 @@ export class CreatePetFoodDto {
 
   @IsOptional()
   @Type(() => Number)
+  @IsNumber()
+  @Min(0)
+  buyingPrice?: number;
+
+  @IsOptional()
+  @Type(() => Number)
   @IsInt()
   @Min(0)
   stockQuantity?: number = 1;
@@ -87,14 +93,23 @@ export class CreatePetFoodDto {
   @IsBoolean()
   isOrganic?: boolean = false;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  coverImage: string;
+  thumbnailImage?: string;
+
+  @IsOptional()
+  @IsString()
+  coverImage?: string;
 
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   galleryImages?: string[] = [];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  videoUrls?: string[] = [];
 
   @IsNotEmpty()
   @IsString()
@@ -127,6 +142,12 @@ export class UpdatePetFoodDto {
   @Type(() => Number)
   @IsNumber()
   salePrice?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0)
+  buyingPrice?: number;
 
   @IsOptional()
   @Type(() => Number)
@@ -179,12 +200,21 @@ export class UpdatePetFoodDto {
 
   @IsOptional()
   @IsString()
+  thumbnailImage?: string;
+
+  @IsOptional()
+  @IsString()
   coverImage?: string;
 
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   galleryImages?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  videoUrls?: string[];
 
   @IsOptional()
   @IsString()

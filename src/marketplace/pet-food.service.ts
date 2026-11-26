@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePetFoodDto, UpdatePetFoodDto } from './dto/pet-food.dto';
 import { ListingQueryDto } from './dto/listing-query.dto';
-import { slugifyListing } from './marketplace.util';
+import { isStaffRole, normalizeMediaPayload, sanitizeListingForViewer, slugifyListing } from './marketplace.util';
 
 @Injectable()
 export class PetFoodService {
@@ -12,15 +12,15 @@ export class PetFoodService {
     const slug = slugifyListing(dto.title);
     return this.prisma.petFoodListing.create({
       data: {
-        ...dto,
+        ...normalizeMediaPayload(dto),
         slug,
-        createdById: adminUserId,
-      },
+        createdById: adminUserId ?? null,
+      } as any,
       include: { targetSpecies: true },
     });
   }
 
-  async findAll(query: ListingQueryDto) {
+  async findAll(query: ListingQueryDto, role?: string) {
     const { page = 1, limit = 20, status, search, speciesId, sortBy = 'createdAt', sortOrder = 'desc' } = query;
     const skip = (page - 1) * limit;
 
@@ -46,19 +46,21 @@ export class PetFoodService {
       this.prisma.petFoodListing.count({ where }),
     ]);
 
+    const isStaff = isStaffRole(role);
+
     return {
-      items,
+      items: items.map((i) => sanitizeListingForViewer(i, isStaff)),
       meta: { total, page, limit, totalPages: Math.ceil(total / limit) },
     };
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, role?: string) {
     const item = await this.prisma.petFoodListing.findUnique({
       where: { id },
       include: { targetSpecies: true },
     });
     if (!item) throw new NotFoundException(`Pet food listing with ID ${id} not found`);
-    return item;
+    return sanitizeListingForViewer(item, isStaffRole(role));
   }
 
   async update(id: string, dto: UpdatePetFoodDto) {

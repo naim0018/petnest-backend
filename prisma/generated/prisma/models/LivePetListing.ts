@@ -29,12 +29,14 @@ export type AggregateLivePetListing = {
 export type LivePetListingAvgAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   quantity: number | null
 }
 
 export type LivePetListingSumAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   quantity: number | null
 }
 
@@ -45,6 +47,7 @@ export type LivePetListingMinAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   quantity: number | null
   speciesId: string | null
   breedId: string | null
@@ -62,6 +65,7 @@ export type LivePetListingMinAggregateOutputType = {
   deliveryMethod: $Enums.LiveDeliveryMethod | null
   transitGuarantee: boolean | null
   pickupAddress: string | null
+  thumbnailImage: string | null
   coverImage: string | null
   videoUrl: string | null
   description: string | null
@@ -79,6 +83,7 @@ export type LivePetListingMaxAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   quantity: number | null
   speciesId: string | null
   breedId: string | null
@@ -96,6 +101,7 @@ export type LivePetListingMaxAggregateOutputType = {
   deliveryMethod: $Enums.LiveDeliveryMethod | null
   transitGuarantee: boolean | null
   pickupAddress: string | null
+  thumbnailImage: string | null
   coverImage: string | null
   videoUrl: string | null
   description: string | null
@@ -113,6 +119,7 @@ export type LivePetListingCountAggregateOutputType = {
   status: number
   price: number
   salePrice: number
+  buyingPrice: number
   quantity: number
   speciesId: number
   breedId: number
@@ -130,9 +137,11 @@ export type LivePetListingCountAggregateOutputType = {
   deliveryMethod: number
   transitGuarantee: number
   pickupAddress: number
+  thumbnailImage: number
   coverImage: number
   galleryImages: number
   videoUrl: number
+  videoUrls: number
   description: number
   isFeatured: number
   storeName: number
@@ -146,12 +155,14 @@ export type LivePetListingCountAggregateOutputType = {
 export type LivePetListingAvgAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   quantity?: true
 }
 
 export type LivePetListingSumAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   quantity?: true
 }
 
@@ -162,6 +173,7 @@ export type LivePetListingMinAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   quantity?: true
   speciesId?: true
   breedId?: true
@@ -179,6 +191,7 @@ export type LivePetListingMinAggregateInputType = {
   deliveryMethod?: true
   transitGuarantee?: true
   pickupAddress?: true
+  thumbnailImage?: true
   coverImage?: true
   videoUrl?: true
   description?: true
@@ -196,6 +209,7 @@ export type LivePetListingMaxAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   quantity?: true
   speciesId?: true
   breedId?: true
@@ -213,6 +227,7 @@ export type LivePetListingMaxAggregateInputType = {
   deliveryMethod?: true
   transitGuarantee?: true
   pickupAddress?: true
+  thumbnailImage?: true
   coverImage?: true
   videoUrl?: true
   description?: true
@@ -230,6 +245,7 @@ export type LivePetListingCountAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   quantity?: true
   speciesId?: true
   breedId?: true
@@ -247,9 +263,11 @@ export type LivePetListingCountAggregateInputType = {
   deliveryMethod?: true
   transitGuarantee?: true
   pickupAddress?: true
+  thumbnailImage?: true
   coverImage?: true
   galleryImages?: true
   videoUrl?: true
+  videoUrls?: true
   description?: true
   isFeatured?: true
   storeName?: true
@@ -352,6 +370,7 @@ export type LivePetListingGroupByOutputType = {
   status: $Enums.ListingStatus
   price: runtime.Decimal
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   quantity: number
   speciesId: string
   breedId: string | null
@@ -369,9 +388,11 @@ export type LivePetListingGroupByOutputType = {
   deliveryMethod: $Enums.LiveDeliveryMethod
   transitGuarantee: boolean
   pickupAddress: string | null
+  thumbnailImage: string | null
   coverImage: string
   galleryImages: string[]
   videoUrl: string | null
+  videoUrls: string[]
   description: string
   isFeatured: boolean
   storeName: string
@@ -410,6 +431,7 @@ export type LivePetListingWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"LivePetListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFilter<"LivePetListing"> | number
   speciesId?: Prisma.StringFilter<"LivePetListing"> | string
   breedId?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
@@ -427,9 +449,11 @@ export type LivePetListingWhereInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFilter<"LivePetListing"> | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFilter<"LivePetListing"> | boolean
   pickupAddress?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
   coverImage?: Prisma.StringFilter<"LivePetListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"LivePetListing">
   videoUrl?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
+  videoUrls?: Prisma.StringNullableListFilter<"LivePetListing">
   description?: Prisma.StringFilter<"LivePetListing"> | string
   isFeatured?: Prisma.BoolFilter<"LivePetListing"> | boolean
   storeName?: Prisma.StringFilter<"LivePetListing"> | string
@@ -448,6 +472,7 @@ export type LivePetListingOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   quantity?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   breedId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -465,9 +490,11 @@ export type LivePetListingOrderByWithRelationInput = {
   deliveryMethod?: Prisma.SortOrder
   transitGuarantee?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -489,6 +516,7 @@ export type LivePetListingWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumListingStatusFilter<"LivePetListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFilter<"LivePetListing"> | number
   speciesId?: Prisma.StringFilter<"LivePetListing"> | string
   breedId?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
@@ -506,9 +534,11 @@ export type LivePetListingWhereUniqueInput = Prisma.AtLeast<{
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFilter<"LivePetListing"> | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFilter<"LivePetListing"> | boolean
   pickupAddress?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
   coverImage?: Prisma.StringFilter<"LivePetListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"LivePetListing">
   videoUrl?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
+  videoUrls?: Prisma.StringNullableListFilter<"LivePetListing">
   description?: Prisma.StringFilter<"LivePetListing"> | string
   isFeatured?: Prisma.BoolFilter<"LivePetListing"> | boolean
   storeName?: Prisma.StringFilter<"LivePetListing"> | string
@@ -527,6 +557,7 @@ export type LivePetListingOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   quantity?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   breedId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -544,9 +575,11 @@ export type LivePetListingOrderByWithAggregationInput = {
   deliveryMethod?: Prisma.SortOrder
   transitGuarantee?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -570,6 +603,7 @@ export type LivePetListingScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumListingStatusWithAggregatesFilter<"LivePetListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalWithAggregatesFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableWithAggregatesFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableWithAggregatesFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntWithAggregatesFilter<"LivePetListing"> | number
   speciesId?: Prisma.StringWithAggregatesFilter<"LivePetListing"> | string
   breedId?: Prisma.StringNullableWithAggregatesFilter<"LivePetListing"> | string | null
@@ -587,9 +621,11 @@ export type LivePetListingScalarWhereWithAggregatesInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodWithAggregatesFilter<"LivePetListing"> | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolWithAggregatesFilter<"LivePetListing"> | boolean
   pickupAddress?: Prisma.StringNullableWithAggregatesFilter<"LivePetListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableWithAggregatesFilter<"LivePetListing"> | string | null
   coverImage?: Prisma.StringWithAggregatesFilter<"LivePetListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"LivePetListing">
   videoUrl?: Prisma.StringNullableWithAggregatesFilter<"LivePetListing"> | string | null
+  videoUrls?: Prisma.StringNullableListFilter<"LivePetListing">
   description?: Prisma.StringWithAggregatesFilter<"LivePetListing"> | string
   isFeatured?: Prisma.BoolWithAggregatesFilter<"LivePetListing"> | boolean
   storeName?: Prisma.StringWithAggregatesFilter<"LivePetListing"> | string
@@ -605,6 +641,7 @@ export type LivePetListingCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   gender?: $Enums.PetGender
   ageText: string
@@ -620,9 +657,11 @@ export type LivePetListingCreateInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -640,6 +679,7 @@ export type LivePetListingUncheckedCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   speciesId: string
   breedId?: string | null
@@ -657,9 +697,11 @@ export type LivePetListingUncheckedCreateInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -675,6 +717,7 @@ export type LivePetListingUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.EnumPetGenderFieldUpdateOperationsInput | $Enums.PetGender
   ageText?: Prisma.StringFieldUpdateOperationsInput | string
@@ -690,9 +733,11 @@ export type LivePetListingUpdateInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -710,6 +755,7 @@ export type LivePetListingUncheckedUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.StringFieldUpdateOperationsInput | string
   breedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -727,9 +773,11 @@ export type LivePetListingUncheckedUpdateInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -745,6 +793,7 @@ export type LivePetListingCreateManyInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   speciesId: string
   breedId?: string | null
@@ -762,9 +811,11 @@ export type LivePetListingCreateManyInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -780,6 +831,7 @@ export type LivePetListingUpdateManyMutationInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.EnumPetGenderFieldUpdateOperationsInput | $Enums.PetGender
   ageText?: Prisma.StringFieldUpdateOperationsInput | string
@@ -795,9 +847,11 @@ export type LivePetListingUpdateManyMutationInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -812,6 +866,7 @@ export type LivePetListingUncheckedUpdateManyInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.StringFieldUpdateOperationsInput | string
   breedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -829,9 +884,11 @@ export type LivePetListingUncheckedUpdateManyInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -847,6 +904,7 @@ export type LivePetListingCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   breedId?: Prisma.SortOrder
@@ -864,9 +922,11 @@ export type LivePetListingCountOrderByAggregateInput = {
   deliveryMethod?: Prisma.SortOrder
   transitGuarantee?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -878,6 +938,7 @@ export type LivePetListingCountOrderByAggregateInput = {
 export type LivePetListingAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
 }
 
@@ -888,6 +949,7 @@ export type LivePetListingMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   breedId?: Prisma.SortOrder
@@ -905,6 +967,7 @@ export type LivePetListingMaxOrderByAggregateInput = {
   deliveryMethod?: Prisma.SortOrder
   transitGuarantee?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -922,6 +985,7 @@ export type LivePetListingMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   speciesId?: Prisma.SortOrder
   breedId?: Prisma.SortOrder
@@ -939,6 +1003,7 @@ export type LivePetListingMinOrderByAggregateInput = {
   deliveryMethod?: Prisma.SortOrder
   transitGuarantee?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -952,6 +1017,7 @@ export type LivePetListingMinOrderByAggregateInput = {
 export type LivePetListingSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
 }
 
@@ -966,6 +1032,10 @@ export type LivePetListingOrderByRelationAggregateInput = {
 }
 
 export type LivePetListingCreategalleryImagesInput = {
+  set: string[]
+}
+
+export type LivePetListingCreatevideoUrlsInput = {
   set: string[]
 }
 
@@ -1002,6 +1072,11 @@ export type EnumLiveDeliveryMethodFieldUpdateOperationsInput = {
 }
 
 export type LivePetListingUpdategalleryImagesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type LivePetListingUpdatevideoUrlsInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -1139,6 +1214,7 @@ export type LivePetListingCreateWithoutSpeciesInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   gender?: $Enums.PetGender
   ageText: string
@@ -1154,9 +1230,11 @@ export type LivePetListingCreateWithoutSpeciesInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1173,6 +1251,7 @@ export type LivePetListingUncheckedCreateWithoutSpeciesInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   breedId?: string | null
   gender?: $Enums.PetGender
@@ -1189,9 +1268,11 @@ export type LivePetListingUncheckedCreateWithoutSpeciesInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1236,6 +1317,7 @@ export type LivePetListingScalarWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"LivePetListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"LivePetListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFilter<"LivePetListing"> | number
   speciesId?: Prisma.StringFilter<"LivePetListing"> | string
   breedId?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
@@ -1253,9 +1335,11 @@ export type LivePetListingScalarWhereInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFilter<"LivePetListing"> | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFilter<"LivePetListing"> | boolean
   pickupAddress?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
   coverImage?: Prisma.StringFilter<"LivePetListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"LivePetListing">
   videoUrl?: Prisma.StringNullableFilter<"LivePetListing"> | string | null
+  videoUrls?: Prisma.StringNullableListFilter<"LivePetListing">
   description?: Prisma.StringFilter<"LivePetListing"> | string
   isFeatured?: Prisma.BoolFilter<"LivePetListing"> | boolean
   storeName?: Prisma.StringFilter<"LivePetListing"> | string
@@ -1271,6 +1355,7 @@ export type LivePetListingCreateWithoutBreedInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   gender?: $Enums.PetGender
   ageText: string
@@ -1286,9 +1371,11 @@ export type LivePetListingCreateWithoutBreedInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1305,6 +1392,7 @@ export type LivePetListingUncheckedCreateWithoutBreedInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   speciesId: string
   gender?: $Enums.PetGender
@@ -1321,9 +1409,11 @@ export type LivePetListingUncheckedCreateWithoutBreedInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1365,6 +1455,7 @@ export type LivePetListingCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   gender?: $Enums.PetGender
   ageText: string
@@ -1380,9 +1471,11 @@ export type LivePetListingCreateWithoutCreatedByInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1399,6 +1492,7 @@ export type LivePetListingUncheckedCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   speciesId: string
   breedId?: string | null
@@ -1416,9 +1510,11 @@ export type LivePetListingUncheckedCreateWithoutCreatedByInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1459,6 +1555,7 @@ export type LivePetListingCreateManySpeciesInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   breedId?: string | null
   gender?: $Enums.PetGender
@@ -1475,9 +1572,11 @@ export type LivePetListingCreateManySpeciesInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1493,6 +1592,7 @@ export type LivePetListingUpdateWithoutSpeciesInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.EnumPetGenderFieldUpdateOperationsInput | $Enums.PetGender
   ageText?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1508,9 +1608,11 @@ export type LivePetListingUpdateWithoutSpeciesInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1527,6 +1629,7 @@ export type LivePetListingUncheckedUpdateWithoutSpeciesInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   breedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.EnumPetGenderFieldUpdateOperationsInput | $Enums.PetGender
@@ -1543,9 +1646,11 @@ export type LivePetListingUncheckedUpdateWithoutSpeciesInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1561,6 +1666,7 @@ export type LivePetListingUncheckedUpdateManyWithoutSpeciesInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   breedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.EnumPetGenderFieldUpdateOperationsInput | $Enums.PetGender
@@ -1577,9 +1683,11 @@ export type LivePetListingUncheckedUpdateManyWithoutSpeciesInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1595,6 +1703,7 @@ export type LivePetListingCreateManyBreedInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   speciesId: string
   gender?: $Enums.PetGender
@@ -1611,9 +1720,11 @@ export type LivePetListingCreateManyBreedInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1629,6 +1740,7 @@ export type LivePetListingUpdateWithoutBreedInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.EnumPetGenderFieldUpdateOperationsInput | $Enums.PetGender
   ageText?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1644,9 +1756,11 @@ export type LivePetListingUpdateWithoutBreedInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1663,6 +1777,7 @@ export type LivePetListingUncheckedUpdateWithoutBreedInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumPetGenderFieldUpdateOperationsInput | $Enums.PetGender
@@ -1679,9 +1794,11 @@ export type LivePetListingUncheckedUpdateWithoutBreedInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1697,6 +1814,7 @@ export type LivePetListingUncheckedUpdateManyWithoutBreedInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumPetGenderFieldUpdateOperationsInput | $Enums.PetGender
@@ -1713,9 +1831,11 @@ export type LivePetListingUncheckedUpdateManyWithoutBreedInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1731,6 +1851,7 @@ export type LivePetListingCreateManyCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: number
   speciesId: string
   breedId?: string | null
@@ -1748,9 +1869,11 @@ export type LivePetListingCreateManyCreatedByInput = {
   deliveryMethod?: $Enums.LiveDeliveryMethod
   transitGuarantee?: boolean
   pickupAddress?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.LivePetListingCreategalleryImagesInput | string[]
   videoUrl?: string | null
+  videoUrls?: Prisma.LivePetListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1765,6 +1888,7 @@ export type LivePetListingUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.EnumPetGenderFieldUpdateOperationsInput | $Enums.PetGender
   ageText?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1780,9 +1904,11 @@ export type LivePetListingUpdateWithoutCreatedByInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1799,6 +1925,7 @@ export type LivePetListingUncheckedUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.StringFieldUpdateOperationsInput | string
   breedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1816,9 +1943,11 @@ export type LivePetListingUncheckedUpdateWithoutCreatedByInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1833,6 +1962,7 @@ export type LivePetListingUncheckedUpdateManyWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   speciesId?: Prisma.StringFieldUpdateOperationsInput | string
   breedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1850,9 +1980,11 @@ export type LivePetListingUncheckedUpdateManyWithoutCreatedByInput = {
   deliveryMethod?: Prisma.EnumLiveDeliveryMethodFieldUpdateOperationsInput | $Enums.LiveDeliveryMethod
   transitGuarantee?: Prisma.BoolFieldUpdateOperationsInput | boolean
   pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.LivePetListingUpdategalleryImagesInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrls?: Prisma.LivePetListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1869,6 +2001,7 @@ export type LivePetListingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   quantity?: boolean
   speciesId?: boolean
   breedId?: boolean
@@ -1886,9 +2019,11 @@ export type LivePetListingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   deliveryMethod?: boolean
   transitGuarantee?: boolean
   pickupAddress?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
   videoUrl?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1907,6 +2042,7 @@ export type LivePetListingSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   quantity?: boolean
   speciesId?: boolean
   breedId?: boolean
@@ -1924,9 +2060,11 @@ export type LivePetListingSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   deliveryMethod?: boolean
   transitGuarantee?: boolean
   pickupAddress?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
   videoUrl?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1945,6 +2083,7 @@ export type LivePetListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   quantity?: boolean
   speciesId?: boolean
   breedId?: boolean
@@ -1962,9 +2101,11 @@ export type LivePetListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   deliveryMethod?: boolean
   transitGuarantee?: boolean
   pickupAddress?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
   videoUrl?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1983,6 +2124,7 @@ export type LivePetListingSelectScalar = {
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   quantity?: boolean
   speciesId?: boolean
   breedId?: boolean
@@ -2000,9 +2142,11 @@ export type LivePetListingSelectScalar = {
   deliveryMethod?: boolean
   transitGuarantee?: boolean
   pickupAddress?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
   videoUrl?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -2011,7 +2155,7 @@ export type LivePetListingSelectScalar = {
   updatedAt?: boolean
 }
 
-export type LivePetListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "quantity" | "speciesId" | "breedId" | "gender" | "ageText" | "dob" | "colorMutation" | "ringNumber" | "microchipId" | "healthStatus" | "dewormed" | "vaccinated" | "dnaSexingCertUrl" | "pedigreePaperUrl" | "deliveryMethod" | "transitGuarantee" | "pickupAddress" | "coverImage" | "galleryImages" | "videoUrl" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["livePetListing"]>
+export type LivePetListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "buyingPrice" | "quantity" | "speciesId" | "breedId" | "gender" | "ageText" | "dob" | "colorMutation" | "ringNumber" | "microchipId" | "healthStatus" | "dewormed" | "vaccinated" | "dnaSexingCertUrl" | "pedigreePaperUrl" | "deliveryMethod" | "transitGuarantee" | "pickupAddress" | "thumbnailImage" | "coverImage" | "galleryImages" | "videoUrl" | "videoUrls" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["livePetListing"]>
 export type LivePetListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   species?: boolean | Prisma.PetSpeciesDefaultArgs<ExtArgs>
   breed?: boolean | Prisma.LivePetListing$breedArgs<ExtArgs>
@@ -2042,6 +2186,7 @@ export type $LivePetListingPayload<ExtArgs extends runtime.Types.Extensions.Inte
     status: $Enums.ListingStatus
     price: runtime.Decimal
     salePrice: runtime.Decimal | null
+    buyingPrice: runtime.Decimal | null
     quantity: number
     speciesId: string
     breedId: string | null
@@ -2059,9 +2204,11 @@ export type $LivePetListingPayload<ExtArgs extends runtime.Types.Extensions.Inte
     deliveryMethod: $Enums.LiveDeliveryMethod
     transitGuarantee: boolean
     pickupAddress: string | null
+    thumbnailImage: string | null
     coverImage: string
     galleryImages: string[]
     videoUrl: string | null
+    videoUrls: string[]
     description: string
     isFeatured: boolean
     storeName: string
@@ -2500,6 +2647,7 @@ export interface LivePetListingFieldRefs {
   readonly status: Prisma.FieldRef<"LivePetListing", 'ListingStatus'>
   readonly price: Prisma.FieldRef<"LivePetListing", 'Decimal'>
   readonly salePrice: Prisma.FieldRef<"LivePetListing", 'Decimal'>
+  readonly buyingPrice: Prisma.FieldRef<"LivePetListing", 'Decimal'>
   readonly quantity: Prisma.FieldRef<"LivePetListing", 'Int'>
   readonly speciesId: Prisma.FieldRef<"LivePetListing", 'String'>
   readonly breedId: Prisma.FieldRef<"LivePetListing", 'String'>
@@ -2517,9 +2665,11 @@ export interface LivePetListingFieldRefs {
   readonly deliveryMethod: Prisma.FieldRef<"LivePetListing", 'LiveDeliveryMethod'>
   readonly transitGuarantee: Prisma.FieldRef<"LivePetListing", 'Boolean'>
   readonly pickupAddress: Prisma.FieldRef<"LivePetListing", 'String'>
+  readonly thumbnailImage: Prisma.FieldRef<"LivePetListing", 'String'>
   readonly coverImage: Prisma.FieldRef<"LivePetListing", 'String'>
   readonly galleryImages: Prisma.FieldRef<"LivePetListing", 'String[]'>
   readonly videoUrl: Prisma.FieldRef<"LivePetListing", 'String'>
+  readonly videoUrls: Prisma.FieldRef<"LivePetListing", 'String[]'>
   readonly description: Prisma.FieldRef<"LivePetListing", 'String'>
   readonly isFeatured: Prisma.FieldRef<"LivePetListing", 'Boolean'>
   readonly storeName: Prisma.FieldRef<"LivePetListing", 'String'>

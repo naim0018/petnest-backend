@@ -188,6 +188,12 @@ export class UsersService {
       throw new NotFoundException('User not found');
     }
 
+    if (!user.password) {
+      throw new BadRequestException(
+        'Account was registered via Google Sign-In and has no password set.',
+      );
+    }
+
     const isMatch = await bcrypt.compare(dto.currentPassword, user.password);
     if (!isMatch) {
       throw new BadRequestException('Current password does not match');

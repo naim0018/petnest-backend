@@ -86,6 +86,7 @@ model LivePetListing {
   status               ListingStatus            @default(DRAFT)
   price                Decimal                  @db.Decimal(10, 2)
   salePrice            Decimal?                 @db.Decimal(10, 2)
+  buyingPrice          Decimal?                 @db.Decimal(10, 2)
   quantity             Int                      @default(1)
 
   speciesId            String
@@ -110,9 +111,11 @@ model LivePetListing {
   transitGuarantee     Boolean                  @default(false)
   pickupAddress        String?
 
+  thumbnailImage       String?
   coverImage           String
   galleryImages        String[]                 @default([])
   videoUrl             String?
+  videoUrls            String[]                 @default([])
   description          String                   @db.Text
   isFeatured           Boolean                  @default(false)
 
@@ -138,6 +141,7 @@ model PetFoodListing {
   status               ListingStatus     @default(DRAFT)
   price                Decimal           @db.Decimal(10, 2)
   salePrice            Decimal?          @db.Decimal(10, 2)
+  buyingPrice          Decimal?          @db.Decimal(10, 2)
   stockQuantity        Int               @default(1)
   sku                  String?
 
@@ -155,8 +159,10 @@ model PetFoodListing {
   expiryDate           DateTime?
   isOrganic            Boolean           @default(false)
 
+  thumbnailImage       String?
   coverImage           String
   galleryImages        String[]          @default([])
+  videoUrls            String[]          @default([])
   description          String            @db.Text
   isFeatured           Boolean           @default(false)
 
@@ -182,6 +188,7 @@ model PetAccessoryListing {
   status               ListingStatus     @default(DRAFT)
   price                Decimal           @db.Decimal(10, 2)
   salePrice            Decimal?          @db.Decimal(10, 2)
+  buyingPrice          Decimal?          @db.Decimal(10, 2)
   stockQuantity        Int               @default(1)
   sku                  String?
 
@@ -196,8 +203,10 @@ model PetAccessoryListing {
   color                String?
   sizeOption           String?           // "S", "M", "L", "XL"
 
+  thumbnailImage       String?
   coverImage           String
   galleryImages        String[]          @default([])
+  videoUrls            String[]          @default([])
   description          String            @db.Text
   isFeatured           Boolean           @default(false)
 
@@ -223,6 +232,7 @@ model PetBookListing {
   status               ListingStatus     @default(DRAFT)
   price                Decimal           @db.Decimal(10, 2)
   salePrice            Decimal?          @db.Decimal(10, 2)
+  buyingPrice          Decimal?          @db.Decimal(10, 2)
   stockQuantity        Int               @default(1)
 
   author               String
@@ -236,8 +246,10 @@ model PetBookListing {
   downloadUrl          String?           // For DIGITAL_PDF
   samplePdfUrl         String?
 
+  thumbnailImage       String?
   coverImage           String
   galleryImages        String[]          @default([])
+  videoUrls            String[]          @default([])
   description          String            @db.Text
   isFeatured           Boolean           @default(false)
 
@@ -263,6 +275,7 @@ model PetMedicineListing {
   status               ListingStatus      @default(DRAFT)
   price                Decimal            @db.Decimal(10, 2)
   salePrice            Decimal?           @db.Decimal(10, 2)
+  buyingPrice          Decimal?           @db.Decimal(10, 2)
   stockQuantity        Int                @default(1)
   sku                  String?
 
@@ -276,8 +289,10 @@ model PetMedicineListing {
   expiryDate           DateTime?
   batchNumber          String?
 
+  thumbnailImage       String?
   coverImage           String
   galleryImages        String[]           @default([])
+  videoUrls            String[]           @default([])
   description          String             @db.Text
   isFeatured           Boolean            @default(false)
 

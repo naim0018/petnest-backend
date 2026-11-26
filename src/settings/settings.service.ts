@@ -6,10 +6,21 @@ import {
 } from '@nestjs/common';
 import { CryptoUtil } from 'src/common/utils/crypto.util';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdateGoogleOAuthDto } from './dto/update-google-oauth.dto';
 
 export interface GeminiConfigResponse {
   isConfigured: boolean;
   maskedKey: string;
+  source: 'DATABASE' | 'ENV' | 'NONE';
+  updatedAt: Date | null;
+}
+
+export interface GoogleOAuthConfigResponse {
+  isConfigured: boolean;
+  isEnabled: boolean;
+  clientId: string;
+  maskedSecret: string;
+  redirectUri: string;
   source: 'DATABASE' | 'ENV' | 'NONE';
   updatedAt: Date | null;
 }
@@ -237,5 +248,175 @@ export class SettingsService {
         `Failed to reach Google Gemini API: ${err.message}`,
       );
     }
+  }
+
+  // ========================================================
+  // GOOGLE OAUTH CONFIGURATION METHODS
+  // ========================================================
+
+  getGoogleRedirectUri(): string {
+    const raw = process.env.GOOGLE_CALLBACK_URL?.trim();
+    if (raw && raw.length > 0) return raw;
+    const backendUrl = process.env.BACKEND_URL?.trim() || 'http://localhost:5000';
+    return `${backendUrl.replace(/\/$/, '')}/api/v1/auth/google/callback`;
+  }
+
+  async getGoogleOAuthConfig(): Promise<GoogleOAuthConfigResponse> {
+    const redirectUri = this.getGoogleRedirectUri();
+
+    const [clientIdSetting, enabledSetting, secretSetting] = await Promise.all([
+      this.prisma.systemSetting.findUnique({ where: { key: 'GOOGLE_CLIENT_ID' } }),
+      this.prisma.systemSetting.findUnique({ where: { key: 'GOOGLE_AUTH_ENABLED' } }),
+      this.prisma.systemSetting.findUnique({ where: { key: 'GOOGLE_CLIENT_SECRET' } }),
+    ]);
+
+    const isEnabled = enabledSetting?.value === 'true' || enabledSetting?.value === '1';
+
+    if (clientIdSetting?.value) {
+      const clientId = clientIdSetting.value;
+      const secret = await this.getDecryptedSecret('GOOGLE_CLIENT_SECRET');
+      const maskedSecret = secret && secret.length > 6
+        ? `${secret.slice(0, 4)}••••••••${secret.slice(-4)}`
+        : secret ? '••••••••••••' : '';
+
+      return {
+        isConfigured: Boolean(clientId && secret),
+        isEnabled,
+        clientId,
+        maskedSecret,
+        redirectUri,
+        source: 'DATABASE',
+        updatedAt: clientIdSetting.updatedAt,
+      };
+    }
+
+    const envClientId = process.env.GOOGLE_CLIENT_ID?.trim();
+    const envSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
+    if (envClientId) {
+      const maskedSecret = envSecret && envSecret.length > 6
+        ? `${envSecret.slice(0, 4)}••••••••${envSecret.slice(-4)}`
+        : envSecret ? '••••••••••••' : '';
+
+      return {
+        isConfigured: Boolean(envClientId && envSecret),
+        isEnabled: isEnabled || true,
+        clientId: envClientId,
+        maskedSecret,
+        redirectUri,
+        source: 'ENV',
+        updatedAt: null,
+      };
+    }
+
+    return {
+      isConfigured: false,
+      isEnabled: false,
+      clientId: '',
+      maskedSecret: '',
+      redirectUri,
+      source: 'NONE',
+      updatedAt: null,
+    };
+  }
+
+  async saveGoogleOAuthConfig(
+    dto: UpdateGoogleOAuthDto,
+    userId?: string,
+  ): Promise<GoogleOAuthConfigResponse> {
+    const now = new Date();
+
+    if (dto.clientId !== undefined) {
+      await this.prisma.systemSetting.upsert({
+        where: { key: 'GOOGLE_CLIENT_ID' },
+        create: {
+          key: 'GOOGLE_CLIENT_ID',
+          value: dto.clientId.trim(),
+          isSecret: false,
+          description: 'Google OAuth 2.0 Client ID',
+          updatedById: userId,
+        },
+        update: {
+          value: dto.clientId.trim(),
+          updatedById: userId,
+          updatedAt: now,
+        },
+      });
+    }
+
+    if (dto.clientSecret !== undefined && dto.clientSecret.trim().length > 0) {
+      const encrypted = CryptoUtil.encryptAes256Gcm(dto.clientSecret.trim());
+      await this.prisma.systemSetting.upsert({
+        where: { key: 'GOOGLE_CLIENT_SECRET' },
+        create: {
+          key: 'GOOGLE_CLIENT_SECRET',
+          value: encrypted.ciphertext,
+          isSecret: true,
+          iv: encrypted.iv,
+          authTag: encrypted.authTag,
+          description: 'Google OAuth 2.0 Client Secret (AES-256-GCM Encrypted)',
+          updatedById: userId,
+        },
+        update: {
+          value: encrypted.ciphertext,
+          isSecret: true,
+          iv: encrypted.iv,
+          authTag: encrypted.authTag,
+          updatedById: userId,
+          updatedAt: now,
+        },
+      });
+    }
+
+    if (dto.isEnabled !== undefined) {
+      await this.prisma.systemSetting.upsert({
+        where: { key: 'GOOGLE_AUTH_ENABLED' },
+        create: {
+          key: 'GOOGLE_AUTH_ENABLED',
+          value: dto.isEnabled ? 'true' : 'false',
+          isSecret: false,
+          description: 'Flag enabling or disabling Google Sign-In on site',
+          updatedById: userId,
+        },
+        update: {
+          value: dto.isEnabled ? 'true' : 'false',
+          updatedById: userId,
+          updatedAt: now,
+        },
+      });
+    }
+
+    return this.getGoogleOAuthConfig();
+  }
+
+  async removeGoogleOAuthConfig(): Promise<GoogleOAuthConfigResponse> {
+    await this.prisma.systemSetting.deleteMany({
+      where: {
+        key: {
+          in: ['GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'GOOGLE_AUTH_ENABLED'],
+        },
+      },
+    });
+
+    return this.getGoogleOAuthConfig();
+  }
+
+  async getResolvedGoogleOAuth(): Promise<{
+    clientId: string | null;
+    clientSecret: string | null;
+    isEnabled: boolean;
+    redirectUri: string;
+  }> {
+    const config = await this.getGoogleOAuthConfig();
+    const clientSecret =
+      (await this.getDecryptedSecret('GOOGLE_CLIENT_SECRET')) ||
+      process.env.GOOGLE_CLIENT_SECRET?.trim() ||
+      null;
+
+    return {
+      clientId: config.clientId || null,
+      clientSecret,
+      isEnabled: config.isEnabled && Boolean(config.clientId && clientSecret),
+      redirectUri: config.redirectUri,
+    };
   }
 }

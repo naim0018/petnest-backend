@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   Req,
   Res,
   UnauthorizedException,
@@ -140,5 +142,55 @@ export class AuthController {
   @ApiOperation({ summary: 'Reset Password' })
   async resetPassword(@Body() payload: ResetPasswordDto) {
     return this.authService.resetPassword(payload);
+  }
+
+  // ========================================================
+  // GOOGLE OAUTH ENDPOINTS
+  // ========================================================
+
+  @Get('oauth/status')
+  @ApiOperation({ summary: 'Check public OAuth configuration status' })
+  async getOAuthStatus() {
+    return this.authService.getOAuthStatus();
+  }
+
+  @Get('google')
+  @ApiOperation({ summary: 'Initiate Google OAuth2 authentication flow' })
+  async googleAuth(@Res() res: Response) {
+    const authUrl = await this.authService.getGoogleAuthUrl();
+    return res.redirect(authUrl);
+  }
+
+  @Get('google/callback')
+  @ApiOperation({ summary: 'Google OAuth2 callback redirect handler' })
+  async googleAuthCallback(
+    @Query('code') code: string,
+    @Query('error') error: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const frontendUrl =
+      process.env.FRONTEND_URL?.trim().replace(/\/$/, '') || 'http://localhost:3000';
+
+    if (error || !code) {
+      const errorParam = encodeURIComponent(error || 'AccessDenied');
+      return res.redirect(`${frontendUrl}/auth/login?error=${errorParam}`);
+    }
+
+    try {
+      const { ip, deviceInfo } = extractVisitorInfo(req);
+      const { tokens } = await this.authService.handleGoogleCallback(
+        code,
+        ip,
+        deviceInfo,
+      );
+
+      CookieUtil.setAuthCookies(res, tokens.accessToken, tokens.refreshToken, true);
+      return res.redirect(`${frontendUrl}/auth/callback?success=true`);
+    } catch (err: any) {
+      console.error('Google OAuth callback failed:', err.message);
+      const errMessage = encodeURIComponent(err.message || 'AuthenticationFailed');
+      return res.redirect(`${frontendUrl}/auth/login?error=${errMessage}`);
+    }
   }
 }

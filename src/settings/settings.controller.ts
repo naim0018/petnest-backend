@@ -16,6 +16,7 @@ import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/role.guard';
 import { TestGeminiKeyDto } from './dto/test-gemini-key.dto';
 import { UpdateGeminiKeyDto } from './dto/update-gemini-key.dto';
+import { UpdateGoogleOAuthDto } from './dto/update-google-oauth.dto';
 import { SettingsService } from './settings.service';
 
 @ApiTags('Settings')
@@ -62,5 +63,38 @@ export class SettingsController {
   })
   async testGemini(@Body() dto: TestGeminiKeyDto) {
     return this.settingsService.testGeminiConnectivity(dto.apiKey);
+  }
+
+  // ==========================================
+  // GOOGLE OAUTH CONFIGURATION ENDPOINTS
+  // ==========================================
+
+  @Get('google-oauth')
+  @ApiOperation({
+    summary: 'Get Google OAuth 2.0 configuration status and masked Client Secret',
+  })
+  async getGoogleOAuthConfig() {
+    return this.settingsService.getGoogleOAuthConfig();
+  }
+
+  @Post('google-oauth')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Save Google OAuth Client ID and Secret (AES-256-GCM encrypted)',
+  })
+  async saveGoogleOAuthConfig(
+    @Body() dto: UpdateGoogleOAuthDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    return this.settingsService.saveGoogleOAuthConfig(dto, user.userId);
+  }
+
+  @Delete('google-oauth')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Remove Google OAuth configuration from database',
+  })
+  async removeGoogleOAuthConfig() {
+    return this.settingsService.removeGoogleOAuthConfig();
   }
 }

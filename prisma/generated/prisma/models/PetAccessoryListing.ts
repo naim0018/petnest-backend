@@ -29,12 +29,14 @@ export type AggregatePetAccessoryListing = {
 export type PetAccessoryListingAvgAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
 }
 
 export type PetAccessoryListingSumAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
 }
 
@@ -45,6 +47,7 @@ export type PetAccessoryListingMinAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   sku: string | null
   category: $Enums.AccessoryCategory | null
@@ -55,6 +58,7 @@ export type PetAccessoryListingMinAggregateOutputType = {
   material: string | null
   color: string | null
   sizeOption: string | null
+  thumbnailImage: string | null
   coverImage: string | null
   description: string | null
   isFeatured: boolean | null
@@ -71,6 +75,7 @@ export type PetAccessoryListingMaxAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   sku: string | null
   category: $Enums.AccessoryCategory | null
@@ -81,6 +86,7 @@ export type PetAccessoryListingMaxAggregateOutputType = {
   material: string | null
   color: string | null
   sizeOption: string | null
+  thumbnailImage: string | null
   coverImage: string | null
   description: string | null
   isFeatured: boolean | null
@@ -97,6 +103,7 @@ export type PetAccessoryListingCountAggregateOutputType = {
   status: number
   price: number
   salePrice: number
+  buyingPrice: number
   stockQuantity: number
   sku: number
   category: number
@@ -107,8 +114,10 @@ export type PetAccessoryListingCountAggregateOutputType = {
   material: number
   color: number
   sizeOption: number
+  thumbnailImage: number
   coverImage: number
   galleryImages: number
+  videoUrls: number
   description: number
   isFeatured: number
   storeName: number
@@ -122,12 +131,14 @@ export type PetAccessoryListingCountAggregateOutputType = {
 export type PetAccessoryListingAvgAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
 }
 
 export type PetAccessoryListingSumAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
 }
 
@@ -138,6 +149,7 @@ export type PetAccessoryListingMinAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   sku?: true
   category?: true
@@ -148,6 +160,7 @@ export type PetAccessoryListingMinAggregateInputType = {
   material?: true
   color?: true
   sizeOption?: true
+  thumbnailImage?: true
   coverImage?: true
   description?: true
   isFeatured?: true
@@ -164,6 +177,7 @@ export type PetAccessoryListingMaxAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   sku?: true
   category?: true
@@ -174,6 +188,7 @@ export type PetAccessoryListingMaxAggregateInputType = {
   material?: true
   color?: true
   sizeOption?: true
+  thumbnailImage?: true
   coverImage?: true
   description?: true
   isFeatured?: true
@@ -190,6 +205,7 @@ export type PetAccessoryListingCountAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   sku?: true
   category?: true
@@ -200,8 +216,10 @@ export type PetAccessoryListingCountAggregateInputType = {
   material?: true
   color?: true
   sizeOption?: true
+  thumbnailImage?: true
   coverImage?: true
   galleryImages?: true
+  videoUrls?: true
   description?: true
   isFeatured?: true
   storeName?: true
@@ -304,6 +322,7 @@ export type PetAccessoryListingGroupByOutputType = {
   status: $Enums.ListingStatus
   price: runtime.Decimal
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number
   sku: string | null
   category: $Enums.AccessoryCategory
@@ -314,8 +333,10 @@ export type PetAccessoryListingGroupByOutputType = {
   material: string | null
   color: string | null
   sizeOption: string | null
+  thumbnailImage: string | null
   coverImage: string
   galleryImages: string[]
+  videoUrls: string[]
   description: string
   isFeatured: boolean
   storeName: string
@@ -354,6 +375,7 @@ export type PetAccessoryListingWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"PetAccessoryListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetAccessoryListing"> | number
   sku?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   category?: Prisma.EnumAccessoryCategoryFilter<"PetAccessoryListing"> | $Enums.AccessoryCategory
@@ -364,8 +386,10 @@ export type PetAccessoryListingWhereInput = {
   material?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   color?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   sizeOption?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetAccessoryListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetAccessoryListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetAccessoryListing">
   description?: Prisma.StringFilter<"PetAccessoryListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetAccessoryListing"> | boolean
   storeName?: Prisma.StringFilter<"PetAccessoryListing"> | string
@@ -383,6 +407,7 @@ export type PetAccessoryListingOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -393,8 +418,10 @@ export type PetAccessoryListingOrderByWithRelationInput = {
   material?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   sizeOption?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -415,6 +442,7 @@ export type PetAccessoryListingWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumListingStatusFilter<"PetAccessoryListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetAccessoryListing"> | number
   sku?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   category?: Prisma.EnumAccessoryCategoryFilter<"PetAccessoryListing"> | $Enums.AccessoryCategory
@@ -425,8 +453,10 @@ export type PetAccessoryListingWhereUniqueInput = Prisma.AtLeast<{
   material?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   color?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   sizeOption?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetAccessoryListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetAccessoryListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetAccessoryListing">
   description?: Prisma.StringFilter<"PetAccessoryListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetAccessoryListing"> | boolean
   storeName?: Prisma.StringFilter<"PetAccessoryListing"> | string
@@ -444,6 +474,7 @@ export type PetAccessoryListingOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -454,8 +485,10 @@ export type PetAccessoryListingOrderByWithAggregationInput = {
   material?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   sizeOption?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -479,6 +512,7 @@ export type PetAccessoryListingScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumListingStatusWithAggregatesFilter<"PetAccessoryListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalWithAggregatesFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableWithAggregatesFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableWithAggregatesFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntWithAggregatesFilter<"PetAccessoryListing"> | number
   sku?: Prisma.StringNullableWithAggregatesFilter<"PetAccessoryListing"> | string | null
   category?: Prisma.EnumAccessoryCategoryWithAggregatesFilter<"PetAccessoryListing"> | $Enums.AccessoryCategory
@@ -489,8 +523,10 @@ export type PetAccessoryListingScalarWhereWithAggregatesInput = {
   material?: Prisma.StringNullableWithAggregatesFilter<"PetAccessoryListing"> | string | null
   color?: Prisma.StringNullableWithAggregatesFilter<"PetAccessoryListing"> | string | null
   sizeOption?: Prisma.StringNullableWithAggregatesFilter<"PetAccessoryListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableWithAggregatesFilter<"PetAccessoryListing"> | string | null
   coverImage?: Prisma.StringWithAggregatesFilter<"PetAccessoryListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetAccessoryListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetAccessoryListing">
   description?: Prisma.StringWithAggregatesFilter<"PetAccessoryListing"> | string
   isFeatured?: Prisma.BoolWithAggregatesFilter<"PetAccessoryListing"> | boolean
   storeName?: Prisma.StringWithAggregatesFilter<"PetAccessoryListing"> | string
@@ -506,6 +542,7 @@ export type PetAccessoryListingCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   category: $Enums.AccessoryCategory
@@ -515,8 +552,10 @@ export type PetAccessoryListingCreateInput = {
   material?: string | null
   color?: string | null
   sizeOption?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetAccessoryListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -533,6 +572,7 @@ export type PetAccessoryListingUncheckedCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   category: $Enums.AccessoryCategory
@@ -543,8 +583,10 @@ export type PetAccessoryListingUncheckedCreateInput = {
   material?: string | null
   color?: string | null
   sizeOption?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetAccessoryListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -560,6 +602,7 @@ export type PetAccessoryListingUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -569,8 +612,10 @@ export type PetAccessoryListingUpdateInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -587,6 +632,7 @@ export type PetAccessoryListingUncheckedUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -597,8 +643,10 @@ export type PetAccessoryListingUncheckedUpdateInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -614,6 +662,7 @@ export type PetAccessoryListingCreateManyInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   category: $Enums.AccessoryCategory
@@ -624,8 +673,10 @@ export type PetAccessoryListingCreateManyInput = {
   material?: string | null
   color?: string | null
   sizeOption?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetAccessoryListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -641,6 +692,7 @@ export type PetAccessoryListingUpdateManyMutationInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -650,8 +702,10 @@ export type PetAccessoryListingUpdateManyMutationInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -666,6 +720,7 @@ export type PetAccessoryListingUncheckedUpdateManyInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -676,8 +731,10 @@ export type PetAccessoryListingUncheckedUpdateManyInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -693,6 +750,7 @@ export type PetAccessoryListingCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -703,8 +761,10 @@ export type PetAccessoryListingCountOrderByAggregateInput = {
   material?: Prisma.SortOrder
   color?: Prisma.SortOrder
   sizeOption?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -716,6 +776,7 @@ export type PetAccessoryListingCountOrderByAggregateInput = {
 export type PetAccessoryListingAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
 }
 
@@ -726,6 +787,7 @@ export type PetAccessoryListingMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -736,6 +798,7 @@ export type PetAccessoryListingMaxOrderByAggregateInput = {
   material?: Prisma.SortOrder
   color?: Prisma.SortOrder
   sizeOption?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
@@ -752,6 +815,7 @@ export type PetAccessoryListingMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -762,6 +826,7 @@ export type PetAccessoryListingMinOrderByAggregateInput = {
   material?: Prisma.SortOrder
   color?: Prisma.SortOrder
   sizeOption?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
@@ -774,6 +839,7 @@ export type PetAccessoryListingMinOrderByAggregateInput = {
 export type PetAccessoryListingSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
 }
 
@@ -791,11 +857,20 @@ export type PetAccessoryListingCreategalleryImagesInput = {
   set: string[]
 }
 
+export type PetAccessoryListingCreatevideoUrlsInput = {
+  set: string[]
+}
+
 export type EnumAccessoryCategoryFieldUpdateOperationsInput = {
   set?: $Enums.AccessoryCategory
 }
 
 export type PetAccessoryListingUpdategalleryImagesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type PetAccessoryListingUpdatevideoUrlsInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -891,6 +966,7 @@ export type PetAccessoryListingCreateWithoutTargetSpeciesInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   category: $Enums.AccessoryCategory
@@ -900,8 +976,10 @@ export type PetAccessoryListingCreateWithoutTargetSpeciesInput = {
   material?: string | null
   color?: string | null
   sizeOption?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetAccessoryListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -917,6 +995,7 @@ export type PetAccessoryListingUncheckedCreateWithoutTargetSpeciesInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   category: $Enums.AccessoryCategory
@@ -926,8 +1005,10 @@ export type PetAccessoryListingUncheckedCreateWithoutTargetSpeciesInput = {
   material?: string | null
   color?: string | null
   sizeOption?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetAccessoryListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -972,6 +1053,7 @@ export type PetAccessoryListingScalarWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"PetAccessoryListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetAccessoryListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetAccessoryListing"> | number
   sku?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   category?: Prisma.EnumAccessoryCategoryFilter<"PetAccessoryListing"> | $Enums.AccessoryCategory
@@ -982,8 +1064,10 @@ export type PetAccessoryListingScalarWhereInput = {
   material?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   color?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   sizeOption?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"PetAccessoryListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetAccessoryListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetAccessoryListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetAccessoryListing">
   description?: Prisma.StringFilter<"PetAccessoryListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetAccessoryListing"> | boolean
   storeName?: Prisma.StringFilter<"PetAccessoryListing"> | string
@@ -999,6 +1083,7 @@ export type PetAccessoryListingCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   category: $Enums.AccessoryCategory
@@ -1008,8 +1093,10 @@ export type PetAccessoryListingCreateWithoutCreatedByInput = {
   material?: string | null
   color?: string | null
   sizeOption?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetAccessoryListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1025,6 +1112,7 @@ export type PetAccessoryListingUncheckedCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   category: $Enums.AccessoryCategory
@@ -1035,8 +1123,10 @@ export type PetAccessoryListingUncheckedCreateWithoutCreatedByInput = {
   material?: string | null
   color?: string | null
   sizeOption?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetAccessoryListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1077,6 +1167,7 @@ export type PetAccessoryListingCreateManyTargetSpeciesInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   category: $Enums.AccessoryCategory
@@ -1086,8 +1177,10 @@ export type PetAccessoryListingCreateManyTargetSpeciesInput = {
   material?: string | null
   color?: string | null
   sizeOption?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetAccessoryListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1103,6 +1196,7 @@ export type PetAccessoryListingUpdateWithoutTargetSpeciesInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -1112,8 +1206,10 @@ export type PetAccessoryListingUpdateWithoutTargetSpeciesInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1129,6 +1225,7 @@ export type PetAccessoryListingUncheckedUpdateWithoutTargetSpeciesInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -1138,8 +1235,10 @@ export type PetAccessoryListingUncheckedUpdateWithoutTargetSpeciesInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1155,6 +1254,7 @@ export type PetAccessoryListingUncheckedUpdateManyWithoutTargetSpeciesInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -1164,8 +1264,10 @@ export type PetAccessoryListingUncheckedUpdateManyWithoutTargetSpeciesInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1181,6 +1283,7 @@ export type PetAccessoryListingCreateManyCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   category: $Enums.AccessoryCategory
@@ -1191,8 +1294,10 @@ export type PetAccessoryListingCreateManyCreatedByInput = {
   material?: string | null
   color?: string | null
   sizeOption?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetAccessoryListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1207,6 +1312,7 @@ export type PetAccessoryListingUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -1216,8 +1322,10 @@ export type PetAccessoryListingUpdateWithoutCreatedByInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1233,6 +1341,7 @@ export type PetAccessoryListingUncheckedUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -1243,8 +1352,10 @@ export type PetAccessoryListingUncheckedUpdateWithoutCreatedByInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1259,6 +1370,7 @@ export type PetAccessoryListingUncheckedUpdateManyWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAccessoryCategoryFieldUpdateOperationsInput | $Enums.AccessoryCategory
@@ -1269,8 +1381,10 @@ export type PetAccessoryListingUncheckedUpdateManyWithoutCreatedByInput = {
   material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sizeOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetAccessoryListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetAccessoryListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1287,6 +1401,7 @@ export type PetAccessoryListingSelect<ExtArgs extends runtime.Types.Extensions.I
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   category?: boolean
@@ -1297,8 +1412,10 @@ export type PetAccessoryListingSelect<ExtArgs extends runtime.Types.Extensions.I
   material?: boolean
   color?: boolean
   sizeOption?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1316,6 +1433,7 @@ export type PetAccessoryListingSelectCreateManyAndReturn<ExtArgs extends runtime
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   category?: boolean
@@ -1326,8 +1444,10 @@ export type PetAccessoryListingSelectCreateManyAndReturn<ExtArgs extends runtime
   material?: boolean
   color?: boolean
   sizeOption?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1345,6 +1465,7 @@ export type PetAccessoryListingSelectUpdateManyAndReturn<ExtArgs extends runtime
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   category?: boolean
@@ -1355,8 +1476,10 @@ export type PetAccessoryListingSelectUpdateManyAndReturn<ExtArgs extends runtime
   material?: boolean
   color?: boolean
   sizeOption?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1374,6 +1497,7 @@ export type PetAccessoryListingSelectScalar = {
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   category?: boolean
@@ -1384,8 +1508,10 @@ export type PetAccessoryListingSelectScalar = {
   material?: boolean
   color?: boolean
   sizeOption?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1394,7 +1520,7 @@ export type PetAccessoryListingSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PetAccessoryListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "stockQuantity" | "sku" | "category" | "brand" | "targetSpeciesId" | "dimensions" | "barSpacing" | "material" | "color" | "sizeOption" | "coverImage" | "galleryImages" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["petAccessoryListing"]>
+export type PetAccessoryListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "buyingPrice" | "stockQuantity" | "sku" | "category" | "brand" | "targetSpeciesId" | "dimensions" | "barSpacing" | "material" | "color" | "sizeOption" | "thumbnailImage" | "coverImage" | "galleryImages" | "videoUrls" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["petAccessoryListing"]>
 export type PetAccessoryListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   targetSpecies?: boolean | Prisma.PetAccessoryListing$targetSpeciesArgs<ExtArgs>
   createdBy?: boolean | Prisma.PetAccessoryListing$createdByArgs<ExtArgs>
@@ -1421,6 +1547,7 @@ export type $PetAccessoryListingPayload<ExtArgs extends runtime.Types.Extensions
     status: $Enums.ListingStatus
     price: runtime.Decimal
     salePrice: runtime.Decimal | null
+    buyingPrice: runtime.Decimal | null
     stockQuantity: number
     sku: string | null
     category: $Enums.AccessoryCategory
@@ -1431,8 +1558,10 @@ export type $PetAccessoryListingPayload<ExtArgs extends runtime.Types.Extensions
     material: string | null
     color: string | null
     sizeOption: string | null
+    thumbnailImage: string | null
     coverImage: string
     galleryImages: string[]
+    videoUrls: string[]
     description: string
     isFeatured: boolean
     storeName: string
@@ -1870,6 +1999,7 @@ export interface PetAccessoryListingFieldRefs {
   readonly status: Prisma.FieldRef<"PetAccessoryListing", 'ListingStatus'>
   readonly price: Prisma.FieldRef<"PetAccessoryListing", 'Decimal'>
   readonly salePrice: Prisma.FieldRef<"PetAccessoryListing", 'Decimal'>
+  readonly buyingPrice: Prisma.FieldRef<"PetAccessoryListing", 'Decimal'>
   readonly stockQuantity: Prisma.FieldRef<"PetAccessoryListing", 'Int'>
   readonly sku: Prisma.FieldRef<"PetAccessoryListing", 'String'>
   readonly category: Prisma.FieldRef<"PetAccessoryListing", 'AccessoryCategory'>
@@ -1880,8 +2010,10 @@ export interface PetAccessoryListingFieldRefs {
   readonly material: Prisma.FieldRef<"PetAccessoryListing", 'String'>
   readonly color: Prisma.FieldRef<"PetAccessoryListing", 'String'>
   readonly sizeOption: Prisma.FieldRef<"PetAccessoryListing", 'String'>
+  readonly thumbnailImage: Prisma.FieldRef<"PetAccessoryListing", 'String'>
   readonly coverImage: Prisma.FieldRef<"PetAccessoryListing", 'String'>
   readonly galleryImages: Prisma.FieldRef<"PetAccessoryListing", 'String[]'>
+  readonly videoUrls: Prisma.FieldRef<"PetAccessoryListing", 'String[]'>
   readonly description: Prisma.FieldRef<"PetAccessoryListing", 'String'>
   readonly isFeatured: Prisma.FieldRef<"PetAccessoryListing", 'Boolean'>
   readonly storeName: Prisma.FieldRef<"PetAccessoryListing", 'String'>

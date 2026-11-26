@@ -11,6 +11,7 @@ import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import { CryptoUtil } from 'src/common/utils/crypto.util';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { SettingsService } from 'src/settings/settings.service';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
@@ -33,6 +34,7 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly settingsService: SettingsService,
   ) {
     this.saltRounds =
       Number(this.configService.get('BCRYPT_SALT_ROUNDS')) || 10;
@@ -145,6 +147,12 @@ export class AuthService {
     if (user.isBanned) {
       throw new UnauthorizedException(
         'Your account has been suspended. Please contact support.',
+      );
+    }
+
+    if (!user.password) {
+      throw new UnauthorizedException(
+        'This account was registered using Google Sign-In. Please sign in with Google.',
       );
     }
 
@@ -427,5 +435,160 @@ export class AuthService {
     ]);
 
     return { accessToken, refreshToken };
+  }
+
+  // ========================================================
+  // GOOGLE OAUTH FLOW METHODS
+  // ========================================================
+
+  async getOAuthStatus(): Promise<{ googleEnabled: boolean }> {
+    const config = await this.settingsService.getResolvedGoogleOAuth();
+    return { googleEnabled: config.isEnabled };
+  }
+
+  async getGoogleAuthUrl(): Promise<string> {
+    const config = await this.settingsService.getResolvedGoogleOAuth();
+    if (!config.isEnabled || !config.clientId) {
+      throw new BadRequestException(
+        'Google Sign-In is not configured or currently disabled by administrator.',
+      );
+    }
+
+    const params = new URLSearchParams({
+      client_id: config.clientId,
+      redirect_uri: config.redirectUri,
+      response_type: 'code',
+      scope: 'openid email profile',
+      access_type: 'offline',
+      prompt: 'select_account',
+    });
+
+    return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+  }
+
+  async handleGoogleCallback(
+    code: string,
+    ip: string,
+    deviceInfo: any,
+  ): Promise<{ tokens: { accessToken: string; refreshToken: string }; user: any }> {
+    const config = await this.settingsService.getResolvedGoogleOAuth();
+    if (!config.clientId || !config.clientSecret) {
+      throw new BadRequestException('Google OAuth is not configured on server.');
+    }
+
+    // 1. Exchange authorization code for tokens
+    const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        code,
+        client_id: config.clientId,
+        client_secret: config.clientSecret,
+        redirect_uri: config.redirectUri,
+        grant_type: 'authorization_code',
+      }),
+    });
+
+    const tokenData = await tokenRes.json();
+    if (!tokenRes.ok || !tokenData.access_token) {
+      console.error('Google token exchange error:', tokenData);
+      throw new UnauthorizedException(
+        tokenData?.error_description || 'Failed to exchange Google authorization code.',
+      );
+    }
+
+    // 2. Fetch User Profile using Google access token
+    const profileRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: { Authorization: `Bearer ${tokenData.access_token}` },
+    });
+
+    const profileData = await profileRes.json();
+    if (!profileRes.ok || !profileData.email) {
+      console.error('Google userinfo error:', profileData);
+      throw new UnauthorizedException('Failed to retrieve user profile from Google.');
+    }
+
+    const googleId = String(profileData.sub);
+    const email = String(profileData.email).trim().toLowerCase();
+    const name = profileData.name?.trim() || email.split('@')[0];
+    const picture = profileData.picture || null;
+
+    // 3. Find or Create User
+    let user = await this.prisma.user.findFirst({
+      where: {
+        OR: [{ googleId }, { email }],
+      },
+      include: { profile: true },
+    });
+
+    if (user) {
+      // User exists - link googleId if not linked yet
+      const updates: any = {};
+      if (!user.googleId) {
+        updates.googleId = googleId;
+      }
+      if (Object.keys(updates).length > 0) {
+        user = await this.prisma.user.update({
+          where: { id: user.id },
+          data: updates,
+          include: { profile: true },
+        });
+      }
+
+      if (picture && user.profile && !user.profile.avatar) {
+        await this.prisma.profile.update({
+          where: { userId: user.id },
+          data: { avatar: picture },
+        });
+      }
+    } else {
+      // Create new user with standard USER role and imported avatar
+      user = await this.prisma.user.create({
+        data: {
+          name,
+          email,
+          googleId,
+          role: 'USER',
+          profile: {
+            create: {
+              avatar: picture,
+              city: 'Unknown',
+              country: 'Unknown',
+            },
+          },
+        },
+        include: { profile: true },
+      });
+    }
+
+    if (!user) {
+      throw new UnauthorizedException('Failed to authenticate with Google.');
+    }
+
+    if (user.isBanned) {
+      throw new UnauthorizedException(
+        user.bannedReason || 'Your account has been suspended. Please contact support.',
+      );
+    }
+
+    // 4. Create Session and Tokens (rememberMe = true for OAuth)
+    const tokens = await this.createSessionAndTokens(
+      user.id,
+      user.role,
+      ip,
+      deviceInfo,
+      true,
+    );
+
+    return {
+      tokens,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        avatar: picture || user.profile?.avatar || null,
+      },
+    };
   }
 }

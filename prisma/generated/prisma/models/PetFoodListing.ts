@@ -29,6 +29,7 @@ export type AggregatePetFoodListing = {
 export type PetFoodListingAvgAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   netWeight: runtime.Decimal | null
 }
@@ -36,6 +37,7 @@ export type PetFoodListingAvgAggregateOutputType = {
 export type PetFoodListingSumAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   netWeight: runtime.Decimal | null
 }
@@ -47,6 +49,7 @@ export type PetFoodListingMinAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   sku: string | null
   brand: string | null
@@ -58,6 +61,7 @@ export type PetFoodListingMinAggregateOutputType = {
   ingredients: string | null
   expiryDate: Date | null
   isOrganic: boolean | null
+  thumbnailImage: string | null
   coverImage: string | null
   description: string | null
   isFeatured: boolean | null
@@ -74,6 +78,7 @@ export type PetFoodListingMaxAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   sku: string | null
   brand: string | null
@@ -85,6 +90,7 @@ export type PetFoodListingMaxAggregateOutputType = {
   ingredients: string | null
   expiryDate: Date | null
   isOrganic: boolean | null
+  thumbnailImage: string | null
   coverImage: string | null
   description: string | null
   isFeatured: boolean | null
@@ -101,6 +107,7 @@ export type PetFoodListingCountAggregateOutputType = {
   status: number
   price: number
   salePrice: number
+  buyingPrice: number
   stockQuantity: number
   sku: number
   brand: number
@@ -113,8 +120,10 @@ export type PetFoodListingCountAggregateOutputType = {
   guaranteedAnalysis: number
   expiryDate: number
   isOrganic: number
+  thumbnailImage: number
   coverImage: number
   galleryImages: number
+  videoUrls: number
   description: number
   isFeatured: number
   storeName: number
@@ -128,6 +137,7 @@ export type PetFoodListingCountAggregateOutputType = {
 export type PetFoodListingAvgAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   netWeight?: true
 }
@@ -135,6 +145,7 @@ export type PetFoodListingAvgAggregateInputType = {
 export type PetFoodListingSumAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   netWeight?: true
 }
@@ -146,6 +157,7 @@ export type PetFoodListingMinAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   sku?: true
   brand?: true
@@ -157,6 +169,7 @@ export type PetFoodListingMinAggregateInputType = {
   ingredients?: true
   expiryDate?: true
   isOrganic?: true
+  thumbnailImage?: true
   coverImage?: true
   description?: true
   isFeatured?: true
@@ -173,6 +186,7 @@ export type PetFoodListingMaxAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   sku?: true
   brand?: true
@@ -184,6 +198,7 @@ export type PetFoodListingMaxAggregateInputType = {
   ingredients?: true
   expiryDate?: true
   isOrganic?: true
+  thumbnailImage?: true
   coverImage?: true
   description?: true
   isFeatured?: true
@@ -200,6 +215,7 @@ export type PetFoodListingCountAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   sku?: true
   brand?: true
@@ -212,8 +228,10 @@ export type PetFoodListingCountAggregateInputType = {
   guaranteedAnalysis?: true
   expiryDate?: true
   isOrganic?: true
+  thumbnailImage?: true
   coverImage?: true
   galleryImages?: true
+  videoUrls?: true
   description?: true
   isFeatured?: true
   storeName?: true
@@ -316,6 +334,7 @@ export type PetFoodListingGroupByOutputType = {
   status: $Enums.ListingStatus
   price: runtime.Decimal
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number
   sku: string | null
   brand: string
@@ -328,8 +347,10 @@ export type PetFoodListingGroupByOutputType = {
   guaranteedAnalysis: runtime.JsonValue | null
   expiryDate: Date | null
   isOrganic: boolean
+  thumbnailImage: string | null
   coverImage: string
   galleryImages: string[]
+  videoUrls: string[]
   description: string
   isFeatured: boolean
   storeName: string
@@ -368,6 +389,7 @@ export type PetFoodListingWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"PetFoodListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetFoodListing"> | number
   sku?: Prisma.StringNullableFilter<"PetFoodListing"> | string | null
   brand?: Prisma.StringFilter<"PetFoodListing"> | string
@@ -380,8 +402,10 @@ export type PetFoodListingWhereInput = {
   guaranteedAnalysis?: Prisma.JsonNullableFilter<"PetFoodListing">
   expiryDate?: Prisma.DateTimeNullableFilter<"PetFoodListing"> | Date | string | null
   isOrganic?: Prisma.BoolFilter<"PetFoodListing"> | boolean
+  thumbnailImage?: Prisma.StringNullableFilter<"PetFoodListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetFoodListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetFoodListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetFoodListing">
   description?: Prisma.StringFilter<"PetFoodListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetFoodListing"> | boolean
   storeName?: Prisma.StringFilter<"PetFoodListing"> | string
@@ -399,6 +423,7 @@ export type PetFoodListingOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrderInput | Prisma.SortOrder
   brand?: Prisma.SortOrder
@@ -411,8 +436,10 @@ export type PetFoodListingOrderByWithRelationInput = {
   guaranteedAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
   expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   isOrganic?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -433,6 +460,7 @@ export type PetFoodListingWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumListingStatusFilter<"PetFoodListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetFoodListing"> | number
   sku?: Prisma.StringNullableFilter<"PetFoodListing"> | string | null
   brand?: Prisma.StringFilter<"PetFoodListing"> | string
@@ -445,8 +473,10 @@ export type PetFoodListingWhereUniqueInput = Prisma.AtLeast<{
   guaranteedAnalysis?: Prisma.JsonNullableFilter<"PetFoodListing">
   expiryDate?: Prisma.DateTimeNullableFilter<"PetFoodListing"> | Date | string | null
   isOrganic?: Prisma.BoolFilter<"PetFoodListing"> | boolean
+  thumbnailImage?: Prisma.StringNullableFilter<"PetFoodListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetFoodListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetFoodListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetFoodListing">
   description?: Prisma.StringFilter<"PetFoodListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetFoodListing"> | boolean
   storeName?: Prisma.StringFilter<"PetFoodListing"> | string
@@ -464,6 +494,7 @@ export type PetFoodListingOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrderInput | Prisma.SortOrder
   brand?: Prisma.SortOrder
@@ -476,8 +507,10 @@ export type PetFoodListingOrderByWithAggregationInput = {
   guaranteedAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
   expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   isOrganic?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -501,6 +534,7 @@ export type PetFoodListingScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumListingStatusWithAggregatesFilter<"PetFoodListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalWithAggregatesFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableWithAggregatesFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableWithAggregatesFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntWithAggregatesFilter<"PetFoodListing"> | number
   sku?: Prisma.StringNullableWithAggregatesFilter<"PetFoodListing"> | string | null
   brand?: Prisma.StringWithAggregatesFilter<"PetFoodListing"> | string
@@ -513,8 +547,10 @@ export type PetFoodListingScalarWhereWithAggregatesInput = {
   guaranteedAnalysis?: Prisma.JsonNullableWithAggregatesFilter<"PetFoodListing">
   expiryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"PetFoodListing"> | Date | string | null
   isOrganic?: Prisma.BoolWithAggregatesFilter<"PetFoodListing"> | boolean
+  thumbnailImage?: Prisma.StringNullableWithAggregatesFilter<"PetFoodListing"> | string | null
   coverImage?: Prisma.StringWithAggregatesFilter<"PetFoodListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetFoodListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetFoodListing">
   description?: Prisma.StringWithAggregatesFilter<"PetFoodListing"> | string
   isFeatured?: Prisma.BoolWithAggregatesFilter<"PetFoodListing"> | boolean
   storeName?: Prisma.StringWithAggregatesFilter<"PetFoodListing"> | string
@@ -530,6 +566,7 @@ export type PetFoodListingCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   brand: string
@@ -541,8 +578,10 @@ export type PetFoodListingCreateInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Date | string | null
   isOrganic?: boolean
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetFoodListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -559,6 +598,7 @@ export type PetFoodListingUncheckedCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   brand: string
@@ -571,8 +611,10 @@ export type PetFoodListingUncheckedCreateInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Date | string | null
   isOrganic?: boolean
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetFoodListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -588,6 +630,7 @@ export type PetFoodListingUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -599,8 +642,10 @@ export type PetFoodListingUpdateInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -617,6 +662,7 @@ export type PetFoodListingUncheckedUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -629,8 +675,10 @@ export type PetFoodListingUncheckedUpdateInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -646,6 +694,7 @@ export type PetFoodListingCreateManyInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   brand: string
@@ -658,8 +707,10 @@ export type PetFoodListingCreateManyInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Date | string | null
   isOrganic?: boolean
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetFoodListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -675,6 +726,7 @@ export type PetFoodListingUpdateManyMutationInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -686,8 +738,10 @@ export type PetFoodListingUpdateManyMutationInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -702,6 +756,7 @@ export type PetFoodListingUncheckedUpdateManyInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -714,8 +769,10 @@ export type PetFoodListingUncheckedUpdateManyInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -731,6 +788,7 @@ export type PetFoodListingCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrder
   brand?: Prisma.SortOrder
@@ -743,8 +801,10 @@ export type PetFoodListingCountOrderByAggregateInput = {
   guaranteedAnalysis?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   isOrganic?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -756,6 +816,7 @@ export type PetFoodListingCountOrderByAggregateInput = {
 export type PetFoodListingAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   netWeight?: Prisma.SortOrder
 }
@@ -767,6 +828,7 @@ export type PetFoodListingMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrder
   brand?: Prisma.SortOrder
@@ -778,6 +840,7 @@ export type PetFoodListingMaxOrderByAggregateInput = {
   ingredients?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   isOrganic?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
@@ -794,6 +857,7 @@ export type PetFoodListingMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   sku?: Prisma.SortOrder
   brand?: Prisma.SortOrder
@@ -805,6 +869,7 @@ export type PetFoodListingMinOrderByAggregateInput = {
   ingredients?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   isOrganic?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
@@ -817,6 +882,7 @@ export type PetFoodListingMinOrderByAggregateInput = {
 export type PetFoodListingSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   netWeight?: Prisma.SortOrder
 }
@@ -835,6 +901,10 @@ export type PetFoodListingCreategalleryImagesInput = {
   set: string[]
 }
 
+export type PetFoodListingCreatevideoUrlsInput = {
+  set: string[]
+}
+
 export type EnumFoodTypeFieldUpdateOperationsInput = {
   set?: $Enums.FoodType
 }
@@ -848,6 +918,11 @@ export type EnumWeightUnitFieldUpdateOperationsInput = {
 }
 
 export type PetFoodListingUpdategalleryImagesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type PetFoodListingUpdatevideoUrlsInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -943,6 +1018,7 @@ export type PetFoodListingCreateWithoutTargetSpeciesInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   brand: string
@@ -954,8 +1030,10 @@ export type PetFoodListingCreateWithoutTargetSpeciesInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Date | string | null
   isOrganic?: boolean
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetFoodListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -971,6 +1049,7 @@ export type PetFoodListingUncheckedCreateWithoutTargetSpeciesInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   brand: string
@@ -982,8 +1061,10 @@ export type PetFoodListingUncheckedCreateWithoutTargetSpeciesInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Date | string | null
   isOrganic?: boolean
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetFoodListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1028,6 +1109,7 @@ export type PetFoodListingScalarWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"PetFoodListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetFoodListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetFoodListing"> | number
   sku?: Prisma.StringNullableFilter<"PetFoodListing"> | string | null
   brand?: Prisma.StringFilter<"PetFoodListing"> | string
@@ -1040,8 +1122,10 @@ export type PetFoodListingScalarWhereInput = {
   guaranteedAnalysis?: Prisma.JsonNullableFilter<"PetFoodListing">
   expiryDate?: Prisma.DateTimeNullableFilter<"PetFoodListing"> | Date | string | null
   isOrganic?: Prisma.BoolFilter<"PetFoodListing"> | boolean
+  thumbnailImage?: Prisma.StringNullableFilter<"PetFoodListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetFoodListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetFoodListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetFoodListing">
   description?: Prisma.StringFilter<"PetFoodListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetFoodListing"> | boolean
   storeName?: Prisma.StringFilter<"PetFoodListing"> | string
@@ -1057,6 +1141,7 @@ export type PetFoodListingCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   brand: string
@@ -1068,8 +1153,10 @@ export type PetFoodListingCreateWithoutCreatedByInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Date | string | null
   isOrganic?: boolean
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetFoodListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1085,6 +1172,7 @@ export type PetFoodListingUncheckedCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   brand: string
@@ -1097,8 +1185,10 @@ export type PetFoodListingUncheckedCreateWithoutCreatedByInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Date | string | null
   isOrganic?: boolean
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetFoodListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1139,6 +1229,7 @@ export type PetFoodListingCreateManyTargetSpeciesInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   brand: string
@@ -1150,8 +1241,10 @@ export type PetFoodListingCreateManyTargetSpeciesInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Date | string | null
   isOrganic?: boolean
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetFoodListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1167,6 +1260,7 @@ export type PetFoodListingUpdateWithoutTargetSpeciesInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1178,8 +1272,10 @@ export type PetFoodListingUpdateWithoutTargetSpeciesInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1195,6 +1291,7 @@ export type PetFoodListingUncheckedUpdateWithoutTargetSpeciesInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1206,8 +1303,10 @@ export type PetFoodListingUncheckedUpdateWithoutTargetSpeciesInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1223,6 +1322,7 @@ export type PetFoodListingUncheckedUpdateManyWithoutTargetSpeciesInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1234,8 +1334,10 @@ export type PetFoodListingUncheckedUpdateManyWithoutTargetSpeciesInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1251,6 +1353,7 @@ export type PetFoodListingCreateManyCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   sku?: string | null
   brand: string
@@ -1263,8 +1366,10 @@ export type PetFoodListingCreateManyCreatedByInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Date | string | null
   isOrganic?: boolean
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetFoodListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1279,6 +1384,7 @@ export type PetFoodListingUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1290,8 +1396,10 @@ export type PetFoodListingUpdateWithoutCreatedByInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1307,6 +1415,7 @@ export type PetFoodListingUncheckedUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1319,8 +1428,10 @@ export type PetFoodListingUncheckedUpdateWithoutCreatedByInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1335,6 +1446,7 @@ export type PetFoodListingUncheckedUpdateManyWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1347,8 +1459,10 @@ export type PetFoodListingUncheckedUpdateManyWithoutCreatedByInput = {
   guaranteedAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isOrganic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetFoodListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetFoodListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1365,6 +1479,7 @@ export type PetFoodListingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   brand?: boolean
@@ -1377,8 +1492,10 @@ export type PetFoodListingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   guaranteedAnalysis?: boolean
   expiryDate?: boolean
   isOrganic?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1396,6 +1513,7 @@ export type PetFoodListingSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   brand?: boolean
@@ -1408,8 +1526,10 @@ export type PetFoodListingSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   guaranteedAnalysis?: boolean
   expiryDate?: boolean
   isOrganic?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1427,6 +1547,7 @@ export type PetFoodListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   brand?: boolean
@@ -1439,8 +1560,10 @@ export type PetFoodListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   guaranteedAnalysis?: boolean
   expiryDate?: boolean
   isOrganic?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1458,6 +1581,7 @@ export type PetFoodListingSelectScalar = {
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   sku?: boolean
   brand?: boolean
@@ -1470,8 +1594,10 @@ export type PetFoodListingSelectScalar = {
   guaranteedAnalysis?: boolean
   expiryDate?: boolean
   isOrganic?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1480,7 +1606,7 @@ export type PetFoodListingSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PetFoodListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "stockQuantity" | "sku" | "brand" | "foodType" | "lifeStage" | "netWeight" | "weightUnit" | "targetSpeciesId" | "ingredients" | "guaranteedAnalysis" | "expiryDate" | "isOrganic" | "coverImage" | "galleryImages" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["petFoodListing"]>
+export type PetFoodListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "buyingPrice" | "stockQuantity" | "sku" | "brand" | "foodType" | "lifeStage" | "netWeight" | "weightUnit" | "targetSpeciesId" | "ingredients" | "guaranteedAnalysis" | "expiryDate" | "isOrganic" | "thumbnailImage" | "coverImage" | "galleryImages" | "videoUrls" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["petFoodListing"]>
 export type PetFoodListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   targetSpecies?: boolean | Prisma.PetSpeciesDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.PetFoodListing$createdByArgs<ExtArgs>
@@ -1507,6 +1633,7 @@ export type $PetFoodListingPayload<ExtArgs extends runtime.Types.Extensions.Inte
     status: $Enums.ListingStatus
     price: runtime.Decimal
     salePrice: runtime.Decimal | null
+    buyingPrice: runtime.Decimal | null
     stockQuantity: number
     sku: string | null
     brand: string
@@ -1519,8 +1646,10 @@ export type $PetFoodListingPayload<ExtArgs extends runtime.Types.Extensions.Inte
     guaranteedAnalysis: runtime.JsonValue | null
     expiryDate: Date | null
     isOrganic: boolean
+    thumbnailImage: string | null
     coverImage: string
     galleryImages: string[]
+    videoUrls: string[]
     description: string
     isFeatured: boolean
     storeName: string
@@ -1958,6 +2087,7 @@ export interface PetFoodListingFieldRefs {
   readonly status: Prisma.FieldRef<"PetFoodListing", 'ListingStatus'>
   readonly price: Prisma.FieldRef<"PetFoodListing", 'Decimal'>
   readonly salePrice: Prisma.FieldRef<"PetFoodListing", 'Decimal'>
+  readonly buyingPrice: Prisma.FieldRef<"PetFoodListing", 'Decimal'>
   readonly stockQuantity: Prisma.FieldRef<"PetFoodListing", 'Int'>
   readonly sku: Prisma.FieldRef<"PetFoodListing", 'String'>
   readonly brand: Prisma.FieldRef<"PetFoodListing", 'String'>
@@ -1970,8 +2100,10 @@ export interface PetFoodListingFieldRefs {
   readonly guaranteedAnalysis: Prisma.FieldRef<"PetFoodListing", 'Json'>
   readonly expiryDate: Prisma.FieldRef<"PetFoodListing", 'DateTime'>
   readonly isOrganic: Prisma.FieldRef<"PetFoodListing", 'Boolean'>
+  readonly thumbnailImage: Prisma.FieldRef<"PetFoodListing", 'String'>
   readonly coverImage: Prisma.FieldRef<"PetFoodListing", 'String'>
   readonly galleryImages: Prisma.FieldRef<"PetFoodListing", 'String[]'>
+  readonly videoUrls: Prisma.FieldRef<"PetFoodListing", 'String[]'>
   readonly description: Prisma.FieldRef<"PetFoodListing", 'String'>
   readonly isFeatured: Prisma.FieldRef<"PetFoodListing", 'Boolean'>
   readonly storeName: Prisma.FieldRef<"PetFoodListing", 'String'>

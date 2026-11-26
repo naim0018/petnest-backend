@@ -29,6 +29,7 @@ export type AggregatePetBookListing = {
 export type PetBookListingAvgAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   totalPages: number | null
   publicationYear: number | null
@@ -37,6 +38,7 @@ export type PetBookListingAvgAggregateOutputType = {
 export type PetBookListingSumAggregateOutputType = {
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   totalPages: number | null
   publicationYear: number | null
@@ -49,6 +51,7 @@ export type PetBookListingMinAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   author: string | null
   publisher: string | null
@@ -60,6 +63,7 @@ export type PetBookListingMinAggregateOutputType = {
   edition: string | null
   downloadUrl: string | null
   samplePdfUrl: string | null
+  thumbnailImage: string | null
   coverImage: string | null
   description: string | null
   isFeatured: boolean | null
@@ -76,6 +80,7 @@ export type PetBookListingMaxAggregateOutputType = {
   status: $Enums.ListingStatus | null
   price: runtime.Decimal | null
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number | null
   author: string | null
   publisher: string | null
@@ -87,6 +92,7 @@ export type PetBookListingMaxAggregateOutputType = {
   edition: string | null
   downloadUrl: string | null
   samplePdfUrl: string | null
+  thumbnailImage: string | null
   coverImage: string | null
   description: string | null
   isFeatured: boolean | null
@@ -103,6 +109,7 @@ export type PetBookListingCountAggregateOutputType = {
   status: number
   price: number
   salePrice: number
+  buyingPrice: number
   stockQuantity: number
   author: number
   publisher: number
@@ -114,8 +121,10 @@ export type PetBookListingCountAggregateOutputType = {
   edition: number
   downloadUrl: number
   samplePdfUrl: number
+  thumbnailImage: number
   coverImage: number
   galleryImages: number
+  videoUrls: number
   description: number
   isFeatured: number
   storeName: number
@@ -129,6 +138,7 @@ export type PetBookListingCountAggregateOutputType = {
 export type PetBookListingAvgAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   totalPages?: true
   publicationYear?: true
@@ -137,6 +147,7 @@ export type PetBookListingAvgAggregateInputType = {
 export type PetBookListingSumAggregateInputType = {
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   totalPages?: true
   publicationYear?: true
@@ -149,6 +160,7 @@ export type PetBookListingMinAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   author?: true
   publisher?: true
@@ -160,6 +172,7 @@ export type PetBookListingMinAggregateInputType = {
   edition?: true
   downloadUrl?: true
   samplePdfUrl?: true
+  thumbnailImage?: true
   coverImage?: true
   description?: true
   isFeatured?: true
@@ -176,6 +189,7 @@ export type PetBookListingMaxAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   author?: true
   publisher?: true
@@ -187,6 +201,7 @@ export type PetBookListingMaxAggregateInputType = {
   edition?: true
   downloadUrl?: true
   samplePdfUrl?: true
+  thumbnailImage?: true
   coverImage?: true
   description?: true
   isFeatured?: true
@@ -203,6 +218,7 @@ export type PetBookListingCountAggregateInputType = {
   status?: true
   price?: true
   salePrice?: true
+  buyingPrice?: true
   stockQuantity?: true
   author?: true
   publisher?: true
@@ -214,8 +230,10 @@ export type PetBookListingCountAggregateInputType = {
   edition?: true
   downloadUrl?: true
   samplePdfUrl?: true
+  thumbnailImage?: true
   coverImage?: true
   galleryImages?: true
+  videoUrls?: true
   description?: true
   isFeatured?: true
   storeName?: true
@@ -318,6 +336,7 @@ export type PetBookListingGroupByOutputType = {
   status: $Enums.ListingStatus
   price: runtime.Decimal
   salePrice: runtime.Decimal | null
+  buyingPrice: runtime.Decimal | null
   stockQuantity: number
   author: string
   publisher: string | null
@@ -329,8 +348,10 @@ export type PetBookListingGroupByOutputType = {
   edition: string | null
   downloadUrl: string | null
   samplePdfUrl: string | null
+  thumbnailImage: string | null
   coverImage: string
   galleryImages: string[]
+  videoUrls: string[]
   description: string
   isFeatured: boolean
   storeName: string
@@ -369,6 +390,7 @@ export type PetBookListingWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"PetBookListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetBookListing"> | number
   author?: Prisma.StringFilter<"PetBookListing"> | string
   publisher?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
@@ -380,8 +402,10 @@ export type PetBookListingWhereInput = {
   edition?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
   downloadUrl?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
   samplePdfUrl?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetBookListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetBookListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetBookListing">
   description?: Prisma.StringFilter<"PetBookListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetBookListing"> | boolean
   storeName?: Prisma.StringFilter<"PetBookListing"> | string
@@ -398,6 +422,7 @@ export type PetBookListingOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   author?: Prisma.SortOrder
   publisher?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -409,8 +434,10 @@ export type PetBookListingOrderByWithRelationInput = {
   edition?: Prisma.SortOrderInput | Prisma.SortOrder
   downloadUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   samplePdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -430,6 +457,7 @@ export type PetBookListingWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumListingStatusFilter<"PetBookListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetBookListing"> | number
   author?: Prisma.StringFilter<"PetBookListing"> | string
   publisher?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
@@ -441,8 +469,10 @@ export type PetBookListingWhereUniqueInput = Prisma.AtLeast<{
   edition?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
   downloadUrl?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
   samplePdfUrl?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetBookListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetBookListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetBookListing">
   description?: Prisma.StringFilter<"PetBookListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetBookListing"> | boolean
   storeName?: Prisma.StringFilter<"PetBookListing"> | string
@@ -459,6 +489,7 @@ export type PetBookListingOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   author?: Prisma.SortOrder
   publisher?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -470,8 +501,10 @@ export type PetBookListingOrderByWithAggregationInput = {
   edition?: Prisma.SortOrderInput | Prisma.SortOrder
   downloadUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   samplePdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -495,6 +528,7 @@ export type PetBookListingScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumListingStatusWithAggregatesFilter<"PetBookListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalWithAggregatesFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableWithAggregatesFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableWithAggregatesFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntWithAggregatesFilter<"PetBookListing"> | number
   author?: Prisma.StringWithAggregatesFilter<"PetBookListing"> | string
   publisher?: Prisma.StringNullableWithAggregatesFilter<"PetBookListing"> | string | null
@@ -506,8 +540,10 @@ export type PetBookListingScalarWhereWithAggregatesInput = {
   edition?: Prisma.StringNullableWithAggregatesFilter<"PetBookListing"> | string | null
   downloadUrl?: Prisma.StringNullableWithAggregatesFilter<"PetBookListing"> | string | null
   samplePdfUrl?: Prisma.StringNullableWithAggregatesFilter<"PetBookListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableWithAggregatesFilter<"PetBookListing"> | string | null
   coverImage?: Prisma.StringWithAggregatesFilter<"PetBookListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetBookListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetBookListing">
   description?: Prisma.StringWithAggregatesFilter<"PetBookListing"> | string
   isFeatured?: Prisma.BoolWithAggregatesFilter<"PetBookListing"> | boolean
   storeName?: Prisma.StringWithAggregatesFilter<"PetBookListing"> | string
@@ -523,6 +559,7 @@ export type PetBookListingCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   author: string
   publisher?: string | null
@@ -534,8 +571,10 @@ export type PetBookListingCreateInput = {
   edition?: string | null
   downloadUrl?: string | null
   samplePdfUrl?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetBookListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -551,6 +590,7 @@ export type PetBookListingUncheckedCreateInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   author: string
   publisher?: string | null
@@ -562,8 +602,10 @@ export type PetBookListingUncheckedCreateInput = {
   edition?: string | null
   downloadUrl?: string | null
   samplePdfUrl?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetBookListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -579,6 +621,7 @@ export type PetBookListingUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   author?: Prisma.StringFieldUpdateOperationsInput | string
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -590,8 +633,10 @@ export type PetBookListingUpdateInput = {
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   downloadUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   samplePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetBookListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -607,6 +652,7 @@ export type PetBookListingUncheckedUpdateInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   author?: Prisma.StringFieldUpdateOperationsInput | string
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -618,8 +664,10 @@ export type PetBookListingUncheckedUpdateInput = {
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   downloadUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   samplePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetBookListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -635,6 +683,7 @@ export type PetBookListingCreateManyInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   author: string
   publisher?: string | null
@@ -646,8 +695,10 @@ export type PetBookListingCreateManyInput = {
   edition?: string | null
   downloadUrl?: string | null
   samplePdfUrl?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetBookListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -663,6 +714,7 @@ export type PetBookListingUpdateManyMutationInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   author?: Prisma.StringFieldUpdateOperationsInput | string
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -674,8 +726,10 @@ export type PetBookListingUpdateManyMutationInput = {
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   downloadUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   samplePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetBookListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -690,6 +744,7 @@ export type PetBookListingUncheckedUpdateManyInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   author?: Prisma.StringFieldUpdateOperationsInput | string
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -701,8 +756,10 @@ export type PetBookListingUncheckedUpdateManyInput = {
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   downloadUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   samplePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetBookListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -718,6 +775,7 @@ export type PetBookListingCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   author?: Prisma.SortOrder
   publisher?: Prisma.SortOrder
@@ -729,8 +787,10 @@ export type PetBookListingCountOrderByAggregateInput = {
   edition?: Prisma.SortOrder
   downloadUrl?: Prisma.SortOrder
   samplePdfUrl?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   galleryImages?: Prisma.SortOrder
+  videoUrls?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
@@ -742,6 +802,7 @@ export type PetBookListingCountOrderByAggregateInput = {
 export type PetBookListingAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   totalPages?: Prisma.SortOrder
   publicationYear?: Prisma.SortOrder
@@ -754,6 +815,7 @@ export type PetBookListingMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   author?: Prisma.SortOrder
   publisher?: Prisma.SortOrder
@@ -765,6 +827,7 @@ export type PetBookListingMaxOrderByAggregateInput = {
   edition?: Prisma.SortOrder
   downloadUrl?: Prisma.SortOrder
   samplePdfUrl?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
@@ -781,6 +844,7 @@ export type PetBookListingMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   author?: Prisma.SortOrder
   publisher?: Prisma.SortOrder
@@ -792,6 +856,7 @@ export type PetBookListingMinOrderByAggregateInput = {
   edition?: Prisma.SortOrder
   downloadUrl?: Prisma.SortOrder
   samplePdfUrl?: Prisma.SortOrder
+  thumbnailImage?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
@@ -804,6 +869,7 @@ export type PetBookListingMinOrderByAggregateInput = {
 export type PetBookListingSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
   salePrice?: Prisma.SortOrder
+  buyingPrice?: Prisma.SortOrder
   stockQuantity?: Prisma.SortOrder
   totalPages?: Prisma.SortOrder
   publicationYear?: Prisma.SortOrder
@@ -823,11 +889,20 @@ export type PetBookListingCreategalleryImagesInput = {
   set: string[]
 }
 
+export type PetBookListingCreatevideoUrlsInput = {
+  set: string[]
+}
+
 export type EnumBookFormatFieldUpdateOperationsInput = {
   set?: $Enums.BookFormat
 }
 
 export type PetBookListingUpdategalleryImagesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type PetBookListingUpdatevideoUrlsInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -881,6 +956,7 @@ export type PetBookListingCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   author: string
   publisher?: string | null
@@ -892,8 +968,10 @@ export type PetBookListingCreateWithoutCreatedByInput = {
   edition?: string | null
   downloadUrl?: string | null
   samplePdfUrl?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetBookListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -908,6 +986,7 @@ export type PetBookListingUncheckedCreateWithoutCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   author: string
   publisher?: string | null
@@ -919,8 +998,10 @@ export type PetBookListingUncheckedCreateWithoutCreatedByInput = {
   edition?: string | null
   downloadUrl?: string | null
   samplePdfUrl?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetBookListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -964,6 +1045,7 @@ export type PetBookListingScalarWhereInput = {
   status?: Prisma.EnumListingStatusFilter<"PetBookListing"> | $Enums.ListingStatus
   price?: Prisma.DecimalFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalNullableFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.DecimalNullableFilter<"PetBookListing"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFilter<"PetBookListing"> | number
   author?: Prisma.StringFilter<"PetBookListing"> | string
   publisher?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
@@ -975,8 +1057,10 @@ export type PetBookListingScalarWhereInput = {
   edition?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
   downloadUrl?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
   samplePdfUrl?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
+  thumbnailImage?: Prisma.StringNullableFilter<"PetBookListing"> | string | null
   coverImage?: Prisma.StringFilter<"PetBookListing"> | string
   galleryImages?: Prisma.StringNullableListFilter<"PetBookListing">
+  videoUrls?: Prisma.StringNullableListFilter<"PetBookListing">
   description?: Prisma.StringFilter<"PetBookListing"> | string
   isFeatured?: Prisma.BoolFilter<"PetBookListing"> | boolean
   storeName?: Prisma.StringFilter<"PetBookListing"> | string
@@ -992,6 +1076,7 @@ export type PetBookListingCreateManyCreatedByInput = {
   status?: $Enums.ListingStatus
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: number
   author: string
   publisher?: string | null
@@ -1003,8 +1088,10 @@ export type PetBookListingCreateManyCreatedByInput = {
   edition?: string | null
   downloadUrl?: string | null
   samplePdfUrl?: string | null
+  thumbnailImage?: string | null
   coverImage: string
   galleryImages?: Prisma.PetBookListingCreategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingCreatevideoUrlsInput | string[]
   description: string
   isFeatured?: boolean
   storeName?: string
@@ -1019,6 +1106,7 @@ export type PetBookListingUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   author?: Prisma.StringFieldUpdateOperationsInput | string
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1030,8 +1118,10 @@ export type PetBookListingUpdateWithoutCreatedByInput = {
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   downloadUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   samplePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetBookListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1046,6 +1136,7 @@ export type PetBookListingUncheckedUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   author?: Prisma.StringFieldUpdateOperationsInput | string
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1057,8 +1148,10 @@ export type PetBookListingUncheckedUpdateWithoutCreatedByInput = {
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   downloadUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   samplePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetBookListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1073,6 +1166,7 @@ export type PetBookListingUncheckedUpdateManyWithoutCreatedByInput = {
   status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  buyingPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   stockQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   author?: Prisma.StringFieldUpdateOperationsInput | string
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1084,8 +1178,10 @@ export type PetBookListingUncheckedUpdateManyWithoutCreatedByInput = {
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   downloadUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   samplePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.StringFieldUpdateOperationsInput | string
   galleryImages?: Prisma.PetBookListingUpdategalleryImagesInput | string[]
+  videoUrls?: Prisma.PetBookListingUpdatevideoUrlsInput | string[]
   description?: Prisma.StringFieldUpdateOperationsInput | string
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1102,6 +1198,7 @@ export type PetBookListingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   author?: boolean
   publisher?: boolean
@@ -1113,8 +1210,10 @@ export type PetBookListingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   edition?: boolean
   downloadUrl?: boolean
   samplePdfUrl?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1131,6 +1230,7 @@ export type PetBookListingSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   author?: boolean
   publisher?: boolean
@@ -1142,8 +1242,10 @@ export type PetBookListingSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   edition?: boolean
   downloadUrl?: boolean
   samplePdfUrl?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1160,6 +1262,7 @@ export type PetBookListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   author?: boolean
   publisher?: boolean
@@ -1171,8 +1274,10 @@ export type PetBookListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   edition?: boolean
   downloadUrl?: boolean
   samplePdfUrl?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1189,6 +1294,7 @@ export type PetBookListingSelectScalar = {
   status?: boolean
   price?: boolean
   salePrice?: boolean
+  buyingPrice?: boolean
   stockQuantity?: boolean
   author?: boolean
   publisher?: boolean
@@ -1200,8 +1306,10 @@ export type PetBookListingSelectScalar = {
   edition?: boolean
   downloadUrl?: boolean
   samplePdfUrl?: boolean
+  thumbnailImage?: boolean
   coverImage?: boolean
   galleryImages?: boolean
+  videoUrls?: boolean
   description?: boolean
   isFeatured?: boolean
   storeName?: boolean
@@ -1210,7 +1318,7 @@ export type PetBookListingSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PetBookListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "stockQuantity" | "author" | "publisher" | "language" | "format" | "isbn" | "totalPages" | "publicationYear" | "edition" | "downloadUrl" | "samplePdfUrl" | "coverImage" | "galleryImages" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["petBookListing"]>
+export type PetBookListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "status" | "price" | "salePrice" | "buyingPrice" | "stockQuantity" | "author" | "publisher" | "language" | "format" | "isbn" | "totalPages" | "publicationYear" | "edition" | "downloadUrl" | "samplePdfUrl" | "thumbnailImage" | "coverImage" | "galleryImages" | "videoUrls" | "description" | "isFeatured" | "storeName" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["petBookListing"]>
 export type PetBookListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.PetBookListing$createdByArgs<ExtArgs>
 }
@@ -1233,6 +1341,7 @@ export type $PetBookListingPayload<ExtArgs extends runtime.Types.Extensions.Inte
     status: $Enums.ListingStatus
     price: runtime.Decimal
     salePrice: runtime.Decimal | null
+    buyingPrice: runtime.Decimal | null
     stockQuantity: number
     author: string
     publisher: string | null
@@ -1244,8 +1353,10 @@ export type $PetBookListingPayload<ExtArgs extends runtime.Types.Extensions.Inte
     edition: string | null
     downloadUrl: string | null
     samplePdfUrl: string | null
+    thumbnailImage: string | null
     coverImage: string
     galleryImages: string[]
+    videoUrls: string[]
     description: string
     isFeatured: boolean
     storeName: string
@@ -1682,6 +1793,7 @@ export interface PetBookListingFieldRefs {
   readonly status: Prisma.FieldRef<"PetBookListing", 'ListingStatus'>
   readonly price: Prisma.FieldRef<"PetBookListing", 'Decimal'>
   readonly salePrice: Prisma.FieldRef<"PetBookListing", 'Decimal'>
+  readonly buyingPrice: Prisma.FieldRef<"PetBookListing", 'Decimal'>
   readonly stockQuantity: Prisma.FieldRef<"PetBookListing", 'Int'>
   readonly author: Prisma.FieldRef<"PetBookListing", 'String'>
   readonly publisher: Prisma.FieldRef<"PetBookListing", 'String'>
@@ -1693,8 +1805,10 @@ export interface PetBookListingFieldRefs {
   readonly edition: Prisma.FieldRef<"PetBookListing", 'String'>
   readonly downloadUrl: Prisma.FieldRef<"PetBookListing", 'String'>
   readonly samplePdfUrl: Prisma.FieldRef<"PetBookListing", 'String'>
+  readonly thumbnailImage: Prisma.FieldRef<"PetBookListing", 'String'>
   readonly coverImage: Prisma.FieldRef<"PetBookListing", 'String'>
   readonly galleryImages: Prisma.FieldRef<"PetBookListing", 'String[]'>
+  readonly videoUrls: Prisma.FieldRef<"PetBookListing", 'String[]'>
   readonly description: Prisma.FieldRef<"PetBookListing", 'String'>
   readonly isFeatured: Prisma.FieldRef<"PetBookListing", 'Boolean'>
   readonly storeName: Prisma.FieldRef<"PetBookListing", 'String'>

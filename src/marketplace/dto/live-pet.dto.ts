@@ -38,6 +38,12 @@ export class CreateLivePetDto {
 
   @IsOptional()
   @Type(() => Number)
+  @IsNumber()
+  @Min(0)
+  buyingPrice?: number;
+
+  @IsOptional()
+  @Type(() => Number)
   @IsInt()
   @Min(1)
   quantity?: number = 1;
@@ -106,9 +112,13 @@ export class CreateLivePetDto {
   @IsString()
   pickupAddress?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  coverImage: string;
+  thumbnailImage?: string;
+
+  @IsOptional()
+  @IsString()
+  coverImage?: string;
 
   @IsOptional()
   @IsArray()
@@ -118,6 +128,11 @@ export class CreateLivePetDto {
   @IsOptional()
   @IsString()
   videoUrl?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  videoUrls?: string[] = [];
 
   @IsNotEmpty()
   @IsString()
@@ -152,6 +167,12 @@ export class UpdateLivePetDto {
   @IsNumber()
   @IsPositive()
   salePrice?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0)
+  buyingPrice?: number;
 
   @IsOptional()
   @Type(() => Number)
@@ -225,6 +246,10 @@ export class UpdateLivePetDto {
 
   @IsOptional()
   @IsString()
+  thumbnailImage?: string;
+
+  @IsOptional()
+  @IsString()
   coverImage?: string;
 
   @IsOptional()
@@ -235,6 +260,11 @@ export class UpdateLivePetDto {
   @IsOptional()
   @IsString()
   videoUrl?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  videoUrls?: string[];
 
   @IsOptional()
   @IsString()
