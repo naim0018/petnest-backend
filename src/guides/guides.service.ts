@@ -132,4 +132,34 @@ export class GuidesService {
   getMyBookmarks(userId: string, page = 1, limit = 12) {
     return this.engagementService.getMyBookmarks(userId, page, limit);
   }
+
+  getMyLikes(userId: string, page = 1, limit = 12) {
+    return this.engagementService.getMyLikes(userId, page, limit);
+  }
+
+  getComments(guideId: string) {
+    return this.engagementService.getComments(guideId);
+  }
+
+  createComment(
+    guideId: string,
+    userId: string,
+    content: string,
+    parentId?: string,
+  ) {
+    return this.engagementService.createComment(
+      guideId,
+      userId,
+      content,
+      parentId,
+    );
+  }
+
+  updateComment(commentId: string, userId: string, content: string) {
+    return this.engagementService.updateComment(commentId, userId, content);
+  }
+
+  deleteComment(commentId: string, userId: string, userRole?: string) {
+    return this.engagementService.deleteComment(commentId, userId, userRole);
+  }
 }

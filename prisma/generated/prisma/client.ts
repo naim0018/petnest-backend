@@ -70,6 +70,11 @@ export type GuideBookmark = Prisma.GuideBookmarkModel
  */
 export type GuideLike = Prisma.GuideLikeModel
 /**
+ * Model GuideComment
+ * 
+ */
+export type GuideComment = Prisma.GuideCommentModel
+/**
  * Model LivePetListing
  * 
  */

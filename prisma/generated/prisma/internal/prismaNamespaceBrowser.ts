@@ -57,6 +57,7 @@ export const ModelName = {
   GuideFaq: 'GuideFaq',
   GuideBookmark: 'GuideBookmark',
   GuideLike: 'GuideLike',
+  GuideComment: 'GuideComment',
   LivePetListing: 'LivePetListing',
   PetFoodListing: 'PetFoodListing',
   PetAccessoryListing: 'PetAccessoryListing',
@@ -135,6 +136,7 @@ export const GuideScalarFieldEnum = {
   viewCount: 'viewCount',
   likeCount: 'likeCount',
   bookmarkCount: 'bookmarkCount',
+  commentCount: 'commentCount',
   publishedAt: 'publishedAt',
   contentUpdatedAt: 'contentUpdatedAt',
   deletedAt: 'deletedAt',
@@ -195,6 +197,20 @@ export const GuideLikeScalarFieldEnum = {
 } as const
 
 export type GuideLikeScalarFieldEnum = (typeof GuideLikeScalarFieldEnum)[keyof typeof GuideLikeScalarFieldEnum]
+
+
+export const GuideCommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  guideId: 'guideId',
+  userId: 'userId',
+  parentId: 'parentId',
+  isEdited: 'isEdited',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideCommentScalarFieldEnum = (typeof GuideCommentScalarFieldEnum)[keyof typeof GuideCommentScalarFieldEnum]
 
 
 export const LivePetListingScalarFieldEnum = {

@@ -258,7 +258,7 @@ Include:
         heading.slice(0, 36),
       )}`;
 
-      return `<h2>${heading}</h2>\n${section.bodyHtml}\n\n<figure class="my-6 rounded-2xl overflow-hidden border border-border-peach bg-surface-muted/30 shadow-xs">\n  <img src="${placeholderUrl}" alt="${safePrompt}" class="w-full h-64 object-cover" />\n  <figcaption class="p-2.5 text-center text-xs font-medium text-ink-muted bg-card border-t border-border-peach">📷 Visual Reference: ${section.imagePrompt}</figcaption>\n</figure>`;
+      return `<h2>${heading}</h2>\n${section.bodyHtml}\n\n<figure class="my-6 rounded-xl overflow-hidden border border-border-peach bg-surface-muted/30 shadow-xs">\n  <img src="${placeholderUrl}" alt="${safePrompt}" class="w-full h-64 object-cover" />\n  <figcaption class="p-2.5 text-center text-xs font-medium text-ink-muted bg-card border-t border-border-peach">📷 Visual Reference: ${section.imagePrompt}</figcaption>\n</figure>`;
     });
 
     const assembledContent = sectionBlocks.join('\n\n');

@@ -296,6 +296,66 @@ export class GuidesController {
     return this.guidesService.getMyBookmarks(userId, page, limit);
   }
 
+  @Get('me/likes')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Get logged-in user liked guides' })
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'limit', required: false })
+  getMyLikes(
+    @CurrentUser('userId') userId: string,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ) {
+    return this.guidesService.getMyLikes(userId, page, limit);
+  }
+
+  @Get(':id/comments')
+  @ApiOperation({ summary: 'Get all comments for a published guide' })
+  getComments(@Param('id', ParseUUIDPipe) id: string) {
+    return this.guidesService.getComments(id);
+  }
+
+  @Post(':id/comments')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Create a comment or nested reply on a guide' })
+  createComment(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser('userId') userId: string,
+    @Body() body: { content: string; parentId?: string },
+  ) {
+    return this.guidesService.createComment(
+      id,
+      userId,
+      body.content,
+      body.parentId,
+    );
+  }
+
+  @Patch('comments/:commentId')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Edit own comment' })
+  updateComment(
+    @Param('commentId', ParseUUIDPipe) commentId: string,
+    @CurrentUser('userId') userId: string,
+    @Body() body: { content: string },
+  ) {
+    return this.guidesService.updateComment(commentId, userId, body.content);
+  }
+
+  @Delete('comments/:commentId')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Delete comment (owner or Admin/SuperAdmin)' })
+  deleteComment(
+    @Param('commentId', ParseUUIDPipe) commentId: string,
+    @CurrentUser() user: { userId: string; role?: string },
+  ) {
+    return this.guidesService.deleteComment(commentId, user.userId, user.role);
+  }
+
   @Post(':id/like')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()

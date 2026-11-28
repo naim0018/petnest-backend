@@ -85,12 +85,14 @@ model Guide {
     viewCount     Int @default(0)
     likeCount     Int @default(0)
     bookmarkCount Int @default(0)
+    commentCount  Int @default(0)
 
     // Child Relations
     media     MediaAsset[]
     faqs      GuideFaq[]
     bookmarks GuideBookmark[]
     likes     GuideLike[]
+    comments  GuideComment[]
 
     // Timestamps & Soft Delete
     publishedAt      DateTime?
@@ -176,4 +178,23 @@ model GuideLike {
     @@unique([userId, guideId])
     @@index([userId])
     @@index([guideId])
+}
+
+model GuideComment {
+    id        String         @id @default(uuid())
+    content   String         @db.Text
+    guideId   String
+    guide     Guide          @relation(fields: [guideId], references: [id], onDelete: Cascade)
+    userId    String
+    user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+    parentId  String?
+    parent    GuideComment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+    replies   GuideComment[] @relation("CommentReplies")
+    isEdited  Boolean        @default(false)
+    createdAt DateTime       @default(now())
+    updatedAt DateTime       @updatedAt
+
+    @@index([guideId, createdAt])
+    @@index([parentId])
+    @@index([userId])
 }

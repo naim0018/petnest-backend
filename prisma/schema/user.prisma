@@ -37,6 +37,7 @@ model User {
     reviewedGuides Guide[]         @relation("GuideReviewer")
     guideBookmarks GuideBookmark[]
     guideLikes     GuideLike[]
+    guideComments  GuideComment[]
     uploadedMedia  MediaAsset[]
 
     // Notifications

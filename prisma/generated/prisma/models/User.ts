@@ -279,6 +279,7 @@ export type UserWhereInput = {
   reviewedGuides?: Prisma.GuideListRelationFilter
   guideBookmarks?: Prisma.GuideBookmarkListRelationFilter
   guideLikes?: Prisma.GuideLikeListRelationFilter
+  guideComments?: Prisma.GuideCommentListRelationFilter
   uploadedMedia?: Prisma.MediaAssetListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   notificationReads?: Prisma.NotificationReadListRelationFilter
@@ -315,6 +316,7 @@ export type UserOrderByWithRelationInput = {
   reviewedGuides?: Prisma.GuideOrderByRelationAggregateInput
   guideBookmarks?: Prisma.GuideBookmarkOrderByRelationAggregateInput
   guideLikes?: Prisma.GuideLikeOrderByRelationAggregateInput
+  guideComments?: Prisma.GuideCommentOrderByRelationAggregateInput
   uploadedMedia?: Prisma.MediaAssetOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   notificationReads?: Prisma.NotificationReadOrderByRelationAggregateInput
@@ -354,6 +356,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviewedGuides?: Prisma.GuideListRelationFilter
   guideBookmarks?: Prisma.GuideBookmarkListRelationFilter
   guideLikes?: Prisma.GuideLikeListRelationFilter
+  guideComments?: Prisma.GuideCommentListRelationFilter
   uploadedMedia?: Prisma.MediaAssetListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   notificationReads?: Prisma.NotificationReadListRelationFilter
@@ -432,6 +435,7 @@ export type UserCreateInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -466,6 +470,7 @@ export type UserUncheckedCreateInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -500,6 +505,7 @@ export type UserUpdateInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -534,6 +540,7 @@ export type UserUncheckedUpdateInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -748,6 +755,20 @@ export type UserUpdateOneRequiredWithoutGuideLikesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutGuideLikesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideLikesInput, Prisma.UserUpdateWithoutGuideLikesInput>, Prisma.UserUncheckedUpdateWithoutGuideLikesInput>
+}
+
+export type UserCreateNestedOneWithoutGuideCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideCommentsInput, Prisma.UserUncheckedCreateWithoutGuideCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGuideCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideCommentsInput, Prisma.UserUncheckedCreateWithoutGuideCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideCommentsInput
+  upsert?: Prisma.UserUpsertWithoutGuideCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideCommentsInput, Prisma.UserUpdateWithoutGuideCommentsInput>, Prisma.UserUncheckedUpdateWithoutGuideCommentsInput>
 }
 
 export type UserCreateNestedOneWithoutCreatedLivePetsInput = {
@@ -1015,6 +1036,7 @@ export type UserCreateWithoutAuthoredGuidesInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -1048,6 +1070,7 @@ export type UserUncheckedCreateWithoutAuthoredGuidesInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -1086,6 +1109,7 @@ export type UserCreateWithoutReviewedGuidesInput = {
   authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -1119,6 +1143,7 @@ export type UserUncheckedCreateWithoutReviewedGuidesInput = {
   authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -1168,6 +1193,7 @@ export type UserUpdateWithoutAuthoredGuidesInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -1201,6 +1227,7 @@ export type UserUncheckedUpdateWithoutAuthoredGuidesInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -1245,6 +1272,7 @@ export type UserUpdateWithoutReviewedGuidesInput = {
   authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -1278,6 +1306,7 @@ export type UserUncheckedUpdateWithoutReviewedGuidesInput = {
   authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -1312,6 +1341,7 @@ export type UserCreateWithoutUploadedMediaInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
   createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
@@ -1345,6 +1375,7 @@ export type UserUncheckedCreateWithoutUploadedMediaInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
   createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1394,6 +1425,7 @@ export type UserUpdateWithoutUploadedMediaInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
   createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
@@ -1427,6 +1459,7 @@ export type UserUncheckedUpdateWithoutUploadedMediaInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
   createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1459,6 +1492,7 @@ export type UserCreateWithoutGuideBookmarksInput = {
   authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -1492,6 +1526,7 @@ export type UserUncheckedCreateWithoutGuideBookmarksInput = {
   authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -1541,6 +1576,7 @@ export type UserUpdateWithoutGuideBookmarksInput = {
   authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -1574,6 +1610,7 @@ export type UserUncheckedUpdateWithoutGuideBookmarksInput = {
   authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -1607,6 +1644,7 @@ export type UserCreateWithoutGuideLikesInput = {
   authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -1640,6 +1678,7 @@ export type UserUncheckedCreateWithoutGuideLikesInput = {
   authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -1689,6 +1728,7 @@ export type UserUpdateWithoutGuideLikesInput = {
   authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -1722,6 +1762,159 @@ export type UserUncheckedUpdateWithoutGuideLikesInput = {
   authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
+  createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutGuideCommentsInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password?: string | null
+  googleId?: string | null
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interestedSpecies?: Prisma.PetSpeciesCreateNestedOneWithoutUsersInput
+  interestedBreed?: Prisma.PetBreedCreateNestedOneWithoutUsersInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
+  createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutGuideCommentsInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  password?: string | null
+  googleId?: string | null
+  role?: $Enums.Role
+  isBanned?: boolean
+  bannedAt?: Date | string | null
+  bannedReason?: string | null
+  interestedSpeciesId?: string | null
+  interestedBreedId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutUserInput
+  authoredGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
+  guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
+  createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetFoods?: Prisma.PetFoodListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetBooks?: Prisma.PetBookListingUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPetMedicines?: Prisma.PetMedicineListingUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutGuideCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideCommentsInput, Prisma.UserUncheckedCreateWithoutGuideCommentsInput>
+}
+
+export type UserUpsertWithoutGuideCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuideCommentsInput, Prisma.UserUncheckedUpdateWithoutGuideCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideCommentsInput, Prisma.UserUncheckedCreateWithoutGuideCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuideCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuideCommentsInput, Prisma.UserUncheckedUpdateWithoutGuideCommentsInput>
+}
+
+export type UserUpdateWithoutGuideCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interestedSpecies?: Prisma.PetSpeciesUpdateOneWithoutUsersNestedInput
+  interestedBreed?: Prisma.PetBreedUpdateOneWithoutUsersNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
+  createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
+  createdPetFoods?: Prisma.PetFoodListingUpdateManyWithoutCreatedByNestedInput
+  createdPetAccessories?: Prisma.PetAccessoryListingUpdateManyWithoutCreatedByNestedInput
+  createdPetBooks?: Prisma.PetBookListingUpdateManyWithoutCreatedByNestedInput
+  createdPetMedicines?: Prisma.PetMedicineListingUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuideCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedSpeciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestedBreedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutUserNestedInput
+  authoredGuides?: Prisma.GuideUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
+  guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -1756,6 +1949,7 @@ export type UserCreateWithoutCreatedLivePetsInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -1789,6 +1983,7 @@ export type UserUncheckedCreateWithoutCreatedLivePetsInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -1838,6 +2033,7 @@ export type UserUpdateWithoutCreatedLivePetsInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -1871,6 +2067,7 @@ export type UserUncheckedUpdateWithoutCreatedLivePetsInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -1904,6 +2101,7 @@ export type UserCreateWithoutCreatedPetFoodsInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -1937,6 +2135,7 @@ export type UserUncheckedCreateWithoutCreatedPetFoodsInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -1986,6 +2185,7 @@ export type UserUpdateWithoutCreatedPetFoodsInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -2019,6 +2219,7 @@ export type UserUncheckedUpdateWithoutCreatedPetFoodsInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -2052,6 +2253,7 @@ export type UserCreateWithoutCreatedPetAccessoriesInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -2085,6 +2287,7 @@ export type UserUncheckedCreateWithoutCreatedPetAccessoriesInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -2134,6 +2337,7 @@ export type UserUpdateWithoutCreatedPetAccessoriesInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -2167,6 +2371,7 @@ export type UserUncheckedUpdateWithoutCreatedPetAccessoriesInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -2200,6 +2405,7 @@ export type UserCreateWithoutCreatedPetBooksInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -2233,6 +2439,7 @@ export type UserUncheckedCreateWithoutCreatedPetBooksInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -2282,6 +2489,7 @@ export type UserUpdateWithoutCreatedPetBooksInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -2315,6 +2523,7 @@ export type UserUncheckedUpdateWithoutCreatedPetBooksInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -2348,6 +2557,7 @@ export type UserCreateWithoutCreatedPetMedicinesInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -2381,6 +2591,7 @@ export type UserUncheckedCreateWithoutCreatedPetMedicinesInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -2430,6 +2641,7 @@ export type UserUpdateWithoutCreatedPetMedicinesInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -2463,6 +2675,7 @@ export type UserUncheckedUpdateWithoutCreatedPetMedicinesInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -2496,6 +2709,7 @@ export type UserCreateWithoutNotificationsInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
   createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
@@ -2529,6 +2743,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
   createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2578,6 +2793,7 @@ export type UserUpdateWithoutNotificationsInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
   createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
@@ -2611,6 +2827,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
   createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2644,6 +2861,7 @@ export type UserCreateWithoutNotificationReadsInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   createdLivePets?: Prisma.LivePetListingCreateNestedManyWithoutCreatedByInput
@@ -2677,6 +2895,7 @@ export type UserUncheckedCreateWithoutNotificationReadsInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   createdLivePets?: Prisma.LivePetListingUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2726,6 +2945,7 @@ export type UserUpdateWithoutNotificationReadsInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   createdLivePets?: Prisma.LivePetListingUpdateManyWithoutCreatedByNestedInput
@@ -2759,6 +2979,7 @@ export type UserUncheckedUpdateWithoutNotificationReadsInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   createdLivePets?: Prisma.LivePetListingUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2791,6 +3012,7 @@ export type UserCreateWithoutInterestedSpeciesInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -2824,6 +3046,7 @@ export type UserUncheckedCreateWithoutInterestedSpeciesInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -2905,6 +3128,7 @@ export type UserCreateWithoutInterestedBreedInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -2938,6 +3162,7 @@ export type UserUncheckedCreateWithoutInterestedBreedInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -2997,6 +3222,7 @@ export type UserCreateWithoutProfileInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -3030,6 +3256,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -3079,6 +3306,7 @@ export type UserUpdateWithoutProfileInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -3112,6 +3340,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -3145,6 +3374,7 @@ export type UserCreateWithoutSessionInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -3178,6 +3408,7 @@ export type UserUncheckedCreateWithoutSessionInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -3227,6 +3458,7 @@ export type UserUpdateWithoutSessionInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -3260,6 +3492,7 @@ export type UserUncheckedUpdateWithoutSessionInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -3293,6 +3526,7 @@ export type UserCreateWithoutVisitorInput = {
   reviewedGuides?: Prisma.GuideCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadCreateNestedManyWithoutUserInput
@@ -3326,6 +3560,7 @@ export type UserUncheckedCreateWithoutVisitorInput = {
   reviewedGuides?: Prisma.GuideUncheckedCreateNestedManyWithoutReviewerInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutUserInput
   guideLikes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutUserInput
+  guideComments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutUserInput
   uploadedMedia?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   notificationReads?: Prisma.NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -3375,6 +3610,7 @@ export type UserUpdateWithoutVisitorInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -3408,6 +3644,7 @@ export type UserUncheckedUpdateWithoutVisitorInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -3459,6 +3696,7 @@ export type UserUpdateWithoutInterestedSpeciesInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -3492,6 +3730,7 @@ export type UserUncheckedUpdateWithoutInterestedSpeciesInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -3561,6 +3800,7 @@ export type UserUpdateWithoutInterestedBreedInput = {
   reviewedGuides?: Prisma.GuideUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUpdateManyWithoutUserNestedInput
@@ -3594,6 +3834,7 @@ export type UserUncheckedUpdateWithoutInterestedBreedInput = {
   reviewedGuides?: Prisma.GuideUncheckedUpdateManyWithoutReviewerNestedInput
   guideBookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutUserNestedInput
   guideLikes?: Prisma.GuideLikeUncheckedUpdateManyWithoutUserNestedInput
+  guideComments?: Prisma.GuideCommentUncheckedUpdateManyWithoutUserNestedInput
   uploadedMedia?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   notificationReads?: Prisma.NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -3633,6 +3874,7 @@ export type UserCountOutputType = {
   reviewedGuides: number
   guideBookmarks: number
   guideLikes: number
+  guideComments: number
   uploadedMedia: number
   notifications: number
   notificationReads: number
@@ -3649,6 +3891,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reviewedGuides?: boolean | UserCountOutputTypeCountReviewedGuidesArgs
   guideBookmarks?: boolean | UserCountOutputTypeCountGuideBookmarksArgs
   guideLikes?: boolean | UserCountOutputTypeCountGuideLikesArgs
+  guideComments?: boolean | UserCountOutputTypeCountGuideCommentsArgs
   uploadedMedia?: boolean | UserCountOutputTypeCountUploadedMediaArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   notificationReads?: boolean | UserCountOutputTypeCountNotificationReadsArgs
@@ -3702,6 +3945,13 @@ export type UserCountOutputTypeCountGuideBookmarksArgs<ExtArgs extends runtime.T
  */
 export type UserCountOutputTypeCountGuideLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.GuideLikeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuideCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideCommentWhereInput
 }
 
 /**
@@ -3787,6 +4037,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviewedGuides?: boolean | Prisma.User$reviewedGuidesArgs<ExtArgs>
   guideBookmarks?: boolean | Prisma.User$guideBookmarksArgs<ExtArgs>
   guideLikes?: boolean | Prisma.User$guideLikesArgs<ExtArgs>
+  guideComments?: boolean | Prisma.User$guideCommentsArgs<ExtArgs>
   uploadedMedia?: boolean | Prisma.User$uploadedMediaArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   notificationReads?: boolean | Prisma.User$notificationReadsArgs<ExtArgs>
@@ -3870,6 +4121,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reviewedGuides?: boolean | Prisma.User$reviewedGuidesArgs<ExtArgs>
   guideBookmarks?: boolean | Prisma.User$guideBookmarksArgs<ExtArgs>
   guideLikes?: boolean | Prisma.User$guideLikesArgs<ExtArgs>
+  guideComments?: boolean | Prisma.User$guideCommentsArgs<ExtArgs>
   uploadedMedia?: boolean | Prisma.User$uploadedMediaArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   notificationReads?: boolean | Prisma.User$notificationReadsArgs<ExtArgs>
@@ -3901,6 +4153,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviewedGuides: Prisma.$GuidePayload<ExtArgs>[]
     guideBookmarks: Prisma.$GuideBookmarkPayload<ExtArgs>[]
     guideLikes: Prisma.$GuideLikePayload<ExtArgs>[]
+    guideComments: Prisma.$GuideCommentPayload<ExtArgs>[]
     uploadedMedia: Prisma.$MediaAssetPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     notificationReads: Prisma.$NotificationReadPayload<ExtArgs>[]
@@ -4330,6 +4583,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reviewedGuides<T extends Prisma.User$reviewedGuidesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedGuidesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuidePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   guideBookmarks<T extends Prisma.User$guideBookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideBookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   guideLikes<T extends Prisma.User$guideLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guideComments<T extends Prisma.User$guideCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   uploadedMedia<T extends Prisma.User$uploadedMediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedMediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notificationReads<T extends Prisma.User$notificationReadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationReadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4977,6 +5231,30 @@ export type User$guideLikesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.GuideLikeScalarFieldEnum | Prisma.GuideLikeScalarFieldEnum[]
+}
+
+/**
+ * User.guideComments
+ */
+export type User$guideCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideComment
+   */
+  select?: Prisma.GuideCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideComment
+   */
+  omit?: Prisma.GuideCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideCommentInclude<ExtArgs> | null
+  where?: Prisma.GuideCommentWhereInput
+  orderBy?: Prisma.GuideCommentOrderByWithRelationInput | Prisma.GuideCommentOrderByWithRelationInput[]
+  cursor?: Prisma.GuideCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideCommentScalarFieldEnum | Prisma.GuideCommentScalarFieldEnum[]
 }
 
 /**

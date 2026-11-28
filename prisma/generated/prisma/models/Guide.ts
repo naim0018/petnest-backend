@@ -32,6 +32,7 @@ export type GuideAvgAggregateOutputType = {
   viewCount: number | null
   likeCount: number | null
   bookmarkCount: number | null
+  commentCount: number | null
 }
 
 export type GuideSumAggregateOutputType = {
@@ -40,6 +41,7 @@ export type GuideSumAggregateOutputType = {
   viewCount: number | null
   likeCount: number | null
   bookmarkCount: number | null
+  commentCount: number | null
 }
 
 export type GuideMinAggregateOutputType = {
@@ -68,6 +70,7 @@ export type GuideMinAggregateOutputType = {
   viewCount: number | null
   likeCount: number | null
   bookmarkCount: number | null
+  commentCount: number | null
   publishedAt: Date | null
   contentUpdatedAt: Date | null
   deletedAt: Date | null
@@ -101,6 +104,7 @@ export type GuideMaxAggregateOutputType = {
   viewCount: number | null
   likeCount: number | null
   bookmarkCount: number | null
+  commentCount: number | null
   publishedAt: Date | null
   contentUpdatedAt: Date | null
   deletedAt: Date | null
@@ -138,6 +142,7 @@ export type GuideCountAggregateOutputType = {
   viewCount: number
   likeCount: number
   bookmarkCount: number
+  commentCount: number
   publishedAt: number
   contentUpdatedAt: number
   deletedAt: number
@@ -153,6 +158,7 @@ export type GuideAvgAggregateInputType = {
   viewCount?: true
   likeCount?: true
   bookmarkCount?: true
+  commentCount?: true
 }
 
 export type GuideSumAggregateInputType = {
@@ -161,6 +167,7 @@ export type GuideSumAggregateInputType = {
   viewCount?: true
   likeCount?: true
   bookmarkCount?: true
+  commentCount?: true
 }
 
 export type GuideMinAggregateInputType = {
@@ -189,6 +196,7 @@ export type GuideMinAggregateInputType = {
   viewCount?: true
   likeCount?: true
   bookmarkCount?: true
+  commentCount?: true
   publishedAt?: true
   contentUpdatedAt?: true
   deletedAt?: true
@@ -222,6 +230,7 @@ export type GuideMaxAggregateInputType = {
   viewCount?: true
   likeCount?: true
   bookmarkCount?: true
+  commentCount?: true
   publishedAt?: true
   contentUpdatedAt?: true
   deletedAt?: true
@@ -259,6 +268,7 @@ export type GuideCountAggregateInputType = {
   viewCount?: true
   likeCount?: true
   bookmarkCount?: true
+  commentCount?: true
   publishedAt?: true
   contentUpdatedAt?: true
   deletedAt?: true
@@ -383,6 +393,7 @@ export type GuideGroupByOutputType = {
   viewCount: number
   likeCount: number
   bookmarkCount: number
+  commentCount: number
   publishedAt: Date | null
   contentUpdatedAt: Date | null
   deletedAt: Date | null
@@ -443,6 +454,7 @@ export type GuideWhereInput = {
   viewCount?: Prisma.IntFilter<"Guide"> | number
   likeCount?: Prisma.IntFilter<"Guide"> | number
   bookmarkCount?: Prisma.IntFilter<"Guide"> | number
+  commentCount?: Prisma.IntFilter<"Guide"> | number
   publishedAt?: Prisma.DateTimeNullableFilter<"Guide"> | Date | string | null
   contentUpdatedAt?: Prisma.DateTimeNullableFilter<"Guide"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Guide"> | Date | string | null
@@ -457,6 +469,7 @@ export type GuideWhereInput = {
   faqs?: Prisma.GuideFaqListRelationFilter
   bookmarks?: Prisma.GuideBookmarkListRelationFilter
   likes?: Prisma.GuideLikeListRelationFilter
+  comments?: Prisma.GuideCommentListRelationFilter
 }
 
 export type GuideOrderByWithRelationInput = {
@@ -489,6 +502,7 @@ export type GuideOrderByWithRelationInput = {
   viewCount?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
   bookmarkCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   contentUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -503,6 +517,7 @@ export type GuideOrderByWithRelationInput = {
   faqs?: Prisma.GuideFaqOrderByRelationAggregateInput
   bookmarks?: Prisma.GuideBookmarkOrderByRelationAggregateInput
   likes?: Prisma.GuideLikeOrderByRelationAggregateInput
+  comments?: Prisma.GuideCommentOrderByRelationAggregateInput
 }
 
 export type GuideWhereUniqueInput = Prisma.AtLeast<{
@@ -538,6 +553,7 @@ export type GuideWhereUniqueInput = Prisma.AtLeast<{
   viewCount?: Prisma.IntFilter<"Guide"> | number
   likeCount?: Prisma.IntFilter<"Guide"> | number
   bookmarkCount?: Prisma.IntFilter<"Guide"> | number
+  commentCount?: Prisma.IntFilter<"Guide"> | number
   publishedAt?: Prisma.DateTimeNullableFilter<"Guide"> | Date | string | null
   contentUpdatedAt?: Prisma.DateTimeNullableFilter<"Guide"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Guide"> | Date | string | null
@@ -552,6 +568,7 @@ export type GuideWhereUniqueInput = Prisma.AtLeast<{
   faqs?: Prisma.GuideFaqListRelationFilter
   bookmarks?: Prisma.GuideBookmarkListRelationFilter
   likes?: Prisma.GuideLikeListRelationFilter
+  comments?: Prisma.GuideCommentListRelationFilter
 }, "id" | "slug">
 
 export type GuideOrderByWithAggregationInput = {
@@ -584,6 +601,7 @@ export type GuideOrderByWithAggregationInput = {
   viewCount?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
   bookmarkCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   contentUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -629,6 +647,7 @@ export type GuideScalarWhereWithAggregatesInput = {
   viewCount?: Prisma.IntWithAggregatesFilter<"Guide"> | number
   likeCount?: Prisma.IntWithAggregatesFilter<"Guide"> | number
   bookmarkCount?: Prisma.IntWithAggregatesFilter<"Guide"> | number
+  commentCount?: Prisma.IntWithAggregatesFilter<"Guide"> | number
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Guide"> | Date | string | null
   contentUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Guide"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Guide"> | Date | string | null
@@ -662,6 +681,7 @@ export type GuideCreateInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -676,6 +696,7 @@ export type GuideCreateInput = {
   faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateInput = {
@@ -708,6 +729,7 @@ export type GuideUncheckedCreateInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -718,6 +740,7 @@ export type GuideUncheckedCreateInput = {
   faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUpdateInput = {
@@ -746,6 +769,7 @@ export type GuideUpdateInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -760,6 +784,7 @@ export type GuideUpdateInput = {
   faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateInput = {
@@ -792,6 +817,7 @@ export type GuideUncheckedUpdateInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -802,6 +828,7 @@ export type GuideUncheckedUpdateInput = {
   faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideCreateManyInput = {
@@ -834,6 +861,7 @@ export type GuideCreateManyInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -867,6 +895,7 @@ export type GuideUpdateManyMutationInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -904,6 +933,7 @@ export type GuideUncheckedUpdateManyInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -959,6 +989,7 @@ export type GuideCountOrderByAggregateInput = {
   viewCount?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
   bookmarkCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   contentUpdatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -972,6 +1003,7 @@ export type GuideAvgOrderByAggregateInput = {
   viewCount?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
   bookmarkCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
 }
 
 export type GuideMaxOrderByAggregateInput = {
@@ -1000,6 +1032,7 @@ export type GuideMaxOrderByAggregateInput = {
   viewCount?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
   bookmarkCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   contentUpdatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1033,6 +1066,7 @@ export type GuideMinOrderByAggregateInput = {
   viewCount?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
   bookmarkCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   contentUpdatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1046,6 +1080,7 @@ export type GuideSumOrderByAggregateInput = {
   viewCount?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
   bookmarkCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
 }
 
 export type GuideNullableScalarRelationFilter = {
@@ -1197,6 +1232,20 @@ export type GuideUpdateOneRequiredWithoutLikesNestedInput = {
   upsert?: Prisma.GuideUpsertWithoutLikesInput
   connect?: Prisma.GuideWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.GuideUpdateToOneWithWhereWithoutLikesInput, Prisma.GuideUpdateWithoutLikesInput>, Prisma.GuideUncheckedUpdateWithoutLikesInput>
+}
+
+export type GuideCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.GuideCreateWithoutCommentsInput, Prisma.GuideUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.GuideCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.GuideWhereUniqueInput
+}
+
+export type GuideUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideCreateWithoutCommentsInput, Prisma.GuideUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.GuideCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.GuideUpsertWithoutCommentsInput
+  connect?: Prisma.GuideWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideUpdateToOneWithWhereWithoutCommentsInput, Prisma.GuideUpdateWithoutCommentsInput>, Prisma.GuideUncheckedUpdateWithoutCommentsInput>
 }
 
 export type GuideCreateNestedManyWithoutSpeciesInput = {
@@ -1389,6 +1438,7 @@ export type GuideCreateWithoutCategoryInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1402,6 +1452,7 @@ export type GuideCreateWithoutCategoryInput = {
   faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateWithoutCategoryInput = {
@@ -1433,6 +1484,7 @@ export type GuideUncheckedCreateWithoutCategoryInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1443,6 +1495,7 @@ export type GuideUncheckedCreateWithoutCategoryInput = {
   faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideCreateOrConnectWithoutCategoryInput = {
@@ -1504,6 +1557,7 @@ export type GuideScalarWhereInput = {
   viewCount?: Prisma.IntFilter<"Guide"> | number
   likeCount?: Prisma.IntFilter<"Guide"> | number
   bookmarkCount?: Prisma.IntFilter<"Guide"> | number
+  commentCount?: Prisma.IntFilter<"Guide"> | number
   publishedAt?: Prisma.DateTimeNullableFilter<"Guide"> | Date | string | null
   contentUpdatedAt?: Prisma.DateTimeNullableFilter<"Guide"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Guide"> | Date | string | null
@@ -1537,6 +1591,7 @@ export type GuideCreateWithoutMediaInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1550,6 +1605,7 @@ export type GuideCreateWithoutMediaInput = {
   faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateWithoutMediaInput = {
@@ -1582,6 +1638,7 @@ export type GuideUncheckedCreateWithoutMediaInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1591,6 +1648,7 @@ export type GuideUncheckedCreateWithoutMediaInput = {
   faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideCreateOrConnectWithoutMediaInput = {
@@ -1635,6 +1693,7 @@ export type GuideUpdateWithoutMediaInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1648,6 +1707,7 @@ export type GuideUpdateWithoutMediaInput = {
   faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateWithoutMediaInput = {
@@ -1680,6 +1740,7 @@ export type GuideUncheckedUpdateWithoutMediaInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1689,6 +1750,7 @@ export type GuideUncheckedUpdateWithoutMediaInput = {
   faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideCreateWithoutFaqsInput = {
@@ -1717,6 +1779,7 @@ export type GuideCreateWithoutFaqsInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1730,6 +1793,7 @@ export type GuideCreateWithoutFaqsInput = {
   media?: Prisma.MediaAssetCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateWithoutFaqsInput = {
@@ -1762,6 +1826,7 @@ export type GuideUncheckedCreateWithoutFaqsInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1771,6 +1836,7 @@ export type GuideUncheckedCreateWithoutFaqsInput = {
   media?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideCreateOrConnectWithoutFaqsInput = {
@@ -1815,6 +1881,7 @@ export type GuideUpdateWithoutFaqsInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1828,6 +1895,7 @@ export type GuideUpdateWithoutFaqsInput = {
   media?: Prisma.MediaAssetUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateWithoutFaqsInput = {
@@ -1860,6 +1928,7 @@ export type GuideUncheckedUpdateWithoutFaqsInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1869,6 +1938,7 @@ export type GuideUncheckedUpdateWithoutFaqsInput = {
   media?: Prisma.MediaAssetUncheckedUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideCreateWithoutBookmarksInput = {
@@ -1897,6 +1967,7 @@ export type GuideCreateWithoutBookmarksInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1910,6 +1981,7 @@ export type GuideCreateWithoutBookmarksInput = {
   media?: Prisma.MediaAssetCreateNestedManyWithoutGuideInput
   faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateWithoutBookmarksInput = {
@@ -1942,6 +2014,7 @@ export type GuideUncheckedCreateWithoutBookmarksInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1951,6 +2024,7 @@ export type GuideUncheckedCreateWithoutBookmarksInput = {
   media?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutGuideInput
   faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideCreateOrConnectWithoutBookmarksInput = {
@@ -1995,6 +2069,7 @@ export type GuideUpdateWithoutBookmarksInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2008,6 +2083,7 @@ export type GuideUpdateWithoutBookmarksInput = {
   media?: Prisma.MediaAssetUpdateManyWithoutGuideNestedInput
   faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateWithoutBookmarksInput = {
@@ -2040,6 +2116,7 @@ export type GuideUncheckedUpdateWithoutBookmarksInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2049,6 +2126,7 @@ export type GuideUncheckedUpdateWithoutBookmarksInput = {
   media?: Prisma.MediaAssetUncheckedUpdateManyWithoutGuideNestedInput
   faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideCreateWithoutLikesInput = {
@@ -2077,6 +2155,7 @@ export type GuideCreateWithoutLikesInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2090,6 +2169,7 @@ export type GuideCreateWithoutLikesInput = {
   media?: Prisma.MediaAssetCreateNestedManyWithoutGuideInput
   faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateWithoutLikesInput = {
@@ -2122,6 +2202,7 @@ export type GuideUncheckedCreateWithoutLikesInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2131,6 +2212,7 @@ export type GuideUncheckedCreateWithoutLikesInput = {
   media?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutGuideInput
   faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideCreateOrConnectWithoutLikesInput = {
@@ -2175,6 +2257,7 @@ export type GuideUpdateWithoutLikesInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2188,6 +2271,7 @@ export type GuideUpdateWithoutLikesInput = {
   media?: Prisma.MediaAssetUpdateManyWithoutGuideNestedInput
   faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateWithoutLikesInput = {
@@ -2220,6 +2304,7 @@ export type GuideUncheckedUpdateWithoutLikesInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2229,6 +2314,195 @@ export type GuideUncheckedUpdateWithoutLikesInput = {
   media?: Prisma.MediaAssetUncheckedUpdateManyWithoutGuideNestedInput
   faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
+}
+
+export type GuideCreateWithoutCommentsInput = {
+  id?: string
+  title: string
+  slug: string
+  previousSlugs?: Prisma.GuideCreatepreviousSlugsInput | string[]
+  excerpt: string
+  keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
+  content: string
+  type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverImage?: string | null
+  coverImageAlt?: string | null
+  faqImage?: string | null
+  videoUrl?: string | null
+  readTimeMinutes?: number
+  displayOrder?: number
+  tags?: Prisma.GuideCreatetagsInput | string[]
+  status?: $Enums.GuideStatus
+  isFeatured?: boolean
+  reviewNotes?: string | null
+  lastReviewedAt?: Date | string | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  viewCount?: number
+  likeCount?: number
+  bookmarkCount?: number
+  commentCount?: number
+  publishedAt?: Date | string | null
+  contentUpdatedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  species?: Prisma.PetSpeciesCreateNestedOneWithoutGuidesInput
+  breeds?: Prisma.PetBreedCreateNestedManyWithoutGuidesInput
+  category: Prisma.GuideCategoryCreateNestedOneWithoutGuidesInput
+  author: Prisma.UserCreateNestedOneWithoutAuthoredGuidesInput
+  reviewer?: Prisma.UserCreateNestedOneWithoutReviewedGuidesInput
+  media?: Prisma.MediaAssetCreateNestedManyWithoutGuideInput
+  faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
+  bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
+  likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+}
+
+export type GuideUncheckedCreateWithoutCommentsInput = {
+  id?: string
+  title: string
+  slug: string
+  previousSlugs?: Prisma.GuideCreatepreviousSlugsInput | string[]
+  excerpt: string
+  keyTakeaways?: Prisma.GuideCreatekeyTakeawaysInput | string[]
+  content: string
+  type?: $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverImage?: string | null
+  coverImageAlt?: string | null
+  faqImage?: string | null
+  videoUrl?: string | null
+  readTimeMinutes?: number
+  displayOrder?: number
+  speciesId?: string | null
+  categoryId: string
+  tags?: Prisma.GuideCreatetagsInput | string[]
+  status?: $Enums.GuideStatus
+  isFeatured?: boolean
+  reviewNotes?: string | null
+  authorId: string
+  reviewerId?: string | null
+  lastReviewedAt?: Date | string | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  viewCount?: number
+  likeCount?: number
+  bookmarkCount?: number
+  commentCount?: number
+  publishedAt?: Date | string | null
+  contentUpdatedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  breeds?: Prisma.PetBreedUncheckedCreateNestedManyWithoutGuidesInput
+  media?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutGuideInput
+  faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
+  bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
+  likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+}
+
+export type GuideCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.GuideWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideCreateWithoutCommentsInput, Prisma.GuideUncheckedCreateWithoutCommentsInput>
+}
+
+export type GuideUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.GuideUpdateWithoutCommentsInput, Prisma.GuideUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.GuideCreateWithoutCommentsInput, Prisma.GuideUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.GuideWhereInput
+}
+
+export type GuideUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.GuideWhereInput
+  data: Prisma.XOR<Prisma.GuideUpdateWithoutCommentsInput, Prisma.GuideUncheckedUpdateWithoutCommentsInput>
+}
+
+export type GuideUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  previousSlugs?: Prisma.GuideUpdatepreviousSlugsInput | string[]
+  excerpt?: Prisma.StringFieldUpdateOperationsInput | string
+  keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.GuideUpdatetagsInput | string[]
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  species?: Prisma.PetSpeciesUpdateOneWithoutGuidesNestedInput
+  breeds?: Prisma.PetBreedUpdateManyWithoutGuidesNestedInput
+  category?: Prisma.GuideCategoryUpdateOneRequiredWithoutGuidesNestedInput
+  author?: Prisma.UserUpdateOneRequiredWithoutAuthoredGuidesNestedInput
+  reviewer?: Prisma.UserUpdateOneWithoutReviewedGuidesNestedInput
+  media?: Prisma.MediaAssetUpdateManyWithoutGuideNestedInput
+  faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
+  bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
+  likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+}
+
+export type GuideUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  previousSlugs?: Prisma.GuideUpdatepreviousSlugsInput | string[]
+  excerpt?: Prisma.StringFieldUpdateOperationsInput | string
+  keyTakeaways?: Prisma.GuideUpdatekeyTakeawaysInput | string[]
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumGuideTypeFieldUpdateOperationsInput | $Enums.GuideType
+  translations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faqImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readTimeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  speciesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.GuideUpdatetagsInput | string[]
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  breeds?: Prisma.PetBreedUncheckedUpdateManyWithoutGuidesNestedInput
+  media?: Prisma.MediaAssetUncheckedUpdateManyWithoutGuideNestedInput
+  faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
+  bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
+  likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideCreateWithoutSpeciesInput = {
@@ -2257,6 +2531,7 @@ export type GuideCreateWithoutSpeciesInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2270,6 +2545,7 @@ export type GuideCreateWithoutSpeciesInput = {
   faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateWithoutSpeciesInput = {
@@ -2301,6 +2577,7 @@ export type GuideUncheckedCreateWithoutSpeciesInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2311,6 +2588,7 @@ export type GuideUncheckedCreateWithoutSpeciesInput = {
   faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideCreateOrConnectWithoutSpeciesInput = {
@@ -2365,6 +2643,7 @@ export type GuideCreateWithoutBreedsInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2378,6 +2657,7 @@ export type GuideCreateWithoutBreedsInput = {
   faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateWithoutBreedsInput = {
@@ -2410,6 +2690,7 @@ export type GuideUncheckedCreateWithoutBreedsInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2419,6 +2700,7 @@ export type GuideUncheckedCreateWithoutBreedsInput = {
   faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideCreateOrConnectWithoutBreedsInput = {
@@ -2468,6 +2750,7 @@ export type GuideCreateWithoutAuthorInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2481,6 +2764,7 @@ export type GuideCreateWithoutAuthorInput = {
   faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateWithoutAuthorInput = {
@@ -2512,6 +2796,7 @@ export type GuideUncheckedCreateWithoutAuthorInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2522,6 +2807,7 @@ export type GuideUncheckedCreateWithoutAuthorInput = {
   faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideCreateOrConnectWithoutAuthorInput = {
@@ -2560,6 +2846,7 @@ export type GuideCreateWithoutReviewerInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2573,6 +2860,7 @@ export type GuideCreateWithoutReviewerInput = {
   faqs?: Prisma.GuideFaqCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentCreateNestedManyWithoutGuideInput
 }
 
 export type GuideUncheckedCreateWithoutReviewerInput = {
@@ -2604,6 +2892,7 @@ export type GuideUncheckedCreateWithoutReviewerInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2614,6 +2903,7 @@ export type GuideUncheckedCreateWithoutReviewerInput = {
   faqs?: Prisma.GuideFaqUncheckedCreateNestedManyWithoutGuideInput
   bookmarks?: Prisma.GuideBookmarkUncheckedCreateNestedManyWithoutGuideInput
   likes?: Prisma.GuideLikeUncheckedCreateNestedManyWithoutGuideInput
+  comments?: Prisma.GuideCommentUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideCreateOrConnectWithoutReviewerInput = {
@@ -2687,6 +2977,7 @@ export type GuideCreateManyCategoryInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2720,6 +3011,7 @@ export type GuideUpdateWithoutCategoryInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2733,6 +3025,7 @@ export type GuideUpdateWithoutCategoryInput = {
   faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateWithoutCategoryInput = {
@@ -2764,6 +3057,7 @@ export type GuideUncheckedUpdateWithoutCategoryInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2774,6 +3068,7 @@ export type GuideUncheckedUpdateWithoutCategoryInput = {
   faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateManyWithoutCategoryInput = {
@@ -2805,6 +3100,7 @@ export type GuideUncheckedUpdateManyWithoutCategoryInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2841,6 +3137,7 @@ export type GuideCreateManySpeciesInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2874,6 +3171,7 @@ export type GuideUpdateWithoutSpeciesInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2887,6 +3185,7 @@ export type GuideUpdateWithoutSpeciesInput = {
   faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateWithoutSpeciesInput = {
@@ -2918,6 +3217,7 @@ export type GuideUncheckedUpdateWithoutSpeciesInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2928,6 +3228,7 @@ export type GuideUncheckedUpdateWithoutSpeciesInput = {
   faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateManyWithoutSpeciesInput = {
@@ -2959,6 +3260,7 @@ export type GuideUncheckedUpdateManyWithoutSpeciesInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2992,6 +3294,7 @@ export type GuideUpdateWithoutBreedsInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3005,6 +3308,7 @@ export type GuideUpdateWithoutBreedsInput = {
   faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateWithoutBreedsInput = {
@@ -3037,6 +3341,7 @@ export type GuideUncheckedUpdateWithoutBreedsInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3046,6 +3351,7 @@ export type GuideUncheckedUpdateWithoutBreedsInput = {
   faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateManyWithoutBreedsInput = {
@@ -3078,6 +3384,7 @@ export type GuideUncheckedUpdateManyWithoutBreedsInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3114,6 +3421,7 @@ export type GuideCreateManyAuthorInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3150,6 +3458,7 @@ export type GuideCreateManyReviewerInput = {
   viewCount?: number
   likeCount?: number
   bookmarkCount?: number
+  commentCount?: number
   publishedAt?: Date | string | null
   contentUpdatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3183,6 +3492,7 @@ export type GuideUpdateWithoutAuthorInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3196,6 +3506,7 @@ export type GuideUpdateWithoutAuthorInput = {
   faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateWithoutAuthorInput = {
@@ -3227,6 +3538,7 @@ export type GuideUncheckedUpdateWithoutAuthorInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3237,6 +3549,7 @@ export type GuideUncheckedUpdateWithoutAuthorInput = {
   faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateManyWithoutAuthorInput = {
@@ -3268,6 +3581,7 @@ export type GuideUncheckedUpdateManyWithoutAuthorInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3301,6 +3615,7 @@ export type GuideUpdateWithoutReviewerInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3314,6 +3629,7 @@ export type GuideUpdateWithoutReviewerInput = {
   faqs?: Prisma.GuideFaqUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateWithoutReviewerInput = {
@@ -3345,6 +3661,7 @@ export type GuideUncheckedUpdateWithoutReviewerInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3355,6 +3672,7 @@ export type GuideUncheckedUpdateWithoutReviewerInput = {
   faqs?: Prisma.GuideFaqUncheckedUpdateManyWithoutGuideNestedInput
   bookmarks?: Prisma.GuideBookmarkUncheckedUpdateManyWithoutGuideNestedInput
   likes?: Prisma.GuideLikeUncheckedUpdateManyWithoutGuideNestedInput
+  comments?: Prisma.GuideCommentUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideUncheckedUpdateManyWithoutReviewerInput = {
@@ -3386,6 +3704,7 @@ export type GuideUncheckedUpdateManyWithoutReviewerInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookmarkCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3404,6 +3723,7 @@ export type GuideCountOutputType = {
   faqs: number
   bookmarks: number
   likes: number
+  comments: number
 }
 
 export type GuideCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3412,6 +3732,7 @@ export type GuideCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   faqs?: boolean | GuideCountOutputTypeCountFaqsArgs
   bookmarks?: boolean | GuideCountOutputTypeCountBookmarksArgs
   likes?: boolean | GuideCountOutputTypeCountLikesArgs
+  comments?: boolean | GuideCountOutputTypeCountCommentsArgs
 }
 
 /**
@@ -3459,6 +3780,13 @@ export type GuideCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.GuideLikeWhereInput
 }
 
+/**
+ * GuideCountOutputType without action
+ */
+export type GuideCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideCommentWhereInput
+}
+
 
 export type GuideSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3490,6 +3818,7 @@ export type GuideSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   viewCount?: boolean
   likeCount?: boolean
   bookmarkCount?: boolean
+  commentCount?: boolean
   publishedAt?: boolean
   contentUpdatedAt?: boolean
   deletedAt?: boolean
@@ -3504,6 +3833,7 @@ export type GuideSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   faqs?: boolean | Prisma.Guide$faqsArgs<ExtArgs>
   bookmarks?: boolean | Prisma.Guide$bookmarksArgs<ExtArgs>
   likes?: boolean | Prisma.Guide$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Guide$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.GuideCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["guide"]>
 
@@ -3537,6 +3867,7 @@ export type GuideSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   viewCount?: boolean
   likeCount?: boolean
   bookmarkCount?: boolean
+  commentCount?: boolean
   publishedAt?: boolean
   contentUpdatedAt?: boolean
   deletedAt?: boolean
@@ -3578,6 +3909,7 @@ export type GuideSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   viewCount?: boolean
   likeCount?: boolean
   bookmarkCount?: boolean
+  commentCount?: boolean
   publishedAt?: boolean
   contentUpdatedAt?: boolean
   deletedAt?: boolean
@@ -3619,6 +3951,7 @@ export type GuideSelectScalar = {
   viewCount?: boolean
   likeCount?: boolean
   bookmarkCount?: boolean
+  commentCount?: boolean
   publishedAt?: boolean
   contentUpdatedAt?: boolean
   deletedAt?: boolean
@@ -3626,7 +3959,7 @@ export type GuideSelectScalar = {
   updatedAt?: boolean
 }
 
-export type GuideOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "previousSlugs" | "excerpt" | "keyTakeaways" | "content" | "type" | "translations" | "coverImage" | "coverImageAlt" | "faqImage" | "videoUrl" | "readTimeMinutes" | "displayOrder" | "speciesId" | "categoryId" | "tags" | "status" | "isFeatured" | "reviewNotes" | "authorId" | "reviewerId" | "lastReviewedAt" | "metaTitle" | "metaDescription" | "viewCount" | "likeCount" | "bookmarkCount" | "publishedAt" | "contentUpdatedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["guide"]>
+export type GuideOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "previousSlugs" | "excerpt" | "keyTakeaways" | "content" | "type" | "translations" | "coverImage" | "coverImageAlt" | "faqImage" | "videoUrl" | "readTimeMinutes" | "displayOrder" | "speciesId" | "categoryId" | "tags" | "status" | "isFeatured" | "reviewNotes" | "authorId" | "reviewerId" | "lastReviewedAt" | "metaTitle" | "metaDescription" | "viewCount" | "likeCount" | "bookmarkCount" | "commentCount" | "publishedAt" | "contentUpdatedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["guide"]>
 export type GuideInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   species?: boolean | Prisma.Guide$speciesArgs<ExtArgs>
   breeds?: boolean | Prisma.Guide$breedsArgs<ExtArgs>
@@ -3637,6 +3970,7 @@ export type GuideInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   faqs?: boolean | Prisma.Guide$faqsArgs<ExtArgs>
   bookmarks?: boolean | Prisma.Guide$bookmarksArgs<ExtArgs>
   likes?: boolean | Prisma.Guide$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Guide$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.GuideCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GuideIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3664,6 +3998,7 @@ export type $GuidePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     faqs: Prisma.$GuideFaqPayload<ExtArgs>[]
     bookmarks: Prisma.$GuideBookmarkPayload<ExtArgs>[]
     likes: Prisma.$GuideLikePayload<ExtArgs>[]
+    comments: Prisma.$GuideCommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3695,6 +4030,7 @@ export type $GuidePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     viewCount: number
     likeCount: number
     bookmarkCount: number
+    commentCount: number
     publishedAt: Date | null
     contentUpdatedAt: Date | null
     deletedAt: Date | null
@@ -4103,6 +4439,7 @@ export interface Prisma__GuideClient<T, Null = never, ExtArgs extends runtime.Ty
   faqs<T extends Prisma.Guide$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Guide$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideFaqPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookmarks<T extends Prisma.Guide$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Guide$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   likes<T extends Prisma.Guide$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Guide$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.Guide$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Guide$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4161,6 +4498,7 @@ export interface GuideFieldRefs {
   readonly viewCount: Prisma.FieldRef<"Guide", 'Int'>
   readonly likeCount: Prisma.FieldRef<"Guide", 'Int'>
   readonly bookmarkCount: Prisma.FieldRef<"Guide", 'Int'>
+  readonly commentCount: Prisma.FieldRef<"Guide", 'Int'>
   readonly publishedAt: Prisma.FieldRef<"Guide", 'DateTime'>
   readonly contentUpdatedAt: Prisma.FieldRef<"Guide", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Guide", 'DateTime'>
@@ -4722,6 +5060,30 @@ export type Guide$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.GuideLikeScalarFieldEnum | Prisma.GuideLikeScalarFieldEnum[]
+}
+
+/**
+ * Guide.comments
+ */
+export type Guide$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideComment
+   */
+  select?: Prisma.GuideCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideComment
+   */
+  omit?: Prisma.GuideCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideCommentInclude<ExtArgs> | null
+  where?: Prisma.GuideCommentWhereInput
+  orderBy?: Prisma.GuideCommentOrderByWithRelationInput | Prisma.GuideCommentOrderByWithRelationInput[]
+  cursor?: Prisma.GuideCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideCommentScalarFieldEnum | Prisma.GuideCommentScalarFieldEnum[]
 }
 
 /**

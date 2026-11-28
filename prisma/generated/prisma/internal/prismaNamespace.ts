@@ -403,6 +403,7 @@ export const ModelName = {
   GuideFaq: 'GuideFaq',
   GuideBookmark: 'GuideBookmark',
   GuideLike: 'GuideLike',
+  GuideComment: 'GuideComment',
   LivePetListing: 'LivePetListing',
   PetFoodListing: 'PetFoodListing',
   PetAccessoryListing: 'PetAccessoryListing',
@@ -433,7 +434,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "guideCategory" | "guide" | "mediaAsset" | "guideFaq" | "guideBookmark" | "guideLike" | "livePetListing" | "petFoodListing" | "petAccessoryListing" | "petBookListing" | "petMedicineListing" | "notification" | "notificationRead" | "petSpecies" | "petBreed" | "systemSetting" | "user" | "profile" | "session" | "visitor" | "pageView"
+    modelProps: "guideCategory" | "guide" | "mediaAsset" | "guideFaq" | "guideBookmark" | "guideLike" | "guideComment" | "livePetListing" | "petFoodListing" | "petAccessoryListing" | "petBookListing" | "petMedicineListing" | "notification" | "notificationRead" | "petSpecies" | "petBreed" | "systemSetting" | "user" | "profile" | "session" | "visitor" | "pageView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -878,6 +879,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.GuideLikeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.GuideLikeCountAggregateOutputType> | number
+        }
+      }
+    }
+    GuideComment: {
+      payload: Prisma.$GuideCommentPayload<ExtArgs>
+      fields: Prisma.GuideCommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuideCommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuideCommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload>
+        }
+        findFirst: {
+          args: Prisma.GuideCommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuideCommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload>
+        }
+        findMany: {
+          args: Prisma.GuideCommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload>[]
+        }
+        create: {
+          args: Prisma.GuideCommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload>
+        }
+        createMany: {
+          args: Prisma.GuideCommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuideCommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload>[]
+        }
+        delete: {
+          args: Prisma.GuideCommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload>
+        }
+        update: {
+          args: Prisma.GuideCommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.GuideCommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuideCommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuideCommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.GuideCommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideCommentPayload>
+        }
+        aggregate: {
+          args: Prisma.GuideCommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuideComment>
+        }
+        groupBy: {
+          args: Prisma.GuideCommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideCommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuideCommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideCommentCountAggregateOutputType> | number
         }
       }
     }
@@ -2075,6 +2150,7 @@ export const GuideScalarFieldEnum = {
   viewCount: 'viewCount',
   likeCount: 'likeCount',
   bookmarkCount: 'bookmarkCount',
+  commentCount: 'commentCount',
   publishedAt: 'publishedAt',
   contentUpdatedAt: 'contentUpdatedAt',
   deletedAt: 'deletedAt',
@@ -2135,6 +2211,20 @@ export const GuideLikeScalarFieldEnum = {
 } as const
 
 export type GuideLikeScalarFieldEnum = (typeof GuideLikeScalarFieldEnum)[keyof typeof GuideLikeScalarFieldEnum]
+
+
+export const GuideCommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  guideId: 'guideId',
+  userId: 'userId',
+  parentId: 'parentId',
+  isEdited: 'isEdited',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideCommentScalarFieldEnum = (typeof GuideCommentScalarFieldEnum)[keyof typeof GuideCommentScalarFieldEnum]
 
 
 export const LivePetListingScalarFieldEnum = {
@@ -2999,6 +3089,7 @@ export type GlobalOmitConfig = {
   guideFaq?: Prisma.GuideFaqOmit
   guideBookmark?: Prisma.GuideBookmarkOmit
   guideLike?: Prisma.GuideLikeOmit
+  guideComment?: Prisma.GuideCommentOmit
   livePetListing?: Prisma.LivePetListingOmit
   petFoodListing?: Prisma.PetFoodListingOmit
   petAccessoryListing?: Prisma.PetAccessoryListingOmit
